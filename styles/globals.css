@@ -40,3 +40,39 @@ body {
 .entry-content a.decorated-link:hover {
   color: var(--color-brand-link-hover);
 }
+
+/* SubtitlesEdit tool buttons (matches wp-custom-css on WordPress) */
+.se-btn,
+.se-btn:visited,
+.se-scope .button.se-btn,
+.se-scope button.se-btn,
+.se-scope a.se-btn {
+  background: #0ea5e9 !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  padding: 0.55rem 0.9rem !important;
+  line-height: 1.1 !important;
+  display: inline-block !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  background-image: none !important;
+  filter: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  cursor: pointer;
+  font: inherit;
+}
+.se-btn:hover:not(:disabled) {
+  background: #0284c7 !important;
+}
+.se-btn:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  background: #0ea5e9 !important;
+  color: #fff !important;
+}
+
+.se-scope input[type="file"] {
+  font: inherit;
+}
