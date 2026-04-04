@@ -22,7 +22,10 @@
       .replace(/\n\n+/g,"\n\n")
       .split(/\n\n/)
       .filter(Boolean)
-      .map((blk, idx) => `${idx+1}\n${blk.trim()}`)
+      .map((blk, idx) => {
+        const body = blk.trim().replace(/^\d+\s*(?:\r\n|\n|\r)/, "");
+        return `${idx+1}\n${body}`;
+      })
       .join("\n\n");
     o.value = out;
   });

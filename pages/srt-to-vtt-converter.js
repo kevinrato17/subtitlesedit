@@ -158,6 +158,9 @@ function DotIcon() {
   );
 }
 
+const converterActionBtnClass =
+  "inline-flex items-center justify-center rounded-[10px] bg-[#0ea5e9] px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#0284c7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0ea5e9] disabled:cursor-not-allowed disabled:opacity-60";
+
 function ConverterTool() {
   return (
     <div
@@ -208,10 +211,18 @@ function ConverterTool() {
               Accepted: <b>.srt</b> or <b>.vtt</b>. Output will be below.
             </div>
             <div className="mt-2 flex flex-wrap gap-2">
-              <button type="button" id="se3-convert" className="se-btn">
+              <button
+                type="button"
+                id="se3-convert"
+                className={converterActionBtnClass}
+              >
                 Convert
               </button>
-              <button type="button" id="se3-clear" className="se-btn">
+              <button
+                type="button"
+                id="se3-clear"
+                className={converterActionBtnClass}
+              >
                 Clear
               </button>
             </div>
@@ -228,10 +239,18 @@ function ConverterTool() {
               className="min-h-[220px] w-full rounded-[10px] border border-gray-300 bg-white p-2 font-mono text-base leading-snug"
             />
             <div className="mt-2 flex flex-wrap gap-2">
-              <button type="button" id="se3-copy" className="se-btn">
+              <button
+                type="button"
+                id="se3-copy"
+                className={converterActionBtnClass}
+              >
                 Copy
               </button>
-              <button type="button" id="se3-download" className="se-btn">
+              <button
+                type="button"
+                id="se3-download"
+                className={converterActionBtnClass}
+              >
                 Download .vtt
               </button>
             </div>
