@@ -10,27 +10,27 @@ const LOGO_ALT =
 
 const toolsLinks = [
   {
-    href: "https://subtitlesedit.com/srt-to-vtt-converter/",
+    href: "/srt-to-vtt-converter",
     label: "SRT to VTT Converter",
   },
   {
-    href: "https://subtitlesedit.com/vtt-to-srt-converter/",
+    href: "/vtt-to-srt-converter",
     label: "VTT to SRT Converter",
   },
   {
-    href: "https://subtitlesedit.com/subtitle-time-shifter/",
+    href: "/subtitle-time-shifter",
     label: "Subtitle Time Shifter",
   },
   {
-    href: "https://subtitlesedit.com/subtitle-merger/",
+    href: "/subtitle-merger",
     label: "Subtitle Merger",
   },
   {
-    href: "https://subtitlesedit.com/subtitle-splitter/",
+    href: "/subtitle-splitter",
     label: "Subtitle Splitter",
   },
   {
-    href: "https://subtitlesedit.com/subtitle-overlap-fixer/",
+    href: "/subtitle-overlap-fixer",
     label: "Subtitle Overlap Fixer",
   },
 ];
@@ -102,7 +102,7 @@ export default function Layout({ children }) {
         <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-5 py-3 md:px-6 lg:px-8">
           <div className="flex shrink-0 items-center">
             <a
-              href="https://subtitlesedit.com/"
+              href="/"
               className="inline-flex max-h-[120px] items-center"
               rel="home"
             >
@@ -122,7 +122,7 @@ export default function Layout({ children }) {
             aria-label="Primary Site Navigation"
           >
             <a
-              href="https://subtitlesedit.com/"
+              href="/"
               className="whitespace-nowrap text-[#334155] transition-colors hover:text-[#0ea5e9]"
               aria-current="page"
             >
@@ -164,13 +164,13 @@ export default function Layout({ children }) {
               </div>
             </div>
             <a
-              href="https://subtitlesedit.com/blog/"
+              href="/blog"
               className="whitespace-nowrap text-[#334155] transition-colors hover:text-[#0ea5e9]"
             >
               Blog
             </a>
             <a
-              href="https://subtitlesedit.com/contact-us/"
+              href="/contact-us"
               className="whitespace-nowrap text-[#334155] transition-colors hover:text-[#0ea5e9]"
             >
               Contact Us
@@ -204,7 +204,7 @@ export default function Layout({ children }) {
             <ul className="flex flex-col gap-1">
               <li>
                 <a
-                  href="https://subtitlesedit.com/blog/"
+                  href="/blog"
                   className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -213,7 +213,7 @@ export default function Layout({ children }) {
               </li>
               <li>
                 <a
-                  href="https://subtitlesedit.com/contact-us/"
+                  href="/contact-us"
                   className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -222,7 +222,7 @@ export default function Layout({ children }) {
               </li>
               <li>
                 <a
-                  href="https://subtitlesedit.com/"
+                  href="/"
                   className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
                   aria-current="page"
                   onClick={() => setMobileOpen(false)}
@@ -233,7 +233,7 @@ export default function Layout({ children }) {
               </li>
               <li>
                 <a
-                  href="https://subtitlesedit.com/srt-to-vtt-converter/"
+                  href="/srt-to-vtt-converter"
                   className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -243,7 +243,7 @@ export default function Layout({ children }) {
               </li>
               <li>
                 <a
-                  href="https://subtitlesedit.com/subtitle-merger/"
+                  href="/subtitle-merger"
                   className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -252,7 +252,7 @@ export default function Layout({ children }) {
               </li>
               <li>
                 <a
-                  href="https://subtitlesedit.com/subtitle-overlap-fixer/"
+                  href="/subtitle-overlap-fixer"
                   className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -262,7 +262,7 @@ export default function Layout({ children }) {
               </li>
               <li>
                 <a
-                  href="https://subtitlesedit.com/subtitle-splitter/"
+                  href="/subtitle-splitter"
                   className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -271,7 +271,7 @@ export default function Layout({ children }) {
               </li>
               <li>
                 <a
-                  href="https://subtitlesedit.com/subtitle-time-shifter/"
+                  href="/subtitle-time-shifter"
                   className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -281,7 +281,7 @@ export default function Layout({ children }) {
               </li>
               <li>
                 <a
-                  href="https://subtitlesedit.com/vtt-to-srt-converter/"
+                  href="/vtt-to-srt-converter"
                   className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
                   onClick={() => setMobileOpen(false)}
                 >

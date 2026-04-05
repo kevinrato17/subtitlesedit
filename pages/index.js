@@ -855,7 +855,7 @@ export default function Home() {
                     <p className="mb-0 text-[#334155]">
                       <a
                         className="decorated-link text-[#046bd2]"
-                        href="/time-shifter/"
+                        href="/subtitle-time-shifter"
                         rel="noopener"
                       >
                         Subtitle Time Shifter
@@ -891,7 +891,7 @@ export default function Home() {
                     <p className="mb-0 text-[#334155]">
                       <a
                         className="decorated-link text-[#046bd2]"
-                        href="https://subtitlesedit.com/overlap-fixer/"
+                        href="/subtitle-overlap-fixer"
                         rel="noopener"
                       >
                         Subtitle Overlap Fixer
