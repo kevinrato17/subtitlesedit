@@ -175,12 +175,20 @@ function ConverterTool() {
           <div className="my-1 font-semibold text-[#111827]">
             Upload or Paste Subtitle
           </div>
-          <input
-            id="shiftFile"
-            type="file"
-            accept=".srt,.vtt,text/plain"
-            className="my-1 mb-2"
-          />
+          <div className="mb-2">
+            <input
+              id="shiftFile"
+              type="file"
+              accept=".srt,.vtt,text/plain"
+              className="sr-only"
+            />
+            <label
+              htmlFor="shiftFile"
+              className={`${converterActionBtnClass} cursor-pointer`}
+            >
+              Choose file
+            </label>
+          </div>
           <textarea
             id="shiftIn"
             placeholder="Paste .srt or .vtt here\u2026"

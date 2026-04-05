@@ -196,12 +196,20 @@ function ConverterTool() {
             <div className="my-1 font-semibold text-[#111827]">
               Paste SRT or choose a file
             </div>
-            <input
-              id="se3-file"
-              type="file"
-              accept=".srt,.vtt,text/plain"
-              className="my-1 mb-2"
-            />
+            <div className="mb-2">
+              <input
+                id="se3-file"
+                type="file"
+                accept=".srt,.vtt,text/plain"
+                className="sr-only"
+              />
+              <label
+                htmlFor="se3-file"
+                className={`${converterActionBtnClass} cursor-pointer`}
+              >
+                Choose file
+              </label>
+            </div>
             <textarea
               id="se3-in"
               placeholder="Paste SRT or VTT here..."
