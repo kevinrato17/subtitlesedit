@@ -210,13 +210,6 @@ function SplitterTool() {
           </button>
           <button
             type="button"
-            id="btnSplitCopy"
-            className={converterActionBtnClass}
-          >
-            Copy
-          </button>
-          <button
-            type="button"
             id="btnSplitDownload"
             className={converterActionBtnClass}
           >

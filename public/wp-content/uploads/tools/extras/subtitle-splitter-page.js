@@ -61,7 +61,6 @@
 (function(){
   const out = document.getElementById("splitOutput");
   const fileEl = document.getElementById("splitFile");
-  const copy = document.getElementById("btnSplitCopy");
   const clear = document.getElementById("btnSplitClear");
   const download = document.getElementById("btnSplitDownload");
 
@@ -69,17 +68,6 @@
     clear.addEventListener("click", ()=>{
       if(fileEl) fileEl.value="";
       if(out) out.innerHTML="";
-    });
-  }
-  if(copy){
-    copy.addEventListener("click", async ()=>{
-      if(!out) return;
-      const links = out.querySelectorAll("a[href^=\"blob:\"]");
-      if(!links.length) return;
-      const texts = await Promise.all(Array.from(links).map(a=>fetch(a.href).then(r=>r.text())));
-      await navigator.clipboard.writeText(texts.join("\n\n"));
-      const t = copy.textContent; copy.textContent="Copied!";
-      setTimeout(()=> copy.textContent=t, 900);
     });
   }
   if(download){
