@@ -6,6 +6,21 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "subtitlesedit.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "subtitlesedit.com",
+        pathname: "/wp-content/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.subtitlesedit.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.subtitlesedit.com",
         pathname: "/wp-content/**",
       },
     ],

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Layout from "@/components/Layout";
 
 const HERO_IMG =
-  "https://subtitlesedit.com/wp-content/uploads/2025/11/EMXN1y8qTQoGdXBsb2FkEg55bGFiLXN0dW50LXNncBoza2xpbmcvZG93bmxvYWQvTWprME9UazRNamcyTXpBNE9ETTBNVFl6TXpneE5ESXlNUT09.origin-1024x578.webp";
+  "https://subtitlesedit.com/wp-content/uploads/2025/11/Subtitle-Overlap-Fixer-tool-1024x538.webp";
 
 const section =
   "mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-[3rem] py-10 lg:py-12";
