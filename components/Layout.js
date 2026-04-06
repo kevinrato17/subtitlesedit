@@ -3,10 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const LOGO_SRC =
-  "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design-150x150.webp";
-const LOGO_ALT =
-  "Subtitles Edit logo featuring a cyan speech-bubble icon and bold black text on a white background, representing an online subtitle editing toolkit";
+const LOGO_SRC = "/logo.png";
+const LOGO_ALT = "Subtitles Edit logo";
 
 const toolsLinks = [
   {
@@ -110,7 +108,7 @@ export default function Layout({ children }) {
                 src={LOGO_SRC}
                 alt={LOGO_ALT}
                 width={150}
-                height={150}
+                height={50}
                 className="h-auto max-h-[120px] w-[150px] max-w-full object-contain"
                 priority
               />
