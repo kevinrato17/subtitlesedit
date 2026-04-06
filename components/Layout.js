@@ -101,17 +101,20 @@ export default function Layout({ children }) {
           <div className="flex shrink-0 items-center">
             <a
               href="/"
-              className="inline-flex max-h-[120px] items-center"
+              className="inline-flex max-h-[120px] items-center gap-2"
               rel="home"
             >
               <Image
                 src={LOGO_SRC}
                 alt={LOGO_ALT}
-                width={150}
-                height={50}
-                className="h-auto max-h-[120px] w-[150px] max-w-full object-contain"
+                width={40}
+                height={40}
+                className="h-10 w-10 object-contain"
                 priority
               />
+              <span className="text-lg font-bold text-[#1e293b]">
+                Subtitles Edit
+              </span>
             </a>
           </div>
 
