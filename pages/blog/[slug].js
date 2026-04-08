@@ -44,13 +44,10 @@ export default function BlogPost({ source, title, date, description, slug }) {
                 </Link>
               </p>
               <header className="border-b border-gray-100 pb-8">
-                <h1 className="text-3xl font-bold tracking-tight text-[#0ea5e9] md:text-4xl">
-                  {title}
-                </h1>
                 {date ? (
                   <time
                     dateTime={date}
-                    className="mt-3 block text-sm text-[#64748b]"
+                    className="block text-sm text-[#64748b]"
                   >
                     {formatDate(date)}
                   </time>
