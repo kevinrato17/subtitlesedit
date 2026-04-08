@@ -52,10 +52,10 @@ export default function ContactUsPage() {
   return (
     <Layout>
       <Head>
-        <title>Contact Us – Subtitles Edit</title>
+        <title>Contact Us | Subtitles Edit</title>
         <meta
           name="description"
-          content="Get in touch with Subtitles Edit. Send us a message and we will respond as soon as we can."
+          content="Contact Subtitles Edit for support, feedback, or partnership inquiries. Send us a message and we will get back to you soon."
         />
         <link rel="canonical" href="https://subtitlesedit.com/contact-us/" />
       </Head>
