@@ -346,7 +346,9 @@ export default function Home() {
             </header>
 
             <div className="entry-content clear px-0" itemProp="text">
-              <div className="px-4 pb-2 pt-6 sm:px-6 lg:px-[3rem]">
+              <HubGrid />
+
+              <div className="px-4 pb-2 pt-2 sm:px-6 lg:px-[3rem]">
                 <div className="overflow-hidden rounded-2xl bg-gradient-to-r from-sky-500 to-cyan-600 px-6 py-14 text-center shadow-lg sm:px-10 sm:py-16">
                   <p className="text-3xl font-bold leading-tight text-white md:text-4xl">
                     Free Online Subtitle Editing Tools
@@ -363,8 +365,6 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-
-              <HubGrid />
 
               <div className={section}>
                 <h2 className={h2}>
