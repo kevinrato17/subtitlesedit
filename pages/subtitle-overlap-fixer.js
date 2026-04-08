@@ -15,10 +15,10 @@ const OG_IMG =
   "https://subtitlesedit.com/wp-content/uploads/2025/11/Subtitle-Overlap-Fixer-tool-1024x538.webp";
 
 const META_DESC =
-  "Fix overlapping subtitles instantly. Clean SRT and VTT timecodes, preserve formatting, and correct conflicts offline in your browser using Subtitle Overlap Fixer.";
+  "Fix overlapping subtitles online for free. Detect and correct overlapping cue timings in SRT and VTT files instantly in your browser.";
 
 const PAGE_TITLE =
-  "Subtitle Overlap Fixer – Remove Overlapping Subtitles Instantly";
+  "Subtitle Overlap Fixer Online Free | Subtitles Edit";
 
 const rankMathSchema = {
   "@context": "https://schema.org",

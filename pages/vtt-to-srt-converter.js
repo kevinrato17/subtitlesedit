@@ -14,6 +14,7 @@ const p =
 const OG_IMG =
   "https://subtitlesedit.com/wp-content/uploads/2025/11/VTT-to-SRT-Converter-1024x538.webp";
 
+const PAGE_TITLE = "VTT to SRT Converter Online Free | Subtitles Edit";
 const META_DESC =
   "Convert VTT to SRT instantly with this free WebVTT to SRT converter. Fast, private, and fully offline in your browser. No uploads, no limits \u2014 download clean SRT files.";
 
@@ -489,7 +490,7 @@ export default function VttToSrtConverterPage() {
   return (
     <Layout>
       <Head>
-        <title>VTT to SRT Converter – Free Online Tool</title>
+        <title>{PAGE_TITLE}</title>
         <meta name="description" content={META_DESC} />
         <meta
           name="robots"

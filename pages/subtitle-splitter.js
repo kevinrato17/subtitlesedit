@@ -17,9 +17,9 @@ const OG_IMG =
   "https://subtitlesedit.com/wp-content/uploads/2025/11/Subtitle-Splitter-tool-1024x538.webp";
 
 const META_DESC =
-  "Split subtitles in seconds. Divide SRT or VTT files by time or cue count. Fast, Free, Accurate, and fully offline in your browser using Subtitle Splitter.";
+  "Split subtitle files online for free. Divide large SRT or VTT subtitles into smaller parts instantly in your browser with no uploads required.";
 
-const PAGE_TITLE = "Subtitle Splitter – Split Subtitles Instantly";
+const PAGE_TITLE = "Subtitle Splitter Online Free | Subtitles Edit";
 
 const rankMathSchema = {
   "@context": "https://schema.org",

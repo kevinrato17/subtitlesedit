@@ -14,8 +14,9 @@ const p =
 const OG_IMG =
   "https://subtitlesedit.com/wp-content/uploads/2025/11/Subtitle-time-shifter-tool-1024x538.webp";
 
+const PAGE_TITLE = "Subtitle Time Shifter Online Free | Subtitles Edit";
 const META_DESC =
-  "Fix delayed subtitles instantly. Shift SRT and VTT subtitles forward or backward with this free subtitle time shifter. Fast, accurate, and fully offline in your browser.";
+  "Shift subtitle timing online for free. Adjust SRT and VTT timestamps forward or backward instantly in your browser with no uploads.";
 
 const rankMathSchema = {
   "@context": "https://schema.org",
@@ -464,7 +465,7 @@ export default function SubtitleTimeShifterPage() {
   return (
     <Layout>
       <Head>
-        <title>Subtitle Time Shifter – Synchronize Subtitles Instantly</title>
+        <title>{PAGE_TITLE}</title>
         <meta name="description" content={META_DESC} />
         <meta
           name="robots"

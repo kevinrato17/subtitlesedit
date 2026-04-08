@@ -15,9 +15,9 @@ const OG_IMG =
   "https://subtitlesedit.com/wp-content/uploads/2025/11/Subtitle-Merger-1024x538.webp";
 
 const META_DESC =
-  "Merge subtitles in seconds. Combine multiple SRT or VTT files into one clean subtitle file. Fast, private, and fully browser-based with no uploads.";
+  "Merge subtitle files online for free. Combine multiple SRT or VTT subtitles into one file instantly in your browser with no uploads required.";
 
-const PAGE_TITLE = "Subtitle Merger – Merge Subtitles Instantly";
+const PAGE_TITLE = "Subtitle Merger Online Free | Subtitles Edit";
 
 const rankMathSchema = {
   "@context": "https://schema.org",

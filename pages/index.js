@@ -311,12 +311,10 @@ export default function Home() {
   return (
     <Layout>
       <Head>
-        <title>
-          Free Subtitle Edit Tools for SRT &amp; WebVTT Conversion
-        </title>
+        <title>Free Online Subtitle Editing Tools | Subtitles Edit</title>
         <meta
           name="description"
-          content="All tools run 100% in your browser. No uploads. No tracking."
+          content="Free online subtitle editing tools to convert, shift, merge, split, and fix SRT/VTT subtitles instantly in your browser with no uploads."
         />
         <link rel="canonical" href="https://subtitlesedit.com/" />
         <script
