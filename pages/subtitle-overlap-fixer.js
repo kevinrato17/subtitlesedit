@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Script from "next/script";
 import Layout from "@/components/Layout";
+import ToolPageGradientHero from "@/components/ToolPageGradientHero";
 
 const section =
   "mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-[3rem] py-10 lg:py-12";
@@ -513,6 +514,10 @@ export default function SubtitleOverlapFixerPage() {
             <div className="entry-content clear px-0" itemProp="text">
               <div className="px-4 sm:px-6 lg:px-[3rem]">
                 <OverlapFixerTool />
+                <ToolPageGradientHero
+                  headline="Fix Overlapping Subtitles Online Free"
+                  subheadline="Detect and fix overlapping subtitle cues in .srt and .vtt files — free and instant."
+                />
                 <div className="mb-10 overflow-hidden rounded-lg">
                   <Image
                     src={OG_IMG}

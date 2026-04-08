@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Script from "next/script";
 import Layout from "@/components/Layout";
+import ToolPageGradientHero from "@/components/ToolPageGradientHero";
 
 const section =
   "mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-[3rem] py-10 lg:py-12";
@@ -504,6 +505,10 @@ export default function SubtitleMergerPage() {
             <div className="entry-content clear px-0" itemProp="text">
               <div className="px-4 sm:px-6 lg:px-[3rem]">
                 <MergerTool />
+                <ToolPageGradientHero
+                  headline="Merge Subtitle Files Online Free"
+                  subheadline="Combine multiple .srt or .vtt subtitle files into one — fast and free in your browser."
+                />
                 <div className="mb-10 overflow-hidden rounded-lg">
                   <Image
                     src={OG_IMG}
