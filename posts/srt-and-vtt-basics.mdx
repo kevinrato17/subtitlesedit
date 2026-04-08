@@ -1,0 +1,21 @@
+---
+title: "SRT and VTT Basics for Creators"
+date: "2026-04-01"
+description: "A quick overview of SubRip (.srt) and WebVTT (.vtt) subtitles and when to use each format."
+---
+
+**SRT (SubRip)** and **VTT (WebVTT)** are the two subtitle formats our tools focus on. Both store timed text cues; the main differences are syntax and where they shine.
+
+## SRT at a glance
+
+- Widely supported in editors, players, and social platforms
+- Uses commas in timestamps: `00:00:01,000 --> 00:00:03,500`
+- Simple, plain structure — great for translation and hand-editing
+
+## WebVTT at a glance
+
+- Native to HTML5 `<video>` and many streaming stacks
+- Uses a `WEBVTT` header and dots in timestamps: `00:00:01.000 --> 00:00:03.500`
+- Supports extra styling and metadata when you need it
+
+When you need to move between formats, use our **SRT to VTT** and **VTT to SRT** converters — everything runs locally in your browser.
