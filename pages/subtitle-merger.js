@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import Script from "next/script";
 import Layout from "@/components/Layout";
 import ToolPageGradientHero from "@/components/ToolPageGradientHero";
@@ -509,17 +508,6 @@ export default function SubtitleMergerPage() {
                   headline="Merge Subtitle Files Online Free"
                   subheadline="Combine multiple .srt or .vtt subtitle files into one — fast and free in your browser."
                 />
-                <div className="mb-10 overflow-hidden rounded-lg">
-                  <Image
-                    src={OG_IMG}
-                    alt="Subtitle Merger tool from subtitles edit"
-                    width={1024}
-                    height={538}
-                    className="h-auto w-full"
-                    sizes="(max-width: 1024px) 100vw, 1024px"
-                    priority
-                  />
-                </div>
               </div>
 
               <div className={`${section} entry-content se-content`}>

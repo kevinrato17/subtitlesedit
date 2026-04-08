@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import Script from "next/script";
 import Layout from "@/components/Layout";
 import ToolPageGradientHero from "@/components/ToolPageGradientHero";
@@ -542,17 +541,6 @@ export default function SubtitleSplitterPage() {
                   headline="Split Subtitle Files Online Free"
                   subheadline="Split large subtitle files into smaller parts instantly — no software needed."
                 />
-                <div className="mb-10 overflow-hidden rounded-lg">
-                  <Image
-                    src={OG_IMG}
-                    alt="Desktop displaying a Subtitle Splitter tool"
-                    width={1024}
-                    height={538}
-                    className="h-auto w-full"
-                    sizes="(max-width: 1024px) 100vw, 1024px"
-                    priority
-                  />
-                </div>
               </div>
 
               <div className={`${section} entry-content se-content`}>

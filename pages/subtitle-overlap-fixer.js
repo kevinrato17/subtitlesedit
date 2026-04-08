@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import Script from "next/script";
 import Layout from "@/components/Layout";
 import ToolPageGradientHero from "@/components/ToolPageGradientHero";
@@ -518,17 +517,6 @@ export default function SubtitleOverlapFixerPage() {
                   headline="Fix Overlapping Subtitles Online Free"
                   subheadline="Detect and fix overlapping subtitle cues in .srt and .vtt files — free and instant."
                 />
-                <div className="mb-10 overflow-hidden rounded-lg">
-                  <Image
-                    src={OG_IMG}
-                    alt="Subtitle Overlap Fixer being used by a video editor"
-                    width={1024}
-                    height={538}
-                    className="h-auto w-full"
-                    sizes="(max-width: 1024px) 100vw, 1024px"
-                    priority
-                  />
-                </div>
               </div>
 
               <div className={`${section} entry-content se-content`}>

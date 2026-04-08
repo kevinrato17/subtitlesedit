@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import Script from "next/script";
 import Layout from "@/components/Layout";
 import ToolPageGradientHero from "@/components/ToolPageGradientHero";
@@ -584,17 +583,6 @@ export default function SrtToVttConverterPage() {
                   headline="Convert SRT to VTT Online Free"
                   subheadline="Instantly convert .srt subtitle files to .vtt format in your browser — no upload required."
                 />
-                <div className="mb-10 overflow-hidden rounded-lg">
-                  <Image
-                    src={OG_IMG}
-                    alt="SRT to VTT converter"
-                    width={768}
-                    height={403}
-                    className="h-auto w-full"
-                    sizes="(max-width: 768px) 100vw, 768px"
-                    priority
-                  />
-                </div>
               </div>
 
               <div className={`${section} entry-content`}>
