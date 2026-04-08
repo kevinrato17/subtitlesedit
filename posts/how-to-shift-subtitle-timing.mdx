@@ -1,0 +1,124 @@
+---
+title: "How to Shift Subtitle Timing When Subtitles Are Out of Sync"
+description: "Subtitles out of sync with your video? Learn how to shift subtitle timing in SRT and VTT files online for free — fix sync issues in seconds."
+date: "2026-04-08"
+slug: "how-to-shift-subtitle-timing"
+---
+
+# How to Shift Subtitle Timing When Subtitles Are Out of Sync
+
+Few things are more distracting than subtitles that don't match the audio. Whether the subtitles appear a second too early or a few seconds too late, an out-of-sync subtitle file makes a video hard to watch.
+
+The good news: if the entire file is consistently off by the same amount, fixing it takes about 30 seconds.
+
+---
+
+## Why Are Subtitles Out of Sync?
+
+Subtitle sync problems usually happen for one of these reasons:
+
+- **Wrong version of the video** — the subtitle file was made for a different cut or version
+- **Different frame rate** — the video was encoded at a different frame rate than the subtitle file was timed to
+- **Streaming vs downloaded** — streaming platforms sometimes add intro sequences that shift everything
+- **Conversion issues** — converting between formats sometimes introduces small timing errors
+- **Manual editing mistakes** — accidentally shifting timestamps during editing
+
+---
+
+## Two Types of Sync Problems
+
+### 1. Constant Offset (Easiest to Fix)
+The subtitles are off by the same amount throughout the entire video — for example, always 2 seconds too late. This is fixed by shifting all timestamps by a fixed amount. Our [Subtitle Time Shifter](/subtitle-time-shifter) handles this perfectly.
+
+### 2. Drift (More Complex)
+The subtitles start in sync but gradually fall behind or get ahead. This means the subtitle file was timed to a different frame rate. This requires frame rate correction, which is a more advanced fix.
+
+---
+
+## How to Shift Subtitle Timing Online (Step by Step)
+
+### Step 1: Figure Out the Offset
+
+Play your video and note the timestamp when a subtitle appears. Then check what time that subtitle should appear. The difference is your offset.
+
+**Example:** A subtitle appears at 0:01:05 but should appear at 0:01:03. The offset is -2 seconds (you need to shift everything 2 seconds earlier).
+
+### Step 2: Open the Subtitle Time Shifter
+
+Go to our free [Subtitle Time Shifter](/subtitle-time-shifter). Works with both SRT and VTT files.
+
+### Step 3: Upload Your File
+
+Click **Choose File** and select your `.srt` or `.vtt` file.
+
+### Step 4: Enter the Offset
+
+Enter the number of seconds to shift. Use a positive number to shift subtitles later (if they appear too early) and a negative number to shift them earlier (if they appear too late).
+
+### Step 5: Download the Fixed File
+
+Click **Shift** and download your corrected subtitle file. Done.
+
+---
+
+## Examples of Shifting
+
+| Problem | Solution |
+|---|---|
+| Subtitles appear 3 seconds too early | Shift by +3 seconds |
+| Subtitles appear 2 seconds too late | Shift by -2 seconds |
+| Subtitles appear 500ms too early | Shift by +0.5 seconds |
+
+---
+
+## Tips for Finding the Exact Offset
+
+- Use a scene with a clearly timed sound — a door slam, a gunshot, or the first word of dialogue
+- Pause the video exactly when the sound occurs and note the timestamp
+- Compare that to when the subtitle appears
+- The difference is your offset
+
+---
+
+## What If the Sync Drift Gets Worse Over Time?
+
+If the subtitles start in sync but gradually drift, you have a frame rate mismatch. Common culprits:
+
+- Subtitle was timed to a 23.976fps video but you're watching a 25fps version
+- PAL vs NTSC conversion (25fps vs 29.97fps)
+
+In these cases, you'll need a tool that supports frame rate correction. This is a more advanced problem that goes beyond simple time shifting.
+
+---
+
+## Frequently Asked Questions
+
+### Can I shift subtitles by milliseconds?
+Yes. Our [Subtitle Time Shifter](/subtitle-time-shifter) accepts decimal values — for example, enter `1.5` to shift by 1500 milliseconds.
+
+### Will shifting change my subtitle text?
+No. Only the timestamps are modified. The subtitle text remains exactly the same.
+
+### Does it work with both SRT and VTT?
+Yes — our tool supports both `.srt` and `.vtt` files.
+
+### What if different parts of the video have different offsets?
+If different sections need different adjustments, you may need to split the file first, shift each part separately, then merge them back together. Use our [Subtitle Splitter](/subtitle-splitter) and [Subtitle Merger](/subtitle-merger) for this workflow.
+
+### Can I undo the shift?
+Just shift by the opposite amount. If you shifted by +3, shift the resulting file by -3 to get back to the original.
+
+---
+
+## Other Subtitle Tools You Might Need
+
+- [Subtitle Merger](/subtitle-merger) — combine multiple subtitle files into one
+- [Subtitle Splitter](/subtitle-splitter) — split a subtitle file into parts for selective shifting
+- [Subtitle Overlap Fixer](/subtitle-overlap-fixer) — fix overlapping cues after shifting
+- [SRT to VTT Converter](/srt-to-vtt-converter) — convert between subtitle formats
+
+---
+
+## Summary
+
+Subtitle sync issues are usually caused by a simple constant offset — and that's an easy fix. Use our free [Subtitle Time Shifter](/subtitle-time-shifter) to shift all timestamps forward or backward by any amount, in seconds or milliseconds. No software, no uploads, no account required.

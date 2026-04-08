@@ -1,0 +1,118 @@
+---
+title: "How to Split a Subtitle File into Multiple Parts"
+description: "Need to split a subtitle file into two or more parts? Learn how to split SRT and VTT subtitle files online for free — no software needed."
+date: "2026-04-08"
+slug: "how-to-split-a-subtitle-file"
+---
+
+# How to Split a Subtitle File into Multiple Parts
+
+Sometimes you need to break a subtitle file into smaller pieces — whether you're splitting a long video into parts, editing sections separately, or preparing subtitles for a multi-episode upload. Whatever the reason, splitting a subtitle file is straightforward when you have the right tool.
+
+---
+
+## When Do You Need to Split a Subtitle File?
+
+Common reasons to split a subtitle file:
+
+- **Video is being split into parts** — you're dividing a long video and need matching subtitle segments
+- **Different editors for different sections** — splitting the file lets each person work on their section independently
+- **Platform limits** — some platforms have limits on subtitle file length or cue count
+- **Separate upload per episode** — a single subtitle file for a multi-episode recording needs to be separated
+
+---
+
+## What Happens When You Split a Subtitle File?
+
+When you split at a specific point in time:
+
+- All cues before the split point go into Part 1
+- All cues at or after the split point go into Part 2
+- The timestamps in Part 2 are preserved as-is (they still reflect the original video time)
+- Cue numbers restart from 1 in Part 2
+
+If you need Part 2 to start its timestamps from zero (for a video that starts from the beginning), you'll need to use the [Subtitle Time Shifter](/subtitle-time-shifter) afterward to subtract the offset.
+
+---
+
+## How to Split a Subtitle File Online (Step by Step)
+
+### Step 1: Open the Subtitle Splitter
+
+Go to our free [Subtitle Splitter](/subtitle-splitter). Works with SRT and VTT files, no account needed.
+
+### Step 2: Upload Your Subtitle File
+
+Click **Choose File** and select your `.srt` or `.vtt` file. Everything is processed in your browser — your file never leaves your device.
+
+### Step 3: Set the Split Point
+
+Enter the timestamp where you want to split the file. Everything before that time goes into Part 1, everything after goes into Part 2.
+
+### Step 4: Download the Split Files
+
+Click **Split** and download your two subtitle files. Done.
+
+---
+
+## After Splitting: Adjusting Timestamps
+
+If your Part 2 video starts from `00:00:00` but the subtitles in Part 2 still reference the original timestamps (e.g. starting at `01:30:00`), you'll need to shift them.
+
+**Example:** You split a 3-hour video at the 90-minute mark. Part 2 subtitles start at `01:30:00`. If Part 2 is now a standalone video starting at zero, shift the Part 2 subtitles by **-90 minutes (-5400 seconds)** using our [Subtitle Time Shifter](/subtitle-time-shifter).
+
+---
+
+## Tips for Clean Splits
+
+- **Split at a natural pause** — choose a timestamp between cues, not in the middle of one
+- **Check for cues that span the split point** — a cue that starts just before and ends just after your split point will be cut off. Review the timestamps around your split point before splitting.
+- **Shift timestamps after splitting** if Part 2 needs to start from zero
+- **Check for overlaps** after any timestamp adjustments using our [Subtitle Overlap Fixer](/subtitle-overlap-fixer)
+
+---
+
+## Splitting vs Merging
+
+Splitting and merging are opposite operations:
+
+| Operation | Tool | When to use |
+|---|---|---|
+| Split | [Subtitle Splitter](/subtitle-splitter) | One file → multiple files |
+| Merge | [Subtitle Merger](/subtitle-merger) | Multiple files → one file |
+
+If you've split a file and later need to rejoin it, use our [Subtitle Merger](/subtitle-merger).
+
+---
+
+## Frequently Asked Questions
+
+### Can I split into more than two parts?
+Our tool splits into two parts at a time. For more parts, simply split the resulting files again.
+
+### What happens to a cue that spans the split point?
+The cue will be included in Part 1 (since it starts before the split point), and Part 2 will begin with the next cue after the split. You may want to manually adjust the first or last cue in each part if needed.
+
+### Do I need to renumber cues after splitting?
+Part 1 retains the original cue numbers. Part 2 cue numbers restart from 1 automatically.
+
+### Does splitting work with VTT files?
+Yes — our [Subtitle Splitter](/subtitle-splitter) supports both `.srt` and `.vtt` formats.
+
+### Can I split by cue number instead of timestamp?
+Currently the tool splits by timestamp. If you want to split after a specific cue, just look up that cue's end timestamp and use that as your split point.
+
+---
+
+## Other Subtitle Tools You Might Need
+
+- [Subtitle Time Shifter](/subtitle-time-shifter) — adjust timestamps in Part 2 after splitting
+- [Subtitle Merger](/subtitle-merger) — recombine files you've split
+- [Subtitle Overlap Fixer](/subtitle-overlap-fixer) — fix any timing issues after editing
+- [SRT to VTT Converter](/srt-to-vtt-converter) — convert between formats
+
+---
+
+## Summary
+
+Splitting a subtitle file is a simple operation — choose your split point, and the tool does the rest. Use our free [Subtitle Splitter](/subtitle-splitter) to divide any SRT or VTT file at any timestamp, with no software, no uploads, and no account required. If the timestamps in the second part need adjusting, follow up with our [Subtitle Time Shifter](/subtitle-time-shifter).
