@@ -1,9 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
 import Layout from "@/components/Layout";
-
-const HERO_IMG =
-  "https://subtitlesedit.com/wp-content/uploads/2025/11/Subtitle-Overlap-Fixer-tool-1024x538.webp";
 
 const section =
   "mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-[3rem] py-10 lg:py-12";
@@ -27,7 +23,8 @@ function HubGrid() {
 
   return (
     <section
-      className="mx-auto mb-12 mt-8 max-w-[1100px] px-4 text-[#111827]"
+      id="tools"
+      className="mx-auto mb-12 mt-8 max-w-[1100px] scroll-mt-24 px-4 text-[#111827]"
       aria-labelledby="se-hub-title"
     >
       <p
@@ -349,6 +346,24 @@ export default function Home() {
             </header>
 
             <div className="entry-content clear px-0" itemProp="text">
+              <div className="px-4 pb-2 pt-6 sm:px-6 lg:px-[3rem]">
+                <div className="overflow-hidden rounded-2xl bg-gradient-to-r from-sky-500 to-cyan-600 px-6 py-14 text-center shadow-lg sm:px-10 sm:py-16">
+                  <p className="text-3xl font-bold leading-tight text-white md:text-4xl">
+                    Free Online Subtitle Editing Tools
+                  </p>
+                  <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/95 sm:text-lg">
+                    Convert, shift, merge, split and fix subtitles instantly in
+                    your browser — no upload required.
+                  </p>
+                  <a
+                    href="#tools"
+                    className="mt-8 inline-flex items-center justify-center rounded-[10px] border-2 border-white/80 bg-white px-6 py-3 text-sm font-semibold text-[#0ea5e9] shadow-sm transition-colors hover:border-white hover:bg-white/95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    Explore Tools
+                  </a>
+                </div>
+              </div>
+
               <HubGrid />
 
               <div className={section}>
@@ -380,17 +395,6 @@ export default function Home() {
               </div>
 
               <div className={section}>
-                <div className="mb-8 overflow-hidden rounded-lg">
-                  <Image
-                    src={HERO_IMG}
-                    alt="A person using subtitle edit tools to edit subtitles"
-                    width={1024}
-                    height={578}
-                    className="h-auto w-full object-cover"
-                    sizes="(max-width: 1024px) 100vw, 1024px"
-                    priority
-                  />
-                </div>
                 <h2 className={h2}>
                   Convert SRT to VTT or WebVTT Instantly
                 </h2>
