@@ -1,0 +1,121 @@
+---
+title: "How to Convert VTT to SRT — Fix Errors & Export Right"
+description: "Convert VTT to SRT for Premiere Pro, DaVinci Resolve, Canvas LMS and more. Fix timestamp errors, remove WEBVTT headers, and export clean SRT files free in your browser."
+date: "2026-04-26"
+slug: "convert-vtt-to-srt-complete-guide"
+---
+
+# How to Convert VTT to SRT — Fix Errors & Export Right
+
+WebVTT is the web standard for subtitles — but the moment you take your video off the web and into a desktop editor, an LMS, or a media server, VTT becomes a problem. Most professional editing software and legacy platforms don't support it. That's when you need to convert VTT to SRT.
+
+This guide covers the conversion itself, the specific fixes required for major platforms, and how to handle the errors that appear along the way.
+
+## Why Convert VTT to SRT?
+
+VTT files are designed for browser-based playback. Outside of that environment, they cause problems:
+
+- Desktop editors like Premiere Pro and DaVinci Resolve expect SRT, not VTT
+- Learning Management Systems like Canvas use SRT for accessibility uploads
+- AI-generated captions from tools like Whisper, Otter, and Descript often export VTT — but downstream platforms want SRT
+- Media servers like Plex and Jellyfin have better SRT support for local playback
+
+Converting VTT to SRT solves all of these. The [VTT to SRT Converter](/vtt-to-srt-converter) on Subtitles Edit handles the conversion in your browser with no file uploads and no account required.
+
+## How to Convert VTT to SRT (Step by Step)
+
+1. Open the [VTT to SRT Converter](/vtt-to-srt-converter)
+2. Paste your VTT content or load your `.vtt` file
+3. Click convert
+4. Download the `.srt` file
+
+The tool removes the `WEBVTT` header, converts dot-formatted timestamps (`00:00:01.500`) to the SRT comma format (`00:00:01,500`), adds sequential cue numbers, and strips any VTT-specific metadata that would break SRT parsers.
+
+## Platform-Specific Conversion Guides
+
+### Converting VTT to SRT for Premiere Pro 2026
+
+Premiere Pro does not natively import VTT files. If you try to import a VTT subtitle track into Premiere Pro 2026 you'll get an "Unsupported Format" error — this is especially common with AI-generated VTTs from tools like Descript, Adobe's own auto-transcription, and Whisper outputs.
+
+The fix is to convert VTT to SRT before importing. Once converted, the SRT file imports cleanly into Premiere's captions workspace. In Premiere Pro 2026, go to File → Import, select your `.srt` file, and it will appear as a captions track on your timeline.
+
+### VTT to SRT for DaVinci Resolve 19
+
+DaVinci Resolve 19 has its own version of the timestamp format problem. Even when Resolve accepts a VTT file, the dot-versus-comma timestamp difference causes cues to appear at the wrong time or not display at all.
+
+Converting VTT to SRT for DaVinci Resolve 19 corrects the timestamp syntax, producing a file that Resolve reads correctly. If your timing is still off after conversion — for example because your video was re-exported at a different length — use the [Subtitle Time Shifter](/subtitle-time-shifter) to re-align the SRT timing before importing.
+
+### VTT to SRT for Canvas LMS Accessibility
+
+Canvas LMS uses SRT for the standard caption upload workflow in its media tool. If you've received VTT files from an AI captioning service or exported from a web CMS, you'll need to convert them to SRT before uploading.
+
+This is particularly common in higher education, where accessibility compliance requires synchronized captions for all lecture recordings. Converting VTT to SRT for Canvas LMS accessibility gives you a file that uploads correctly and meets the platform's requirements.
+
+### Converting AI-Generated VTT to SRT
+
+AI captioning tools — including Whisper, Otter.ai, and similar services — frequently export in VTT format with heavy metadata: speaker labels, confidence scores, word-level timing, and styling tags. When this output goes into a platform that expects clean SRT, the extra metadata breaks the file.
+
+Converting AI-generated VTT to SRT captions strips this metadata and produces a clean, human-readable subtitle file. If the AI-generated captions also have overlapping timestamps (a very common problem with fast speech), run the file through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) after conversion.
+
+## How to Remove the WEBVTT Header for SRT
+
+Every VTT file starts with a `WEBVTT` header line. SRT files have no such header — if it's present in an SRT file, parsers break.
+
+When converting manually in a text editor, you need to:
+
+1. Delete the `WEBVTT` line and any blank lines before the first cue
+2. Add a sequential number before each cue block
+3. Convert every `.` in timestamps to `,`
+4. Remove any VTT cue identifiers, positioning tags, or styling information
+
+This is tedious and error-prone at scale. The [VTT to SRT Converter](/vtt-to-srt-converter) does all of it automatically.
+
+## Fixing VTT Dot Timestamps to SRT Comma Format
+
+The single most common reason VTT files break in legacy software and hardware players (TVs, Plex clients, older DVD players) is the timestamp decimal separator.
+
+VTT uses a dot: `00:00:04.500`
+SRT uses a comma: `00:00:04,500`
+
+It's a one-character difference, but it's enough to make an entire subtitle file unreadable to players that strictly expect SRT formatting. A proper converter handles this; a manual find-and-replace can miss edge cases in files with unusual formatting.
+
+## What Happens to VTT Styling During Conversion?
+
+VTT supports inline styling — bold, italic, colour, and positioning. SRT supports a limited subset: bold (`<b>`), italic (`<i>`), and underline (`<u>`). Everything else is stripped during conversion.
+
+If your VTT file uses `<c.colour>` tags, cue positioning, or alignment metadata, these will not survive the conversion to SRT. The text content is preserved; the styling is not. This is a format limitation, not a converter error — SRT simply doesn't support those features.
+
+For most practical use cases (video editing, LMS uploads, media server playback), this loss of styling is acceptable. The words and timing are what matter.
+
+## After Converting: Check Your File
+
+Before using your converted SRT file, do a quick sanity check:
+
+- Open it in a text editor and confirm the `WEBVTT` header is gone
+- Check that timestamps use commas, not dots
+- Verify that cue numbers are sequential starting from 1
+- Look for any leftover VTT metadata tags (`NOTE`, `REGION`, `STYLE`) — these should be removed
+
+If timing needs adjustment after conversion, use the [Subtitle Time Shifter](/subtitle-time-shifter). If overlaps are present, fix them with the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) before importing into your editor.
+
+---
+
+## FAQ: VTT to SRT Conversion
+
+### How do I convert a VTT file to SRT without losing content?
+Use the free [VTT to SRT Converter](/vtt-to-srt-converter) on Subtitles Edit. All subtitle text and timing is preserved. VTT-specific styling and metadata that SRT doesn't support (positioning, colours) will be removed, but the words and timestamps are kept intact.
+
+### Why does Premiere Pro say "Unsupported Format" when I import a VTT file?
+Premiere Pro doesn't natively support VTT files. Convert your VTT to SRT using the [VTT to SRT Converter](/vtt-to-srt-converter) first, then import the `.srt` file into Premiere Pro's captions workspace.
+
+### How do I fix the dot timestamp error when converting VTT to SRT for DaVinci Resolve?
+The timestamp format difference (VTT uses dots, SRT uses commas) is handled automatically by the [VTT to SRT Converter](/vtt-to-srt-converter). After conversion, your SRT file will use the correct comma-separated format that DaVinci Resolve expects.
+
+### Can I convert VTT to SRT on Mac for free?
+Yes. The [VTT to SRT Converter](/vtt-to-srt-converter) is entirely browser-based and works on Mac, Windows, and Linux without any download or account.
+
+### What styling is lost when converting VTT to SRT?
+SRT supports bold, italic, and underline. VTT-specific features like cue positioning, text alignment, colour tags, and speaker labels are stripped during conversion. The text content and timestamps are fully preserved.
+
+### Why do AI-generated VTT files cause problems when converted to SRT?
+AI captioning tools often embed extra metadata — speaker labels, word-level timing, confidence scores — inside VTT cues. This metadata is invalid in SRT format and needs to be stripped during conversion. The [VTT to SRT Converter](/vtt-to-srt-converter) handles this automatically.

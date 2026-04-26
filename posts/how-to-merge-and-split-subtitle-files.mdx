@@ -1,0 +1,135 @@
+---
+title: "How to Merge and Split Subtitle Files — Complete Guide"
+description: "Learn how to merge multiple SRT files and split subtitle files for YouTube Shorts, TikTok, Plex, social media ads and more. Free browser-based tools, no software needed."
+date: "2026-04-26"
+slug: "how-to-merge-and-split-subtitle-files"
+---
+
+# How to Merge and Split Subtitle Files — Complete Guide
+
+Whether you're combining subtitle tracks for a media server, splitting a long lecture caption file for an LMS, or cutting a master SRT into 60-second chunks for social media — merging and splitting subtitle files are core skills for anyone working with video at scale.
+
+This guide covers both operations: when to use each, how to do them correctly, and how to avoid the timing errors that trip people up along the way.
+
+## When to Merge Subtitle Files
+
+You need to merge subtitle files when:
+
+- You have **multiple SRT files for separate video parts** that need to be joined into one continuous file
+- You're creating **bilingual or dual-language subtitles** by combining two language tracks
+- You've received **forced subtitle tracks** (for foreign-language dialogue) that need to be merged with a full subtitle file for Plex or Kodi
+- You're assembling a **"supercut"** or multi-part YouTube series upload with one master SRT
+
+## When to Split Subtitle Files
+
+You need to split subtitle files when:
+
+- You're **cutting a long video into clips** for YouTube Shorts, TikTok Reels, or Instagram
+- Your **LMS has file size or upload limits** and requires subtitles split into sections
+- You're **exporting per-chapter subtitles** for a Blu-ray rip or chapter-based video structure
+- Your **video editor exported clips separately** and you need matching subtitle files for each
+
+## How to Merge SRT Files
+
+### Merging Multiple SRT Parts into One Continuous File
+
+The most fundamental merge case: you have two or more SRT files — each covering a different section of a video — and you need to join them into one file with correct, continuous timestamps.
+
+Use the [Subtitle Merger](/subtitle-merger):
+
+1. Open the [Subtitle Merger](/subtitle-merger)
+2. Load your first SRT file
+3. Load your second SRT file
+4. Click merge
+5. Download the combined SRT file
+
+The merger handles timestamp continuity automatically — cue numbers restart from 1 and timestamps are adjusted so the second file picks up where the first left off. This is what prevents the "time reset" problem that occurs when you manually paste SRT files together in a text editor.
+
+### How to Merge SRT Files Without Losing Timestamps
+
+The most common mistake when merging SRT files manually is copy-pasting the content of the second file directly after the first. This produces a file where the timestamps reset — the second file's timestamps start from `00:00:00` again, making the whole merged file unplayable.
+
+A proper subtitle merger recalculates all timestamps so they form a continuous sequence. The [Subtitle Merger](/subtitle-merger) does this automatically. The key thing to get right is the offset: the second file's timestamps need to be shifted forward by the duration of the first video segment.
+
+### Merging Multiple SRT Files for Plex MKV
+
+Plex supports external subtitle files in MKV containers. If you have a movie with separate "full" and "forced" subtitle tracks — for example, a film where most dialogue is in English but certain scenes are in another language — you'll typically want to merge the forced subtitles into the main track.
+
+When merging multiple SRT files for Plex MKV, make sure the forced track's cues don't overlap with the main track's cues at the same timestamps. Run the merged file through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) after merging to catch any collisions.
+
+### Merging Bilingual SRT Files for VLC Player
+
+Language learners often want to study with two subtitle tracks showing simultaneously — for example, English on top and Spanish below. VLC supports this via two separate subtitle files, but some players and platforms require a single merged file.
+
+To merge bilingual SRT files for VLC player or similar, use the [Subtitle Merger](/subtitle-merger) to combine both language tracks. The merged file will display both languages simultaneously as separate cues. For a clean result, make sure both source files have identical timing — if they don't, use the [Subtitle Time Shifter](/subtitle-time-shifter) to align them first.
+
+### Combining SRT and VTT for Accessibility Compliance
+
+If you have subtitle files in different formats — for example, a legacy SRT and a newer VTT from an AI tool — you'll need to normalise them to the same format before merging. Convert the VTT to SRT using the [VTT to SRT Converter](/vtt-to-srt-converter), then merge both SRT files using the [Subtitle Merger](/subtitle-merger).
+
+## How to Split SRT Files
+
+### Splitting SRT Files for YouTube Shorts
+
+Splitting an SRT file for YouTube Shorts 60-second length requires extracting just the cues that fall within a specific time window — for example, timestamps between `00:02:30` and `00:03:30` for a one-minute clip.
+
+Use the [Subtitle Splitter](/subtitle-splitter):
+
+1. Open the [Subtitle Splitter](/subtitle-splitter)
+2. Load your full SRT file
+3. Set the split point (by time or cue number)
+4. Download the segment
+
+The splitter resets timestamps so the extracted segment starts from `00:00:00` — matching the start of your exported clip, not the original video's timeline. This is the step most people miss when splitting manually.
+
+### Splitting SRT for TikTok Clips and Instagram Reels
+
+For social media, the challenge is twofold: you need a subtitle file that matches the exact duration of your clip, and the timing needs to start from zero.
+
+When splitting subtitles for TikTok clips from a long video, use the [Subtitle Splitter](/subtitle-splitter) with the exact in and out points of your clip. Then verify that line lengths are appropriate for mobile viewing — TikTok and Instagram Reels display best with short lines (ideally under 32 characters) that don't cover the creator's face or the platform's UI elements.
+
+### How to Split SRT by Chapter for Blu-ray Rip
+
+For home cinema enthusiasts, splitting a single SRT file into chapter-based segments allows you to pair each chapter's video file with its matching subtitle file. This is particularly useful for MKV files organised by chapter.
+
+Use the [Subtitle Splitter](/subtitle-splitter) with your chapter start and end timecodes. Most Blu-ray chapter timestamps are available from databases like [Chapter DB](https://chapterdb.plex.tv/) or can be read directly from your rip metadata.
+
+### Splitting Large SRT Files for Canvas LMS Import
+
+Canvas LMS has file size limits for caption uploads. For long lecture recordings — common in university settings — the SRT file may need to be split into sections matching the video segments.
+
+Splitting large SRT files for Canvas LMS import means aligning your split points with the video chapter markers or logical break points in the lecture. Use the [Subtitle Splitter](/subtitle-splitter) to create separate files for each section, then upload each one alongside its corresponding video segment.
+
+### Split Auto-Generated Captions into Readable Lines
+
+AI transcription tools — including those built into Zoom, Teams, and YouTube — often produce long, run-on caption blocks. A single cue might contain 30–40 words spanning 8 seconds, which is too long to read comfortably.
+
+Splitting auto-generated captions into readable lines is part fixing a display problem, part accessibility improvement. WCAG and ADA guidance recommends a maximum reading speed of about 160 words per minute for captions, which means cues should display for long enough to be read at that pace.
+
+## Merging for Multi-Part YouTube Series
+
+If you film content in parts but upload a single "supercut" to YouTube, you need one SRT file covering the full video. The [Subtitle Merger](/subtitle-merger) handles this by combining all part subtitle files into a single continuous file with correct timestamps.
+
+For a series with multiple separate uploads, keep each video's subtitle file separate — merging multiple SRT files for a multi-part YouTube series only applies when the videos are being combined into a single upload.
+
+---
+
+## FAQ: Merging and Splitting Subtitle Files
+
+### How do I merge two SRT files without breaking the timestamps?
+Use the [Subtitle Merger](/subtitle-merger). It recalculates timestamps so the second file's cues continue from where the first file ends — fixing the "time reset" error that occurs when merging manually in a text editor.
+
+### How do I split an SRT file for YouTube Shorts?
+Use the [Subtitle Splitter](/subtitle-splitter) and set the split point to match the start and end time of your Short. The splitter resets timestamps to start from zero, matching the beginning of your clip.
+
+### Can I merge SRT files on Mac for free online?
+Yes. The [Subtitle Merger](/subtitle-merger) is entirely browser-based and works on Mac, Windows, and Linux with no download or sign-up required.
+
+### How do I create bilingual subtitles by merging two SRT files?
+Use the [Subtitle Merger](/subtitle-merger) to combine both language tracks into a single SRT file. Make sure both files have aligned timing first — use the [Subtitle Time Shifter](/subtitle-time-shifter) to fix any offset between the two tracks.
+
+### Why do my merged SRT timestamps reset to zero?
+This happens when SRT files are manually copy-pasted together without recalculating the timestamps. Use the [Subtitle Merger](/subtitle-merger) to handle the timestamp offset automatically.
+
+### What's the best way to split subtitle files for social media ads?
+Use the [Subtitle Splitter](/subtitle-splitter) with the exact in and out times of each ad variation. For 15 and 30-second formats, precision matters — even a half-second error is noticeable in a short-form video.

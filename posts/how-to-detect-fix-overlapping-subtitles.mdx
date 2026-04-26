@@ -1,0 +1,150 @@
+---
+title: "How to Detect and Fix Overlapping Subtitles"
+description: "Fix overlapping subtitles in SRT and VTT files automatically. Detect timing collisions for Netflix, Plex, Premiere Pro, DaVinci Resolve, and WCAG compliance."
+date: "2026-04-26"
+slug: "how-to-detect-fix-overlapping-subtitles"
+---
+
+# How to Detect and Fix Overlapping Subtitles
+
+Overlapping subtitles are one of the most common subtitle quality problems — and one of the easiest to miss until your file is rejected by a streaming platform, flagged in an accessibility audit, or reported by viewers seeing flickering text.
+
+This guide explains what subtitle overlaps are, how they happen, how to detect them, and how to fix them automatically using the [Subtitle Overlap Fixer](/subtitle-overlap-fixer).
+
+## What Are Overlapping Subtitles?
+
+A subtitle overlap occurs when two cues have timestamps that overlap in time. For example:
+
+```
+1
+00:00:04,000 --> 00:00:07,500
+This is the first subtitle.
+
+2
+00:00:07,000 --> 00:00:09,000
+This subtitle starts before the first one ends.
+```
+
+Cue 1 ends at `00:00:07,500`. Cue 2 starts at `00:00:07,000`. There's a 500ms overlap where both cues are technically "on screen" at the same time.
+
+What the viewer sees depends on the player: some players show both simultaneously (stacking text), some flash between them, and some skip one entirely. None of these is the intended behaviour.
+
+## Why Overlapping Subtitles Are a Problem
+
+**User experience** — Stacked or flickering subtitles are hard to read, especially at normal video playback speed. Viewers frequently turn off subtitles when they behave erratically.
+
+**Platform rejection** — Netflix's [Timed Text Style Guide](https://partnerhelp.netflixtech.com/hc/en-us/articles/215758617-Timed-Text-Style-Guide-General-Requirements) explicitly rejects subtitle files with overlapping timecodes. Even a single 1ms overlap can cause an upload to fail. Plex and other media servers behave similarly.
+
+**Accessibility** — WCAG 2.1 Success Criterion 1.2.2 requires that captions be "synchronized." Overlapping cues are technically out of compliance because the display timing is ambiguous.
+
+**Browser rendering** — In HTML5 video with WebVTT, overlapping cues can cause layout shifts and flickering in Chrome, Firefox, and Safari. This is particularly disruptive for users who rely on captions.
+
+## Why Subtitle Overlaps Happen
+
+### AI-Generated Captions
+
+Automatic transcription tools — including Whisper, YouTube's auto-captions, Otter.ai, and similar services — are the biggest source of overlapping subtitle cues in 2026. AI models assign timing word-by-word, and when speakers talk quickly, interrupt each other, or speak over background noise, the AI frequently assigns overlapping timestamps.
+
+Repairing overlapping dialogue in AI-generated SRT files is now one of the most common subtitle quality tasks for content creators and post-production teams.
+
+### Format Conversion
+
+Converting between subtitle formats — particularly SRT to VTT or VTT to SRT — can surface overlaps that existed in the original file but weren't visible in the source format's player. As part of any conversion workflow, checking for overlaps after conversion is good practice.
+
+### Manual Editing Errors
+
+When subtitle files are edited manually in a text editor, it's easy to accidentally create overlapping timestamps, especially when adjusting timing for specific cues without checking the adjacent entries.
+
+### Merging Subtitle Files
+
+Merging two subtitle files at a cut point can create overlap at the join — particularly if the last cue of the first file and the first cue of the second file have timestamps that collide. Always run a merged subtitle file through an overlap checker after joining.
+
+## How to Fix Subtitle Overlaps Automatically
+
+The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) scans your entire SRT or VTT file and automatically corrects any timestamps where cues collide:
+
+1. Open the [Subtitle Overlap Fixer](/subtitle-overlap-fixer)
+2. Paste your subtitle content or load your file
+3. Click fix overlaps
+4. Download the corrected file
+
+The fixer trims the end timestamp of each cue so it doesn't extend into the start of the next one, applying a small gap (typically 1ms) between adjacent cues. The text content is never changed — only the timestamps are adjusted.
+
+## Fixing Overlaps for Specific Platforms
+
+### Fix SRT Timecode Overlaps for Netflix Upload
+
+Netflix's delivery specification rejects subtitle files with overlapping timecodes. If your file is being rejected on upload, overlaps are the most likely cause.
+
+Run your SRT file through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) before packaging for Netflix delivery. Even 1ms of overlap will trigger a rejection, so automated detection is more reliable than manual review for files with hundreds of cues.
+
+### Fix Overlapping Captions in Premiere Pro Captions Track
+
+In Premiere Pro 2026, overlapping cues in the captions workspace appear as "red block" errors on the captions timeline — a new visual indicator introduced in the updated captioning workspace. These red blocks must be resolved before export.
+
+You can fix overlapping captions in Premiere Pro's captions track directly within the application, but for files with many overlaps, it's faster to export the SRT, fix all overlaps at once with the [Subtitle Overlap Fixer](/subtitle-overlap-fixer), and re-import.
+
+### Resolve Subtitle Timing Collisions in DaVinci Resolve 19
+
+DaVinci Resolve 19 surfaces overlapping subtitle clips as errors on the edit page timeline. Similar to Premiere, you can fix these within Resolve — but for large files, exporting, fixing externally, and re-importing is often faster.
+
+### Fix SRT Overlaps for Plex Media Server
+
+Plex handles SRT overlaps inconsistently: depending on the client app and the Plex version, overlapping cues may stack, flash, or cause one cue to be silently dropped. For a reliable Plex subtitle experience, fix SRT overlaps before adding files to your library.
+
+### Remove Overlapping Subtitle Blocks from VTT Files
+
+For web developers, overlapping VTT cue blocks cause two specific problems: flickering text in the browser video player, and layout shifts that affect page CLS (Cumulative Layout Shift) scores — a Core Web Vitals metric.
+
+Removing overlapping subtitle blocks from VTT files before deploying them on your website improves both the viewer experience and your page's CLS score.
+
+## Detecting Subtitle Overlaps Manually
+
+If you want to check for overlaps without a tool, the logic is straightforward: for each cue, compare its end time to the start time of the next cue. If the end time is greater than the next cue's start time, there's an overlap.
+
+In practice, doing this manually for a 500-cue SRT file — typical for a 90-minute video — means checking 499 pairs of timestamps. This is exactly the kind of task that should be automated.
+
+For compliance officers and accessibility auditors checking how to detect SRT timing overlaps for WCAG 2.1 AA compliance, the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) provides a clean, automated report-and-fix workflow.
+
+## Overlaps in Dual Language Subtitle Tracks
+
+When merging two language tracks into a single subtitle file, overlapping text in dual language subtitle tracks is almost inevitable. A sentence in English and its translation in Spanish rarely have identical length and timing — the Spanish cue might extend 200ms past the end of the English cue, causing an overlap.
+
+The fix is to run the merged bilingual file through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) after merging. Combined with the [Subtitle Merger](/subtitle-merger), this gives you a clean dual-language file with no collisions.
+
+## Manual vs Automatic Subtitle Overlap Repair
+
+For very small files (under 50 cues) with only a few overlaps, manual repair in a text editor is feasible. You adjust the end timestamp of the overlapping cue so it ends before the next cue begins.
+
+For anything larger — AI transcription output, feature film subtitle files, lecture recordings, social media batches — automatic repair is the right approach. Automatic subtitle overlap repair is faster, more consistent, and catches edge cases (1ms overlaps, identical start/end times) that are easy to miss visually.
+
+The comparison:
+
+| Method | Speed | Accuracy | File Size Limit |
+|---|---|---|---|
+| Manual (text editor) | Slow | Error-prone | Very small files only |
+| Automatic (browser tool) | Instant | Consistent | Any size |
+
+For archival video projects — cleaning up poorly digitised subtitle files from legacy formats — automatic repair is particularly valuable. Historical subtitle files from DVD or VHS transfers often contain dozens of overlaps introduced during digitisation.
+
+---
+
+## FAQ: Fixing Overlapping Subtitles
+
+### How do I fix overlapping subtitles in an SRT file?
+Use the [Subtitle Overlap Fixer](/subtitle-overlap-fixer). It automatically detects every overlapping timestamp pair in your SRT file and adjusts the end times so cues don't collide — all in your browser with no software required.
+
+### Why is Netflix rejecting my subtitle file?
+Netflix's delivery spec rejects SRT files with overlapping timecodes. Even a single 1ms overlap causes rejection. Run your file through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) before packaging for delivery.
+
+### How do I fix overlapping subtitle cues from AI-generated captions?
+AI transcription tools frequently produce overlapping timestamps, especially during fast speech or cross-talk. Use the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) to automatically correct all overlaps in the output file.
+
+### What causes the "red block" error in Premiere Pro captions?
+Red blocks in Premiere Pro's captions workspace indicate overlapping cues. Export the SRT, fix the overlaps using the [Subtitle Overlap Fixer](/subtitle-overlap-fixer), and re-import the corrected file.
+
+### Can overlapping subtitles affect accessibility compliance?
+Yes. WCAG 2.1 Success Criterion 1.2.2 requires synchronized captions. Overlapping cues create ambiguous display timing, which is considered out of compliance for accessibility audits on public-facing websites.
+
+### Is automatic or manual subtitle overlap repair better?
+For files with more than 50 cues, automatic repair is faster, more accurate, and catches edge cases that are easy to miss when reviewing manually. The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) handles any file size instantly in your browser.

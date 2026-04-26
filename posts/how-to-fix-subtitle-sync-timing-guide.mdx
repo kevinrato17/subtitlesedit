@@ -1,0 +1,116 @@
+---
+title: "How to Fix Subtitle Sync: The Complete Timing Guide"
+description: "Fix subtitle sync issues caused by frame rate mismatch, Bluetooth delay, re-encoding, and more. Shift SRT timing online free — no software needed."
+date: "2026-04-26"
+slug: "how-to-fix-subtitle-sync-timing-guide"
+---
+
+# How to Fix Subtitle Sync: The Complete Timing Guide
+
+Out-of-sync subtitles are one of the most common — and most fixable — problems in video production. Whether your subtitles are consistently a few seconds early, slowly drifting further out of sync as the video plays, or jumping at specific points, there's a precise cause and a precise fix.
+
+This guide covers every major subtitle sync issue, what causes each one, and how to correct it using the [Subtitle Time Shifter](/subtitle-time-shifter) — free, in your browser, without re-encoding anything.
+
+## Why Subtitles Go Out of Sync
+
+Understanding the cause determines the fix. The three most common reasons are:
+
+**Constant offset** — Every subtitle is off by the same amount. For example, all captions appear 2 seconds too early. This is the simplest case: a single time-shift fixes the whole file.
+
+**Subtitle drift (frame rate mismatch)** — Subtitles start roughly in sync but fall progressively further out of sync as the video continues. This is almost always a frame rate mismatch — the most common being the 23.976 vs 24 fps problem.
+
+**Point-specific desync** — Subtitles are in sync for part of the video but fall out after a specific moment. This usually happens when scenes have been cut, moved, or added after the subtitle file was created.
+
+## Fixing Subtitle Drift: 23.976 vs 24 FPS
+
+The 23.976 vs 24 fps frame rate mismatch is the most technically misunderstood subtitle sync problem. Here's why it happens.
+
+Film is typically shot at 23.976 fps (also written as 24000/1001). This is sometimes called "23.97" and it's not the same as true 24 fps. If a subtitle file was created for a 23.976 fps version of a video, and you're watching a 24 fps version (common with digital remasters and streaming encodes), the difference compounds over time.
+
+Over a 2-hour film, a 23.976 vs 24 fps mismatch creates a desync of approximately 3 seconds at the end. That's enough to make the end of the film nearly unwatchable with subtitles.
+
+To fix subtitle drift from a frame rate mismatch:
+1. Calculate the speed ratio: 23.976 ÷ 24 = 0.999
+2. Apply a proportional time-shift using the [Subtitle Time Shifter](/subtitle-time-shifter)
+
+For most practical cases, shifting by a fixed offset won't fully solve drift — the desync grows over time. A proper time-stretching adjustment is needed. The [Subtitle Time Shifter](/subtitle-time-shifter) lets you apply both a linear offset and a stretch factor to correct drift precisely.
+
+## How to Fix Early Subtitles
+
+If subtitles appear before the audio — for example, text shows up 1.5 seconds before the speaker opens their mouth — you have a constant negative offset.
+
+The fix: use the [Subtitle Time Shifter](/subtitle-time-shifter) and enter a positive delay value (e.g., +1500ms). This pushes every timestamp in the file forward by 1.5 seconds, bringing the text into alignment with the audio.
+
+This is the most common subtitle problem on streaming apps in 2026. If you're watching on a smart TV or streaming app and subtitles appear early, it's worth checking whether the platform offers an offset setting. Netflix, for example, allows subtitle delay adjustment in the player. But if you're managing your own subtitle file, fixing it at the source is cleaner.
+
+## Fixing Subtitle Sync After Re-Encoding
+
+Syncing SRT to video online without re-encoding is one of the most practical use cases for a subtitle time shifter. If your video has been re-encoded (for example, a 4K master compressed to 1080p for delivery), the subtitle timing usually needs to be adjusted to match.
+
+Re-encoding sometimes changes the audio/video offset, especially if the encoder trimmed a few frames from the start. A simple time-shift is all that's needed — you don't have to re-export the video.
+
+Use the [Subtitle Time Shifter](/subtitle-time-shifter) to apply the correction, then download the adjusted SRT file and pair it with your re-encoded video.
+
+## Subtitle Sync for Variable Frame Rate Video
+
+Variable frame rate (VFR) video is a common source of progressive subtitle desync, particularly for mobile video. Most smartphones record in VFR — the frame rate fluctuates based on scene complexity, lighting, and device processing load.
+
+When VFR video is paired with a subtitle file created at a fixed frame rate, the desync doesn't occur at a predictable rate. The drift varies throughout the video depending on where the frame rate fluctuated.
+
+The practical fix for fixing subtitle drift in variable frame rate video is to use a tool like [HandBrake](https://handbrake.fr/) to convert the VFR video to constant frame rate (CFR) first, then align your subtitle file to that CFR version. Once the video has a stable frame rate, a standard time-shift is straightforward.
+
+## Adjusting Subtitle Delay for Bluetooth Headphones on Windows 11
+
+This is a more unusual but increasingly common sync issue. Bluetooth audio inherently has a small latency — typically 40–300ms depending on the codec and device. On Windows 11, this can make subtitles appear to be slightly ahead of the audio because the video and subtitle display are not delayed to match the Bluetooth audio lag.
+
+Adjusting subtitle delay for Bluetooth headphones on Windows 11 is usually better handled at the media player level (VLC has a per-session subtitle delay shortcut: `H` and `G` keys). But if you're distributing a subtitle file and want to pre-compensate, you can shift the subtitle timing forward by the typical Bluetooth delay value.
+
+## Re-Syncing Subtitles After Cutting Video Scenes
+
+Re-syncing subtitles after cutting video scenes is one of the trickier timing fixes. When you delete a section of video, all the subtitle timestamps after the cut point are now wrong — they're still timed for the original video length.
+
+The workflow:
+1. Identify the exact timecode where the cut happened in the edited video
+2. Use the [Subtitle Splitter](/subtitle-splitter) to split the subtitle file at that point
+3. Shift the second half of the subtitle file backward by the duration of the removed segment using the [Subtitle Time Shifter](/subtitle-time-shifter)
+4. Merge the two halves back together with the [Subtitle Merger](/subtitle-merger)
+
+This gives you a clean subtitle file aligned to the edited video without having to re-time each cue manually.
+
+## Subtitle Sync for AI-Generated Captions
+
+AI video generation tools — including Sora, Runway, and Pika — often produce subtitle files with timing that doesn't match the final rendered video. The "staccato" issue (subtitles that cut in and out too quickly) and mismatched timing in fast-dialogue scenes are common.
+
+Using the [Subtitle Time Shifter](/subtitle-time-shifter) for AI-generated captions lets you apply a global offset to bring the whole file into rough sync, but individual cue-level adjustments may still be needed for AI-generated content with irregular timing patterns.
+
+If overlapping cues are present (another common AI captioning problem), run the file through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) first.
+
+## WCAG 2.1 Synchronized Captions Requirements in 2026
+
+WCAG 2.1 Level AA requires that all pre-recorded video content on public-facing websites includes synchronized captions. "Synchronized" means the captions must appear and disappear in time with the spoken audio — not before, not after.
+
+This has become a hard requirement for government, education, and healthcare websites under ADA, Section 508, and equivalent international regulations in 2026.
+
+For content creators and accessibility officers, this means verifying that your subtitle timing is accurate before publication — not just that captions exist. A subtitle time shifter is the tool that makes that precision adjustment possible.
+
+---
+
+## FAQ: Subtitle Sync and Timing
+
+### How do I fix subtitles that are out of sync?
+Use the [Subtitle Time Shifter](/subtitle-time-shifter). Enter a positive value to delay subtitles (push them later) or a negative value to advance them (pull them earlier). The tool adjusts every timestamp in the file at once.
+
+### What causes subtitle drift over long videos?
+The most common cause is a frame rate mismatch — particularly the 23.976 vs 24 fps difference. The desync compounds over time, creating several seconds of drift by the end of a feature film.
+
+### Can I fix subtitle sync without re-encoding my video?
+Yes. The [Subtitle Time Shifter](/subtitle-time-shifter) adjusts the subtitle file itself — you never touch the video. This is the fastest way to fix sync for an already-encoded video.
+
+### How do I fix subtitles after I've cut scenes from my video?
+Split the subtitle file at the cut point using the [Subtitle Splitter](/subtitle-splitter), shift the second half using the [Subtitle Time Shifter](/subtitle-time-shifter), then rejoin using the [Subtitle Merger](/subtitle-merger).
+
+### Why are my subtitles early on Netflix or streaming apps?
+Streaming apps sometimes have platform-level sync issues related to audio buffering or codec delays. You can report it to the platform or, if you control the subtitle file, shift it using the [Subtitle Time Shifter](/subtitle-time-shifter).
+
+### How do I sync dual language subtitles perfectly?
+Create separate subtitle files for each language, sync each one to the video individually using the [Subtitle Time Shifter](/subtitle-time-shifter), then merge them into a single file if needed using the [Subtitle Merger](/subtitle-merger).
