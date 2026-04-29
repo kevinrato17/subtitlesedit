@@ -1,0 +1,111 @@
+---
+title: "How to Fix Subtitle Sync on Plex, VLC, and Apple TV"
+description: "Fix subtitle sync issues on Plex, VLC, Apple TV and Roku permanently. Shift SRT timing online when built-in offset tools fail — free, no software needed."
+date: "2026-04-29"
+slug: "fix-subtitle-sync-plex-vlc-apple-tv"
+---
+
+# How to Fix Subtitle Sync on Plex, VLC, and Apple TV
+
+Built-in subtitle offset tools are convenient — until they stop working. If you've tried VLC's keyboard shortcut, Plex's internal delay setting, or Apple TV's subtitle options and your captions are still drifting, the problem almost certainly lives inside the subtitle file itself. The only real fix is correcting the timestamps at the source.
+
+This guide covers the most common streaming subtitle errors in 2026, why the built-in fixes fail, and how to permanently sync SRT files using the [Subtitle Time Shifter](/subtitle-time-shifter).
+
+## Why Built-In Offset Tools Often Fail
+
+Every major media player offers some form of subtitle delay control. VLC has a keyboard shortcut. Plex has an offset slider. Apple TV has accessibility timing adjustments. So why do people still end up with broken subtitle sync?
+
+Three reasons:
+
+**The fix doesn't persist.** Player-level offsets are session-based. Close the app, restart the stream, or switch devices and the offset resets. If you watch across multiple devices — a phone, a TV, and a laptop — you're adjusting it every time.
+
+**The offset only handles constant desync.** If your subtitles are drifting (getting progressively earlier or later as the video plays), a fixed offset corrects the problem at one point in time but makes it worse at another. Drift requires a different kind of fix — adjusting the speed of the timestamps, not just shifting them.
+
+**Hardware-level rendering bugs.** Some subtitle sync issues in 2026 are caused by firmware updates on specific hardware — Roku devices with Plex, specific Apple TV models, and certain smart TV platforms — where the player's subtitle timing engine behaves inconsistently. In these cases, the device literally can't apply the offset reliably.
+
+The solution in all three scenarios is to fix the subtitle file permanently using the [Subtitle Time Shifter](/subtitle-time-shifter), so the timing is correct regardless of which device or player you use.
+
+## Plex Subtitles Out of Sync on Roku — Permanent Fix
+
+Plex's internal subtitle offset tool works in most cases but has a known failure mode on Roku: the offset fails to save, or saves but reverts when the stream is paused, resumed, or the app is restarted. This is a Plex-Roku interop issue that has persisted across multiple app versions.
+
+The permanent fix for Plex subtitle delay on Roku is to edit the SRT file directly:
+
+1. Find your SRT file in your Plex library folder
+2. Open the [Subtitle Time Shifter](/subtitle-time-shifter)
+3. Load the file and enter your offset value — positive to delay subtitles, negative to advance them
+4. Download the corrected SRT file and replace the original in your library
+5. Force Plex to re-scan that item
+
+After the re-scan, Plex picks up the updated file and your offset is baked into the subtitle track permanently. No in-app adjustment needed, no matter which device plays it.
+
+To find the right offset value: play the video in Plex, note how many seconds early or late the subtitles appear, and enter that value (in milliseconds) into the Time Shifter. If subtitles appear 2 seconds too early, enter `-2000` to pull them back.
+
+## VLC Subtitle Delay Shortcut Not Working — What to Do
+
+VLC's subtitle delay shortcuts (`H` to delay, `G` to advance) are useful for on-the-fly adjustments, but they fail in a few specific situations:
+
+- On some macOS versions, the shortcuts conflict with system keyboard bindings
+- In fullscreen mode on certain display configurations, keypresses aren't captured reliably
+- When playing from a network share or external drive, timing adjustments sometimes don't apply correctly
+- If you close and reopen the file, the adjustment is gone
+
+If the VLC sync issues are happening consistently, the smarter approach is to shift the subtitle file permanently. Use the [Subtitle Time Shifter](/subtitle-time-shifter), apply the same delay you were using in VLC, and save the corrected file. Next time you open it in VLC, it plays in sync from the first frame — no keyboard adjustment needed.
+
+## Why Are Subtitles Early on Apple TV?
+
+If your subtitles are appearing slightly before the audio on Apple TV, the most common cause is a frame rate mismatch between the video file and what the subtitle file was timed for.
+
+Apple TV hardware — particularly the Apple TV 4K with its support for high frame rate (HFR) content — applies automatic frame rate switching. When it switches from one refresh rate to another mid-playback, subtitle timing can shift by a few frames. If the subtitle file was already borderline on timing, that shift becomes visible.
+
+The deeper cause is often the 23.976 vs 24 fps problem. Films shot at 23.976 fps (the standard for most digital cinema) are sometimes delivered at 24 fps for streaming. A subtitle file timed for 23.976 fps will appear slightly early in a 24 fps version — and the difference compounds over time.
+
+### How to Sync SRT with 23.976 FPS Video
+
+To fix subtitle drift caused by a frame rate mismatch between 23.976 and 24 fps:
+
+1. Calculate the ratio: 23.976 ÷ 24 = 0.999 (the SRT is running 0.1% faster than the video)
+2. Over a 2-hour film, this creates approximately 7 seconds of drift at the end
+3. Use the [Subtitle Time Shifter](/subtitle-time-shifter) to apply a stretch factor rather than a fixed offset — this scales all timestamps proportionally so sync is correct from start to finish, not just at one point
+
+A fixed offset corrects the problem at one moment. A stretch correction fixes it across the entire duration. For anything longer than about 20 minutes, use a stretch correction for frame rate drift.
+
+## Streaming Subtitle Errors in 2026 — What's Changed
+
+New Ofcom regulations and international broadcast standards introduced in March 2026 have increased demand for correctly timed subtitle files. Small production companies and streaming platforms are now required to ensure that a much higher percentage of their VOD content is properly subtitled and synced.
+
+The practical result: more subtitle files are being created, converted, and distributed quickly — and more of them have timing errors than before. Whether you're dealing with subtitle lag on a streaming platform, a downloaded file that's off by two seconds, or a collection of archive content with inconsistent timing, the tools to fix it are the same.
+
+Fixing movie subtitles at the file level — rather than relying on player-side adjustments — is the right long-term approach. It works across every device, every player, and every viewer in your household.
+
+## When to Shift vs When to Stretch
+
+Two types of fixes exist for subtitle timing problems:
+
+**Shift** — Move all timestamps forward or backward by a fixed amount. Use this when every single subtitle is off by the same amount from start to finish. Classic symptom: subtitle appears 3 seconds late, consistently, throughout the whole video.
+
+**Stretch** — Scale all timestamps proportionally. Use this when subtitles start roughly in sync but drift over time. Classic symptom: subtitles are fine for the first 10 minutes, then gradually fall further out of sync.
+
+The [Subtitle Time Shifter](/subtitle-time-shifter) handles both types of adjustment. For most streaming subtitle errors, a simple shift is enough. For frame rate mismatches on longer content, a stretch correction gives you accurate sync from the first frame to the last.
+
+---
+
+## FAQ: Subtitle Sync on Streaming Platforms
+
+### Why are my Plex subtitles out of sync on Roku after the offset fix?
+Plex's internal offset tool has a known persistence issue on Roku — the setting resets when the stream is paused or the app restarts. Fix it permanently by editing the SRT file itself using the [Subtitle Time Shifter](/subtitle-time-shifter) and replacing the file in your Plex library.
+
+### How do I fix subtitle lag permanently without adjusting the player every time?
+Use the [Subtitle Time Shifter](/subtitle-time-shifter) to shift the timestamps in the SRT file itself. Once the file is corrected, it plays in sync on every device and every player without any per-session adjustment.
+
+### Why does my VLC subtitle delay shortcut not work on Mac?
+On macOS, VLC's `H` and `G` subtitle delay shortcuts can conflict with system keyboard bindings or fail in fullscreen mode. The reliable alternative is to shift the subtitle file permanently using the [Subtitle Time Shifter](/subtitle-time-shifter).
+
+### How do I sync SRT files with 23.976 FPS video?
+The 23.976 vs 24 fps mismatch creates progressive drift — subtitles start roughly in sync but fall further out as the video plays. Apply a stretch correction (not just a fixed offset) using the [Subtitle Time Shifter](/subtitle-time-shifter) to scale all timestamps proportionally.
+
+### Why are subtitles early on Apple TV?
+The most common cause is a frame rate mismatch — particularly if the subtitle file was timed for a 23.976 fps source but the video is playing at 24 fps. Apple TV's automatic frame rate switching can also introduce a small timing offset. Fix it by shifting the SRT file using the [Subtitle Time Shifter](/subtitle-time-shifter).
+
+### What's the difference between subtitle shift and subtitle stretch?
+A shift moves all timestamps by a fixed amount (used when subtitles are uniformly early or late). A stretch scales all timestamps proportionally (used when subtitles drift progressively over time due to frame rate mismatches). The [Subtitle Time Shifter](/subtitle-time-shifter) handles both.

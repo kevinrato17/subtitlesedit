@@ -1,0 +1,142 @@
+---
+title: "Subtitle Overlap and Splitting: The Post-Production Fix Guide"
+description: "Fix overlapping captions in Premiere Pro and DaVinci Resolve. Split SRT files by chapter for YouTube. Detect and repair subtitle overlaps for accessibility compliance."
+date: "2026-04-29"
+slug: "subtitle-overlap-splitting-post-production-guide"
+---
+
+# Subtitle Overlap and Splitting: The Post-Production Fix Guide
+
+In post-production, subtitle errors fall into two categories: timing problems that frustrate viewers, and structural problems that prevent delivery entirely. Overlapping captions and incorrectly structured subtitle files sit in the second category — they block exports, trigger platform rejections, and fail accessibility audits.
+
+This guide covers how to detect subtitle overlaps in SRT files, fix them in Premiere Pro and DaVinci Resolve, and split subtitle files by chapter for YouTube — all part of a clean, professional captioning workflow in 2026.
+
+## Why Subtitle Overlaps Are Now a Delivery-Blocking Problem
+
+Before the wave of AI transcription, subtitle overlaps were an occasional manual editing error. In 2026, they're endemic. AI captioning tools generate overlapping timestamps constantly — particularly during fast dialogue, cross-talk, and scenes with background noise.
+
+The timing couldn't be worse. New Ofcom regulations introduced in March 2026 require 80% of VOD content to carry subtitles. Production teams racing to caption their back catalogues are using AI tools at scale — and shipping the output directly without QA. The result is a flood of subtitle files with overlapping timestamps entering delivery pipelines that now have zero tolerance for them.
+
+Netflix, Amazon, Disney+, and every major streaming platform explicitly reject SRT and VTT files with overlapping timecodes. A single 1ms overlap is enough to trigger a rejection. For accessibility compliance under WCAG 2.1 AA, overlapping captions are a specific failure mode.
+
+## How to Detect Subtitle Overlaps in SRT Files
+
+An overlap occurs when a cue's end time is later than the start time of the next cue. For example:
+
+```
+42
+00:04:12,500 --> 00:04:16,800
+She walks into the room.
+
+43
+00:04:16,200 --> 00:04:19,000
+He doesn't look up.
+```
+
+Cue 42 ends at `00:04:16,800`. Cue 43 starts at `00:04:16,200`. There's a 600ms overlap. In a 90-minute feature with 800+ cues, checking every pair manually is not practical.
+
+The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) scans the entire file automatically and corrects every overlap in one pass — trimming each cue's end time so it finishes before the next one begins, with a small gap inserted between them.
+
+For accessibility teams using this as a QA checkpoint before delivery, the overlap fixer gives you a clean file and removes the compliance risk in under a minute.
+
+## Fixing Overlapping Captions in Premiere Pro
+
+Premiere Pro's captioning workspace introduced a visual overlap indicator in its 2026 update: overlapping cues appear as red blocks on the captions timeline. This is useful for spotting problems, but fixing them one by one inside Premiere is time-consuming for files with many overlaps.
+
+The faster workflow for fixing overlapping captions in Premiere Pro:
+
+1. Export the captions from the Premiere sequence as an SRT file (**File → Export → Captions**)
+2. Open the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) and load the exported SRT
+3. Click fix overlaps and download the corrected file
+4. Re-import the corrected SRT into Premiere (**File → Import**, then assign to your sequence)
+
+This round-trip takes about two minutes and resolves all overlaps at once — far faster than clicking through each red block individually in Premiere's interface.
+
+After re-importing, the red blocks on your captions timeline should be gone. Check the beginning and end of the sequence to confirm timing is still correct.
+
+## DaVinci Resolve Subtitle Overlap Error — The External Fix
+
+DaVinci Resolve 19 shows overlapping subtitle clips as collisions on the edit page timeline. Like Premiere, you can resolve these within Resolve, but the external fix is faster for files with more than a handful of overlaps.
+
+Export the subtitle track from Resolve as an SRT file, run it through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer), then re-import the corrected file. In Resolve, go to **Subtitle Track → Export**, fix the overlaps, then **File → Import Subtitle** to bring the corrected version back in.
+
+If your timing has also drifted — common after any re-encode or project frame rate change — use the [Subtitle Time Shifter](/subtitle-time-shifter) to re-sync the file before re-importing.
+
+## Splitting SRT by Chapter for YouTube
+
+YouTube's chapter feature (jump-to-section via the progress bar) requires timestamps in the video description. But the subtitle file still covers the full video — it doesn't need to be split for YouTube itself.
+
+However, there's a different splitting use case for YouTube: if you're uploading a long video and want to create individual chapter-length clips as separate YouTube videos (common for film reviews, lecture series, and long-form interviews), each clip needs its own matching subtitle file.
+
+To split SRT by chapter for YouTube:
+
+1. Note the start and end time of each chapter in your video
+2. Open the [Subtitle Splitter](/subtitle-splitter)
+3. Load your full SRT file and set the split point to match the chapter boundary
+4. Download the subtitle segment for that chapter
+
+The splitter resets timestamps so each chapter's subtitle file starts from `00:00:00` — matching the beginning of the individual clip, not the original full video's timeline.
+
+For a 10-part lecture series split from one long recording, this process creates 10 correctly timed SRT files — one for each upload — in minutes rather than hours of manual editing.
+
+## Splitting SRT Files for Social Media Ads and Reels
+
+Short-form video for social media has its own subtitle requirements. A 15-second Instagram ad or a 30-second YouTube pre-roll needs a subtitle file that starts at zero and ends at exactly the right moment.
+
+When splitting subtitle files for social media ads, precision matters. Even a half-second overhang past the end of the video causes the player to behave unpredictably — showing a blank caption box or holding the last cue past the end of the video.
+
+Use the [Subtitle Splitter](/subtitle-splitter) with the exact in and out timecodes of your ad creative. If you're cutting multiple variations (15s, 30s, 60s) from one master, split each version separately.
+
+After splitting, check line length. Social media ads display best with short caption lines — under 32 characters — that don't cover the subject's face or the platform's UI elements (like TikTok's like button column on the right side of the screen).
+
+## The Full Post-Production Captioning Workflow
+
+For production teams building a repeatable QA process, here's a clean end-to-end workflow:
+
+**Step 1 — Generate or receive captions**
+Whether from an AI transcription tool, a human captioner, or a platform export, you'll typically receive an SRT or VTT file.
+
+**Step 2 — Convert format if needed**
+If you received VTT and need SRT (for editing software), use the [VTT to SRT Converter](/vtt-to-srt-converter). If you need VTT for web delivery, use the [SRT to VTT Converter](/srt-to-vtt-converter) at the end of the process.
+
+**Step 3 — Fix timing**
+If sync is off, use the [Subtitle Time Shifter](/subtitle-time-shifter) to shift or stretch timestamps to match the video.
+
+**Step 4 — Fix overlaps**
+Run every file through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) before delivery. This is the step that prevents platform rejections and accessibility failures.
+
+**Step 5 — Split if needed**
+If you're delivering chapter-length segments or social media cuts, use the [Subtitle Splitter](/subtitle-splitter) to extract the correct sections.
+
+**Step 6 — Final format conversion**
+Convert to the delivery format required by your platform. For web and streaming: VTT. For editing software and social uploads: SRT.
+
+## Manual vs Automatic Subtitle Overlap Repair for Professionals
+
+For an editor manually reviewing a 10-cue subtitle file, checking for overlaps in a text editor is feasible. For a 600-cue feature film or a batch of 40 lecture recordings, it's not.
+
+Professional captioning repair means automated detection. The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) processes any size file in seconds, applies consistent fixes across all overlap points, and produces output that passes platform validation — which manual review frequently fails to achieve.
+
+For production companies now required to meet Ofcom's 2026 standards across their VOD catalogues, building automated overlap checking into the delivery QA process is the only way to scale.
+
+---
+
+## FAQ: Subtitle Overlaps and Splitting
+
+### How do I fix overlapping captions in Premiere Pro?
+Export the SRT from your Premiere sequence, run it through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer), then re-import the corrected file. This is faster than fixing overlaps individually via Premiere's captions timeline, especially for files with many collisions.
+
+### How do I detect subtitle overlaps in an SRT file?
+The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) automatically scans your entire SRT file for timestamp collisions and fixes every one of them in a single pass.
+
+### How do I fix a DaVinci Resolve subtitle overlap error?
+Export the subtitle track from Resolve as SRT, fix overlaps using the [Subtitle Overlap Fixer](/subtitle-overlap-fixer), then re-import the corrected SRT via **File → Import Subtitle** in DaVinci Resolve 19.
+
+### How do I split an SRT file by chapter for YouTube?
+Use the [Subtitle Splitter](/subtitle-splitter) with your chapter start and end timecodes. The splitter resets timestamps to zero for each segment, so each chapter's subtitle file aligns with the start of its individual clip upload.
+
+### Why do AI-generated subtitles have so many overlaps?
+AI transcription tools assign timestamps word-by-word based on audio analysis. During fast speech, cross-talk, or noisy audio, the model frequently assigns overlapping time windows to consecutive cues. Always run AI caption output through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) before delivery.
+
+### Are overlapping subtitles an accessibility compliance failure?
+Yes. WCAG 2.1 Success Criterion 1.2.2 requires synchronized captions. Overlapping timestamps create ambiguous display timing and are considered a compliance failure in accessibility audits for public-facing web video.
