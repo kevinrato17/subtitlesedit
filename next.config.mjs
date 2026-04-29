@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  trailingSlash: false,
   transpilePackages: ["next-mdx-remote"],
   images: {
     remotePatterns: [
