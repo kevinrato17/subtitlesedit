@@ -15,7 +15,7 @@ const PAGE_TITLE =
   "VTT to TXT Converter – Free Online Tool to Extract Text from WebVTT Subtitles";
 const META_DESC =
   "Convert VTT (WebVTT) subtitle files to plain TXT instantly in your browser. Extract dialogue text from web captions with or without timestamps. Free, private, no uploads.";
-const CANONICAL = "https://www.subtitlesedit.com/vtt-to-txt-converter";
+const CANONICAL = "https://subtitlesedit.com/vtt-to-txt-converter";
 
 /** Strip WebVTT inline tags: i, b, u, c, v, ruby, rt, font (and closing variants). */
 const STRIP_TAGS_RE =

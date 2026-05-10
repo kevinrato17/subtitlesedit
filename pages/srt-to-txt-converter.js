@@ -15,7 +15,7 @@ const PAGE_TITLE =
   "SRT to TXT Converter – Free Online Tool to Extract Text from SRT Subtitles";
 const META_DESC =
   "Convert SRT subtitle files to plain TXT instantly in your browser. Extract dialogue text from subtitles with or without timestamps. Free, private, no uploads.";
-const CANONICAL = "https://www.subtitlesedit.com/srt-to-txt-converter";
+const CANONICAL = "https://subtitlesedit.com/srt-to-txt-converter";
 
 /** Matches SRT timestamp line: 00:00:00,000 --> 00:00:00,000 (comma or dot ms). */
 const TIMESTAMP_LINE_RE =
