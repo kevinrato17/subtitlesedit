@@ -1,151 +1,104 @@
 import Head from "next/head";
+import Link from "next/link";
 import Layout from "@/components/Layout";
 
 const section =
-  "mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-[3rem] py-10 lg:py-12";
+  "mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-[3rem] py-12";
 const h2 =
   "text-[1.875rem] font-semibold leading-snug text-[#1e293b] mb-4 mt-2";
-const h3 = "text-xl font-semibold text-[#1e293b] mb-3 mt-8";
 const p = "mb-4 text-[#334155] leading-relaxed [&_strong]:font-semibold [&_strong]:text-[#1e293b]";
-const ul = "mb-4 list-disc pl-5 text-[#334155] space-y-2 [&_p]:mb-0";
-const ol = "mb-4 list-decimal pl-5 text-[#334155] space-y-2 [&_p]:mb-0";
 const code =
   "rounded bg-[#ECEFF3] px-1.5 py-0.5 text-sm font-normal text-[#111827]";
 
-function HubGrid() {
-  const cardBase =
-    "flex min-h-[160px] flex-col items-center justify-center gap-2.5 rounded-[14px] border border-gray-200 bg-white px-[18px] py-[22px] text-center shadow-[0_2px_12px_rgba(0,0,0,.06)] outline-0 transition-[transform,box-shadow,border-color,background-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-sky-400/45 hover:bg-gradient-to-b hover:from-white hover:to-[#fbfdff] hover:shadow-[0_6px_26px_rgba(0,0,0,.10)] focus-visible:border-sky-500 focus-visible:shadow-[0_0_0_3px_rgba(14,165,233,.35),0_2px_12px_rgba(0,0,0,.06)] motion-reduce:transition-none motion-reduce:hover:translate-y-0";
-  const ico =
-    "grid h-[52px] w-[52px] place-items-center rounded-xl border border-gray-200 bg-slate-50";
-  const icoSvg = "h-7 w-7 fill-[#0ea5e9]";
-  const title = "text-[1.02rem] font-bold tracking-tight text-[#111827]";
-  const desc = "text-[0.95rem] text-[#6b7280]";
+const toolCardClasses =
+  "group flex h-full min-h-[140px] flex-col justify-center rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0ea5e9]";
+
+function ToolGrid() {
+  const tools = [
+    {
+      href: "/srt-to-vtt-converter",
+      name: "SRT to VTT Converter",
+      desc: "Convert .srt to browser-native .vtt",
+      aria: "Open SRT to VTT Converter",
+    },
+    {
+      href: "/vtt-to-srt-converter",
+      name: "VTT to SRT Converter",
+      desc: "Convert .vtt files back to .srt",
+      aria: "Open VTT to SRT Converter",
+    },
+    {
+      href: "/srt-to-txt-converter",
+      name: "SRT to TXT Converter",
+      desc: "Extract plain text from .srt files",
+      aria: "Open SRT to TXT Converter",
+    },
+    {
+      href: "/vtt-to-txt-converter",
+      name: "VTT to TXT Converter",
+      desc: "Extract plain text from .vtt files",
+      aria: "Open VTT to TXT Converter",
+    },
+    {
+      href: "/subtitle-time-shifter",
+      name: "Subtitle Time Shifter",
+      desc: "Shift timestamps forward or back",
+      aria: "Open Subtitle Time Shifter",
+    },
+    {
+      href: "/subtitle-merger",
+      name: "Subtitle Merger",
+      desc: "Combine multiple .srt or .vtt files",
+      aria: "Open Subtitle Merger",
+    },
+    {
+      href: "/subtitle-splitter",
+      name: "Subtitle Splitter",
+      desc: "Split long subtitles into parts",
+      aria: "Open Subtitle Splitter",
+    },
+    {
+      href: "/subtitle-overlap-fixer",
+      name: "Subtitle Overlap Fixer",
+      desc: "Detect and fix overlapping cues",
+      aria: "Open Subtitle Overlap Fixer",
+    },
+  ];
 
   return (
     <section
       id="tools"
-      className="mx-auto mb-12 mt-8 max-w-[1100px] scroll-mt-24 px-4 text-[#111827]"
-      aria-labelledby="se-hub-title"
+      className={section}
+      aria-labelledby="tools-heading"
     >
-      <p
-        id="se-hub-title"
-        className="mb-6 text-[0.975rem] text-[#6b7280]"
-      >
-        All tools run 100% in your browser. No uploads. No tracking.
+      <h2 id="tools-heading" className={h2}>
+        Our Free Subtitle Tools
+      </h2>
+      <p className={`${p} mb-8 max-w-3xl`}>
+        Pick a tool to open its dedicated page. Each utility focuses on one job—
+        format conversion, timing, merging, splitting, or overlap cleanup—so you
+        land on the right controls immediately. If you are unsure where to start,
+        match the task name to what your file needs (for example, WebVTT for an
+        HTML5 player versus SRT for an editing timeline), then adjust timing or
+        structure afterward if required.
       </p>
-
-      <nav className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3" aria-label="Tool grid">
-        <a
-          className={cardBase}
-          href="/srt-to-vtt-converter"
-          aria-label="Open SRT to VTT Converter"
-        >
-          <span className={ico} aria-hidden>
-            <svg className={icoSvg} viewBox="0 0 24 24" role="img">
-              <path d="M4 4h16v6H4zM4 14h7v6H4zM13 14h7v6h-7z" />
-            </svg>
-          </span>
-          <span className={title}>SRT → VTT Converter</span>
-          <span className={desc}>Convert .srt to browser-native .vtt</span>
-        </a>
-
-        <a
-          className={cardBase}
-          href="/vtt-to-srt-converter"
-          aria-label="Open VTT to SRT Converter"
-        >
-          <span className={ico} aria-hidden>
-            <svg className={icoSvg} viewBox="0 0 24 24" role="img">
-              <path d="M4 4h7v6H4zM13 4h7v6h-7zM4 14h16v6H4z" />
-            </svg>
-          </span>
-          <span className={title}>VTT → SRT Converter</span>
-          <span className={desc}>Convert .vtt files back to .srt</span>
-        </a>
-
-        <a
-          className={cardBase}
-          href="/srt-to-txt-converter"
-          aria-label="Open SRT to TXT Converter"
-        >
-          <span className={ico} aria-hidden>
-            <svg className={icoSvg} viewBox="0 0 24 24" role="img">
-              <path d="M7 4h10a1 1 0 011 1v14a1 1 0 01-1 1H7a1 1 0 01-1-1V5a1 1 0 011-1zm1 4h8v2H8V8zm0 4h8v2H8v-2zm0 4h6v2H8v-2z" />
-            </svg>
-          </span>
-          <span className={title}>SRT → TXT Converter</span>
-          <span className={desc}>Extract plain text from .srt files</span>
-        </a>
-
-        <a
-          className={cardBase}
-          href="/vtt-to-txt-converter"
-          aria-label="Open VTT to TXT Converter"
-        >
-          <span className={ico} aria-hidden>
-            <svg className={icoSvg} viewBox="0 0 24 24" role="img">
-              <path d="M7 4h10a1 1 0 011 1v14a1 1 0 01-1 1H7a1 1 0 01-1-1V5a1 1 0 011-1zm1 4h8v2H8V8zm0 4h8v2H8v-2zm0 4h6v2H8v-2z" />
-            </svg>
-          </span>
-          <span className={title}>VTT → TXT Converter</span>
-          <span className={desc}>Extract plain text from .vtt files</span>
-        </a>
-
-        <a
-          className={cardBase}
-          href="/subtitle-time-shifter"
-          aria-label="Open Subtitle Time Shifter"
-        >
-          <span className={ico} aria-hidden>
-            <svg className={icoSvg} viewBox="0 0 24 24" role="img">
-              <path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2zm1 5h-2v6l5 3 1-1.732-4-2.268V7z" />
-            </svg>
-          </span>
-          <span className={title}>Subtitle Time Shifter</span>
-          <span className={desc}>Shift timestamps forward or back</span>
-        </a>
-
-        <a
-          className={cardBase}
-          href="/subtitle-merger"
-          aria-label="Open Subtitle Merger"
-        >
-          <span className={ico} aria-hidden>
-            <svg className={icoSvg} viewBox="0 0 24 24" role="img">
-              <path d="M7 3h4v4H7zM13 3h4v4h-4zM7 17h10v4H7zM11 7h2v6h-2z" />
-            </svg>
-          </span>
-          <span className={title}>Subtitle Merger</span>
-          <span className={desc}>Combine multiple .srt/.vtt files</span>
-        </a>
-
-        <a
-          className={cardBase}
-          href="/subtitle-splitter"
-          aria-label="Open Subtitle Splitter"
-        >
-          <span className={ico} aria-hidden>
-            <svg className={icoSvg} viewBox="0 0 24 24" role="img">
-              <path d="M4 4h16v4H4zM4 10h7v4H4zM13 10h7v4h-7zM4 16h16v4H4z" />
-            </svg>
-          </span>
-          <span className={title}>Subtitle Splitter</span>
-          <span className={desc}>Split long subs into parts</span>
-        </a>
-
-        <a
-          className={cardBase}
-          href="/subtitle-overlap-fixer"
-          aria-label="Open Subtitle Overlap Fixer"
-        >
-          <span className={ico} aria-hidden>
-            <svg className={icoSvg} viewBox="0 0 24 24" role="img">
-              <path d="M5 5h8v8H5zM11 11h8v8h-8z" />
-            </svg>
-          </span>
-          <span className={title}>Subtitle Overlap Fixer</span>
-          <span className={desc}>Detect & fix overlapping cues</span>
-        </a>
+      <nav
+        className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        aria-label="Subtitle tools"
+      >
+        {tools.map((t) => (
+          <Link
+            key={t.href}
+            href={t.href}
+            className={toolCardClasses}
+            aria-label={t.aria}
+          >
+            <h3 className="text-lg font-semibold text-[#0ea5e9] transition-colors group-hover:text-sky-600">
+              {t.name}
+            </h3>
+            <p className="mt-2 text-sm leading-snug text-[#64748b]">{t.desc}</p>
+          </Link>
+        ))}
       </nav>
     </section>
   );
@@ -371,625 +324,216 @@ export default function Home() {
             itemScope
             itemType="https://schema.org/CreativeWork"
           >
-            <header className="entry-header px-4 pb-2 pt-10 text-left sm:px-6 lg:px-[3rem]">
-              <h1
-                className="text-3xl font-semibold leading-tight text-[#1e293b] md:text-4xl"
-                itemProp="headline"
-              >
-                Free Subtitle Edit Tools for SRT &amp; WebVTT Conversion,
-                Editing, and Fixing
-              </h1>
-            </header>
-
             <div className="entry-content clear px-0" itemProp="text">
-              <HubGrid />
-
-              <div className="px-4 pb-2 pt-2 sm:px-6 lg:px-[3rem]">
+              <div className="px-4 pb-2 pt-10 sm:px-6 lg:px-[3rem]">
                 <div className="overflow-hidden rounded-2xl bg-gradient-to-r from-sky-500 to-cyan-600 px-6 py-14 text-center shadow-lg sm:px-10 sm:py-16">
-                  <p className="text-3xl font-bold leading-tight text-white md:text-4xl">
+                  <h1 className="text-3xl font-bold leading-tight text-white md:text-4xl">
                     Free Online Subtitle Editing Tools
-                  </p>
+                  </h1>
                   <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/95 sm:text-lg">
-                    Convert, shift, merge, split and fix subtitles instantly in
-                    your browser — no upload required.
+                    Convert SRT and VTT, fix timing, merge or split cues, and
+                    download results in your browser with no uploads.
                   </p>
                   <a
                     href="#tools"
-                    className="mt-8 inline-flex items-center justify-center rounded-[10px] border-2 border-white/80 bg-white px-6 py-3 text-sm font-semibold text-[#0ea5e9] shadow-sm transition-colors hover:border-white hover:bg-white/95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                    className="mt-8 inline-flex items-center justify-center rounded-lg border-2 border-white/80 bg-white px-6 py-3 text-sm font-semibold text-[#0ea5e9] shadow-sm transition-colors hover:border-white hover:bg-white/95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                   >
-                    Explore Tools
+                    Explore tools
                   </a>
                 </div>
               </div>
 
-              <div className={section}>
-                <h2 className={h2}>
-                  Convert, Edit, and Fix Subtitles Instantly — 100% Private,
-                  Fast, and Works Offline
-                </h2>
-              </div>
+              <ToolGrid />
 
               <div className={section}>
                 <p className={p}>
-                  Welcome to <strong>Subtitles Edit</strong>, your one-stop suite
-                  of <strong>online subtitle tools</strong> designed for
-                  creators, translators, and editors who want total control of
-                  their captions.
-                  <br />
-                  Whether you need to <strong>convert SRT to VTT</strong>,{" "}
-                  <strong>fix subtitle timing</strong>, or{" "}
-                  <strong>merge multiple subtitle files</strong>, every tool here
-                  works directly inside your browser — with{" "}
-                  <strong>
-                    no uploads, no logins, and complete privacy
-                  </strong>
+                  <strong>Subtitles Edit</strong> is a set of lightweight subtitle
+                  tools for everyday caption work: convert subtitles between
+                  formats, extract readable text from cue lists, fix subtitle
+                  timing after edits, merge tracks for multi-part projects, split
+                  long lines, and resolve overlaps before publishing. They are
+                  meant for editors, translators, students, and creators who want
+                  predictable output without installing heavyweight desktop suites.
                 </p>
                 <p className={p}>
-                  Our <strong>Subtitle Edit Tools</strong> provide essential
-                  features that streamline the editing process for creators.
+                  The utilities focus on <strong>SRT</strong> and{" "}
+                  <strong>VTT (WebVTT)</strong>, the pair you will see across most
+                  editors, browsers, and hosting stacks. Open a tool, load a file
+                  via drag-and-drop or the file picker (or paste where the page
+                  supports it), then copy or download the result. There are no
+                  accounts or watermarks, and processing stays on your device—no
+                  mandatory uploads.
                 </p>
               </div>
 
               <div className={section}>
-                <h2 className={h2}>
-                  Convert SRT to VTT or WebVTT Instantly
-                </h2>
-                <p className={p}>
-                  <span className="text-base text-black">
-                    Our most popular utility is the{" "}
-                  </span>
-                  <strong className="text-black">SRT to VTT Converter</strong>
-                  <span className="text-base text-black">
-                    , which lets you{" "}
-                  </span>
-                  <strong className="text-black">convert SRT to WebVTT</strong>
-                  <span className="text-base text-black">
-                    {" "}
-                    format in seconds.
-                  </span>
-                  <br />
-                  <span className="text-base text-black">
-                    Many modern players and platforms — including YouTube,
-                    Vimeo, and HTML5 — use the{" "}
-                  </span>
-                  <code className={`${code} text-black`}>.vtt</code>
-                  <span className="text-base text-black">
-                    {" "}
-                    (WebVTT) format for captions.
-                  </span>
-                  <br />
-                  <span className="text-base text-black">
-                    This tool makes it simple to{" "}
-                  </span>
-                  <strong className="text-black">
-                    convert SRT to VTT online
-                  </strong>
-                  <span className="text-base text-black">, or even </span>
-                  <strong className="text-black">convert SRT to WebVTT</strong>
-                  <span className="text-base text-black">
-                    {" "}
-                    with perfect accuracy and no software downloads.
-                  </span>
-                  <br />
+                <h2 className={h2}>Why Subtitles Edit?</h2>
+                <p className={`${p} max-w-3xl`}>
+                  Most subtitle fixes are repetitive: shift the clock after a new
+                  intro, convert for delivery, or merge translated lines without
+                  touching video exports. These pages aim to make those moves
+                  predictable—small interfaces, explicit outputs, and client-side
+                  execution so you can stay inside your existing workflow.
                 </p>
-                <p className={p}>
-                  The <strong>Subtitle Edit Tools</strong> allow for seamless
-                  integration with your video projects.
-                </p>
-              </div>
-
-              <div className={section}>
-                <h3 className={h3}>Why Use Our SRT to VTT Converter?</h3>
-                <ul className={ul}>
+                <ul className="mb-0 list-disc space-y-3 pl-5 text-[#334155] marker:text-[#0ea5e9]">
                   <li>
-                    <ul className="mb-4 list-disc pl-5 space-y-2">
-                      <li>
-                        <p className="mb-0 text-[#334155]">
-                          <strong>Instant results:</strong> paste or upload your{" "}
-                          <code className={code}>.srt</code> file and get{" "}
-                          <code className={code}>.vtt</code> in one click
-                        </p>
-                      </li>
-                      <li>
-                        <p className="mb-0 text-[#334155]">
-                          <strong>Fully private:</strong> everything runs in
-                          your browser — nothing uploaded
-                        </p>
-                      </li>
-                      <li>
-                        <p className="mb-0 text-[#334155]">
-                          <strong>Accurate conversion:</strong> maintains
-                          original timestamps and cue order
-                        </p>
-                      </li>
-                      <li>
-                        <p className="mb-0 text-[#334155]">
-                          <strong>Supports WebVTT syntax:</strong> compatible
-                          with all HTML5 video players
-                        </p>
-                      </li>
-                    </ul>
-                    <p className="mb-4 text-[#334155]">
-                      So whether you need an{" "}
-                      <strong>SRT to WebVTT converter</strong> for your site or
-                      just want to <strong>convert SRT to VTT</strong> quickly,
-                      this free browser-based tool gets it done safely.
-                    </p>
-                    <p className="mb-4 text-[#334155]"> </p>
+                    <strong className="font-semibold text-[#1e293b]">
+                      100% browser-based
+                    </strong>{" "}
+                    — nothing is uploaded to a server; processing runs locally in
+                    JavaScript.
+                  </li>
+                  <li>
+                    <strong className="font-semibold text-[#1e293b]">
+                      Works offline once loaded
+                    </strong>{" "}
+                    — after the page is cached, you can keep working without a
+                    network connection.
+                  </li>
+                  <li>
+                    <strong className="font-semibold text-[#1e293b]">
+                      No signups, no accounts, no watermarks
+                    </strong>{" "}
+                    — open a tool and start immediately.
+                  </li>
+                  <li>
+                    <strong className="font-semibold text-[#1e293b]">
+                      Free forever
+                    </strong>{" "}
+                    — the full workflow stays free; there are no tiered features
+                    or trial timers.
+                  </li>
+                  <li>
+                    <strong className="font-semibold text-[#1e293b]">
+                      Fast and lightweight
+                    </strong>{" "}
+                    — minimal UI overhead and straight-line conversions help keep
+                    pages responsive and aligned with Core Web Vitals goals.
+                  </li>
+                  <li>
+                    <strong className="font-semibold text-[#1e293b]">
+                      Privacy-first by design
+                    </strong>{" "}
+                    — your subtitles are not stored remotely or used for
+                    analytics by these tools.
                   </li>
                 </ul>
               </div>
 
               <div className={section}>
-                <h2 className={h2}>
-                  Convert VTT to SRT Offline — No Uploads Required
-                </h2>
-                <p className={p}>
-                  Our <strong>Subtitle Edit Tools</strong> are designed to make
-                  the editing experience as efficient as possible.
+                <h2 className={h2}>How It Works</h2>
+                <p className={`${p} mb-6 max-w-3xl`}>
+                  The flow stays consistent from tool to tool: choose what you are
+                  trying to accomplish, bring your cues into the page, apply the
+                  adjustment, then export or copy the outcome. You can jump back to
+                  the grid anytime—nothing locks you into a multi-step wizard.
                 </p>
-                <h3 className={h3}>
-                  Essential Subtitle Edit Tools for Every Creator
-                </h3>
-                <p className={p}>
-                  If you’re looking to reverse the process, the{" "}
-                  <strong>VTT to SRT Converter</strong> does exactly that.
-                  <br />
-                  It lets you <strong>convert VTT to SRT offline</strong>,
-                  directly inside your browser window.
-                  <br />
-                  Because Subtitles Edit runs fully on client-side code, you can
-                  even disconnect from the internet after the page loads — and
-                  keep <strong>converting VTT to SRT</strong> securely.
-                </p>
-                <h3 className={h3}>
-                  Benefits of Converting VTT to SRT{"\u200b"}
-                </h3>
-                <ul className={ul}>
+                <ol className="mb-0 list-decimal space-y-6 pl-5 text-[#334155] marker:font-semibold marker:text-[#0ea5e9]">
                   <li>
+                    <p className="mb-1 font-semibold text-[#1e293b]">
+                      Choose a tool from the grid above
+                    </p>
                     <p className="mb-0 text-[#334155]">
-                      No file transfer — 100% private
+                      Each page handles one task—conversion, shifting, merging,
+                      splitting, or overlap fixes—so you skip dashboard clutter.
+                      When you need multiple passes (for example, convert VTT to SRT,
+                      then shift timing), run them as separate, quick steps.
                     </p>
                   </li>
                   <li>
+                    <p className="mb-1 font-semibold text-[#1e293b]">
+                      Load your subtitle file by drag-and-drop, file picker, or
+                      paste
+                    </p>
                     <p className="mb-0 text-[#334155]">
-                      Ideal for editors who prefer the SRT format
+                      Inputs vary by tool—some encourage paste for tiny snippets,
+                      others expect a full file—but nothing forces an upload to a
+                      remote server. Keep working entirely inside your session if
+                      that matches your security requirements.
                     </p>
                   </li>
                   <li>
-                    <p className="mb-0 text-[#334155]">
-                      Works for WebVTT subtitles from YouTube, Vimeo, and more
+                    <p className="mb-1 font-semibold text-[#1e293b]">
+                      Convert, edit, or fix instantly — then copy or download the
+                      result
                     </p>
-                  </li>
-                  <li>
                     <p className="mb-0 text-[#334155]">
-                      Perfect for translating, syncing, or merging caption files
-                    </p>
-                  </li>
-                </ul>
-                <p className={p}>
-                  Whether you’re <strong>converting VTT to SRT</strong> for
-                  editing in software like Premiere Pro, or using it as part of a
-                  localization workflow, Subtitles Edit handles it flawlessly.
-                </p>
-                <p className={p}>
-                  Using our <strong>Subtitle Edit Tools</strong>, you will
-                  experience fast and accurate subtitle conversions.
-                </p>
-              </div>
-
-              <div className={section}>
-                <h2 className={h2}>Powerful Subtitle Utilities in One Place</h2>
-                <p className={p}>
-                  Each tool is fast, lightweight, and built for professionals
-                  who need reliability.
-                </p>
-                <h3 className={h3}>Subtitle Time Shifter</h3>
-                <p className={p}>
-                  Easily adjust subtitle timing — shift timestamps forward or
-                  backward to fix synchronization issues caused by frame-rate
-                  differences.
-                </p>
-                <p className={p}>
-                  With these <strong>Subtitle Edit Tools</strong>, timing
-                  adjustments can be made effortlessly.
-                </p>
-                <h3 className={h3}>Subtitle Merger</h3>
-                <p className={p}>
-                  Combine multiple subtitle files into a single timeline. Ideal
-                  for merging translated scripts or episodic content.
-                </p>
-                <h3 className={h3}>Subtitle Splitter</h3>
-                <p className={p}>
-                  Split large <code className={code}>.srt</code> or{" "}
-                  <code className={code}>.vtt</code> files into smaller chunks by
-                  line count or duration — perfect for breaking long movies into
-                  manageable parts.
-                </p>
-                <h3 className={h3}>Subtitle Overlap Fixer</h3>
-                <p className={p}>
-                  The <strong>Subtitle Edit Tools</strong> help detect issues
-                  that commonly arise in subtitle files.
-                </p>
-                <p className={p}>
-                  Detect and fix overlapping cues automatically for smoother
-                  playback and better readability.
-                </p>
-                <p className={p}>
-                  All of these tools support both <code className={code}>.srt</code>{" "}
-                  and <code className={code}>.vtt</code> formats, giving you
-                  complete flexibility.
-                </p>
-                <p className={p}> </p>
-              </div>
-
-              <div className={section}>
-                <h2 className={h2}>How Subtitles Edit Works</h2>
-                <p className={p}>
-                  Subtitles Edit uses advanced{" "}
-                  <strong>JavaScript parsing and timestamp conversion</strong>{" "}
-                  logic to process your subtitle files directly in the browser.
-                  <br />
-                  There are <strong>no backend servers</strong> — your data never
-                  leaves your computer.
-                </p>
-                <p className={p}>
-                  When you <strong>convert SRT to VTT</strong> or{" "}
-                  <strong>convert SRT to WebVTT</strong>, the system:
-                </p>
-                <ol className={ol}>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      Reads your file with the <strong>FileReader API</strong>
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      Parses timestamps (
-                      <code className={code}>00:01:02,000</code> →{" "}
-                      <code className={code}>00:01:02.000</code>)
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      Preserves cue numbering and line spacing
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      Outputs a perfectly formatted <code className={code}>.vtt</code>{" "}
-                      file ready for use
+                      Use previews where provided to sanity-check cues, then save a
+                      fresh <code className={code}>.srt</code> or{" "}
+                      <code className={code}>.vtt</code> file or copy plain text for
+                      downstream scripts and editors.
                     </p>
                   </li>
                 </ol>
-                <p className={p}>
-                  Similarly, when <strong>converting VTT to SRT</strong>, it
-                  reverses the process — switching dots to commas and cleaning up
-                  the headers automatically.
-                </p>
-                <p className={p}>
-                  This is why both <strong>SRT to VTT conversion</strong> and{" "}
-                  <strong>VTT to SRT conversion</strong> happen instantly and
-                  privately.
-                </p>
-                <p className={p}> </p>
               </div>
 
               <div className={section}>
-                <h2 className={h2}>Supported Formats</h2>
-                <p className={p}>
-                  We support a wide range of formats with our{" "}
-                  <strong>Subtitle Edit Tools</strong>.
+                <h2 className={h2}>Supported Subtitle Formats</h2>
+                <p className={`${p} max-w-3xl`}>
+                  SRT is the interchange format you will see in most desktop
+                  editors and translation workflows. VTT is the web-native choice
+                  for HTML5 video, many CDNs, and platforms that expect a{" "}
+                  <code className={code}>WEBVTT</code> header and millisecond
+                  timestamps. Use the table below to compare syntax at a glance.
                 </p>
-                <div className="mb-6 overflow-x-auto">
-                  <table className="w-full min-w-[280px] border-collapse border border-gray-200 text-left text-sm text-[#334155]">
+                <div className="mb-0 overflow-x-auto rounded-xl border border-slate-200">
+                  <table className="w-full min-w-[280px] border-collapse text-left text-sm text-[#334155]">
                     <thead>
-                      <tr className="bg-[#F0F5FA]">
-                        <th className="border border-gray-200 px-3 py-2 font-semibold text-[#1e293b]">
+                      <tr className="bg-slate-50">
+                        <th className="border-b border-slate-200 px-4 py-3 font-semibold text-[#1e293b]">
                           Format
                         </th>
-                        <th className="border border-gray-200 px-3 py-2 font-semibold text-[#1e293b]">
+                        <th className="border-b border-slate-200 px-4 py-3 font-semibold text-[#1e293b]">
                           Example Timestamp
                         </th>
-                        <th className="border border-gray-200 px-3 py-2 font-semibold text-[#1e293b]">
+                        <th className="border-b border-slate-200 px-4 py-3 font-semibold text-[#1e293b]">
                           Common Use
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td className="border border-gray-200 px-3 py-2">
+                      <tr className="bg-white">
+                        <td className="border-b border-slate-200 px-4 py-3 align-top">
                           <strong>SRT (SubRip)</strong>
                         </td>
-                        <td className="border border-gray-200 px-3 py-2">
+                        <td className="border-b border-slate-200 px-4 py-3 align-top">
                           <code className={code}>
                             00:01:05,230 --&gt; 00:01:09,450
                           </code>
                         </td>
-                        <td className="border border-gray-200 px-3 py-2">
-                          Used by editors &amp; translators
+                        <td className="border-b border-slate-200 px-4 py-3 align-top">
+                          Used by editors, translators, and most video software
                         </td>
                       </tr>
-                      <tr>
-                        <td className="border border-gray-200 px-3 py-2">
+                      <tr className="bg-slate-50/80">
+                        <td className="px-4 py-3 align-top">
                           <strong>VTT (WebVTT)</strong>
                         </td>
-                        <td className="border border-gray-200 px-3 py-2">
-                          <code className={code}>WEBVTT</code> header +{" "}
+                        <td className="px-4 py-3 align-top">
                           <code className={code}>
                             00:01:05.230 --&gt; 00:01:09.450
                           </code>
                         </td>
-                        <td className="border border-gray-200 px-3 py-2">
-                          Used by browsers &amp; streaming platforms
+                        <td className="px-4 py-3 align-top">
+                          Used by browsers, HTML5 video, YouTube, and Vimeo
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-                <p className={p}>
-                  Subtitles Edit handles both formats seamlessly, making it the
-                  best place to <strong>convert SRT to WebVTT</strong> and{" "}
-                  <strong>convert VTT to SRT offline</strong>.{" "}
-                </p>
-                <p className={p}>
-                  Experience the difference with our advanced{" "}
-                  <strong>Subtitle Edit Tools</strong>.
-                </p>
-                <p className={p}>
-                  Our <strong>Subtitle Edit Tools</strong> can help bring your
-                  creative vision to life.
-                </p>
-                <p className={p}>
-                  Let our <strong>Subtitle Edit Tools</strong> transform your
-                  projects today.
-                </p>
-                <p className={p}>
-                  Our <strong>Subtitle Edit Tools</strong> are perfect for various
-                  editing scenarios.
+                <p className={`${p} mb-0 max-w-3xl`}>
+                  When you convert subtitles between these formats, timestamp
+                  precision is preserved where the specifications align—note the
+                  comma separator in SRT versus the dot in WebVTT. Headers and cue
+                  numbering differ as well: expect a simple numbered block for SRT
+                  and an optional <code className={code}>WEBVTT</code> preamble for
+                  VTT. Picking the right target upfront avoids rework when you hand
+                  files to collaborators who only accept one dialect.
                 </p>
               </div>
 
               <div className={section}>
-                <h2 className={h2}>Why Choose Subtitles Edit?</h2>
-                <ul className={ul}>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      <strong>Browser-based</strong> — no installation needed
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      <strong>Offline capable</strong> — once loaded, works
-                      without internet
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      <strong>Privacy-first</strong> — no uploads or tracking
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      <strong>Fast conversions</strong> — optimized JavaScript
-                      engine
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      <strong>Free forever</strong> — no watermarks or signups
-                    </p>
-                  </li>
-                </ul>
-                <p className={p}>
-                  Our goal is to give creators the fastest and safest way to{" "}
-                  <strong>convert subtitles</strong>,{" "}
-                  <strong>fix sync issues</strong>, and{" "}
-                  <strong>manage caption files</strong> with total confidence.
-                </p>
-                <p className={p}>
-                  Every user benefits from utilizing our comprehensive{" "}
-                  <strong>Subtitle Edit Tools</strong>.
-                </p>
-                <p className={p}>
-                  Our <strong>Subtitle Edit Tools</strong> guarantee privacy and
-                  speed with every use.
-                </p>
-                <p className={p}>
-                  Join our community and discover the benefits of using our{" "}
-                  <strong>Subtitle Edit Tools</strong>.
-                </p>
-                <p className={p}>
-                  Our <strong>Subtitle Edit Tools</strong> offer the best solutions
-                  for your editing tasks.
-                </p>
-                <p className={p}>
-                  Transform your workflow with our innovative{" "}
-                  <strong>Subtitle Edit Tools</strong>.
-                </p>
-              </div>
-
-              <div className={section}>
-                <h2 className={h2}>About Subtitles Edit</h2>
-                <p className={p}>
-                  Count on our <strong>Subtitle Edit Tools</strong> for reliable
-                  performance on every project.
-                </p>
-                <p className={p}>
-                  Check out the reviews of our effective{" "}
-                  <strong>Subtitle Edit Tools</strong>.
-                </p>
-                <p className={p}>
-                  Experience excellence with our feature-rich{" "}
-                  <strong>Subtitle Edit Tools</strong>.
-                </p>
-                <p className={p}>
-                  <strong>SubtitlesEdit.com</strong> is a lightweight subtitle
-                  toolkit built for simplicity, speed, and privacy.
-                  <br />
-                  Our tools are trusted by <strong>YouTube creators</strong>,{" "}
-                  <strong>translators</strong>, and{" "}
-                  <strong>post-production professionals</strong> worldwide who
-                  need to <strong>convert SRT to WebVTT</strong> or{" "}
-                  <strong>convert VTT to SRT offline</strong> without compromising
-                  security.
-                </p>
-                <p className={p}>
-                  Everything runs in your browser — safe, fast, and free.
-                  <br />
-                  No uploads. No installations. Just seamless subtitle editing.
-                </p>
-                <p className={p}>
-                  The <strong>Subtitle Edit Tools</strong> are continuously
-                  improved based on user feedback.
-                </p>
-                <p className={p}>
-                  Join thousands who trust our <strong>Subtitle Edit Tools</strong>{" "}
-                  to get the job done.
-                </p>
-              </div>
-
-              <div className={section}>
-                <h2 className={h2}>
-                  <br />
-                  Related Subtitle Tools
-                </h2>
-                <p className={p}>
-                  Each feature of our <strong>Subtitle Edit Tools</strong> is
-                  designed to be intuitive.
-                </p>
-                <p className={p}>
-                  Consider our <strong>Subtitle Edit Tools</strong> for all your
-                  subtitle needs.
-                </p>
-                <p className={p}>
-                  Utilize our <strong>Subtitle Edit Tools</strong> to elevate your
-                  work.
-                </p>
-                <ul className={`${ul} entry-content`}>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      <a
-                        className="decorated-link text-[#046bd2]"
-                        href="/srt-to-vtt-converter"
-                        rel="noopener"
-                      >
-                        SRT → VTT Converter
-                      </a>{" "}
-                      — Convert SRT to WebVTT in seconds
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      <a
-                        className="decorated-link text-[#046bd2]"
-                        href="/vtt-to-srt-converter"
-                        rel="noopener"
-                      >
-                        VTT → SRT Converter
-                      </a>{" "}
-                      — Convert WebVTT to SRT offline
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      <a
-                        className="decorated-link text-[#046bd2]"
-                        href="/srt-to-txt-converter"
-                        rel="noopener"
-                      >
-                        SRT → TXT Converter
-                      </a>{" "}
-                      — Extract plain text from .srt files
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      <a
-                        className="decorated-link text-[#046bd2]"
-                        href="/vtt-to-txt-converter"
-                        rel="noopener"
-                      >
-                        VTT → TXT Converter
-                      </a>{" "}
-                      — Extract plain text from .vtt files
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      <a
-                        className="decorated-link text-[#046bd2]"
-                        href="/subtitle-time-shifter"
-                        rel="noopener"
-                      >
-                        Subtitle Time Shifter
-                      </a>{" "}
-                      — Fix delayed subtitles
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      <a
-                        className="decorated-link text-[#046bd2]"
-                        href="/subtitle-merger"
-                        rel="noopener"
-                      >
-                        Subtitle Merger
-                      </a>{" "}
-                      — Combine multiple files
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      <a
-                        className="decorated-link text-[#046bd2]"
-                        href="/subtitle-splitter"
-                        rel="noopener"
-                      >
-                        Subtitle Splitter
-                      </a>{" "}
-                      — Break long subtitles into smaller files
-                    </p>
-                  </li>
-                  <li>
-                    <p className="mb-0 text-[#334155]">
-                      <a
-                        className="decorated-link text-[#046bd2]"
-                        href="/subtitle-overlap-fixer"
-                        rel="noopener"
-                      >
-                        Subtitle Overlap Fixer
-                      </a>{" "}
-                      — Remove overlapping timestamps
-                    </p>
-                  </li>
-                </ul>
-                <p className={p}>
-                  Explore our range of <strong>Subtitle Edit Tools</strong> to
-                  enhance your video content.
-                </p>
-                <p className={p}>
-                  Our <strong>Subtitle Edit Tools</strong> are perfect for both
-                  beginners and professionals alike.
-                </p>
-                <p className={p}>
-                  Embrace the power of our innovative{" "}
-                  <strong>Subtitle Edit Tools</strong>.
-                </p>
-                <p className={p}>
-                  With our <strong>Subtitle Edit Tools</strong>, you will never
-                  look back.
-                </p>
-                <p className={p}>
-                  The future of editing is here with our{" "}
-                  <strong>Subtitle Edit Tools</strong>.
-                </p>
-              </div>
-
-              <div className={section}>
-                <h2 className={h2}>
-                  Frequently Asked Questions (FAQs)
-                </h2>
+                <h2 className={h2}>Frequently Asked Questions</h2>
                 <FaqAccordion />
               </div>
             </div>

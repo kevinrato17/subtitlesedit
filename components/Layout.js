@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const LOGO_SRC = "/logo.png";
 const LOGO_ALT = "Subtitles Edit logo";
@@ -88,8 +89,13 @@ function CloseIcon() {
 }
 
 export default function Layout({ children }) {
+  const router = useRouter();
+  const pathname = router.pathname;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
+  const [mobileToolsExpanded, setMobileToolsExpanded] = useState(false);
+
+  const toolSectionActive = toolsLinks.some((t) => t.href === pathname);
 
   return (
     <div className="flex min-h-screen flex-col bg-white" id="page">
@@ -191,7 +197,13 @@ export default function Layout({ children }) {
             className="inline-flex items-center justify-center rounded p-2 text-[#046bd2] lg:hidden"
             aria-expanded={mobileOpen}
             aria-label="Main menu toggle"
-            onClick={() => setMobileOpen((o) => !o)}
+            onClick={() => {
+              setMobileOpen((prev) => {
+                const next = !prev;
+                if (!next) setMobileToolsExpanded(false);
+                return next;
+              });
+            }}
           >
             <span className="sr-only">Main Menu</span>
             <span className={mobileOpen ? "hidden" : "block"}>
@@ -210,109 +222,103 @@ export default function Layout({ children }) {
             className="mx-auto max-w-[1240px] px-5 py-4"
             aria-label="Site Navigation"
           >
-            <ul className="flex flex-col gap-1">
-              <li>
+            <ul className="flex flex-col divide-y divide-gray-100">
+              <li className="py-1">
+                <a
+                  href="/"
+                  className={`flex min-h-[44px] items-center rounded-lg px-3 py-3 text-lg font-medium transition-colors ${
+                    pathname === "/"
+                      ? "bg-sky-50 text-[#0ea5e9]"
+                      : "text-[#334155] hover:bg-[#F0F5FA] hover:text-[#0ea5e9]"
+                  }`}
+                  aria-current={pathname === "/" ? "page" : undefined}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Home
+                </a>
+              </li>
+              <li className="py-1">
+                <button
+                  type="button"
+                  id="mobile-tools-trigger"
+                  className={`flex min-h-[44px] w-full items-center justify-between rounded-lg px-3 py-3 text-left text-lg font-medium transition-colors ${
+                    toolSectionActive
+                      ? "bg-sky-50 text-[#0ea5e9]"
+                      : "text-[#334155] hover:bg-[#F0F5FA] hover:text-[#0ea5e9]"
+                  }`}
+                  aria-expanded={mobileToolsExpanded}
+                  aria-controls="mobile-tools-submenu"
+                  onClick={() => setMobileToolsExpanded((o) => !o)}
+                >
+                  Tools
+                  <span
+                    className={`inline-block text-[#0ea5e9] transition-transform duration-200 ease-out ${
+                      mobileToolsExpanded ? "rotate-180" : "rotate-0"
+                    }`}
+                    aria-hidden
+                  >
+                    ▾
+                  </span>
+                </button>
+                <div
+                  id="mobile-tools-submenu"
+                  role="region"
+                  aria-labelledby="mobile-tools-trigger"
+                  className={`overflow-hidden transition-[max-height] duration-300 ease-out ${
+                    mobileToolsExpanded ? "max-h-[560px]" : "max-h-0"
+                  }`}
+                >
+                  <ul className="flex flex-col gap-1 pb-3 pl-5 pt-1">
+                    {toolsLinks.map((item) => {
+                      const active = pathname === item.href;
+                      return (
+                        <li key={item.href}>
+                          <a
+                            href={item.href}
+                            className={`flex min-h-[44px] items-center rounded-lg px-3 py-2.5 text-sm transition-colors ${
+                              active
+                                ? "bg-sky-50 font-medium text-[#0ea5e9]"
+                                : "text-[#475569] hover:bg-[#F0F5FA] hover:text-[#0ea5e9]"
+                            }`}
+                            aria-current={active ? "page" : undefined}
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {item.label}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </li>
+              <li className="py-1">
                 <a
                   href="/blog"
-                  className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
+                  className={`flex min-h-[44px] items-center rounded-lg px-3 py-3 text-lg font-medium transition-colors ${
+                    pathname === "/blog"
+                      ? "bg-sky-50 text-[#0ea5e9]"
+                      : "text-[#334155] hover:bg-[#F0F5FA] hover:text-[#0ea5e9]"
+                  }`}
+                  aria-current={pathname === "/blog" ? "page" : undefined}
                   onClick={() => setMobileOpen(false)}
                 >
                   Blog
                 </a>
               </li>
-              <li>
+              <li className="py-1">
                 <a
                   href="/contact-us"
-                  className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
+                  className={`flex min-h-[44px] items-center rounded-lg px-3 py-3 text-lg font-medium transition-colors ${
+                    pathname === "/contact-us"
+                      ? "bg-sky-50 text-[#0ea5e9]"
+                      : "text-[#334155] hover:bg-[#F0F5FA] hover:text-[#0ea5e9]"
+                  }`}
+                  aria-current={
+                    pathname === "/contact-us" ? "page" : undefined
+                  }
                   onClick={() => setMobileOpen(false)}
                 >
                   Contact Us
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
-                  aria-current="page"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Free Subtitle Edit Tools for SRT &amp; WebVTT Conversion,
-                  Editing, and Fixing
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/srt-to-vtt-converter"
-                  className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  SRT to VTT Converter – Free Online Tool to Convert SRT to
-                  WebVTT Files
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/subtitle-merger"
-                  className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Subtitle Merger to Merge Subtitles Instantly (SRT &amp; VTT)
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/subtitle-overlap-fixer"
-                  className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Subtitle Overlap Fixer to Remove Overlapping Subtitles
-                  Instantly (SRT &amp; VTT)
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/subtitle-splitter"
-                  className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Subtitle Splitter to Split Subtitles Instantly (SRT &amp; VTT)
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/subtitle-time-shifter"
-                  className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Subtitle Time Shifter to Synchronize Subtitles Instantly (SRT
-                  &amp; VTT)
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/vtt-to-srt-converter"
-                  className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  VTT to SRT Converter (Free WebVTT to SRT Conversion Tool)
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/srt-to-txt-converter"
-                  className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  SRT to TXT Converter (Extract Plain Text from SRT Subtitles)
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/vtt-to-txt-converter"
-                  className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  VTT to TXT Converter (Extract Plain Text from WebVTT Subtitles)
                 </a>
               </li>
             </ul>
