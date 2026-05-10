@@ -16,6 +16,10 @@ const toolsLinks = [
     label: "VTT to SRT Converter",
   },
   {
+    href: "/srt-to-txt-converter",
+    label: "SRT to TXT Converter",
+  },
+  {
     href: "/subtitle-time-shifter",
     label: "Subtitle Time Shifter",
   },
@@ -287,6 +291,15 @@ export default function Layout({ children }) {
                   onClick={() => setMobileOpen(false)}
                 >
                   VTT to SRT Converter (Free WebVTT to SRT Conversion Tool)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/srt-to-txt-converter"
+                  className="block rounded px-3 py-2 text-[#334155] hover:bg-[#F0F5FA] hover:text-[#045cb4]"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  SRT to TXT Converter (Extract Plain Text from SRT Subtitles)
                 </a>
               </li>
             </ul>

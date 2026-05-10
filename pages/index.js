@@ -65,6 +65,20 @@ function HubGrid() {
 
         <a
           className={cardBase}
+          href="/srt-to-txt-converter"
+          aria-label="Open SRT to TXT Converter"
+        >
+          <span className={ico} aria-hidden>
+            <svg className={icoSvg} viewBox="0 0 24 24" role="img">
+              <path d="M7 4h10a1 1 0 011 1v14a1 1 0 01-1 1H7a1 1 0 01-1-1V5a1 1 0 011-1zm1 4h8v2H8V8zm0 4h8v2H8v-2zm0 4h6v2H8v-2z" />
+            </svg>
+          </span>
+          <span className={title}>SRT → TXT Converter</span>
+          <span className={desc}>Extract plain text from .srt files</span>
+        </a>
+
+        <a
+          className={cardBase}
           href="/subtitle-time-shifter"
           aria-label="Open Subtitle Time Shifter"
         >
@@ -283,6 +297,11 @@ const jsonLdItemList = {
       "@type": "SiteNavigationElement",
       name: "VTT to SRT Converter",
       url: "/vtt-to-srt-converter",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      name: "SRT to TXT Converter",
+      url: "/srt-to-txt-converter",
     },
     {
       "@type": "SiteNavigationElement",
@@ -851,6 +870,18 @@ export default function Home() {
                         VTT → SRT Converter
                       </a>{" "}
                       — Convert WebVTT to SRT offline
+                    </p>
+                  </li>
+                  <li>
+                    <p className="mb-0 text-[#334155]">
+                      <a
+                        className="decorated-link text-[#046bd2]"
+                        href="/srt-to-txt-converter"
+                        rel="noopener"
+                      >
+                        SRT → TXT Converter
+                      </a>{" "}
+                      — Extract plain text from .srt files
                     </p>
                   </li>
                   <li>
