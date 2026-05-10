@@ -40,6 +40,10 @@ const toolsLinks = [
     href: "/subtitle-overlap-fixer",
     label: "Subtitle Overlap Fixer",
   },
+  {
+    href: "/subtitle-encoding-fixer",
+    label: "Subtitle Encoding Fixer",
+  },
 ];
 
 function ChevronDown({ className }) {

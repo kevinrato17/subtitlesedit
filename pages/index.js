@@ -63,6 +63,12 @@ function ToolGrid() {
       desc: "Detect and fix overlapping cues",
       aria: "Open Subtitle Overlap Fixer",
     },
+    {
+      href: "/subtitle-encoding-fixer",
+      name: "Subtitle Encoding Fixer",
+      desc: "Fix mojibake, weird characters, and garbled text in subtitle files.",
+      aria: "Open Subtitle Encoding Fixer",
+    },
   ];
 
   return (
@@ -256,44 +262,58 @@ const jsonLdItemList = {
   name: "SubtitlesEdit.com Tools",
   itemListElement: [
     {
-      "@type": "SiteNavigationElement",
+      "@type": "ListItem",
+      position: 1,
       name: "SRT to VTT Converter",
-      url: "/srt-to-vtt-converter",
+      url: "https://subtitlesedit.com/srt-to-vtt-converter",
     },
     {
-      "@type": "SiteNavigationElement",
+      "@type": "ListItem",
+      position: 2,
       name: "VTT to SRT Converter",
-      url: "/vtt-to-srt-converter",
+      url: "https://subtitlesedit.com/vtt-to-srt-converter",
     },
     {
-      "@type": "SiteNavigationElement",
+      "@type": "ListItem",
+      position: 3,
       name: "SRT to TXT Converter",
-      url: "/srt-to-txt-converter",
+      url: "https://subtitlesedit.com/srt-to-txt-converter",
     },
     {
-      "@type": "SiteNavigationElement",
+      "@type": "ListItem",
+      position: 4,
       name: "VTT to TXT Converter",
-      url: "/vtt-to-txt-converter",
+      url: "https://subtitlesedit.com/vtt-to-txt-converter",
     },
     {
-      "@type": "SiteNavigationElement",
+      "@type": "ListItem",
+      position: 5,
       name: "Subtitle Time Shifter",
-      url: "/subtitle-time-shifter",
+      url: "https://subtitlesedit.com/subtitle-time-shifter",
     },
     {
-      "@type": "SiteNavigationElement",
+      "@type": "ListItem",
+      position: 6,
       name: "Subtitle Merger",
-      url: "/subtitle-merger",
+      url: "https://subtitlesedit.com/subtitle-merger",
     },
     {
-      "@type": "SiteNavigationElement",
+      "@type": "ListItem",
+      position: 7,
       name: "Subtitle Splitter",
-      url: "/subtitle-splitter",
+      url: "https://subtitlesedit.com/subtitle-splitter",
     },
     {
-      "@type": "SiteNavigationElement",
+      "@type": "ListItem",
+      position: 8,
       name: "Subtitle Overlap Fixer",
-      url: "/subtitle-overlap-fixer",
+      url: "https://subtitlesedit.com/subtitle-overlap-fixer",
+    },
+    {
+      "@type": "ListItem",
+      position: 9,
+      name: "Subtitle Encoding Fixer",
+      url: "https://subtitlesedit.com/subtitle-encoding-fixer",
     },
   ],
 };
