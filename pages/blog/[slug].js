@@ -43,6 +43,9 @@ export default function BlogPost({ source, title, date, description, slug }) {
                   ← Back to blog
                 </Link>
               </p>
+              <h1 className="mt-2 mb-4 text-3xl font-bold leading-tight text-[#1e293b] sm:text-4xl md:text-5xl">
+                {title}
+              </h1>
               <header className="border-b border-gray-100 pb-8">
                 {date ? (
                   <time
