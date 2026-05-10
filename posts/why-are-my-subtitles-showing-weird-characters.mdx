@@ -1,0 +1,140 @@
+---
+title: "Why Are My Subtitles Showing Weird Characters? A Complete Guide to Subtitle Encoding"
+description: "Fix mojibake, weird symbols, and garbled text in your SRT and VTT files. Learn what causes subtitle encoding issues and how to repair them in seconds."
+date: "2026-05-11"
+slug: "why-are-my-subtitles-showing-weird-characters"
+---
+
+You downloaded an SRT file, loaded it into your video player, and instead of dialogue you're staring at something like `Itâ€™s a beautiful day` or `Ð¿Ñ€Ð¸Ð²ÐµÑ‚`. The text is there. The timestamps work. But every accented character, every smart quote, every non-English letter has been replaced by gibberish.
+
+This is one of the most common subtitle problems on the internet, and it has a real name: **mojibake**. The good news is that nothing is actually broken — the original text is still hiding in the file. You just need to read it correctly. This guide explains what causes the problem, how to identify which flavour of it you're dealing with, and how to fix it in your browser without uploading anything.
+
+## What is mojibake?
+
+Mojibake (文字化け, literally "character transformation" in Japanese) is what happens when text is saved using one character encoding but read using a different one. Every character on your screen — a letter, a comma, an emoji — is stored on disk as a number, and the encoding is the dictionary that maps numbers to characters.
+
+When the dictionary your video player uses doesn't match the one your subtitle file was saved with, you get mojibake. The characters that exist in both dictionaries (basic Latin letters, digits, punctuation) come through fine. Everything else — accents, smart quotes, em-dashes, non-Latin scripts — turns into nonsense.
+
+A few real examples you'll recognise:
+
+- `It's` becomes `Itâ€™s` — the smart apostrophe got mangled
+- `Café` becomes `CafÃ©` — the `é` lost its identity
+- `naïve` becomes `naÃ¯ve` — same story for the `ï`
+- `— Hello` becomes `â€" Hello` — em-dashes are particularly fragile
+- Cyrillic, Greek, Chinese, Japanese, Korean — usually turns into complete gibberish or rows of `?` symbols
+
+## Why does this happen with subtitle files?
+
+Subtitles are uniquely vulnerable to encoding problems for three reasons.
+
+**No standard encoding exists.** Both SRT and VTT formats predate widespread Unicode adoption. There's no official rule that says "all subtitle files must be UTF-8." Files in the wild are saved in dozens of legacy encodings depending on where, when, and how they were created.
+
+**Subtitles travel.** A French subtitle file might be created on a Windows machine in Paris (Windows-1252 encoding), uploaded to a subtitle community in Russia (where Windows-1251 is the default), downloaded by someone in Japan, and finally opened on a macOS system that assumes everything is UTF-8. Each handoff is a chance for the encoding to be misinterpreted.
+
+**Tools convert silently.** Many subtitle editors and converters will happily save files in whatever encoding the operating system defaults to, without asking. Re-save a UTF-8 file on a Russian Windows machine and you might end up with something nothing else can read correctly.
+
+## The three encoding problems you'll actually see
+
+In our experience with the [Subtitle Encoding Fixer](/subtitle-encoding-fixer), the vast majority of broken subtitle files fall into one of three patterns. Identifying which one you have makes the fix straightforward.
+
+### Pattern 1: Replacement character squares
+
+You see lots of `�` or `?` symbols where letters should be. Whole words become unreadable blocks.
+
+**What's happening:** the file uses a non-Western encoding (Windows-1251 for Cyrillic, Shift_JIS for Japanese, Big5 for Traditional Chinese, GB18030 for Simplified Chinese, EUC-KR for Korean) but your player is trying to read it as UTF-8. The bytes simply aren't valid UTF-8, so the player gives up and shows replacement characters.
+
+**The fix:** tell the file to be read in its actual encoding. If you don't know the encoding, try the regional default for the language (Windows-1251 for Russian, GB18030 for Chinese, etc.).
+
+### Pattern 2: Garbled letters that look almost right
+
+The text is *almost* readable — basic English words are fine — but every accented character or smart quote is replaced by two or three weird symbols. You see things like `Ã©` instead of `é`, or `â€™` instead of `'`.
+
+**What's happening:** this is the classic "UTF-8 read as Windows-1252" mistake. The file was correctly saved in UTF-8 (where `é` is stored as two bytes: `0xC3 0xA9`), but your player is reading it as Windows-1252 (where each byte is a separate character, so those two bytes show up as `Ã` followed by `©`).
+
+**The fix:** force the player or editor to read the file as UTF-8. If you can't change the player, re-save the file in whatever encoding the player *does* default to.
+
+### Pattern 3: Mojibake baked into the file (the trickiest case)
+
+You see literal mojibake characters — `Itâ€™s`, `CafÃ©`, `Naïve` — but the file isn't actually broken in the encoding sense. Open it in any UTF-8 editor and the mojibake is still there.
+
+**What's happening:** somewhere upstream, someone opened a UTF-8 file in a program that misread it as Windows-1252, then saved the result back to disk as UTF-8. The corruption is now permanently encoded into the bytes. Switching encodings won't help because the file *is* valid UTF-8 — it just contains UTF-8 representations of mojibake characters.
+
+**The fix:** you need a tool that can reverse the original double-encoding. This means decoding the file as UTF-8 to get the mojibake string, then re-encoding each character as a Windows-1252 byte, then decoding *those* bytes as UTF-8 to recover the original text. Our [Subtitle Encoding Fixer](/subtitle-encoding-fixer) does this automatically with the "Try reverse mojibake fix" button.
+
+## What encoding should subtitle files use?
+
+If you're creating subtitle files in 2026, the answer is unambiguous: **UTF-8**.
+
+UTF-8 is the universal standard for text on the web. It can represent every character in every written language, it's backward-compatible with plain ASCII, and every modern video player, editor, and operating system supports it natively. There is no good reason to save a new subtitle file in any other encoding.
+
+The one wrinkle is the **Byte Order Mark** (BOM) — three special bytes (`0xEF 0xBB 0xBF`) at the very start of the file that explicitly signal "this is UTF-8." Most modern players don't need the BOM, but some older software does:
+
+- **VLC (older versions)** sometimes displays non-English characters incorrectly without a BOM
+- **Windows Media Player** has historically been BOM-dependent
+- **Hardware media players** (older smart TVs, standalone subtitle decoders) are often BOM-dependent
+
+If your subtitles look fine in some players but garbled in others, try saving the file *with* a UTF-8 BOM. Our encoding fixer has a checkbox for this when you download the corrected file.
+
+## How to fix subtitle encoding without uploading anything
+
+Online tools that claim to fix subtitle encoding usually require you to upload your file to their servers, wait for processing, and download a result you can't preview before committing. That's a lot of trust for what should be a simple operation.
+
+Our [Subtitle Encoding Fixer](/subtitle-encoding-fixer) takes a different approach: everything runs in your browser, locally, using the same `TextDecoder` API that web browsers themselves use to interpret text. Nothing is uploaded. Nothing is logged. Your subtitle file never leaves your machine.
+
+The workflow is straightforward:
+
+1. **Drop your file onto the upload zone.** SRT, VTT, and TXT files all work.
+2. **Compare the Before and After panes.** The Before pane shows the file as a default UTF-8 reader would see it — usually with mojibake or replacement characters. The After pane shows the file as the tool *thinks* it should be read.
+3. **If the After pane doesn't look right, try a different encoding.** The dropdown lets you cycle through the most common candidates. The preview updates instantly.
+4. **For files with baked-in mojibake** (Pattern 3 above), click "Try reverse mojibake fix" and watch the corrupted characters resolve to their original forms.
+5. **Download the fixed file as clean UTF-8.** Add a BOM if you're targeting older players.
+
+The whole process takes about thirty seconds for most files.
+
+## Preventing encoding issues going forward
+
+A few habits that will save you from future mojibake:
+
+**Always save subtitle files as UTF-8.** Most modern subtitle editors (Subtitle Edit, Aegisub, Jubler) let you choose the output encoding when saving. Default to UTF-8 unless a specific player you're targeting requires something else.
+
+**Be sceptical of files from unknown sources.** If you've downloaded a subtitle file from a community site or scraped it from an archive, check what encoding it's actually using before opening it in a tool that might re-save it with the wrong assumption. Running it through our [Subtitle Encoding Fixer](/subtitle-encoding-fixer) first takes ten seconds and prevents permanent corruption.
+
+**Avoid copy-pasting subtitle content between programs.** Copy-paste loses the original byte-level encoding information. If a file has mojibake and you paste its contents into a new editor, you'll bake the corruption in permanently. Always work with the file directly.
+
+**Test in your target player before publishing.** If you're producing subtitles for distribution, open the finished file in at least two different players (something modern like VLC, and something legacy like a hardware media player or older Windows app) to confirm characters render correctly across the board.
+
+## Frequently asked questions
+
+### Why are my subtitles showing weird characters like â€™ or Ã©?
+
+These specific sequences are the visual fingerprint of "UTF-8 file being read as Windows-1252." The original file is correctly encoded as UTF-8, but the program reading it is interpreting each byte individually as a Windows-1252 character. Switching the reader to UTF-8 — or running the file through an encoding fixer — resolves the problem instantly.
+
+### What encoding should I use for subtitle files?
+
+UTF-8, in almost every case. It supports every language, every special character, and every modern player understands it. Only use a legacy encoding (Windows-1252, Windows-1251, Shift_JIS, etc.) if you're specifically targeting an old hardware player that doesn't support UTF-8.
+
+### What is mojibake?
+
+Mojibake is the Japanese term for text that appears as nonsense characters because it was encoded in one character set but decoded in another. It's not corruption in the traditional sense — the original information is still in the file, just being read with the wrong "dictionary."
+
+### Do I need a BOM in my subtitle file?
+
+For modern players (VLC current versions, MPC-HC, mpv, browser-based players, YouTube, streaming platforms), no. They detect UTF-8 automatically. For some older players, hardware devices, or legacy Windows software, yes — the BOM is a hint that helps them display non-English characters correctly. When in doubt, add it. The BOM is invisible and won't cause problems on players that don't need it.
+
+### Will fixing the encoding change my timestamps or formatting?
+
+No. Encoding only affects how characters are interpreted, not the structure of the file. Timestamps, cue numbers, line breaks, and inline formatting tags (like `<i>` for italics) remain exactly as they were. Only the displayed text characters are reinterpreted.
+
+### Can I fix encoding for VTT files too, not just SRT?
+
+Yes. The encoding problem is byte-level — it has nothing to do with the subtitle format itself. Any text file (SRT, VTT, TXT, ASS, SSA) can have encoding issues, and the same fix applies. Our [Subtitle Encoding Fixer](/subtitle-encoding-fixer) accepts all common subtitle formats.
+
+### Is my subtitle file uploaded anywhere when I use the fixer?
+
+No. The tool runs entirely in your browser using local JavaScript. Your file is never sent to a server, never stored, never logged. You can disconnect your internet after the page loads and the tool will still work.
+
+## What to do next
+
+If your subtitles are showing mojibake right now, head straight to the [Subtitle Encoding Fixer](/subtitle-encoding-fixer) — most files are fixed in under a minute. If you also need to convert between subtitle formats afterwards, our [SRT to VTT Converter](/srt-to-vtt-converter), [VTT to SRT Converter](/vtt-to-srt-converter), or [SRT to TXT Converter](/srt-to-txt-converter) will preserve the clean UTF-8 output. And if your subtitles are also slightly out of sync once the characters are readable, the [Subtitle Time Shifter](/subtitle-time-shifter) can nudge them into place.
+
+All tools run entirely in your browser. No uploads, no accounts, no waiting.
