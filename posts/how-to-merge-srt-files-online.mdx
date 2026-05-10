@@ -1,0 +1,98 @@
+---
+title: "How to Merge SRT Files Online: Combine Subtitles in Seconds"
+description: "Learn how to merge two or more SRT subtitle files into one. Free online subtitle merger — no software, no uploads. Handles timing offsets automatically."
+date: "2026-05-10"
+slug: "how-to-merge-srt-files-online"
+---
+
+Merging SRT files is something editors, translators, and content creators run into all the time. Maybe you have subtitles for two video segments you've joined together, or you want to combine a translated file with the original, or you're assembling episode subtitles into a full season file. Whatever the reason, this guide shows you how to combine SRT files quickly and correctly.
+
+## Why merging SRT files isn't as simple as copy-paste
+
+The most common mistake when merging subtitle files is pasting one directly after the other. This breaks the file in two ways:
+
+**Cue numbers restart.** SRT files require sequential numbering from 1. If your second file also starts at 1, most players will either skip cues or throw an error.
+
+**Timestamps don't account for the offset.** If your first video segment is 12 minutes long, the subtitles from your second segment need to start at the 12-minute mark — not at 0:00:00. Paste them raw and every subtitle in the second half will be wildly out of sync.
+
+Our [Subtitle Merger](/subtitle-merger) handles both of these problems automatically.
+
+## How to merge SRT files online (step-by-step)
+
+**Step 1:** Open the [Subtitle Merger tool](/subtitle-merger).
+
+**Step 2:** Upload your first SRT file. This is the subtitle file for the first part of your video.
+
+**Step 3:** Upload your second SRT file. This is the subtitle file for the second part.
+
+**Step 4:** Enter the **time offset** for the second file — this is the duration of your first video segment. For example, if your first video is 8 minutes and 30 seconds long, enter `00:08:30,000`.
+
+**Step 5:** Click **Merge** and download the combined SRT file.
+
+The tool renumbers all cues sequentially and shifts the second file's timestamps by your specified offset, giving you a single, perfectly synced subtitle file.
+
+## When would you need to merge subtitle files?
+
+**Joining video segments.** You've edited two clips together and have separate subtitle files for each. Merging them gives you one file for the combined video.
+
+**Combining translated and original subtitles.** Some workflows involve running dual subtitles — the original language on top and a translation below. Merging both files with matching timestamps creates a dual-subtitle track.
+
+**Assembling long-form content.** Podcasters and educators often record in segments, then combine them. Merged subtitles follow the same structure as merged video.
+
+**Fixing split exports.** Some subtitle software exports one file per scene or chapter. Merging them back gives you one clean file for upload.
+
+## How to calculate the correct time offset
+
+The offset for the second file should equal the **exact duration of the first video segment**. Here's how to find it:
+
+- In a video editor: check the timeline end point of your first segment
+- In VLC: open the first video and note the total duration shown in the bottom bar
+- In Windows Explorer: right-click the video file → Properties → Details → Length
+
+Enter that duration as the offset in the merger tool and your second subtitle file will start exactly where the first one ends.
+
+## Merging more than two SRT files
+
+If you have three or more segments, merge them in pairs:
+
+1. Merge file 1 + file 2 → combined\_1\_2.srt
+2. Merge combined\_1\_2.srt + file 3 (with the offset equal to the combined duration of segments 1 and 2)
+3. Repeat for each additional segment
+
+## Common problems when merging SRT files
+
+**Subtitles overlap at the join point.** The last subtitle of file 1 and the first subtitle of file 2 appear at the same time. This usually means the offset is slightly off. Adjust it by a second or two using our [Subtitle Time Shifter](/subtitle-time-shifter) to fine-tune the second half.
+
+**Duplicate cue numbers.** This happens when you manually combine files without renumbering. The merged file from our tool always renumbers cues from 1 automatically.
+
+**Encoding issues.** If one file is UTF-8 and the other is Windows-1252, merged output can have garbled characters. Save both source files as UTF-8 before merging.
+
+**Subtitles out of order.** If your second file's timestamps (before offset adjustment) overlap with the first file's end timestamps, some cues may appear out of sequence. Check that each source file starts at `00:00:00` before uploading.
+
+## Merging VTT files
+
+Need to combine WebVTT files instead of SRT? First convert each `.vtt` file to `.srt` using our [VTT to SRT Converter](/vtt-to-srt-converter), merge them, then convert back if needed.
+
+## Splitting a merged file back apart
+
+If you later need to split a merged subtitle file — for example, if you re-edit the video into segments — use our [Subtitle Splitter](/subtitle-splitter) to cut the file at any timestamp.
+
+## FAQ
+
+**Can I merge subtitles from different languages?**
+Yes. The merger works on any SRT files regardless of language. If you want to display two languages simultaneously, both subtitle tracks need to have matching timestamps — the merger handles that as long as your offset is correct.
+
+**Does merging work with SRT files that have styling?**
+Yes. The merger preserves all text content including any inline tags. However, not all video players support styled SRT, so test playback after merging.
+
+**Is there a file size limit?**
+No. The tool processes files entirely in your browser with no server upload, so there's no file size restriction.
+
+**Can I merge more than two files at once?**
+Currently the tool merges two files per operation. For three or more files, merge in pairs as described above.
+
+**My player shows duplicate subtitles after merging. Why?**
+This can happen if both source files cover overlapping time ranges. Check that file 1 ends before file 2 begins (before the offset is applied).
+
+**What if I don't know the exact duration of the first video?**
+Use VLC or any video player to find the exact duration. Even a one-second error will cause subtitles to drift. If you're slightly off, use the [Subtitle Time Shifter](/subtitle-time-shifter) to correct the drift on the second half after merging.

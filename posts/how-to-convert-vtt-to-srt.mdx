@@ -1,0 +1,132 @@
+---
+title: "How to Convert VTT to SRT: Free Online Guide (No Software Needed)"
+description: "Learn how to convert VTT to SRT files instantly in your browser. No downloads, no sign-up. Includes format differences, when to use each, and a free online converter."
+date: "2026-05-10"
+slug: "how-to-convert-vtt-to-srt"
+---
+
+Converting a VTT file to SRT is one of the most common subtitle tasks for video editors, content creators, and translators. Whether your video platform requires SRT or you're moving subtitles between different software, this guide explains exactly how to do it — for free, in seconds, without installing anything.
+
+## What is a VTT file?
+
+VTT stands for **Web Video Text Tracks**, commonly written as WebVTT. It's the subtitle format designed specifically for the web. HTML5 video players, YouTube, Vimeo, and most modern streaming platforms support VTT natively.
+
+A VTT file looks like this:
+
+```
+WEBVTT
+
+00:00:01.000 --> 00:00:04.000
+Welcome to the tutorial.
+
+00:00:05.000 --> 00:00:08.500
+Let's get started with the basics.
+```
+
+The key difference from SRT is the `WEBVTT` header at the top and the use of a period (`.`) instead of a comma (`,`) in timestamps.
+
+## What is an SRT file?
+
+SRT stands for **SubRip Subtitle**. It's the most widely supported subtitle format in the world, compatible with VLC, Premiere Pro, DaVinci Resolve, most smart TVs, and virtually every video player in existence.
+
+An SRT file looks like this:
+
+```
+1
+00:00:01,000 --> 00:00:04,000
+Welcome to the tutorial.
+
+2
+00:00:05,000 --> 00:00:08,500
+Let's get started with the basics.
+```
+
+Notice the numbered cues, the comma in timestamps, and the absence of a header line.
+
+## VTT vs SRT: key differences
+
+| Feature | VTT | SRT |
+|---|---|---|
+| Timestamp separator | Period (`.`) | Comma (`,`) |
+| Header line | Required (`WEBVTT`) | None |
+| Cue numbers | Optional | Required |
+| HTML styling tags | Supported | Not standard |
+| Best for | Web / streaming | Desktop players, editing |
+
+## When do you need to convert VTT to SRT?
+
+You'll need to convert WebVTT to SRT in these common situations:
+
+- You downloaded subtitles from a website and they came as `.vtt` but your video editor requires `.srt`
+- You're using VLC, Windows Media Player, or a smart TV that doesn't support VTT
+- You're submitting subtitles to a client or platform that specifies SRT format
+- You're working in Adobe Premiere Pro, DaVinci Resolve, or Final Cut Pro — all of which handle SRT more reliably than VTT
+- Your subtitle translation workflow requires SRT input
+
+## How to convert VTT to SRT online (step-by-step)
+
+Our [free VTT to SRT converter](/vtt-to-srt-converter) handles the conversion entirely in your browser. Your file never leaves your device.
+
+**Step 1:** Open the [VTT to SRT Converter](/vtt-to-srt-converter).
+
+**Step 2:** Click the upload area and select your `.vtt` file, or drag and drop it onto the tool.
+
+**Step 3:** The converter instantly processes your file — replacing the `WEBVTT` header, converting timestamp separators from periods to commas, and adding sequential cue numbers.
+
+**Step 4:** Click **Download SRT** to save your converted file.
+
+The whole process takes under 10 seconds for most files.
+
+## What the converter does automatically
+
+When you convert VTT to SRT, these changes happen automatically:
+
+- Removes the `WEBVTT` header line
+- Converts all timestamp periods to commas (`00:00:01.000` → `00:00:01,000`)
+- Adds sequential cue numbers if they're missing
+- Strips VTT-specific metadata (NOTE blocks, STYLE blocks, REGION definitions)
+- Preserves all subtitle text and timing exactly
+
+## Can I convert VTT to SRT without software?
+
+Yes — that's exactly what our online converter does. You don't need VLC, ffmpeg, Subtitle Edit desktop software, or any other program. The conversion runs entirely in your browser using JavaScript.
+
+If you prefer a command-line approach, ffmpeg can also do this:
+
+```
+ffmpeg -i subtitles.vtt subtitles.srt
+```
+
+But for most users, the browser-based tool is faster and requires no setup.
+
+## Troubleshooting common issues
+
+**The timestamps look wrong after conversion.** This usually happens when the VTT file uses hours:minutes:seconds format inconsistently. Our converter normalises all timestamps to `HH:MM:SS,mmm` format automatically.
+
+**Styling tags are showing up as text.** VTT files sometimes include HTML-style tags like `<b>`, `<i>`, or `<c.colourname>`. SRT doesn't support these. Our converter strips unknown tags to keep your subtitle text clean.
+
+**The file won't upload.** Make sure your file has a `.vtt` extension. Some tools export WebVTT files with no extension or a `.txt` extension — rename it to `.vtt` before uploading.
+
+## Need to go the other way?
+
+If you need to convert SRT back to VTT format, use our [SRT to VTT Converter](/srt-to-vtt-converter) — it works the same way in reverse.
+
+## FAQ
+
+**Is the VTT to SRT conversion free?**
+Yes, completely free. There are no limits on file size or number of conversions.
+
+**Does my subtitle file get uploaded to a server?**
+No. The conversion happens entirely in your browser. Your file is never sent to any server.
+
+**Will the timing be preserved exactly?**
+Yes. The converter only changes the format of the timestamp (period to comma) — the actual timing values remain identical.
+
+**What's the difference between VTT and WebVTT?**
+They are the same format. WebVTT is the full name; VTT is the file extension and shorthand. Both terms refer to the same subtitle standard.
+
+**Can I convert multiple VTT files at once?**
+Currently the converter handles one file at a time. For batch conversion, you may want to use ffmpeg with a shell script.
+
+**My video player says the SRT file is invalid after conversion. What's wrong?**
+Check that the file is saved with UTF-8 encoding. Some text editors save with BOM (Byte Order Mark) which can confuse video players. Re-save the file as UTF-8 without BOM, or use our converter which always outputs clean UTF-8.

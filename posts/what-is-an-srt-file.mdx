@@ -1,153 +1,139 @@
 ---
-title: "What Is an SRT File? Everything You Need to Know"
-description: "SRT files are the most widely used subtitle format in the world. Learn what SRT files are, how they work, how to open them, and how to edit them for free."
-date: "2026-04-08"
+title: "What Is an SRT File? The Complete Guide to Subtitle Formats"
+description: "Everything you need to know about SRT files: what they are, how they work, how to open and edit them, and how they compare to VTT, ASS, and other subtitle formats."
+date: "2026-05-10"
 slug: "what-is-an-srt-file"
 ---
 
-# What Is an SRT File? Everything You Need to Know
+If you've ever downloaded a movie subtitle file, extracted captions from a video, or worked with any kind of closed captioning, you've almost certainly encountered SRT files. They're the most universally supported subtitle format in the world — and they're simpler than they look. This guide explains everything you need to know.
 
-If you've ever downloaded a movie, uploaded a video to YouTube, or worked with captions, you've almost certainly encountered an SRT file. They're everywhere — and for good reason. SRT is the most universally supported subtitle format in the world.
+## What does SRT stand for?
 
-Here's everything you need to know about SRT files — what they are, how they work, and what you can do with them.
+SRT stands for **SubRip Subtitle**. The name comes from SubRip, the software originally used to "rip" (extract) subtitles from DVDs in the early 2000s. The format it produced became an open standard and is now supported by virtually every video player, editing tool, and streaming platform in existence.
 
----
+## What does an SRT file look like?
 
-## What Does SRT Stand For?
-
-SRT stands for **SubRip Text**. The format was created by a Windows program called SubRip, which could "rip" (extract) subtitles from DVDs. The format became so widely adopted that it's now the industry standard for subtitle files.
-
----
-
-## What Is an SRT File?
-
-An SRT file is a plain text file that contains subtitle information for a video. It stores:
-
-- **Cue numbers** — a sequential number for each subtitle entry
-- **Timestamps** — when each subtitle should appear and disappear
-- **Subtitle text** — the actual words displayed on screen
-
-The file extension is `.srt`.
-
----
-
-## What Does an SRT File Look Like?
-
-Here's a simple example:
+An SRT file is a plain text file. You can open it in Notepad, TextEdit, or any text editor. Here's a typical example:
 
 ```
 1
-00:00:01,000 --> 00:00:04,000
-Hello and welcome to this video.
+00:00:02,500 --> 00:00:05,000
+Previously on Breaking Bad...
 
 2
 00:00:05,500 --> 00:00:09,000
-Today we're going to talk about subtitle formats.
+We need to talk about your distribution.
 
 3
-00:00:10,000 --> 00:00:13,500
-Let's get started.
+00:00:10,200 --> 00:00:13,800
+I'm not in the meth business.
+I'm in the empire business.
 ```
 
-Each block has three parts separated by blank lines:
-1. The cue number
-2. The timestamp (`HH:MM:SS,mmm --> HH:MM:SS,mmm`)
-3. The subtitle text (can be one or multiple lines)
+Every subtitle cue has three parts:
 
----
+1. **A cue number** — sequential integers starting from 1
+2. **A timestamp range** — when the cue appears and disappears, in `HH:MM:SS,mmm` format
+3. **The subtitle text** — one or more lines of dialogue
 
-## What Programs Can Open SRT Files?
+Cues are separated by a blank line.
 
-SRT files are plain text, so you can open them with:
+## How do SRT timestamps work?
 
-- **Any text editor** — Notepad, TextEdit, VS Code, Sublime Text
-- **VLC Media Player** — load alongside a video for instant subtitles
-- **Video editing software** — Premiere Pro, DaVinci Resolve, Final Cut Pro
-- **YouTube** — upload directly as a caption file
-- **Netflix / streaming platforms** — standard format for caption submissions
+The timestamp format is `hours:minutes:seconds,milliseconds`. The comma before the milliseconds is important — SRT uses a comma, while the related VTT format uses a period.
 
----
+```
+00:01:23,456 --> 00:01:26,789
+```
 
-## How Do SRT Files Work With Video?
+This cue appears at 1 minute, 23 seconds and 456 milliseconds into the video, and disappears at 1 minute, 26 seconds and 789 milliseconds. The gap between the two timestamps is how long the subtitle is displayed on screen.
 
-SRT files are separate from the video file. When you play a video in VLC or another player, you load the SRT file alongside it, and the player reads the timestamps to display the correct subtitle text at the right moment.
+## How to open an SRT file
 
-On platforms like YouTube, you upload the SRT file separately in the caption settings, and YouTube handles the synchronisation automatically.
+Because SRT is plain text, you can open it with any of these:
 
----
+- **Notepad** (Windows) — right-click the file → Open with → Notepad
+- **TextEdit** (Mac) — works the same way
+- **VS Code or Sublime Text** — better for larger files with syntax highlighting
+- **VLC Media Player** — load the video, then drag the SRT file onto the player window to display it as subtitles
 
-## How to Edit an SRT File
+If Windows tries to open your SRT with a program that can't read it, right-click → Open with → Choose another app → Notepad.
 
-Since SRT is plain text, you can edit it in any text editor. Common edits include:
+## How to edit an SRT file
 
-- **Fixing typos** — just find and edit the text
-- **Adjusting timing** — change the timestamps manually
-- **Adding or removing cues** — add or delete blocks and renumber
+Since it's plain text, you can edit any SRT file directly in a text editor — change dialogue, fix spelling, adjust timestamps manually. For common tasks, dedicated online tools are faster:
 
-For more complex edits, use our free online tools:
+- **Fix subtitle timing** — use our [Subtitle Time Shifter](/subtitle-time-shifter) to shift all timestamps by a set amount
+- **Combine two subtitle files** — use our [Subtitle Merger](/subtitle-merger)
+- **Split a subtitle file at a specific point** — use our [Subtitle Splitter](/subtitle-splitter)
+- **Fix overlapping cues** — use our [Subtitle Overlap Fixer](/subtitle-overlap-fixer)
+- **Convert SRT to VTT** — use our [SRT to VTT Converter](/srt-to-vtt-converter)
 
-- [Subtitle Time Shifter](/subtitle-time-shifter) — shift all timestamps forward or backward at once
-- [Subtitle Merger](/subtitle-merger) — combine multiple SRT files into one
-- [Subtitle Splitter](/subtitle-splitter) — split one large SRT file into parts
-- [Subtitle Overlap Fixer](/subtitle-overlap-fixer) — automatically fix overlapping cues
+All tools are free and run entirely in your browser.
 
----
+## SRT vs other subtitle formats
 
-## SRT vs Other Subtitle Formats
+### SRT vs VTT (WebVTT)
 
-| Format | Best For |
-|---|---|
-| SRT | Universal use — video players, YouTube, editing software |
-| VTT | Web video — HTML5 players, Vimeo |
-| ASS/SSA | Advanced styling — anime subtitles |
-| SBV | YouTube's native format |
-| DFXP/TTML | Broadcast and enterprise |
+VTT is the web-native subtitle format used by HTML5 video players, YouTube, and Vimeo. The core structure is almost identical to SRT, with two main differences: VTT files start with a `WEBVTT` header line, and they use a period instead of a comma in timestamps.
 
-For most purposes, SRT is the right choice. If you need VTT for web use, you can [convert SRT to VTT](/srt-to-vtt-converter) instantly for free.
+Use SRT for desktop players and video editing. Use VTT for web video and streaming. Convert between them instantly with our [VTT to SRT Converter](/vtt-to-srt-converter) or [SRT to VTT Converter](/srt-to-vtt-converter).
 
----
+### SRT vs ASS / SSA
 
-## Common SRT File Problems and How to Fix Them
+ASS (Advanced SubStation Alpha) and SSA are subtitle formats that support rich styling — custom fonts, colours, positioning, karaoke effects. They're common in anime subtitles. SRT supports minimal styling only. If you need full typographic control, ASS is more capable; if you need broad compatibility, SRT wins.
 
-### Subtitles are out of sync
-The timestamps don't match the video. Use our [Subtitle Time Shifter](/subtitle-time-shifter) to shift all timestamps forward or backward by a set amount.
+### SRT vs SBV
 
-### Subtitles overlap
-Two cues have conflicting timestamps. Use our [Subtitle Overlap Fixer](/subtitle-overlap-fixer) to detect and resolve all overlaps automatically.
+SBV is YouTube's native caption format. It's structurally very similar to SRT but uses a slightly different timestamp format. YouTube accepts SRT file uploads directly, which is usually the simplest approach.
 
-### Wrong encoding / garbled characters
-SRT files should be saved in UTF-8 encoding. Open the file in a text editor and re-save it as UTF-8.
+### SRT vs TTML / DFXP
 
-### Player won't load the SRT file
-Check that the SRT file has the same name as the video file (just with a different extension) and is in the same folder. Most players auto-detect subtitle files this way.
+TTML (Timed Text Markup Language) and DFXP are XML-based subtitle formats used in broadcast and streaming workflows. They're more complex than SRT but required by some platforms (Netflix uses a variant called IMSC). For most purposes, SRT is simpler and just as effective.
 
----
+## Does SRT support formatting?
 
-## Frequently Asked Questions
+SRT has limited, inconsistently supported formatting tags:
 
-### Are SRT files free to use?
-Yes. SRT is an open format with no licensing restrictions.
+- `<b>bold</b>` — bold text
+- `<i>italic</i>` — italic text
+- `<u>underline</u>` — underlined text
+- `<font color="#ffffff">text</font>` — coloured text
 
-### Can I create an SRT file from scratch?
-Yes — just open a text editor and follow the format: cue number, timestamp, text, blank line, repeat. Save the file with a `.srt` extension.
+Support varies by player. VLC and most smart TVs ignore font tags. If you need reliable styled text, VTT or ASS offer better formatting support.
 
-### What's the maximum file size for an SRT file?
-There's no official limit. SRT files are plain text so they're very small — a two-hour film's subtitles might only be 100-200KB.
+## What encoding should an SRT file use?
 
-### Do SRT files support styling?
-SRT has limited styling support. You can use basic HTML-like tags such as `<b>`, `<i>`, and `<u>` in some players. For advanced styling, use VTT or ASS format instead.
+UTF-8 is the correct encoding for modern SRT files. It supports all languages and special characters. If your subtitles contain accented letters, Asian characters, Arabic, or any non-Latin script, UTF-8 is essential.
 
-### How do I add an SRT file to a video permanently?
-This is called "hardcoding" or "burning in" subtitles. You need video editing software or a tool like HandBrake to embed the subtitles permanently into the video file.
+Older SRT files sometimes use Windows-1252 or other legacy encodings. If your subtitles show garbled characters (like `Ã©` instead of `é`), the file is probably using the wrong encoding. Re-save it as UTF-8 in your text editor.
 
----
+## Common SRT file problems and how to fix them
 
-## Summary
+**Subtitles are out of sync.** The most common issue. Use our [Subtitle Time Shifter](/subtitle-time-shifter) to shift all timestamps forward or backward until they align with the video.
 
-SRT is the most widely supported subtitle format in the world — simple, universal, and easy to edit. If you need to work with SRT files — whether converting, timing, merging, or fixing — all our tools are free to use right in your browser:
+**Overlapping cues.** Two cues cover the same time range, causing subtitles to stack or flicker. Use our [Subtitle Overlap Fixer](/subtitle-overlap-fixer) to detect and resolve overlaps automatically.
 
-- [SRT to VTT Converter](/srt-to-vtt-converter)
-- [Subtitle Time Shifter](/subtitle-time-shifter)
-- [Subtitle Merger](/subtitle-merger)
-- [Subtitle Splitter](/subtitle-splitter)
-- [Subtitle Overlap Fixer](/subtitle-overlap-fixer)
+**Cue numbers are out of order or duplicated.** Some tools export malformed SRT files. The cue numbers need to be sequential from 1. You can renumber them by running the file through any of our tools, which always output clean, correctly numbered SRT.
+
+**Missing blank lines between cues.** SRT requires a blank line between each cue. Without it, players may fail to parse the file. A good text editor with find-and-replace can fix this, or run the file through a validator.
+
+## FAQ
+
+**What program opens SRT files?**
+Any text editor opens an SRT file for editing. For viewing subtitles with video, VLC is the most widely used free player and supports SRT natively.
+
+**Can I convert SRT to MP4?**
+No — SRT is a subtitle file, not a video file. You can burn subtitles into an MP4 (called "hardsubbing") using ffmpeg or a video converter, but that's a different process from subtitle editing.
+
+**Are SRT files free to use?**
+SRT is an open format with no licensing restrictions. The format is free for anyone to create, edit, or distribute.
+
+**Can SRT files contain multiple languages?**
+No. A single SRT file contains one language track. For multilingual subtitles, you need separate SRT files for each language.
+
+**What's the maximum number of cues in an SRT file?**
+There's no technical limit. Professional subtitle files for feature films might have 1,000 to 2,000 cues.
+
+**Why do my SRT subtitles look different in different players?**
+Players render subtitles differently. Font size, position, colour, and outline are all controlled by the player, not the SRT file. To control appearance precisely, you'd need to use ASS format or burn the subtitles into the video.

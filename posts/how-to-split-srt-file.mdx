@@ -1,0 +1,104 @@
+---
+title: "How to Split an SRT File Into Parts: Free Online SRT Splitter"
+description: "Learn how to split an SRT subtitle file at any timestamp. Free online SRT splitter — no software needed. Perfect for splitting long videos or extracting subtitle segments."
+date: "2026-05-10"
+slug: "how-to-split-srt-file"
+---
+
+Sometimes you need just part of a subtitle file. Maybe you're cutting a long video into shorter clips, creating highlight reels, or extracting a specific segment to translate. Whatever the reason, splitting an SRT file is a task that sounds technical but takes about 30 seconds with the right tool. Here's how to do it.
+
+## Why you can't just cut an SRT file manually
+
+Technically you can open an SRT file in a text editor and delete the cues you don't need. But there are two problems with doing it manually:
+
+**Re-numbering.** SRT files require sequential cue numbers starting from 1. If you delete the first half of a file, the remaining cues start at 347 or wherever the cut point was — not at 1. Many players will still handle this, but it's technically invalid SRT.
+
+**Timestamp adjustment for the second part.** If you split a file and want to use the second part with a clip that starts at 0:00, the timestamps won't match. A cue that originally appeared at `00:22:45,000` in the full file won't appear at the right time in a clip that starts at the 22-minute mark. You'd need to shift all those timestamps back by 22 minutes.
+
+Our [Subtitle Splitter](/subtitle-splitter) handles both of these automatically.
+
+## How to split an SRT file online (step-by-step)
+
+**Step 1:** Open the [Subtitle Splitter tool](/subtitle-splitter).
+
+**Step 2:** Upload your `.srt` file by clicking the upload area or dragging and dropping the file.
+
+**Step 3:** Enter the **split point** — the timestamp where you want to divide the file. For example, `00:22:30,000` to split at the 22-minute 30-second mark.
+
+**Step 4:** Click **Split**.
+
+**Step 5:** Download the two output files — Part 1 covers everything from the beginning up to your split point, and Part 2 covers everything from the split point to the end.
+
+The tool automatically renumbers cues in both parts from 1 and (optionally) adjusts Part 2's timestamps to start from zero, so you can use it with a clip that begins at that point in the video.
+
+## When would you need to split a subtitle file?
+
+**Splitting a long video into parts.** You're uploading a 90-minute video to YouTube in two parts. Your single subtitle file needs to be divided to match each upload.
+
+**Creating highlight clips.** You're cutting a few minutes from a longer video for social media. You only need the subtitle cues that correspond to those minutes.
+
+**Separating season compilations.** Some subtitle files combine multiple episodes. Splitting at episode boundaries gives you individual files.
+
+**Exporting segments for translation.** Sending a portion of a film for translation is easier when the translator only receives the relevant subtitle segment.
+
+**Fixing a timing problem in part of a file.** If the second half of a subtitle file has a sync issue (for example, after an edit was made to the video mid-way through), split the file at the problem point, fix the timing on that segment, then re-merge using the [Subtitle Merger](/subtitle-merger).
+
+## How to find the right split point timestamp
+
+The split point should correspond to a moment in the video where there's a natural break — ideally a gap between subtitle cues, not mid-sentence.
+
+To find the exact timestamp:
+
+1. Open the video in VLC or any player
+2. Pause at the point where you want to split
+3. Note the exact time shown in the player (e.g., `00:22:30`)
+4. Open your SRT file in a text editor and find the nearest cue boundary — a blank line between two cues — closest to that time
+5. Use that cue's end timestamp as your split point
+
+Using a cue boundary rather than a mid-cue timestamp ensures no subtitle text is lost.
+
+## What happens to cues that span the split point?
+
+If a subtitle cue starts just before your split point and ends just after it, the tool places the full cue in Part 1. No cue text is cut mid-sentence.
+
+## Splitting into more than two parts
+
+The Subtitle Splitter divides the file into two parts per operation. For three or more parts, split iteratively:
+
+1. Split the original file at point A → get Part 1 and Part 2+
+2. Split Part 2+ at point B → get Part 2 and Part 3
+
+## After splitting: what to do next
+
+**If Part 2's timestamps need to be zeroed out** (to match a video clip starting at 0:00), use the [Subtitle Time Shifter](/subtitle-time-shifter) to subtract the split point time from all cues in Part 2.
+
+**If you need to recombine parts later**, use the [Subtitle Merger](/subtitle-merger) with the correct time offset to put them back together.
+
+**If the split file has overlapping cues**, run it through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer).
+
+## Splitting VTT files
+
+The Subtitle Splitter works with `.srt` files. If you have a `.vtt` file, convert it to SRT first using our [VTT to SRT Converter](/vtt-to-srt-converter), split it, then convert back if needed.
+
+## FAQ
+
+**Will splitting damage the subtitle file?**
+No. Splitting creates two new files from the original. The original is unchanged. The output files are clean, valid SRT with sequential cue numbering.
+
+**Can I split at a specific cue number rather than a timestamp?**
+The tool splits by timestamp. To split at a specific cue number, open the SRT in a text editor, find the timestamp for that cue, and use that timestamp in the splitter.
+
+**Does the tool adjust timestamps for Part 2?**
+Yes, if you enable the option. Part 2 timestamps can be offset to start from zero, making the file usable with a video clip beginning at the split point.
+
+**What if there's no subtitle cue exactly at my split point?**
+The tool finds the nearest cue boundary. It never cuts mid-cue — each subtitle line is kept whole in either Part 1 or Part 2.
+
+**Is there a file size limit?**
+No. Processing happens in your browser with no server upload, so there's no restriction on file size.
+
+**Can I split an SRT file to use just one part?**
+Yes. If you only need the first 20 minutes of a subtitle file, split at the 20-minute mark and use Part 1. Part 2 can be discarded.
+
+**I split the file but Part 2 timestamps are wrong for my clip. How do I fix this?**
+Use the [Subtitle Time Shifter](/subtitle-time-shifter) to adjust. If your split point was at 00:22:30, subtract 22 minutes and 30 seconds (22500 seconds = 1,350,000 milliseconds, but use the exact split timestamp for precision) from all cues in Part 2 to zero them out.

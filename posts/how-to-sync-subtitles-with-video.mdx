@@ -1,0 +1,103 @@
+---
+title: "How to Sync Subtitles with Video: Fix Subtitle Timing Online"
+description: "Subtitles out of sync? Learn how to resync subtitles with video using a free online subtitle time shifter. Fix early or late subtitles in seconds, no software needed."
+date: "2026-05-10"
+slug: "how-to-sync-subtitles-with-video"
+---
+
+Out-of-sync subtitles are one of the most frustrating things to sit through. The character speaks and the subtitle appears two seconds later — or worse, before they've said a word. The good news is that most sync problems have a simple cause and a simple fix. This guide walks you through exactly how to resync subtitles with video, for free, in your browser.
+
+## Why are subtitles out of sync?
+
+Before fixing the problem it helps to understand why it happens. There are two main causes:
+
+**Constant offset.** The subtitles are consistently early or late by the same amount throughout the entire video. This is the easiest fix — you just shift all timestamps by that amount. It usually happens when subtitles were made for a different version of the video (different intro length, different cut) or when downloading subtitles from a third-party site.
+
+**Drift.** The subtitles start roughly in sync but gradually get further off as the video progresses. This is trickier — it means the subtitle file's frame rate doesn't match the video's frame rate. A subtitle file made for a 25fps video will drift noticeably when played with a 23.976fps video over a long runtime.
+
+This guide focuses on the constant offset fix, which covers the majority of cases.
+
+## How to resync subtitles online (step-by-step)
+
+Our [Subtitle Time Shifter](/subtitle-time-shifter) adjusts all timestamps in your SRT or VTT file by a set amount — forwards or backwards.
+
+**Step 1:** Play your video and note when a line of dialogue is spoken that you can see in the subtitle file. For example, find the first spoken line.
+
+**Step 2:** Note the timestamp on screen when the dialogue is spoken. Then open your subtitle file (it's a plain text file — you can open it in Notepad) and find the timestamp for that same line.
+
+**Step 3:** Calculate the difference. If the subtitle shows `00:00:05,000` but the dialogue actually happens at `00:00:08,000`, your subtitles are 3 seconds early — you need to shift forward by `+3000` milliseconds.
+
+**Step 4:** Open the [Subtitle Time Shifter](/subtitle-time-shifter) and upload your subtitle file.
+
+**Step 5:** Enter your offset in milliseconds. Use a positive number to shift subtitles later (if they appear too early) and a negative number to shift them earlier (if they appear too late).
+
+**Step 6:** Download the adjusted file and test it in your player.
+
+## How to measure the sync offset accurately
+
+The most reliable method is to find a moment in the video with a sharp, clear audio cue — a door slam, a gunshot, a clap — where you can also see the corresponding subtitle text.
+
+1. Pause the video exactly when the sound occurs. Note the video timestamp (shown in your player's progress bar).
+2. Open the SRT file in a text editor. Find the matching subtitle cue.
+3. Note the `start` timestamp on that cue.
+4. Subtract: `video timestamp − subtitle timestamp = offset`
+
+If the result is positive, subtitles are early (appearing before the dialogue) — shift them forward. If the result is negative, subtitles are late — shift them backward.
+
+## Common sync scenarios
+
+**Subtitles are a few seconds early throughout.** Enter a positive offset equal to the gap. For example, if subtitles are consistently 2.5 seconds early, enter `+2500`.
+
+**Subtitles are late throughout.** Enter a negative offset. If subtitles are 1.8 seconds late, enter `-1800`.
+
+**The first subtitle is in sync but later ones drift.** This is the frame rate mismatch problem. You'll need to use desktop software like Subtitle Edit or Aegisub which supports frame rate conversion. The online time shifter won't fix a drift — it applies the same offset to every cue.
+
+**Only part of the file is out of sync.** If your video has a mid-point cut that knocked only the second half of the subtitles out of sync, you can use our [Subtitle Splitter](/subtitle-splitter) to divide the file at the problem point, fix the second half separately, then re-merge with the [Subtitle Merger](/subtitle-merger).
+
+## Adjusting subtitle timing without any tools
+
+If you're comfortable editing text files, you can manually adjust subtitle timestamps. SRT timestamps follow this format:
+
+```
+00:01:23,456 --> 00:01:26,789
+```
+
+That's `hours:minutes:seconds,milliseconds`. To shift a cue forward by 2 seconds, add 2 to the seconds value in both the start and end timestamps. For a small file with a consistent offset, this is feasible. For anything more than a few lines, use the online tool — it's faster and error-free.
+
+## Subtitle sync for specific video players
+
+**VLC Media Player** has a built-in sync shortcut. During playback, press `G` to delay subtitles (shift later) or `H` to advance them (shift earlier) — each press moves by 50ms. This adjusts sync for the current session only. To save the corrected timing permanently, edit the file itself using our Time Shifter.
+
+**Plex and Jellyfin** also have subtitle offset controls in the player settings. Again, these are session-only adjustments unless you modify the file.
+
+**Smart TVs** typically don't offer offset controls. Fixing the file itself using our online tool is the only reliable solution.
+
+## After syncing: other subtitle issues to fix
+
+Once timing is correct, check for these common follow-on problems:
+
+- **Overlapping subtitles** — two cues that cover the same time range. Use our [Subtitle Overlap Fixer](/subtitle-overlap-fixer) to resolve these automatically.
+- **Wrong format** — if your player needs VTT but you have SRT, use our [SRT to VTT Converter](/srt-to-vtt-converter).
+
+## FAQ
+
+**How do I know if my subtitles are early or late?**
+Play the video and watch a few lines. If the text appears before the character speaks, the subtitles are early. If the text appears after they've started speaking, they're late.
+
+**What unit does the time shifter use?**
+Milliseconds. 1 second = 1000 milliseconds. So a 3-second shift is 3000ms, and a half-second shift is 500ms.
+
+**Can I sync VTT files as well as SRT?**
+Yes. The Subtitle Time Shifter works with both `.srt` and `.vtt` files.
+
+**Will the sync fix work for the entire file?**
+Yes, as long as your offset is constant throughout. The tool shifts every cue by the same amount. If the sync drifts (gets worse as the video progresses), you have a frame rate issue that requires different software.
+
+**I fixed the sync but now some subtitles overlap. What do I do?**
+Run the adjusted file through our [Subtitle Overlap Fixer](/subtitle-overlap-fixer). Shifting all cues forward or backward can sometimes cause cues that were close together to overlap.
+
+**Is there a limit to how far I can shift subtitles?**
+No practical limit. You can shift by seconds, minutes, or even hours if needed.
+
+**Can I partially sync — fix only some cues?**
+Not with the Time Shifter, which adjusts all cues uniformly. To fix only a section, split the file at the problem point using our [Subtitle Splitter](/subtitle-splitter), adjust only that section, then re-merge.

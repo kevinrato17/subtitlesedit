@@ -1,0 +1,140 @@
+---
+title: "How to Convert SRT to VTT: Quick Online Conversion Guide"
+description: "Convert SRT to VTT (WebVTT) instantly in your browser. Free online SRT to VTT converter — no software, no uploads. Includes format differences and when to use each."
+date: "2026-05-10"
+slug: "how-to-convert-srt-to-vtt"
+---
+
+SRT is the most widely used subtitle format overall, but VTT is the standard for the web. If you're uploading subtitles to Vimeo, embedding them in an HTML5 video player, or working with a web-based CMS, chances are you need `.vtt` rather than `.srt`. Converting between the two is fast and straightforward — here's everything you need to know.
+
+## What's the difference between SRT and VTT?
+
+SRT (SubRip Subtitle) and VTT (Web Video Text Tracks, also called WebVTT) are structurally almost identical. Both are plain text files with timestamps and subtitle text. The differences are small but significant enough that most video players won't accept the wrong one:
+
+| Feature | SRT | VTT |
+|---|---|---|
+| File header | None | Must start with `WEBVTT` |
+| Timestamp separator | Comma (`,`) | Period (`.`) |
+| Cue numbers | Required | Optional |
+| Styling/positioning | Limited | Full CSS support |
+| Best for | Desktop players, editors | Web video, HTML5 |
+
+A VTT file always starts with the word `WEBVTT` on the first line. An SRT file starts directly with the first cue number. That's usually enough to tell them apart.
+
+## When do you need to convert SRT to VTT?
+
+You'll need SRT-to-VTT conversion in these common situations:
+
+**Vimeo uploads.** Vimeo requires WebVTT format for subtitle tracks. SRT files are not accepted.
+
+**HTML5 video players.** The HTML `<track>` element that adds subtitles to web video requires VTT format:
+```html
+<video>
+  <track kind="subtitles" src="subtitles.vtt" srclang="en">
+</video>
+```
+
+**CMS and e-learning platforms.** Platforms like Teachable, Thinkific, Wistia, and many custom video players built on web technology use WebVTT natively.
+
+**Modern streaming platforms.** Some newer streaming services built on HLS or DASH streaming require VTT for subtitle tracks.
+
+**Browser-based video editing tools.** Tools like Descript, Kapwing, and similar web-based editors typically work with VTT.
+
+## How to convert SRT to VTT online (step-by-step)
+
+Our [SRT to VTT Converter](/srt-to-vtt-converter) converts your file instantly in the browser. Nothing is uploaded to any server.
+
+**Step 1:** Open the [SRT to VTT Converter](/srt-to-vtt-converter).
+
+**Step 2:** Upload your `.srt` file by clicking the upload area or dragging it onto the tool.
+
+**Step 3:** The converter processes the file in under a second — adding the `WEBVTT` header and converting timestamp commas to periods.
+
+**Step 4:** Click **Download VTT** to save the converted file.
+
+That's it. For most files it takes less than 5 seconds total.
+
+## What changes during SRT to VTT conversion
+
+The conversion makes three specific changes to the file:
+
+**1. Adds the WEBVTT header.** A VTT file must begin with `WEBVTT` on the first line. This is required — a file without it won't be recognised as valid WebVTT by any player.
+
+**2. Converts timestamp separators.** Every comma in SRT timestamps is replaced with a period. `00:00:05,500` becomes `00:00:05.500`.
+
+**3. Cue numbers become optional.** VTT doesn't require sequential cue numbers. The converter keeps them in place (they're allowed in VTT), so the output is compatible with both strict and lenient parsers.
+
+The subtitle text itself, the timing values, and the overall structure are unchanged.
+
+## How to convert SRT to VTT without a tool
+
+If you're comfortable in a text editor, you can do this manually:
+
+1. Open the `.srt` file in a text editor
+2. Add `WEBVTT` as the very first line, followed by a blank line
+3. Use Find and Replace to replace `,` in timestamps with `.` — be careful to only replace commas in timestamp lines, not in dialogue text
+4. Save the file with a `.vtt` extension
+
+For a single small file this works. For anything larger or more frequent, the online tool is faster and less error-prone.
+
+## Converting VTT back to SRT
+
+If you need to go the other way — convert a `.vtt` file to `.srt` — use our [VTT to SRT Converter](/vtt-to-srt-converter). The process is the same in reverse: remove the header, convert periods back to commas, and add cue numbers if missing.
+
+## SRT to VTT for specific platforms
+
+### Vimeo
+Vimeo explicitly requires WebVTT. Go to your video in Vimeo → Settings → Subtitles / Closed Captions → Add a caption track → upload the `.vtt` file.
+
+### HTML5 video
+Use the `<track>` element inside your `<video>` tag. The `src` must point to a `.vtt` file. Browsers do not support SRT in the `<track>` element.
+
+### YouTube
+YouTube accepts both SRT and VTT. Either format works — you don't need to convert for YouTube specifically.
+
+### Wistia
+Wistia supports SRT and VTT. VTT is recommended for their player.
+
+### Teachable / Thinkific
+Both platforms accept SRT and VTT for video captions.
+
+## After converting: checking your VTT file works
+
+After conversion, open the `.vtt` file in a text editor and confirm:
+
+1. The first line is exactly `WEBVTT` (nothing before it, including no BOM character)
+2. There's a blank line after `WEBVTT` before the first cue
+3. Timestamps use periods, not commas
+
+If you're embedding in an HTML5 player and subtitles aren't showing, check that the file is being served with the correct MIME type: `text/vtt`. Some web servers need explicit configuration for this.
+
+## Other subtitle tasks you might need
+
+Once your file is in VTT format, you may also need to:
+
+- **Fix the timing** — use the [Subtitle Time Shifter](/subtitle-time-shifter) if subtitles are out of sync
+- **Merge two VTT files** — convert both to SRT, merge with the [Subtitle Merger](/subtitle-merger), then convert back
+- **Fix overlapping cues** — convert to SRT, run the [Subtitle Overlap Fixer](/subtitle-overlap-fixer), then convert back
+
+## FAQ
+
+**Is the SRT to VTT converter free?**
+Yes, completely free. No sign-up, no limits.
+
+**Will converting SRT to VTT affect the timing?**
+No. Only the format of the timestamps changes (comma to period). The actual time values are identical.
+
+**My VTT file isn't working in my HTML5 player. What's wrong?**
+First check the MIME type. Your web server needs to serve `.vtt` files as `text/vtt`. Also check that the file starts with exactly `WEBVTT` — no spaces, no BOM. If the file was converted from SRT, it should be fine; the most common issue is MIME type configuration.
+
+**Can I convert multiple SRT files to VTT at once?**
+Currently the converter handles one file per operation. For batch conversion, ffmpeg works well: `ffmpeg -i file.srt file.vtt`.
+
+**Does VTT support the same features as SRT?**
+VTT actually supports more features than SRT — it has CSS styling, positioning, and cue settings that SRT lacks. Basic SRT content converts perfectly to VTT with no loss of information.
+
+**What's a BOM and why does it matter?**
+BOM (Byte Order Mark) is a hidden character some text editors add to the start of UTF-8 files. If present, the VTT file effectively starts with `[BOM]WEBVTT` instead of `WEBVTT`, which browsers reject. Our converter always outputs clean UTF-8 without BOM.
+
+**Does YouTube require VTT or SRT?**
+YouTube accepts both. You don't need to convert specifically for YouTube — upload whichever format you have.
