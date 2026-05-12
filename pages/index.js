@@ -69,6 +69,12 @@ function ToolGrid() {
       desc: "Fix mojibake, weird characters, and garbled text in subtitle files.",
       aria: "Open Subtitle Encoding Fixer",
     },
+    {
+      href: "/subtitle-find-replace",
+      name: "Subtitle Find & Replace",
+      desc: "Find and replace text across SRT, VTT, and TXT files with regex support. Timestamps stay untouched.",
+      aria: "Open Subtitle Find & Replace",
+    },
   ];
 
   return (
@@ -266,54 +272,80 @@ const jsonLdItemList = {
       position: 1,
       name: "SRT to VTT Converter",
       url: "https://subtitlesedit.com/srt-to-vtt-converter",
+      description:
+        "Convert SubRip (.srt) subtitle files to WebVTT (.vtt) format directly in your browser.",
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "VTT to SRT Converter",
       url: "https://subtitlesedit.com/vtt-to-srt-converter",
+      description:
+        "Convert WebVTT (.vtt) files to SubRip (.srt) format directly in your browser.",
     },
     {
       "@type": "ListItem",
       position: 3,
       name: "SRT to TXT Converter",
       url: "https://subtitlesedit.com/srt-to-txt-converter",
+      description:
+        "Extract clean plain text from SRT subtitle files, stripping timestamps and indices.",
     },
     {
       "@type": "ListItem",
       position: 4,
       name: "VTT to TXT Converter",
       url: "https://subtitlesedit.com/vtt-to-txt-converter",
+      description:
+        "Extract clean plain text from VTT subtitle files, stripping timestamps and cue identifiers.",
     },
     {
       "@type": "ListItem",
       position: 5,
       name: "Subtitle Time Shifter",
       url: "https://subtitlesedit.com/subtitle-time-shifter",
+      description:
+        "Shift all subtitle timestamps forward or backward by a fixed offset.",
     },
     {
       "@type": "ListItem",
       position: 6,
       name: "Subtitle Merger",
       url: "https://subtitlesedit.com/subtitle-merger",
+      description:
+        "Combine multiple SRT or VTT files into a single subtitle file with continuous numbering.",
     },
     {
       "@type": "ListItem",
       position: 7,
       name: "Subtitle Splitter",
       url: "https://subtitlesedit.com/subtitle-splitter",
+      description:
+        "Split a long subtitle file into smaller parts by time or entry count.",
     },
     {
       "@type": "ListItem",
       position: 8,
       name: "Subtitle Overlap Fixer",
       url: "https://subtitlesedit.com/subtitle-overlap-fixer",
+      description:
+        "Detect and automatically fix overlapping subtitle entries.",
     },
     {
       "@type": "ListItem",
       position: 9,
       name: "Subtitle Encoding Fixer",
       url: "https://subtitlesedit.com/subtitle-encoding-fixer",
+      description:
+        "Fix garbled characters and mojibake in subtitle files caused by encoding mismatches.",
+    },
+    {
+      "@type": "ListItem",
+      position: 10,
+      name: "Subtitle Find & Replace",
+      url: "https://subtitlesedit.com/subtitle-find-replace",
+      description:
+        "Find and replace text across SRT, VTT, and TXT subtitle files with regex and case-sensitive options. Runs entirely in your browser.",
     },
   ],
 };

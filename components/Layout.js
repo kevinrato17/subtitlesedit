@@ -44,6 +44,10 @@ const toolsLinks = [
     href: "/subtitle-encoding-fixer",
     label: "Subtitle Encoding Fixer",
   },
+  {
+    href: "/subtitle-find-replace",
+    label: "Subtitle Find & Replace",
+  },
 ];
 
 function ChevronDown({ className }) {
