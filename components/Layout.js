@@ -17,6 +17,14 @@ const toolsLinks = [
     label: "VTT to SRT Converter",
   },
   {
+    href: "/sbv-to-srt-converter",
+    label: "SBV to SRT Converter",
+  },
+  {
+    href: "/srt-to-sbv-converter",
+    label: "SRT to SBV Converter",
+  },
+  {
     href: "/srt-to-txt-converter",
     label: "SRT to TXT Converter",
   },

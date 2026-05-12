@@ -28,6 +28,18 @@ function ToolGrid() {
       aria: "Open VTT to SRT Converter",
     },
     {
+      href: "/sbv-to-srt-converter",
+      name: "SBV to SRT Converter",
+      desc: "Convert YouTube SBV captions to universal SRT format",
+      aria: "Open SBV to SRT Converter",
+    },
+    {
+      href: "/srt-to-sbv-converter",
+      name: "SRT to SBV Converter",
+      desc: "Convert SRT subtitles to YouTube's SBV caption format",
+      aria: "Open SRT to SBV Converter",
+    },
+    {
       href: "/srt-to-txt-converter",
       name: "SRT to TXT Converter",
       desc: "Extract plain text from .srt files",
@@ -286,6 +298,22 @@ const jsonLdItemList = {
     {
       "@type": "ListItem",
       position: 3,
+      name: "SBV to SRT Converter",
+      url: "https://subtitlesedit.com/sbv-to-srt-converter",
+      description:
+        "Convert YouTube SBV captions to SRT format for use in any video player or subtitle editor.",
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
+      name: "SRT to SBV Converter",
+      url: "https://subtitlesedit.com/srt-to-sbv-converter",
+      description:
+        "Convert SRT subtitle files to YouTube's native SBV caption format for clean YouTube Studio uploads.",
+    },
+    {
+      "@type": "ListItem",
+      position: 5,
       name: "SRT to TXT Converter",
       url: "https://subtitlesedit.com/srt-to-txt-converter",
       description:
@@ -293,7 +321,7 @@ const jsonLdItemList = {
     },
     {
       "@type": "ListItem",
-      position: 4,
+      position: 6,
       name: "VTT to TXT Converter",
       url: "https://subtitlesedit.com/vtt-to-txt-converter",
       description:
@@ -301,7 +329,7 @@ const jsonLdItemList = {
     },
     {
       "@type": "ListItem",
-      position: 5,
+      position: 7,
       name: "Subtitle Time Shifter",
       url: "https://subtitlesedit.com/subtitle-time-shifter",
       description:
@@ -309,7 +337,7 @@ const jsonLdItemList = {
     },
     {
       "@type": "ListItem",
-      position: 6,
+      position: 8,
       name: "Subtitle Merger",
       url: "https://subtitlesedit.com/subtitle-merger",
       description:
@@ -317,7 +345,7 @@ const jsonLdItemList = {
     },
     {
       "@type": "ListItem",
-      position: 7,
+      position: 9,
       name: "Subtitle Splitter",
       url: "https://subtitlesedit.com/subtitle-splitter",
       description:
@@ -325,7 +353,7 @@ const jsonLdItemList = {
     },
     {
       "@type": "ListItem",
-      position: 8,
+      position: 10,
       name: "Subtitle Overlap Fixer",
       url: "https://subtitlesedit.com/subtitle-overlap-fixer",
       description:
@@ -333,7 +361,7 @@ const jsonLdItemList = {
     },
     {
       "@type": "ListItem",
-      position: 9,
+      position: 11,
       name: "Subtitle Encoding Fixer",
       url: "https://subtitlesedit.com/subtitle-encoding-fixer",
       description:
@@ -341,7 +369,7 @@ const jsonLdItemList = {
     },
     {
       "@type": "ListItem",
-      position: 10,
+      position: 12,
       name: "Subtitle Find & Replace",
       url: "https://subtitlesedit.com/subtitle-find-replace",
       description:
