@@ -1,0 +1,173 @@
+---
+title: "UTF-8 BOM and Subtitles: When You Need It, When You Don't, and How to Fix It"
+description: "Understand the UTF-8 BOM, why some media players need it and others break on it, and how to add or remove it from subtitle files without re-encoding."
+date: "2026-05-14"
+slug: "utf-8-bom-subtitles-when-to-add-remove"
+---
+
+Some subtitle files play perfectly in VLC and show garbage in Windows Media Player. Others work in every player on Windows but break Plex. Same file, same encoding, same content. The difference is three bytes you can't see: the UTF-8 BOM.
+
+This guide explains what the BOM is, when subtitle players need it, when they break on it, and how to add or remove it without re-encoding the file.
+
+## What is a BOM?
+
+BOM stands for Byte Order Mark. It's a sequence of bytes at the very start of a text file that tells software two things: the file's encoding, and (for some encodings) the byte order.
+
+For UTF-8, the BOM is three specific bytes: `EF BB BF`. They appear before any other content. If you open a file with a BOM in a text editor that doesn't strip it, you might see a strange character (often `` or `ï»¿`) at the very start of the first line. That's the BOM rendered as if it were text by an editor that didn't recognise it.
+
+The BOM was originally designed for UTF-16 and UTF-32, where the byte order genuinely matters (little-endian vs big-endian). For UTF-8, byte order is irrelevant — there's nothing to mark — but the BOM still works as an encoding signal. A program reading the file can check the first three bytes, see `EF BB BF`, and conclude "this is UTF-8".
+
+## Why subtitle files care about the BOM
+
+The BOM matters for subtitles specifically because subtitle parsers are often written in a hurry, with edge cases handled inconsistently. Different players take different approaches:
+
+**Players that benefit from the BOM:**
+
+- Older versions of Windows Media Player — assumes Windows-1252 by default and only switches to UTF-8 when it sees the BOM.
+- Some hardware media players, especially older smart TVs and set-top boxes.
+- Microsoft Excel when opening CSV files (irrelevant for subtitles, but a common point of confusion).
+- Some Windows-native subtitle authoring tools.
+
+**Players that strip or ignore the BOM correctly:**
+
+- VLC (handles BOM and non-BOM UTF-8 transparently)
+- Modern web browsers playing HTML5 video with VTT tracks
+- Plex
+- Most modern smart TVs (post-2018 or so)
+
+**Players that break on the BOM:**
+
+- The HTML5 `<track>` element with VTT files. The WebVTT spec explicitly says the file must start with `WEBVTT`, and a BOM before the `W` is technically a violation. Some browsers tolerate it; others render the captions as if the entire file were broken.
+- Some scripting tools that read the file with naive string operations and expect specific first-character sequences.
+- Older versions of JW Player and similar embed players for web video.
+
+This is why "my subtitles work in VLC but not on my smart TV" or "they work everywhere except my website" is a maddening problem to debug. The file content is identical; the BOM is the only difference, and you can't see it.
+
+## How to tell if your file has a BOM
+
+The easiest way is to use a tool that explicitly reports BOM status when loading a file. The [Subtitle Encoding Fixer](/subtitle-encoding-fixer) detects BOMs automatically on file upload and shows you a clean preview either way.
+
+If you want to check manually, options include:
+
+**Hex editor:** Open the file in any hex editor (Hex Fiend on Mac, HxD on Windows, or the `xxd` command in a terminal). Look at the first three bytes. If they're `EF BB BF`, you have a UTF-8 BOM.
+
+**Command line:**
+
+```
+head -c 3 yourfile.srt | xxd
+```
+
+If the output shows `efbb bf`, the BOM is present.
+
+**File size sanity check:** A BOM adds exactly 3 bytes. If you create the same file twice and one is exactly 3 bytes larger, the larger one has a BOM.
+
+**Notepad on Windows:** Open Save As. The "Encoding" dropdown will distinguish between "UTF-8" (no BOM) and "UTF-8 with BOM". Whatever the dropdown shows when you opened the file is what the file currently has.
+
+## When to add the BOM
+
+Add a UTF-8 BOM to your subtitle file when:
+
+1. **The file contains non-ASCII characters and your target player is older Windows software.** Windows Media Player, older versions of Media Player Classic, and various Windows-native subtitle tools default to Windows-1252 unless they see the BOM. Without it, accented characters like é, ñ, ü, or anything in Cyrillic, Greek, Arabic, CJK, etc. will display as mojibake.
+
+2. **You're producing subtitle files for distribution to mixed audiences.** If you don't know what player your users have, adding the BOM is the safer default — modern players ignore it, and old players rely on it. The cost (3 bytes) is negligible.
+
+3. **A specific player or tool downstream has documented BOM requirements.** Check the documentation. Some professional subtitling software for broadcast workflows requires BOMs for compliance with internal pipelines.
+
+## When to remove the BOM
+
+Remove a UTF-8 BOM when:
+
+1. **You're publishing VTT files for web video.** The WebVTT specification requires files to begin with the exact string `WEBVTT`. A BOM before it is technically a spec violation, and while most modern browsers tolerate it, edge cases exist. For maximum compatibility on the open web, no BOM.
+
+2. **A specific player is breaking on the file.** If subtitles work in VLC but display garbage in some other tool, and you've confirmed the encoding is UTF-8, try removing the BOM. There's a decent chance the downstream tool is reading the first character as content rather than skipping the BOM.
+
+3. **You're piping the file into a script.** Many quick-and-dirty parsing scripts (especially older Python 2 code, shell scripts, and some Node modules) don't account for BOMs and will choke on the leading bytes or include them in the first field they parse. Files without BOMs are friendlier to scripted workflows.
+
+4. **You're concatenating subtitle files.** If you merge two files that both have BOMs, you'll end up with a BOM in the middle of the resulting file — which is meaningless and likely to confuse parsers. Strip BOMs before merging.
+
+## How to add or remove the BOM without re-encoding
+
+This is where most guides go wrong. The typical advice — "save the file as UTF-8 with/without BOM in Notepad" or "use VS Code's encoding dropdown" — works but has a side effect: the editor reads the entire file with its assumed encoding, then writes it back out with the new BOM setting. If the editor guesses the wrong source encoding, you'll corrupt the file's content even though you only wanted to toggle the BOM.
+
+The safer approach is a tool that operates on the BOM specifically, without touching the rest of the file's bytes.
+
+The [Subtitle Encoding Fixer](/subtitle-encoding-fixer) handles this with an "Add UTF-8 BOM" checkbox. When you upload a file:
+
+- If it's already valid UTF-8, the tool reads it cleanly.
+- The "Add UTF-8 BOM" checkbox controls whether the output starts with the BOM bytes.
+- The actual character content of the file isn't re-encoded — it's preserved exactly.
+
+To remove a BOM: upload the file, leave the checkbox unticked, download. To add a BOM: upload, tick the checkbox, download. Either operation takes a few seconds and doesn't risk corrupting the file.
+
+For command-line users, you can also do BOM toggling directly:
+
+**Remove BOM:**
+```
+sed -i.bak '1s/^\xEF\xBB\xBF//' yourfile.srt
+```
+
+**Add BOM:**
+```
+printf '\xEF\xBB\xBF' | cat - yourfile.srt > yourfile.new.srt && mv yourfile.new.srt yourfile.srt
+```
+
+These work, but require comfort with shell syntax and careful handling on different operating systems (macOS `sed` and GNU `sed` have slightly different `-i` syntax).
+
+## The BOM and SRT vs VTT
+
+A quick note on format-specific behaviour:
+
+**SRT files:** The format has no official spec, so BOMs are tolerated by most players. Adding a BOM rarely breaks anything; removing one rarely either. If you have a BOM problem with SRT, it's almost certainly a player-specific bug, not a format violation.
+
+**VTT files:** The WebVTT spec explicitly defines the file structure. The first line must contain `WEBVTT` (optionally followed by a space and a header description). A BOM before `WEBVTT` is a spec violation. Modern browsers handle it gracefully; older browsers and stricter validators may reject the file.
+
+**TXT files:** No format spec to worry about. Whether you want a BOM depends entirely on what tool will consume the file downstream.
+
+## Real-world troubleshooting flow
+
+When subtitles work in one player and not another, run through this checklist:
+
+1. **Open the file in a text editor that shows encoding.** Confirm it's UTF-8. If it's anything else (Windows-1252, ISO-8859-1, Shift_JIS), fix the encoding first using a [subtitle encoding fixer](/subtitle-encoding-fixer).
+
+2. **Check for BOM.** Use the methods above. Note whether the BOM is present.
+
+3. **Test in the failing player both with and without the BOM.** If it works one way and not the other, you've found the cause. Standardise on the version that works for your distribution target.
+
+4. **If neither version works, the problem isn't BOM-related.** Check the file for invisible characters elsewhere (zero-width spaces, weird Unicode), confirm timing format is correct for the player, and confirm the file extension matches the actual content (an SRT file renamed to .vtt won't play correctly).
+
+Most "mystery subtitle bugs" turn out to be one of: wrong encoding, BOM presence/absence, or invisible characters. The first two are quick fixes; the third requires more careful inspection.
+
+## Frequently asked questions
+
+### Should I always add a BOM to UTF-8 subtitle files?
+
+No. For web/VTT use, prefer no BOM. For distribution to users with older Windows-based players, prefer BOM. There's no universal answer — match the BOM setting to your most fragile downstream consumer.
+
+### Can a file have multiple BOMs?
+
+In principle, no — BOMs only belong at the start. In practice, careless file concatenation can produce files with BOMs in the middle, which most parsers will interpret as broken Unicode or treat as content. Always strip BOMs before merging files; let the final merged file have a single BOM at the start if needed.
+
+### Does removing the BOM change the file's content?
+
+No. Removing a BOM removes exactly three bytes (`EF BB BF`) from the start of the file. Everything after those bytes is unchanged. The actual characters in your subtitles are untouched.
+
+### My subtitles work in VLC but not in Quick Time. Is that a BOM issue?
+
+Possibly. QuickTime is particularly picky about subtitle file format and encoding. Try toggling the BOM and see if behaviour changes. If not, the issue is likely something else — wrong file extension, wrong subtitle format for the container, or invisible characters in the file.
+
+### Will adding a BOM fix garbled accented characters?
+
+Only if the original file was UTF-8 without BOM and the player was misinterpreting it as Windows-1252. In that case, adding a BOM tells the player "this is UTF-8" and the characters render correctly. If the file is actually in the wrong encoding (e.g. it's Windows-1252 saved as if it were UTF-8), adding a BOM won't help — you need a [proper encoding fix](/subtitle-encoding-fixer) instead.
+
+### How big is the BOM?
+
+Three bytes. UTF-16 BOMs are two bytes; UTF-32 BOMs are four. The UTF-8 BOM is `EF BB BF` — the longest of the three but still negligible for any realistic file size.
+
+## Related tools
+
+- [Subtitle Encoding Fixer](/subtitle-encoding-fixer) — detect encoding, fix mojibake, toggle BOM in your browser
+- [Subtitle Find & Replace](/subtitle-find-replace) — edit subtitle text without breaking timestamps
+- [SRT to VTT Converter](/srt-to-vtt-converter) — convert between formats with proper headers
+- [VTT to SRT Converter](/vtt-to-srt-converter) — strip VTT-specific syntax for SRT-only players
+
+If you're chasing a subtitle compatibility bug and suspect the BOM, the fastest fix is the [Subtitle Encoding Fixer](/subtitle-encoding-fixer) — upload your file, tick or untick the BOM checkbox, and download the corrected version. No re-encoding, no risk to the file content.

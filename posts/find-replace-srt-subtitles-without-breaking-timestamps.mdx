@@ -1,0 +1,146 @@
+---
+title: "How to Find and Replace Text in SRT Files Without Breaking Timestamps"
+description: "Edit SRT, VTT, and TXT subtitle files with find and replace — including regex — without corrupting timestamps. A practical guide with examples."
+date: "2026-05-12"
+slug: "find-replace-srt-subtitles-without-breaking-timestamps"
+---
+
+If you've ever opened an SRT file in a text editor, run a find-and-replace, and ended up with broken playback, you've discovered the hard way that subtitle files are not plain text. They look like plain text. They behave like plain text right up until the moment a careless replace operation eats one of your timestamps and your media player throws its hands up.
+
+This guide walks through how to find and replace text in subtitle files safely — including with regex — and why the wrong tool can quietly destroy hours of timing work.
+
+## Why text editors are dangerous for subtitle find-and-replace
+
+An SRT file looks like this:
+
+```
+1
+00:00:01,000 --> 00:00:04,000
+Hello John, how are you?
+
+2
+00:00:05,000 --> 00:00:08,000
+John said he is fine.
+```
+
+Three components per cue: an index number, a timestamp line, and the dialogue. To a text editor, all three are just text. So when you open the file in TextEdit, Notepad, or VS Code and run a find-and-replace on `\d+` to clean up something else, you don't just modify the dialogue — you nuke every digit in every timestamp. The file is now structurally broken. Your media player will either skip it entirely or display cues at wildly wrong times.
+
+The same trap applies to less obvious patterns. Search for `00` to replace with `Sarah's notes`? Every timestamp in the file just got mangled. Even non-regex replaces can hit timestamps if your search term happens to appear in the time format.
+
+## What "preserve timestamps" actually means
+
+A subtitle-aware find-and-replace tool doesn't treat the file as one big string. It parses the file into structural blocks first:
+
+1. The cue index (line 1 of each block)
+2. The timestamp line (line 2)
+3. The dialogue (lines 3 onward)
+
+Find-and-replace only runs on the dialogue lines. Timestamps and indices are mathematically untouchable — even if your search pattern would match digits or arrows, the parser never lets the replace function see those lines.
+
+This is exactly how our [Subtitle Find & Replace tool](/subtitle-find-replace) works. You can run `\d+` → `X` with regex enabled on an SRT file and your timestamps will be completely intact in the result. Try doing that in a generic text editor and you'll see the difference.
+
+## The three options that actually matter
+
+When you load a subtitle file into a proper find-and-replace tool, you typically get three toggles. Knowing what each does saves you a lot of trial and error.
+
+### Case-sensitive
+
+Off by default — and that's usually what you want. With case-sensitivity off, searching for `john` matches `John`, `JOHN`, and `john`. Turn it on when you specifically need to distinguish between, say, a speaker label `MARIA:` (always uppercase in screenplay-style captions) and the name `Maria` appearing inside dialogue.
+
+### Whole word only
+
+This wraps your search in word boundaries so `cat` doesn't accidentally match `concatenate` or `category`. Crucial for short search terms. Without it, replacing `art` with `craft` will produce `stcrafted`, `crafticle`, and `crafticulate` — three nonsense words from one careless replace.
+
+### Use regex
+
+The power feature. Regex lets you match patterns rather than literal strings. A few examples that come up constantly in subtitle work:
+
+- `\b[A-Z]{2,}:` — matches all-caps speaker labels followed by a colon (`MARIA:`, `JOHN:`, `THE PRESIDENT:`)
+- `\.\.\.` — matches three literal dots (when "Use regex" is off, just type `...` directly; with regex on, the dots are special characters and need escaping)
+- `\s{2,}` — matches two or more consecutive whitespace characters (useful for cleaning up double-spaced dialogue)
+- `\([^)]+\)` — matches anything in parentheses, including the parentheses themselves (useful for stripping `(audience laughs)`-style stage directions)
+
+When regex is off, special characters like `.`, `*`, `?`, and `(` are treated literally — so you can search for a literal `?` without escaping it. When regex is on, those characters become meaningful and you need to escape any literal ones with a backslash.
+
+## A practical workflow
+
+Here's the workflow that catches the most errors:
+
+1. **Load the file** into the find-and-replace tool. Look at the Original pane and make sure the file content displays correctly — if it shows weird characters, you have an encoding issue first; run it through a [subtitle encoding fixer](/subtitle-encoding-fixer) before doing anything else.
+2. **Run a test search without replacing.** Enter your search term, leave Replace empty, and click Replace All. You'll see a match count. If it's wildly higher or lower than expected, refine your search before committing to the replace.
+3. **Check the Result pane.** Look at a few cues to confirm the replacement looks right. Pay attention to punctuation, spacing, and capitalisation.
+4. **Download and test in your media player.** Drop the edited file into VLC or your editing software and play through a few cues to confirm timing is still correct.
+
+That third step is where most issues get caught. A regex that looked clever when you wrote it might be matching three more things than you intended.
+
+## Common real-world use cases
+
+These are the patterns I see most often.
+
+**Renaming a character across a whole episode.** Translator changes "Esteban" to "Stephen" in an English dub. Find: `Esteban`, Replace: `Stephen`, case-sensitive off (catches `ESTEBAN` in shouted dialogue too). 47 replacements in a 22-minute episode.
+
+**Updating branding in promotional captions.** Marketing team rebrands from "Acme Corp" to "Zenith Inc" across 200 video captions. Whole word off, case-sensitive off, no regex. Run on each VTT file.
+
+**Cleaning up automatic transcription output.** YouTube auto-captions are often littered with `[Music]`, `[Applause]`, and similar bracketed tags. Use regex `\[[^\]]+\]` with replace empty to strip them all.
+
+**Standardising terminology.** A documentary uses both "subway" and "underground" inconsistently for the British market. Find: `subway`, Replace: `underground`, case-sensitive off, whole word on (so `subwayrider` would be left alone — though you probably don't have that word in the file).
+
+**Removing speaker labels for plain reading.** Find: `^[A-Z]{2,}: ` (with regex on, the `^` anchors to the start of a line) — strips all-caps speaker labels and the colon-space after them. Useful when prepping a transcript for someone who just wants the dialogue.
+
+## When to use SRT vs VTT awareness
+
+A good subtitle find-and-replace tool handles VTT files differently from SRT. The structure is similar — cues separated by blank lines — but VTT has additional elements:
+
+- The `WEBVTT` header at the very top of the file
+- `NOTE` blocks (comments that shouldn't appear in playback)
+- `STYLE` blocks (CSS-like styling rules)
+- Cue identifiers (optional text labels above each timestamp)
+
+A subtitle-aware tool passes all of these through unchanged. So if you replace `world` across a VTT file, a `NOTE` block that says "*This is a note about the world tour*" stays intact — only the actual playable caption text gets modified.
+
+For TXT files (clean transcripts with no timestamps), the whole file is treated as dialogue. There's no structure to preserve, so the replace runs on the entire text.
+
+## Why not just script it?
+
+If you're a developer, sure — a five-line Python script with `re.sub` can do the same job. But three caveats:
+
+1. The script needs to know not to touch the timestamp lines. Most quick scripts don't, so you write a 5-line script and end up with a 30-line script with edge case handling for VTT headers and notes.
+2. You lose the visual diff. Seeing Original and Result side by side catches mistakes that a CLI replace will silently commit.
+3. You lose the dry-run match count. Knowing "147 matches" before you commit lets you sanity-check.
+
+For one-off edits, a browser tool wins. For batch processing 500 files in a CI pipeline, write the script. Different jobs, different tools.
+
+## Frequently asked questions
+
+### Can find and replace handle multi-line dialogue cues?
+
+Yes. SRT and VTT both support cues with multiple dialogue lines (a second speaker's line, or wrapped text). A subtitle-aware tool treats all dialogue lines within a cue as text that can be searched and replaced, while the timestamp line above them stays untouched.
+
+### What happens if my regex is invalid?
+
+A properly built tool will catch the error and display a message ("Invalid regex pattern") rather than crashing. If your tool crashes or silently does nothing when you enter `[unclosed` or `(?<broken)`, that's a sign to switch tools.
+
+### Will find and replace work on encoded characters like é, ñ, or 漢?
+
+Yes, as long as the file is loaded with the correct encoding. If your file is UTF-8 (the modern standard), accented and non-Latin characters work fine in both the find and replace fields. If you're seeing weird characters like `Ã©` instead of `é`, the file has an encoding problem — fix it first with a [subtitle encoding fixer](/subtitle-encoding-fixer), then run find-and-replace on the corrected file.
+
+### Can I undo a replacement?
+
+Not in the tool itself — once you click Replace All, the Result pane updates. But your Original file is never modified (the tool only generates a new file for download), so you can always re-run with different settings. For safety, keep the original file until you've confirmed the edit plays correctly.
+
+### Does the tool work offline?
+
+The [Subtitle Find & Replace tool](/subtitle-find-replace) runs entirely in your browser. Once the page is loaded, the actual find-and-replace happens locally — no upload, no server processing. You could disconnect your internet after loading the page and it would still work.
+
+### What's the largest file I can process?
+
+Anything you can hold in memory in your browser, which on modern machines is comfortably tens of megabytes. A typical 22-minute episode subtitle file is under 100KB, so even feature-length films won't come close to any practical limit.
+
+## Related tools
+
+- [Subtitle Encoding Fixer](/subtitle-encoding-fixer) — fix garbled characters before running find and replace
+- [Subtitle Time Shifter](/subtitle-time-shifter) — shift all timestamps forward or backward
+- [SRT to VTT Converter](/srt-to-vtt-converter) — convert between subtitle formats
+- [Subtitle Overlap Fixer](/subtitle-overlap-fixer) — detect and fix overlapping cues
+
+If you want a faster way to edit subtitle text without risking your timing, the [Subtitle Find & Replace tool](/subtitle-find-replace) handles all of this in your browser — no upload, no signup.

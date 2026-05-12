@@ -1,0 +1,195 @@
+---
+title: "How to Rename Speakers Across an Entire Subtitle File"
+description: "Rename characters, swap speaker labels, and update placeholder names across SRT and VTT subtitle files quickly. A guide for translators, editors, and YouTubers."
+date: "2026-05-13"
+slug: "rename-speakers-subtitle-file"
+---
+
+You've finished a translation. You've named all the characters. And then the client comes back: the lead's name isn't "Esteban" anymore — it's "Stephen". Or the screenwriter wants every "WOMAN 1" replaced with "MARIA" now that casting is locked. Or you've been transcribing a podcast and the host's name was misspelled the whole way through.
+
+Going through 400 subtitle cues by hand to fix this is the kind of task that eats an entire afternoon. It shouldn't. Here's how to do it in about thirty seconds.
+
+## The two kinds of speaker references in subtitle files
+
+Before you start, it helps to know what you're actually looking for. Speaker references in subtitle files come in two forms.
+
+**Speaker labels** are uppercase identifiers at the start of a cue, usually followed by a colon and a space:
+
+```
+MARIA: I never agreed to this.
+```
+
+These come from screenplay-style captioning conventions. They're common in TV captions for the hearing-impaired, professional translation workflows, and any production where speaker identification matters.
+
+**Inline name references** are mentions of a character's name within the dialogue itself:
+
+```
+JOHN: Maria, you have to listen.
+```
+
+Both can be the lowercase form (`Maria`) or — if you're working with English screenplay conventions — sometimes the all-caps form when a character is being addressed forcefully or in stage directions.
+
+A speaker rename usually means you need to update *both* — every label and every inline mention. The trick is doing it in a way that handles capitalisation correctly and doesn't accidentally damage anything else.
+
+## The dangerous way: a generic text editor
+
+Open the file in TextEdit or VS Code, hit Cmd+F (or Ctrl+F), find "Maria", replace with "Emma", click Replace All. Done?
+
+Three problems:
+
+1. **Timestamps can get hit by careless searches.** Replacing "Maria" with "Emma" is safe, but if a future rename involves digits or punctuation, a generic editor will happily corrupt your timestamps. (See our guide on [find and replace without breaking timestamps](/blog/find-replace-srt-subtitles-without-breaking-timestamps) for why this matters.)
+2. **Case-sensitivity defaults vary.** Some editors are case-sensitive by default, others aren't. If you don't know which, you'll either miss `MARIA:` (case-sensitive on) or accidentally rename "Maria" inside a longer word like "Mariachi" (case-sensitive off, whole-word off).
+3. **No match count, no preview.** You commit blind. If the replace did something unexpected, you find out when the video plays.
+
+A subtitle-aware tool removes all three issues.
+
+## The right way, step by step
+
+Here's the workflow for a typical character rename, using the [Subtitle Find & Replace tool](/subtitle-find-replace) as the reference. Same logic applies to any subtitle-aware editor.
+
+### Step 1: Identify both forms of the name
+
+Open your file in any viewer and check how the character is referenced. Look for:
+
+- The speaker label form: `MARIA:` or `Maria:` (followed by a colon)
+- The inline form within dialogue: `Maria`, `Maria's`, `Mariah` (be careful of partial matches)
+- Possessive forms: `Maria's`
+- Vocative use: dialogue like "Maria, come here"
+
+If the file uses both `MARIA` as a speaker label and `Maria` in dialogue, you'll need two passes — one case-sensitive for the label, one case-insensitive for the dialogue mentions.
+
+### Step 2: Replace the speaker label first (case-sensitive)
+
+Why first? Because if you do the lowercase replace first, "Maria" → "Emma" with case-sensitive off will also catch the `MARIA` label and replace it with `EMMA` — but only if your tool's case-insensitive matching preserves the source casing in the replacement, which most don't. You'll end up with `Emma:` instead of `EMMA:`, breaking the all-caps speaker convention.
+
+So:
+
+- Find: `MARIA`
+- Replace: `EMMA`
+- Toggle **Case-sensitive** on
+- Toggle Whole word and Regex off
+- Click Replace All
+
+Check the match count. If your file has 40 speaker labels for MARIA, you should see 40 matches. Look at the Result pane and confirm a few of the labels now read `EMMA:`.
+
+### Step 3: Replace the inline name references (case-sensitive, normal case)
+
+Now do the dialogue mentions. Reload the result back into the tool (or continue from the previous result), then:
+
+- Find: `Maria`
+- Replace: `Emma`
+- Toggle **Case-sensitive** on
+- Toggle Whole word and Regex off
+- Click Replace All
+
+Case-sensitive matters here too — by keeping it on, you avoid re-matching the `EMMA` labels you just created (which would then become... `EMMA` again, harmless, but it inflates your match count and obscures real errors).
+
+### Step 4: Catch the variants
+
+Now look at your match counts and Result pane. Did you catch everything? Common misses:
+
+- Possessives: `Maria's` was caught by the previous step (because `Maria` is a substring of `Maria's`), and you'll see `Emma's` in the result. Good.
+- All-caps in dialogue (`MARIA!` shouted): not caught yet. Optional third pass with Find: `MARIA!`, Replace: `EMMA!`.
+- Hyphenated or compound forms: rare for names, but worth scanning the Result pane for anything that looks wrong.
+
+### Step 5: Download and verify
+
+Download the edited file and drop it into your media player. Skip to a few timestamped points where the character appears and confirm the captions read correctly.
+
+## Replacing placeholder names from a draft
+
+Screenwriters and captioners often work from drafts where characters are unnamed:
+
+```
+WOMAN 1: Did you see what happened?
+MAN 2: I was right there.
+WOMAN 1: We need to call someone.
+```
+
+Once casting is locked, you need to swap these out:
+
+- Find: `WOMAN 1` → Replace: `MARIA` (case-sensitive on)
+- Find: `MAN 2` → Replace: `JOHN` (case-sensitive on)
+
+If you have 8 unnamed speakers, that's 8 quick passes. Each takes about three seconds. Doing it manually across 400 cues takes hours.
+
+A small tip: do the highest-numbered labels first. If you replace `WOMAN 1` before `WOMAN 10`, you'll accidentally match the `WOMAN 1` substring inside `WOMAN 10` and create `MARIA0`. Doing `WOMAN 10` → `LISA` first avoids this. Alternatively, use the **Whole word** toggle if your tool supports word-boundary matching on the digit suffix.
+
+## Bulk speaker stripping
+
+Sometimes you want to remove speaker labels entirely — say, you're prepping a clean transcript for someone who just wants the dialogue without identifiers. Two approaches:
+
+**Regex approach (one pass for all speakers):**
+
+- Toggle **Use regex** on
+- Find: `^[A-Z]{2,}:\s` — matches any line starting with two or more capital letters followed by a colon and a whitespace
+- Replace: leave empty
+- Click Replace All
+
+This strips every speaker label in the file in a single pass. Use it carefully — make sure you don't have legitimate dialogue starting with capitals followed by a colon (rare, but possible, e.g. lines beginning with "OK:" wouldn't survive). Always check the Result pane.
+
+**Literal approach (one pass per speaker):**
+
+Just replace `MARIA: ` → empty, `JOHN: ` → empty, etc. More tedious but zero risk of regex misfires.
+
+## Handling translation names
+
+Translation work introduces another wrinkle: the original-language name and the target-language name might both appear if the file was machine-translated and partially edited.
+
+A common pattern: the speaker labels were translated (German `MARIA` became Spanish `MARÍA` with the accent), but inline dialogue references still have the unaccented English `Maria`. Or vice versa.
+
+Strategy:
+
+1. Decide your target form (let's say `MARÍA` with the accent).
+2. Search for the unaccented form, replace with the accented form. Case-sensitive on; do two passes for the all-caps label and the title-case dialogue mention separately.
+3. Be careful with diacritics — `Maria` and `María` look similar but are different strings. Some tools normalise Unicode automatically; most don't. Test before committing.
+
+For files with mixed encodings causing weird characters to appear instead of accents (`MarÃ­a` instead of `María`), fix the encoding first with the [Subtitle Encoding Fixer](/subtitle-encoding-fixer) before doing any renames.
+
+## When you have hundreds of files
+
+For a single episode or video, browser-based find-and-replace is the fastest option. For a 20-episode season where you need to rename a character across every file, you have two options:
+
+1. **Repetitive but safe:** load each file, run the renames, download, move to next. With muscle memory this takes under a minute per file.
+2. **Scripted:** write a small Python or Node script that parses each file, runs the replacement only on dialogue lines, and outputs corrected files in a batch. Higher setup cost, faster on large batches.
+
+The break-even point is roughly 10-15 files. Below that, manual is faster than writing and debugging a script. Above that, scripting wins.
+
+## Frequently asked questions
+
+### What if the name appears as part of another word?
+
+Use **Whole word only** to prevent partial matches. With it on, searching for `Sam` won't match `Samuel` or `Samantha`. Without it, you'd accidentally rename half your cast.
+
+### Can I do multiple renames in one operation?
+
+Most subtitle find-and-replace tools, including the [Subtitle Find & Replace](/subtitle-find-replace) tool here, do one find-replace at a time. For multiple renames, run them sequentially — the Result of one pass becomes the input for the next. For very large batches across many files, a custom script is more efficient.
+
+### What about characters whose names are common words?
+
+This is the hardest case. If your character's name is "Hope" or "Grace" or "Rose", every literal match will catch the noun too. Workarounds:
+
+- Use case-sensitive search if the character is consistently capitalised and the noun is consistently lowercase.
+- Use whole-word matching to exclude compound words.
+- Manually review the Result pane and use the match count to sanity-check. If you expected 30 references and got 47, you probably caught some unintended matches.
+
+### Will this break my subtitle timing?
+
+No, as long as you use a subtitle-aware tool. The [Subtitle Find & Replace tool](/subtitle-find-replace) parses the file structurally and only applies replacements to dialogue lines — timestamps and cue indices are mathematically untouchable, even if your replacement involves digits.
+
+### Does the same approach work for VTT files?
+
+Yes. VTT files have the same cue structure as SRT, plus a `WEBVTT` header and optional `NOTE`/`STYLE` blocks. A subtitle-aware tool leaves the header and metadata untouched and only operates on the actual dialogue text.
+
+### What if I make a mistake?
+
+Keep the original file. The [Subtitle Find & Replace tool](/subtitle-find-replace) never modifies your source file — it produces a new file for download. If a rename went wrong, you can always re-run on the original.
+
+## Related tools
+
+- [Subtitle Find & Replace](/subtitle-find-replace) — rename speakers and edit subtitle text in your browser
+- [Subtitle Encoding Fixer](/subtitle-encoding-fixer) — fix garbled accented characters before renaming
+- [SRT to VTT Converter](/srt-to-vtt-converter) — convert between subtitle formats
+- [Subtitle Time Shifter](/subtitle-time-shifter) — adjust timing on the edited file
+
+Renaming a character across an entire subtitle file should take seconds, not hours. Load the file into the [Subtitle Find & Replace tool](/subtitle-find-replace), run the right combination of case-sensitive passes, and you're done.
