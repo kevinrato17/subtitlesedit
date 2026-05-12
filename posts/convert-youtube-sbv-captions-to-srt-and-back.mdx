@@ -1,0 +1,155 @@
+---
+title: "How to Convert YouTube SBV Captions to SRT (and Back Again)"
+description: "A step-by-step guide to exporting YouTube captions, converting SBV to SRT for editing, then converting SRT back to SBV for re-upload. Free, browser-based, no software required."
+date: "2026-05-12"
+slug: "convert-youtube-sbv-captions-to-srt-and-back"
+---
+
+You uploaded a video to YouTube. The auto-generated captions are mostly right but need polishing. Or maybe you wrote captions in subtitle editing software and now you want them on YouTube. Either way, you're going to bump into a format problem: YouTube speaks **SBV**, and almost nothing else does.
+
+This guide walks through the full workflow — exporting captions from YouTube Studio, converting SBV to SRT for editing in proper subtitle software, then converting your edited SRT back to SBV for clean re-upload. Everything happens in your browser. No software to install, no files uploaded to a server.
+
+## What SBV actually is
+
+SBV stands for **SubViewer**, but practically nobody calls it that anymore. It's the format YouTube exports when you download captions from YouTube Studio. The file looks like this:
+
+```
+0:00:01.000,0:00:04.500
+Welcome to the video.
+
+0:00:05.000,0:00:08.250
+Today we're talking about subtitles.
+```
+
+Compared to the universal SRT format, SBV is stripped-down: no sequence numbers, single-digit hours, periods instead of commas before milliseconds, and a comma between start and end times instead of an arrow. It's efficient, but no other major video platform or subtitle editor uses it natively.
+
+If you want to edit YouTube captions in Subtitle Edit (the desktop tool), Aegisub, Adobe Premiere, DaVinci Resolve, or just about any subtitle software, you need to convert SBV to SRT first.
+
+## Step 1: Export captions from YouTube Studio
+
+YouTube Studio doesn't make this obvious. Here's where the option lives:
+
+1. Open YouTube Studio at studio.youtube.com
+2. Click **Subtitles** in the left sidebar
+3. Find the video whose captions you want to export
+4. Click the video title to open caption editing
+5. Click the language you want to export
+6. Click the three-dot menu in the caption editor toolbar
+7. Choose **Download** → select **.sbv**
+
+You'll get a file named something like `videotitle-en.sbv` saved to your downloads folder.
+
+YouTube also offers `.vtt` and `.srt` download options in some regions, but the export is most reliable in `.sbv` format. The other formats sometimes contain extra metadata or styling that can confuse non-YouTube software.
+
+## Step 2: Convert SBV to SRT for editing
+
+Open the [SBV to SRT Converter](/sbv-to-srt-converter) in a new tab.
+
+Drag your downloaded `.sbv` file onto the upload area, or paste the file contents directly into the input box on the left. The right-hand panel shows your captions converted to SRT format in real time.
+
+What the converter is doing under the hood:
+
+- Adding sequential cue numbers (1, 2, 3...) — SBV doesn't use these, SRT requires them
+- Padding single-digit hours to two digits (`0:00:01` becomes `00:00:01`)
+- Replacing the period before milliseconds with a comma (SRT standard)
+- Replacing the comma between start and end times with ` --> ` (the SRT arrow)
+- Preserving every line of dialogue exactly as written, including multi-line cues
+
+Click **Download** to save the SRT file. The filename matches your original (e.g. `videotitle-en.srt`).
+
+## Step 3: Edit your captions
+
+Now your captions are in SRT — the universal subtitle format. You can:
+
+- Open them in Subtitle Edit (the desktop app) for advanced editing
+- Drag the SRT file into Premiere, DaVinci Resolve, or Final Cut for video editor caption editing
+- Run them through our [Subtitle Find & Replace tool](/subtitle-find-replace) for batch fixes
+- Use our [Subtitle Time Shifter](/subtitle-time-shifter) if the timing needs to shift forward or backward
+- Use [Subtitle Encoding Fixer](/subtitle-encoding-fixer) if you see weird characters from non-English captions
+
+Make whatever changes you need. Save as SRT.
+
+## Step 4: Convert SRT back to SBV for re-upload
+
+YouTube Studio will accept SRT files for upload, but in practice SBV uploads more reliably and faster, especially for longer videos or non-English languages.
+
+Open the [SRT to SBV Converter](/srt-to-sbv-converter), drop in your edited SRT, and download the SBV result.
+
+Worth knowing: this conversion **strips two things** that SBV doesn't support:
+
+- Sequence numbers (irrelevant — SBV ignores them anyway)
+- Inline styling tags like `<i>`, `<b>`, `<u>`, and `<font>` (YouTube ignores these in captions anyway, so you lose nothing visible)
+
+Everything else — timing, dialogue, line breaks, speaker labels written into the text — is preserved exactly.
+
+## Step 5: Re-upload to YouTube
+
+Back in YouTube Studio:
+
+1. Open the same video's caption editor
+2. Click **Actions** → **Upload file**
+3. Choose **With timing**
+4. Select your converted `.sbv` file
+5. Click **Save** at the top right
+
+YouTube replaces the existing captions immediately. No re-encoding, no waiting for processing. The new captions appear within seconds.
+
+## When you might skip the conversion entirely
+
+There are cases where you don't need to convert at all:
+
+- **YouTube auto-translation is good enough.** YouTube auto-translates captions to over 100 languages. If you're happy with the auto-translation quality, no conversion needed.
+- **You're using Premiere or DaVinci's built-in caption editor.** Both accept SBV directly via export plugins (Premiere) or workaround imports (Resolve).
+- **You're not changing anything.** If you just need a backup of your captions, the SBV file is fine to keep as-is.
+
+But if you're doing any serious editing, the SBV → SRT → edit → SBV workflow is the smoothest path.
+
+## Common problems and fixes
+
+**Problem: The file won't upload to YouTube.**
+Check the file extension. Some operating systems hide extensions. If your file says `captions.sbv.txt`, rename it to `captions.sbv`.
+
+**Problem: Captions are out of sync after upload.**
+The timing in your SRT or SBV was off before upload. Run the file through our [Time Shifter](/subtitle-time-shifter) to nudge timing forward or backward by a fixed offset.
+
+**Problem: Captions show garbled characters (é becomes Ã©, etc.)**
+This is a UTF-8 encoding issue. Run your file through the [Encoding Fixer](/subtitle-encoding-fixer) before re-uploading.
+
+**Problem: Italics or bold styling missing after re-upload.**
+YouTube's caption renderer doesn't display HTML-style tags regardless of format. This is a YouTube limitation, not a conversion bug.
+
+## Frequently Asked Questions
+
+### Why doesn't YouTube use SRT natively?
+
+SBV predates SRT becoming the de facto subtitle standard. YouTube built its caption system around SBV in the early days, and changing the underlying format would break years of existing workflows. They added SRT and VTT support later as upload options, but SBV is still the canonical YouTube format.
+
+### Can I batch-convert multiple SBV files at once?
+
+The browser-based tool converts one file at a time. For batch processing, save each converted file individually — it takes a few seconds per file. If you have hundreds of files, a Python script using a regex find-and-replace is faster, but for most creators with a dozen or two videos, single-file conversion is quick enough.
+
+### Will my caption timing change after conversion?
+
+No. Both conversion directions preserve timing to the millisecond. SBV uses `H:MM:SS.mmm` and SRT uses `HH:MM:SS,mmm` — different punctuation, identical precision.
+
+### What about VTT? Can I use that for YouTube instead?
+
+Yes. YouTube accepts SRT, SBV, VTT, and TTML uploads. SBV tends to upload most reliably; VTT is increasingly accepted; SRT works but sometimes fails silently with non-English characters. Our [SRT to VTT Converter](/srt-to-vtt-converter) and [VTT to SRT Converter](/vtt-to-srt-converter) handle that direction.
+
+### Are my captions uploaded to your server during conversion?
+
+No. Every conversion happens entirely in your browser using JavaScript. Your caption files never leave your computer. We can't see them, store them, or recover them — and neither can anyone else.
+
+### What if my SBV file has a BOM at the start?
+
+Some text editors save files with an invisible UTF-8 byte order mark (BOM) at the very beginning. Our converter detects and strips this automatically before parsing. You don't need to do anything special.
+
+## The whole workflow in one minute
+
+1. Download `.sbv` from YouTube Studio
+2. Convert SBV to SRT at [subtitlesedit.com/sbv-to-srt-converter](/sbv-to-srt-converter)
+3. Edit in your preferred subtitle tool
+4. Convert SRT back to SBV at [subtitlesedit.com/srt-to-sbv-converter](/srt-to-sbv-converter)
+5. Upload `.sbv` to YouTube Studio
+
+That's the entire loop. No installs, no uploads to third-party servers, no accounts. Just two free browser-based converters that handle the format dance so you can focus on the words on screen.

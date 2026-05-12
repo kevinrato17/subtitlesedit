@@ -1,0 +1,225 @@
+---
+title: "SRT vs SBV vs VTT: Which Subtitle Format Should You Use?"
+description: "A clear comparison of the three most common subtitle formats — SRT, SBV, and VTT. Learn what each format does, which platforms accept which, and when to convert between them."
+date: "2026-05-15"
+slug: "srt-vs-sbv-vs-vtt-subtitle-formats-explained"
+---
+
+Three subtitle formats dominate the modern video web: **SRT**, **SBV**, and **VTT**. They look superficially similar — timestamps followed by text — but each was designed for a different purpose, and using the wrong one in the wrong place causes everything from silent upload failures to garbled characters on playback.
+
+This guide explains what each format is, where it came from, which platforms accept it, and how to know which one you actually need.
+
+## The short version
+
+If you're in a hurry:
+
+- **SRT** — the universal default. Use this unless you have a specific reason not to.
+- **SBV** — YouTube's native format. Use this for YouTube uploads.
+- **VTT** — modern web video standard. Use this for HTML5 video and modern streaming players.
+
+If you have a file in one format and need another, conversion is fast and lossless in most directions. The rest of this guide explains why these defaults exist and when you'd deviate from them.
+
+## SRT (SubRip Subtitle)
+
+SRT was created in the late 1990s as the subtitle format for a Windows tool called **SubRip**, which extracted hard-coded subtitles from VHS rips. The format was simple, plain text, easy to parse — and it stuck.
+
+A typical SRT file looks like this:
+
+```
+1
+00:00:01,000 --> 00:00:04,500
+Welcome to the video.
+
+2
+00:00:05,000 --> 00:00:08,250
+Today we're going to talk about subtitles.
+```
+
+Three lines per cue: a sequence number, a timestamp range with an arrow separator, and one or more lines of dialogue. Cues are separated by blank lines. Timestamps use `HH:MM:SS,mmm` with a comma before the milliseconds (a European convention from the original French-language tool).
+
+### What SRT supports
+
+- Basic inline HTML-style styling tags: `<i>`, `<b>`, `<u>`, `<font color="...">`
+- Multi-line dialogue within a single cue
+- Unlimited cues, unlimited duration
+- UTF-8 encoding (and many older variants for backwards compatibility)
+
+### What SRT doesn't support
+
+- Positioning (subtitles always appear in the standard bottom-center position)
+- Karaoke timing, fades, or other animations
+- Speaker name tagging as a separate field (you have to write speaker labels into the dialogue text)
+- Style definitions or stylesheets
+
+### Where SRT works
+
+Practically everywhere. VLC, Premiere Pro, DaVinci Resolve, Final Cut Pro, all major media players, every streaming platform's upload tool, every subtitle editor. If a tool processes subtitles at all, it processes SRT.
+
+## SBV (YouTube SubViewer)
+
+SBV is YouTube's native caption format. The original SubViewer format dates back to the 1990s, but YouTube's specific SBV variant is what most people mean when they say "SBV" today.
+
+A typical SBV file:
+
+```
+0:00:01.000,0:00:04.500
+Welcome to the video.
+
+0:00:05.000,0:00:08.250
+Today we're going to talk about subtitles.
+```
+
+Compared to SRT, four differences jump out:
+
+- **No sequence numbers.** Just timestamp and dialogue, separated by a blank line.
+- **Single-digit hours.** `0:00:01` not `00:00:01`.
+- **Period before milliseconds, not comma.** `.000` not `,000`.
+- **Comma between start and end times.** Not the ` --> ` arrow SRT uses.
+
+### What SBV supports
+
+- Basic timing and dialogue
+- Multi-line dialogue within a cue
+- UTF-8 encoding
+
+### What SBV doesn't support
+
+- Styling tags (any HTML-style tags in the dialogue text will be displayed literally by some players)
+- Sequence numbers
+- Positioning or any advanced features
+
+### Where SBV works
+
+YouTube, primarily. A handful of older subtitle tools recognise SBV but most modern software treats it as an obscure format. If you're not working with YouTube uploads, you almost certainly don't need SBV.
+
+## VTT (Web Video Text Tracks)
+
+VTT, or WebVTT, is the modern web standard for video subtitles. It was designed specifically for HTML5 video and is the format you'll see referenced in `<track>` elements on websites.
+
+A typical VTT file:
+
+```
+WEBVTT
+
+00:00:01.000 --> 00:00:04.500
+Welcome to the video.
+
+00:00:05.000 --> 00:00:08.250
+Today we're going to talk about subtitles.
+```
+
+Three things distinguish VTT from SRT:
+
+- **`WEBVTT` header** on the first line (required)
+- **Periods before milliseconds** instead of SRT's commas
+- **Optional cue identifiers** (text labels for cues, not sequence numbers)
+
+### What VTT supports
+
+- Inline styling and CSS classes
+- Speaker tags via `<v Speaker Name>` syntax
+- Positioning (`align`, `line`, `position`, `size` cue settings)
+- Region definitions for grouped subtitle placement
+- NOTE blocks for comments inside the file
+- STYLE blocks for CSS-style declarations
+- Karaoke-style word-level timing
+
+### What VTT doesn't support
+
+- Animated effects beyond basic fades
+- Drawing or graphical overlays
+
+### Where VTT works
+
+All modern web browsers (Chrome, Firefox, Safari, Edge) via the HTML5 `<track>` element. YouTube accepts VTT uploads. Most streaming platforms accept VTT. Older media players sometimes don't support it — VLC handles VTT fine on modern versions, but very old builds don't.
+
+## Side-by-side comparison
+
+| Feature | SRT | SBV | VTT |
+|---|---|---|---|
+| File header required | No | No | Yes (`WEBVTT`) |
+| Sequence numbers | Required | None | Optional |
+| Milliseconds separator | Comma | Period | Period |
+| Inter-timestamp separator | ` --> ` | Comma | ` --> ` |
+| Inline styling | Limited | None | Full CSS |
+| Positioning | No | No | Yes |
+| Speaker tagging | Manual | Manual | Native (`<v>`) |
+| Comments in file | No | No | Yes (`NOTE` blocks) |
+| Browser native support | No | No | Yes (HTML5) |
+| YouTube upload | Yes | Yes (preferred) | Yes |
+
+## How to choose
+
+Match the format to the platform you're delivering to:
+
+**Uploading to YouTube?** Use SBV. It's YouTube's native format and uploads most reliably. Convert from SRT using our [SRT to SBV Converter](/srt-to-sbv-converter) if needed.
+
+**Embedding video on your own website?** Use VTT. It's the format HTML5's `<track>` element expects, and it gives you the most styling control. Convert from SRT using our [SRT to VTT Converter](/srt-to-vtt-converter).
+
+**Uploading to Vimeo, Netflix, or most streaming services?** Use SRT. It's the universal default they all accept.
+
+**Editing in Premiere, DaVinci, Final Cut, or Subtitle Edit?** Use SRT. These tools handle SRT natively without conversion.
+
+**Sharing captions with someone else?** Use SRT unless you know they need something specific. It's the most portable format.
+
+## Conversion is usually lossless
+
+The good news: in most directions, converting between these three formats loses nothing meaningful.
+
+- **SBV → SRT** is fully lossless. Sequence numbers get added (they're just numerical), timestamps get reformatted, dialogue is preserved exactly. Use our [SBV to SRT Converter](/sbv-to-srt-converter).
+- **SRT → SBV** strips sequence numbers (irrelevant — SBV doesn't use them) and HTML-style styling tags (YouTube ignores these anyway). Timing and dialogue are preserved exactly. Use our [SRT to SBV Converter](/srt-to-sbv-converter).
+- **SRT → VTT** is essentially lossless. The `WEBVTT` header is added, milliseconds separators are converted, sequence numbers are preserved as cue identifiers. Use our [SRT to VTT Converter](/srt-to-vtt-converter).
+- **VTT → SRT** loses VTT-specific features (positioning, regions, STYLE blocks, NOTE blocks). For basic captions without those features, the conversion is lossless. Use our [VTT to SRT Converter](/vtt-to-srt-converter).
+
+If your VTT file uses advanced features like positioning or CSS styling, converting to SRT or SBV will strip those. Decide whether the destination platform supports them before converting.
+
+## A common mistake
+
+Don't try to use SRT as VTT (or vice versa) by just renaming the file extension. The file headers, timestamp punctuation, and separators are all different. A `.vtt` file without the `WEBVTT` header will fail silently in HTML5 video. A `.srt` file with periods before milliseconds will parse as malformed in most SRT-reading tools.
+
+Always convert properly, even when the formats look almost identical. Our converters handle the punctuation differences, header additions, and timestamp reformatting automatically.
+
+## Frequently Asked Questions
+
+### Which format has the smallest file size?
+
+SBV is marginally smaller than SRT (no sequence numbers, shorter timestamps). VTT is slightly larger than SRT (the `WEBVTT` header and longer timestamp format). For typical caption files of a few thousand cues, the difference is a few kilobytes — irrelevant in practice.
+
+### Are there other subtitle formats I should know about?
+
+Yes, but they're niche:
+
+- **ASS / SSA** — Used by anime fansubbers and Aegisub. Supports complex styling, positioning, karaoke timing.
+- **SUB / MicroDVD** — Old frame-based format from DivX-era ripping. Legacy only.
+- **TTML / DFXP** — XML-based format used by broadcast and some streaming platforms.
+- **STL** — Used in professional broadcast subtitle workflows.
+
+For 99% of online video work, SRT, SBV, and VTT cover everything you need.
+
+### Can I edit any of these formats in a regular text editor?
+
+Yes — all three are plain UTF-8 text files. You can open them in Notepad, TextEdit, VS Code, or any editor. Just be careful with the timestamp format — small typos like missing a digit or putting a comma where there should be a period will break the file.
+
+For safer editing, use our [Subtitle Find & Replace tool](/subtitle-find-replace), which knows how to edit dialogue without accidentally damaging timestamps.
+
+### Why do some SRT files use periods instead of commas before milliseconds?
+
+That's technically malformed SRT, but some tools generate it anyway. The official spec uses a comma (`00:00:01,500`). Period-using files (`00:00:01.500`) are sometimes called "non-standard SRT" and they confuse strict parsers but work in lenient ones like VLC.
+
+If you have a file with periods that's labelled `.srt` but won't load, try converting it to VTT (which uses periods natively) using our [SRT to VTT Converter](/srt-to-vtt-converter), or fix the punctuation with [Find & Replace](/subtitle-find-replace).
+
+### Do I need to worry about character encoding?
+
+Usually no — modern files default to UTF-8, which handles every language correctly. Older files (especially Windows-generated ones from the 2000s) sometimes use Windows-1252 or ISO-8859-1, which displays as garbled characters when opened in a UTF-8-expecting player. Run those through our [Subtitle Encoding Fixer](/subtitle-encoding-fixer) to convert them.
+
+### Which format does Netflix want?
+
+Netflix accepts and prefers TTML/IMSC for professional content delivery, but their consumer-facing partner tools accept SRT and SBV uploads. For uploads to streaming services in general, SRT is the safest universal choice.
+
+## A practical recommendation
+
+If you're working with subtitles regularly and want one rule of thumb: **author and edit in SRT, convert at the last step to whatever the destination needs.**
+
+SRT is universally readable, easy to edit, supported everywhere, and converts cleanly to any other format. Treat it as your "source of truth" subtitle format. Only convert to SBV or VTT at the very end when you're delivering to a specific platform.
+
+This approach saves you from juggling multiple formats and gives you a clean editing workflow. When you need to deliver, [convert to SBV for YouTube](/srt-to-sbv-converter) or [convert to VTT for HTML5 video](/srt-to-vtt-converter) — both take seconds.
