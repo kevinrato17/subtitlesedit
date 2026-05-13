@@ -1,0 +1,133 @@
+---
+title: "How to Fix AI Video Subtitle Drift in Kling, Runway, and Veo"
+description: "AI-generated videos often produce subtitles that drift progressively out of sync. Here's how to fix it in seconds with anchor-based scaling."
+date: "2026-05-16"
+slug: "fix-ai-video-subtitle-drift-kling-runway-veo"
+---
+
+If you've ever transcribed an AI-generated video and watched the captions start perfectly aligned, then slowly drift further and further behind the audio, you've run into one of the most frustrating subtitle problems out there: progressive drift.
+
+A flat time shift won't fix it. If you offset the whole file by two seconds, the start breaks. If you offset by five, the middle breaks. The error isn't constant — it grows over time, and the only way to correct it is to scale the entire timeline.
+
+This guide walks you through fixing drift in subtitles generated from Kling, Runway, Veo, and other AI video models using a free browser-based tool.
+
+## Why AI video subtitles drift in the first place
+
+AI video models don't render frames at a perfectly constant cadence the way a camera does. Latent diffusion timing varies slightly between generated segments, and the resulting clip often plays back at a frame rate that's close to — but not exactly — what the metadata claims.
+
+When you run that video through an auto-transcription tool (Whisper, Descript, CapCut, etc.), the transcript assumes a constant frame rate and constant audio sample rate. Small per-frame timing errors don't matter for a 5-second clip, but over a 60-second or 3-minute generated video they accumulate. By the end of the file, captions can be five, ten, even fifteen seconds behind the audio.
+
+This is structurally different from the usual sync problem where someone exported subtitles with the wrong frame rate (24 vs 25, for example). That kind of error is also a scaling problem, but it's predictable from the source. AI drift isn't predictable — it varies between generations of the same model, and even between separate clips from the same prompt.
+
+## The fix: anchor-based timeline scaling
+
+Instead of guessing a constant offset, you tell the tool two things:
+
+1. A moment near the start of the video where you know the correct timestamp
+2. A moment near the end of the video where you know the correct timestamp
+
+The tool calculates a scale factor between those two anchor points and stretches or compresses every cue in the file proportionally. If your end was five seconds late and your start was fine, the tool compresses the whole timeline so the end lands on time and the start barely moves.
+
+This is what the [AI Subtitle Drift Stabilizer](/subtitle-drift-stabilizer) does, entirely in your browser. No upload, no account, no waiting.
+
+## Step-by-step: fix Kling, Runway, or Veo subtitles
+
+### Step 1 — Generate or export your subtitle file
+
+If you generated the video in Kling, Runway, or Veo and transcribed it separately, you'll have an `.srt` or `.vtt` file from your transcription tool. Save it somewhere easy to find.
+
+### Step 2 — Identify your anchor points
+
+Open the video in any player that shows timecode. Find two reference moments:
+
+- **Anchor 1**: a clear line of dialogue near the start (within the first 10 seconds is fine). Note the original timestamp from the subtitle file, and the actual moment in the video where that line is spoken.
+- **Anchor 2**: a clear line of dialogue near the end. Same two timestamps — original (from the file) and actual (from the video).
+
+You don't need millisecond precision. Within 50ms is fine for normal viewing. Broadcast and accessibility work may want tighter.
+
+### Step 3 — Open the Drift Stabilizer
+
+Go to the [AI Subtitle Drift Stabilizer](/subtitle-drift-stabilizer). Drag your subtitle file onto the input area, or paste it directly. The tool auto-detects whether it's SRT or VTT.
+
+### Step 4 — Enter your anchor values
+
+Fill in the four fields:
+
+- Anchor 1 original timestamp (what the file says)
+- Anchor 1 corrected timestamp (what the video actually shows)
+- Anchor 2 original timestamp (what the file says)
+- Anchor 2 corrected timestamp (what the video actually shows)
+
+The scale factor updates live as you type. If you see something like `Scale factor: 1.043× (subtitles will be stretched by 4.3%)`, you're correctly compensating for accumulated drift. If you see `0.957×`, the file was running fast and needs compression.
+
+### Step 5 — Apply and download
+
+Click **Apply Drift Fix**. The output appears on the right. Click **Download** to save the corrected file. Test it against the video. If a tiny offset remains, you can run the result through the [Subtitle Time Shifter](/subtitle-time-shifter) for a flat correction.
+
+## Model-by-model notes
+
+### Kling 3.0 and earlier
+
+Kling clips tend to drift more on longer generations (8+ seconds) and especially when prompts request complex motion. The drift is usually small at the start and accumulates linearly, which makes it a perfect fit for anchor-based scaling.
+
+### Runway Gen-4
+
+Runway's longer outputs occasionally produce subtle frame rate variance even within a single clip. If you stitched multiple Gen-4 clips into one video before transcribing, expect the drift to be more pronounced — but still approximately linear if all the clips were generated under the same settings.
+
+### Veo 3
+
+Veo's longer-form output mode introduces enough timing variance that auto-transcription from a single pass often needs correction. Two anchor points are usually enough; if you spot non-linear drift (rare), split the file at the inflection point and process each half separately.
+
+### Sora and others
+
+The same principle applies to any AI video model. As long as the drift accumulates roughly linearly across the file, two anchors will fix it.
+
+## When anchor scaling isn't enough
+
+A small percentage of files have genuinely non-linear drift — the gradient changes partway through the video. This usually happens when:
+
+- The source video was stitched from clips generated in separate sessions with different settings
+- The transcription tool changed processing mode partway through (e.g., switched models)
+- The video was re-encoded with variable frame rate after subtitle generation
+
+For these cases, the practical fix is to split the subtitle file at the point where the drift gradient changes, process each segment separately with its own anchor pair, and merge them back together with the [Subtitle Merger](/subtitle-merger).
+
+## Quick checklist before you publish
+
+- Run the corrected subtitles through your video player one more time
+- Check the first and last cues align with the audio
+- Spot-check a cue near the middle — this is where linear scaling errors would be most visible
+- If you're uploading to YouTube, the platform's auto-sync may shift things slightly, so test after upload too
+
+## Frequently asked questions
+
+### Why does a flat time shift not work for AI video subtitles?
+
+A flat shift assumes the error is the same at every point in the file. AI video drift accumulates over time, so the error at the end is bigger than the error at the start. You need to scale the timeline, not slide it.
+
+### Do I need to know the video's frame rate?
+
+No. The Drift Stabilizer works entirely from timestamps. You don't need to know the source frame rate or do any frame conversion math — just pick two anchor points and let the tool calculate the scale.
+
+### Will this work on auto-generated YouTube captions?
+
+YouTube's auto-captions don't usually drift, but they can if you uploaded a variable-frame-rate video. If they do drift, yes — download the captions as SRT and run them through the Drift Stabilizer.
+
+### How accurate do my anchor timestamps need to be?
+
+Within about 50ms is fine for normal viewing. The further apart your two anchors are in the timeline, the more forgiving the math is to small errors in each individual anchor.
+
+### Can I use this on subtitles I didn't transcribe myself?
+
+Yes. The tool doesn't care where the subtitles came from. Any SRT, VTT, or TXT file with timestamps can be drift-corrected as long as you can identify two anchor points in the video.
+
+### Is my subtitle file uploaded anywhere?
+
+No. The Drift Stabilizer runs entirely in your browser. The file never leaves your device, and there's no account, login, or tracking on the tool itself.
+
+## Related reading
+
+- [Subtitle Time Shifter](/subtitle-time-shifter) for when the whole file is off by a constant amount
+- [Subtitle Merger](/subtitle-merger) for stitching corrected segments back together
+- [Subtitle Encoding Fixer](/subtitle-encoding-fixer) if the corrected file shows broken characters
+- [SRT to VTT Converter](/srt-to-vtt-converter) for converting between formats after correction

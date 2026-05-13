@@ -1,0 +1,135 @@
+---
+title: "Subtitle Drift vs Subtitle Lag: What Causes Each and How to Fix Them"
+description: "Subtitles that are constantly off and subtitles that drift over time need different fixes. Here's how to tell which problem you have."
+date: "2026-05-20"
+slug: "subtitle-drift-vs-subtitle-lag-causes-and-fixes"
+---
+
+Subtitles can go wrong in two completely different ways, and the fix you reach for depends entirely on which one you're dealing with. Mix them up and you'll make the problem worse.
+
+The two failure modes are **constant lag** and **progressive drift**. They look similar at a glance — captions don't line up with the audio — but the underlying error is different, the diagnosis is different, and the tools you'd use are different.
+
+This post explains how to tell them apart, why each one happens, and which tool to use for each.
+
+## The two failure modes at a glance
+
+### Constant lag
+
+Every cue in the file is off by the same amount. If the first subtitle is 2 seconds late, the last subtitle is also 2 seconds late. The error is flat.
+
+### Progressive drift
+
+The error grows (or shrinks) as the video plays. The first subtitle might be perfectly aligned, but by the end of the file the captions are 5, 10, or even 15 seconds out of sync. The error scales with time.
+
+## How to tell which one you have
+
+Open your subtitle file in any video player and check three points:
+
+1. The first cue
+2. A cue near the middle
+3. The last cue
+
+Compare each cue's timing against the actual audio.
+
+- **All three are off by the same amount?** Constant lag.
+- **The first is fine, the middle is a bit off, the last is significantly off?** Progressive drift.
+- **All three are off but by different amounts in no clear pattern?** Probably non-linear drift (rare) or a frame rate mismatch that was applied unevenly.
+
+If you're not sure, check at least four or five points across the file. The pattern should become obvious.
+
+## What causes constant lag
+
+Constant lag almost always comes from a mismatch between when the subtitles were created and when the video starts. Common causes:
+
+- The subtitle file was made for a version of the video that included an intro or logo card that was later removed (or vice versa)
+- The video was re-encoded with a different starting offset
+- The subtitle file was downloaded from a release that was timed for a different cut of the same content
+- Someone manually shifted the file but used the wrong reference point
+
+The fix is simple: slide every cue forward or backward by the same amount. That's exactly what the [Subtitle Time Shifter](/subtitle-time-shifter) does. You enter a single offset value, the tool applies it to every cue, and you're done.
+
+## What causes progressive drift
+
+Progressive drift is a timeline scaling problem, not a timeline shifting problem. The two most common causes:
+
+### Frame rate mismatch
+
+The classic case: subtitles created for a 24fps cut of a film played against a 25fps PAL conversion (or vice versa). Over a 90-minute film, a 24-to-25 conversion accumulates about 3.6 minutes of drift between the start and end. Every cue plays at the wrong moment because the entire timeline is running at the wrong speed.
+
+This was a huge problem in the DVD era when content moved between NTSC and PAL regions. It still happens today whenever someone exports a video at a different frame rate than the subtitle file was authored for.
+
+### AI video generation timing variance
+
+Newer issue, increasingly common. AI video models like Kling, Runway, and Veo don't render frames at a perfectly constant cadence. The metadata might say 24fps, but the actual frame timing varies subtly across the clip. When you transcribe that video with an auto-transcription tool, the transcript assumes constant frame rate and constant audio sample rate, and small per-frame errors accumulate.
+
+The result is drift that looks identical to a frame rate mismatch but is much harder to predict, because it varies between generations of the same model.
+
+### Variable frame rate video
+
+If the source video was encoded with VFR (variable frame rate) and the transcription tool flattened it to CFR (constant frame rate) without compensating, you'll see drift. This is common with screen recordings, mobile phone exports, and streaming captures.
+
+## Why a constant offset won't fix drift
+
+This is the most common mistake. Someone notices the subtitles are off, opens a time shift tool, and applies a flat offset. The middle of the file looks better. The start now drifts the other way. The end is still wrong.
+
+The math doesn't work because the error isn't constant. If your first cue needs 0 seconds of correction and your last cue needs 5 seconds of correction, no single number will fix both. You need to scale the timeline so it stretches between two known-correct anchor points.
+
+## The fix for progressive drift
+
+Use the [AI Subtitle Drift Stabilizer](/subtitle-drift-stabilizer). The tool asks for two anchor points: a timestamp near the start where you know the correct moment, and a timestamp near the end where you know the correct moment. It calculates a scale factor and applies it proportionally to every cue in the file.
+
+The math is straightforward. For any original timestamp T, the new timestamp is `y1 + scale × (T − x1)`, where x1 and y1 are your start anchor, x2 and y2 are your end anchor, and the scale is `(y2 − y1) / (x2 − x1)`. The tool runs this on every cue's start and end timestamp and preserves everything else — dialogue, line breaks, cue identifiers, WebVTT headers, NOTE blocks, the lot.
+
+## A decision tree
+
+| Symptom | Likely cause | Tool to use |
+|---|---|---|
+| All cues off by the same amount | Constant lag | [Subtitle Time Shifter](/subtitle-time-shifter) |
+| First cue fine, last cue badly off | Progressive drift | [AI Subtitle Drift Stabilizer](/subtitle-drift-stabilizer) |
+| Drift gradient changes mid-file | Stitched clips or VFR | Split file, run Drift Stabilizer on each half, [merge](/subtitle-merger) |
+| Cues overlap or have negative durations after correction | Bad source file or wrong fix applied | [Subtitle Overlap Fixer](/subtitle-overlap-fixer) |
+
+## What to do if both problems are present
+
+It happens. A file can have constant lag *and* progressive drift at the same time — for example, the video was re-encoded with a different start offset *and* a frame rate conversion.
+
+The cleanest workflow is to fix the drift first, then apply a flat offset:
+
+1. Run the file through the [AI Subtitle Drift Stabilizer](/subtitle-drift-stabilizer) using anchor points that ignore any constant offset (pick anchors based on how the timeline *scales*, not where it starts)
+2. Test against the video. If everything is now off by a constant amount, run the result through the [Subtitle Time Shifter](/subtitle-time-shifter)
+3. Test again
+
+Doing it the other way around — flat shift first, then drift fix — also works, but it's harder to pick clean anchor points because you've already moved the timeline.
+
+## Frequently asked questions
+
+### How can I tell if it's a frame rate mismatch specifically?
+
+If you know the source video frame rate and the target frame rate, the drift will match the ratio exactly. A 24-to-25 conversion produces about a 4.2% scale error. A 23.976-to-25 conversion produces about 4.3%. If the Drift Stabilizer's scale factor comes out very close to one of these known ratios, you're almost certainly looking at a frame rate problem.
+
+### Why does my subtitle file drift even though the video plays at the right speed?
+
+The most common cause is that the transcription or subtitle authoring tool used a different reference frame rate than the actual video file. The video plays fine because the player respects the file's own metadata; the subtitles drift because they were timestamped against different assumptions.
+
+### Is there a way to prevent drift in the first place?
+
+For human-authored subtitles, always author against the final cut of the video, not an intermediate version. For AI-generated video, transcribe the actual rendered file rather than working from a separate audio track, and check sync at the start and end of any clip longer than 30 seconds.
+
+### Does drift always accumulate linearly?
+
+In practice, yes — about 95% of the time. Frame rate mismatches are perfectly linear. AI video drift is approximately linear over the length of a typical clip. Non-linear drift exists but is uncommon enough that anchor-based scaling handles almost every real-world case.
+
+### Can I fix drift without using a tool?
+
+In theory, with a spreadsheet, yes. In practice, you'd be retyping hundreds of timestamps. The Drift Stabilizer does the same math in a couple of seconds.
+
+### Are my subtitle files uploaded to a server when I use these tools?
+
+No. Every tool on subtitlesedit.com runs entirely in your browser. Files never leave your device.
+
+## Related reading
+
+- [How to Fix AI Video Subtitle Drift in Kling, Runway, and Veo](/blog/fix-ai-video-subtitle-drift-kling-runway-veo) — workflow guide for AI video specifically
+- [SRT vs SBV vs VTT: Subtitle Formats Explained](/blog/srt-vs-sbv-vs-vtt-subtitle-formats-explained) — format reference
+- [Subtitle Overlap Fixer](/subtitle-overlap-fixer) for cleaning up cue overlaps after timing corrections
+- [Subtitle Time Shifter](/subtitle-time-shifter) for constant-offset corrections
