@@ -37,6 +37,10 @@ const toolsLinks = [
     label: "Subtitle Time Shifter",
   },
   {
+    href: "/subtitle-drift-stabilizer",
+    label: "AI Subtitle Drift Stabilizer",
+  },
+  {
     href: "/subtitle-merger",
     label: "Subtitle Merger",
   },

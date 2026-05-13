@@ -58,6 +58,12 @@ function ToolGrid() {
       aria: "Open Subtitle Time Shifter",
     },
     {
+      href: "/subtitle-drift-stabilizer",
+      name: "AI Subtitle Drift Stabilizer",
+      desc: "Fix subtitles that drift progressively out of sync, common in AI-generated videos. Anchor-based scaling.",
+      aria: "Open AI Subtitle Drift Stabilizer tool",
+    },
+    {
       href: "/subtitle-merger",
       name: "Subtitle Merger",
       desc: "Combine multiple .srt or .vtt files",
@@ -374,6 +380,14 @@ const jsonLdItemList = {
       url: "https://subtitlesedit.com/subtitle-find-replace",
       description:
         "Find and replace text across SRT, VTT, and TXT subtitle files with regex and case-sensitive options. Runs entirely in your browser.",
+    },
+    {
+      "@type": "ListItem",
+      position: 13,
+      name: "AI Subtitle Drift Stabilizer",
+      url: "https://subtitlesedit.com/subtitle-drift-stabilizer",
+      description:
+        "Fix subtitles that drift progressively out of sync using anchor-based geometric scaling.",
     },
   ],
 };
