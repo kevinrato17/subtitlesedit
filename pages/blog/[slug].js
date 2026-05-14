@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
+import remarkGfm from "remark-gfm";
 import Layout from "@/components/Layout";
 import { blogMdxComponents } from "@/lib/mdxComponents";
 import { getPostBySlug, getPostSlugs } from "@/lib/posts";
@@ -97,7 +98,11 @@ export async function getStaticProps({ params }) {
       ? post.frontMatter.description
       : "";
 
-  const source = await serialize(post.content);
+  const source = await serialize(post.content, {
+    mdxOptions: {
+      remarkPlugins: [remarkGfm],
+    },
+  });
 
   return {
     props: {
