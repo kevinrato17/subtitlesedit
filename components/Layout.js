@@ -45,6 +45,10 @@ const toolsLinks = [
     label: "Bilingual Subtitle Interleaver",
   },
   {
+    href: "/subtitle-tag-stripper",
+    label: "Subtitle Tag Stripper",
+  },
+  {
     href: "/subtitle-merger",
     label: "Subtitle Merger",
   },

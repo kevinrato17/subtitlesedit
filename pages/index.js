@@ -70,6 +70,12 @@ function ToolGrid() {
       aria: "Open Bilingual Subtitle Interleaver",
     },
     {
+      href: "/subtitle-tag-stripper",
+      name: "Subtitle Tag Stripper",
+      desc: "Strip HTML tags, color codes, position tags, and SDH annotations from SRT/VTT files.",
+      aria: "Open the Subtitle Tag Stripper tool",
+    },
+    {
       href: "/subtitle-merger",
       name: "Subtitle Merger",
       desc: "Combine multiple .srt or .vtt files",
@@ -402,6 +408,14 @@ const jsonLdItemList = {
       url: "https://subtitlesedit.com/bilingual-subtitle-interleaver",
       description:
         "Merge two subtitle files into one dual-language file for language learning.",
+    },
+    {
+      "@type": "ListItem",
+      position: 15,
+      name: "Subtitle Tag Stripper",
+      url: "https://subtitlesedit.com/subtitle-tag-stripper",
+      description:
+        "Strip HTML tags, color codes, position tags, and SDH annotations from SRT/VTT files.",
     },
   ],
 };
