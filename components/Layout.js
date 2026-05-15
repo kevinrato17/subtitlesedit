@@ -41,6 +41,10 @@ const toolsLinks = [
     label: "AI Subtitle Drift Stabilizer",
   },
   {
+    href: "/bilingual-subtitle-interleaver",
+    label: "Bilingual Subtitle Interleaver",
+  },
+  {
     href: "/subtitle-merger",
     label: "Subtitle Merger",
   },

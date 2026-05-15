@@ -64,6 +64,12 @@ function ToolGrid() {
       aria: "Open AI Subtitle Drift Stabilizer tool",
     },
     {
+      href: "/bilingual-subtitle-interleaver",
+      name: "Bilingual Subtitle Interleaver",
+      desc: "Merge two subtitle files into one with both languages stacked — perfect for language learners.",
+      aria: "Open Bilingual Subtitle Interleaver",
+    },
+    {
       href: "/subtitle-merger",
       name: "Subtitle Merger",
       desc: "Combine multiple .srt or .vtt files",
@@ -388,6 +394,14 @@ const jsonLdItemList = {
       url: "https://subtitlesedit.com/subtitle-drift-stabilizer",
       description:
         "Fix subtitles that drift progressively out of sync using anchor-based geometric scaling.",
+    },
+    {
+      "@type": "ListItem",
+      position: 14,
+      name: "Bilingual Subtitle Interleaver",
+      url: "https://subtitlesedit.com/bilingual-subtitle-interleaver",
+      description:
+        "Merge two subtitle files into one dual-language file for language learning.",
     },
   ],
 };
