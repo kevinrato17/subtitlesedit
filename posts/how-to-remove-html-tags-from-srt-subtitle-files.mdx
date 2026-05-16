@@ -1,0 +1,106 @@
+---
+title: "How to Remove HTML Tags from SRT Subtitle Files"
+description: "Strip italic, bold, font, and color tags from SRT subtitle files in seconds — no upload, no install. A practical guide with copy-paste examples."
+date: "2026-05-20"
+slug: "how-to-remove-html-tags-from-srt-subtitle-files"
+---
+
+If you've ever opened an SRT file downloaded from OpenSubtitles, Subscene, or a streaming rip and seen text like `<i>Hello there</i>` or `<font color="#FFFFFF">Speaking now</font>` cluttering up the dialogue, you've already met the problem this post solves.
+
+SRT subtitle files are technically plain text, but over the years they've absorbed a layer of HTML-style formatting tags that some players render and others show as literal text. When you bring those files into video editors like Premiere Pro, DaVinci Resolve, or Final Cut, the results are unpredictable — sometimes the formatting renders, sometimes it appears as garbled text on screen, sometimes the import fails entirely.
+
+This guide walks through what those tags actually are, why they're in your file, and the fastest way to strip them out cleanly.
+
+## What HTML tags appear in SRT files?
+
+The SRT format was never designed to carry formatting. The original specification was just timestamps and plain text. But because the format is so simple and widespread, subtitle authors and conversion tools have layered in a handful of HTML-inspired tags that some players support.
+
+The most common ones you'll encounter:
+
+**Inline formatting tags** — `<i>`, `<b>`, `<u>` and their closing counterparts. These mark italic, bold, and underlined text. Italics are by far the most common because they're traditionally used to indicate offscreen voices, foreign dialogue, or song lyrics.
+
+**Font tags** — `<font color="#FF0000">` or `<font face="Arial">`. These are holdovers from old subtitle authoring tools and are rarely rendered correctly by modern players. They almost always need stripping.
+
+**Position tags** — these aren't strictly HTML, but they often appear alongside HTML in files that were converted from `.ass` or `.ssa` formats. They look like `{\an8}` or `{\pos(320,240)}` and survive the conversion as inline text junk.
+
+**WebVTT-style tags** — sometimes you'll see `<c.speaker-1>` or inline timestamps like `<00:00:01.500>` in files that were converted from VTT but kept the SRT extension. These are particularly disruptive because most SRT-aware tools don't recognise them at all.
+
+## Why these tags cause problems
+
+The core issue is rendering inconsistency. Every video player and every video editor handles these tags differently:
+
+VLC will render `<i>` as italics and silently ignore `<font>` tags. Premiere Pro will sometimes render the tags as italics, sometimes show them as literal angle brackets on screen depending on the import path you use. DaVinci Resolve typically strips them but occasionally chokes on a malformed tag and fails the import entirely. Web video players using `<track>` elements often reject SRT files with VTT-style tags outright.
+
+The result: you can't predict how a tagged SRT file will behave until you test it in your target environment. The safer workflow is to strip everything first, then re-add only the formatting your target system definitely supports.
+
+There's also a subtler problem. Tagged SRT files are harder to read when you open them in a text editor to manually fix timing or typos. Stripping the tags first gives you a clean baseline you can actually work with.
+
+## The fastest way to strip them out
+
+The cleanest approach is the [Subtitle Tag Stripper](/subtitle-tag-stripper) — a free browser-based tool that handles all four tag types above with one click. You paste your file in, the cleaned version appears instantly in the right panel, and you download it as a new SRT.
+
+A few specifics that matter:
+
+**It runs entirely in your browser.** Your subtitle file never gets uploaded to a server. This matters for studio work, unreleased content, or anything under NDA — you can use the tool on an air-gapped machine if you need to.
+
+**You can keep italics if you want.** The tool has a toggle for each tag category, so if your workflow depends on `<i>` tags being preserved (which is common when you're prepping subtitles for a player that does render italics correctly), uncheck the HTML tags option and only strip the rest.
+
+**It handles long files.** Full-length feature films can run to several thousand cues. AI chat tools choke on those sizes because of token limits — even if you ask ChatGPT to strip tags from a 2-hour subtitle file, it'll truncate the input. JavaScript regex doesn't have that limit, so a 3-hour film processes in a few hundred milliseconds.
+
+## The manual approach (and why you probably shouldn't bother)
+
+If you're a fan of doing things the hard way, you can strip tags manually with find-and-replace in any text editor. The basic regexes are:
+
+```
+<\/?(i|b|u)>     →  (replace with nothing)
+<\/?font[^>]*>   →  (replace with nothing)
+\{\\[^}]*\}      →  (replace with nothing)
+```
+
+Most decent text editors (VS Code, Sublime Text, Notepad++) support regex find-and-replace, so this works. The reason most people don't do it manually:
+
+- You have to remember the regex syntax each time
+- You have to run multiple passes for each tag category
+- You have to manually clean up any empty cues that result from stripping
+- You have to renumber the cues after removing empty ones (this is what trips people up — SRT cue numbers must be sequential)
+- You have to do it again every time you download a new file
+
+The tool above does all four steps automatically and reports how many tags it stripped and how many empty cues were removed.
+
+## What to do after stripping
+
+Once you have a clean SRT, the next step depends on what you're doing with it:
+
+**If you're prepping for a video editor**, import the cleaned file and re-add any formatting using the editor's native subtitle styling tools. This is much more reliable than relying on SRT tags surviving the import.
+
+**If you're prepping for streaming**, you may need to convert to VTT. Use the [SRT to VTT Converter](/srt-to-vtt-converter) — VTT is the format most modern web players expect.
+
+**If the timing is off** after stripping (which can happen if the original file was hand-edited and timing was tied to specific tag positions), the [Subtitle Time Shifter](/subtitle-time-shifter) lets you nudge everything earlier or later by a fixed offset.
+
+**If the encoding looks wrong** (mojibake, weird characters where accents should be), run the file through the [Subtitle Encoding Fixer](/subtitle-encoding-fixer) before doing anything else.
+
+## Frequently Asked Questions
+
+### Will stripping HTML tags change the timing of my subtitles?
+
+No. The tag stripper only touches the text content of each cue, never the timestamps. Your timing stays exactly as it was in the original file.
+
+### What about Advanced SubStation Alpha (.ass) files — can I strip tags from those?
+
+Not directly, because `.ass` files use a fundamentally different structure than SRT. The cleanest workflow is to convert your `.ass` file to SRT first using a desktop tool like Subtitle Edit or Aegisub, then run the resulting SRT through the tag stripper. The position overrides like `{\an8}` that survive the conversion will get cleaned up in that pass.
+
+### Why does my cleaned file have fewer cues than the original?
+
+If you stripped hearing-impaired annotations or speaker labels and some cues contained only that content (for example, a cue that was just `[MUSIC PLAYING]`), those cues become empty after stripping and are removed from the output. The status line below the tool reports exactly how many empty cues were removed.
+
+### Can I strip tags from multiple files at once?
+
+Not in a single pass — the tool handles one file at a time. For batch work, you can keep the tab open and process files sequentially, which is fast because there's no upload or processing delay.
+
+### Will the tool damage my file if I run it twice?
+
+No. After the first pass, there are no tags left to strip, so a second pass produces the same output as the first. The operation is idempotent — running it five times in a row gives the same result as running it once.
+
+### Is there a way to keep some tags and remove others?
+
+Yes. The tool has separate toggles for HTML tags, color and styling tags, position tags, hearing-impaired annotations, and speaker labels. Toggle on only the categories you want stripped and the rest will be preserved exactly as they appear in the original file.

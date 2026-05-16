@@ -1,0 +1,98 @@
+---
+title: "What Are SDH Subtitles and How to Convert Them to Standard Subtitles"
+description: "SDH subtitles explained — what they include, how they differ from closed captions and standard subtitles, and how to convert SDH tracks into dialogue-only versions."
+date: "2026-05-24"
+slug: "what-are-sdh-subtitles"
+---
+
+If you've ever downloaded a subtitle file and seen lines like `[DRAMATIC MUSIC SWELLS]` or `JOHN: I need to tell you something` peppered throughout, you've been looking at SDH subtitles — Subtitles for the Deaf and Hard of Hearing.
+
+SDH is everywhere on streaming platforms, often appearing alongside (or instead of) standard subtitle tracks. For most hearing viewers downloading subtitles for a film they're already watching, SDH adds clutter — sound descriptions and speaker labels that aren't needed when the audio is audible. But the format itself is a critical accessibility tool, and understanding how it works helps you both use it effectively and convert it when you don't need the extra information.
+
+This post covers what SDH actually is, how it differs from closed captions and standard subtitles, and how to convert an SDH track into a dialogue-only version when that's what you need.
+
+## What SDH subtitles include that standard subtitles don't
+
+A standard subtitle track contains only the dialogue spoken by characters on screen. SDH adds three additional layers of information:
+
+**Sound effect descriptions** — bracketed annotations describing non-dialogue audio. These appear as `[DOOR SLAMS]`, `[GUNSHOT]`, `[OMINOUS MUSIC]`, or `[FOOTSTEPS APPROACHING]`. They're essential for viewers who can't hear the audio track and rely on the subtitles to follow narrative beats that depend on sound — a character hiding in fear because they hear something offscreen, or tension built by music cues.
+
+**Speaker identification** — labels prefixed to dialogue indicating who's speaking, especially when the speaker isn't visible on screen. These appear as `JOHN:`, `NARRATOR:`, `(over phone)`, or `(off-screen)`. Hearing viewers can usually identify speakers by voice; SDH viewers can't, so the labels are essential.
+
+**Music and lyric descriptions** — annotations indicating music is playing, sometimes including the song title or lyrical content. These appear as `♪ ♪`, `[ROCK MUSIC PLAYING]`, or `♪ Yesterday, all my troubles seemed so far away ♪`.
+
+A standard subtitle track for the same content would include only the dialogue lines — nothing in brackets, no speaker labels, no music indicators.
+
+## SDH versus closed captions — they're not the same thing
+
+The terms get used interchangeably, but they're technically different.
+
+**Closed captions** were developed in the United States in the 1970s for broadcast television. They're carried in a specific data channel (originally Line 21 of the analogue TV signal, now embedded in digital streams) and are designed to be toggled on and off by the viewer. Closed captions traditionally include all the same accessibility information as SDH — sound effects, speaker IDs, music — but they're delivered through a separate technical mechanism specific to broadcast and DVD/Blu-ray.
+
+**SDH subtitles** emerged later as the streaming-era equivalent. They serve the same accessibility purpose as closed captions but are delivered as regular subtitle files (SRT, VTT, or platform-specific formats) that work across any video player, not just ones with closed caption decoders. Netflix and most other streaming services use SDH rather than true closed captions because it's format-agnostic.
+
+In practice, if you're working with downloaded subtitle files — SRT, VTT, or similar — what you're handling is SDH, even if the file or platform calls it "closed captions" or "CC." The content is the same; only the delivery mechanism differs.
+
+## When you'd want to convert SDH to standard subtitles
+
+A few common scenarios:
+
+**You're watching with sound on and the brackets are distracting.** Most hearing viewers find `[DRAMATIC MUSIC]` distracting when they can already hear the music. Stripping the SDH content gives a cleaner viewing experience without sacrificing the dialogue.
+
+**You're preparing subtitles for a video editor that doesn't handle SDH well.** Some editors render bracketed text as literal on-screen captions, which isn't what you want if you're producing a final cut.
+
+**You're using subtitles for language learning.** Pairing dialogue lines with translations works best when both sides contain only spoken content. SDH annotations make alignment harder. If you're doing this kind of work, the [Bilingual Subtitle Interleaver](/bilingual-subtitle-interleaver) pairs naturally with a stripped SDH track.
+
+**You're feeding subtitles into a transcription or analysis pipeline.** SDH annotations add noise to any text analysis you're doing — speaker name frequency, sentiment analysis, word counts. Stripping them first gives you cleaner data.
+
+**You're producing dual-track output.** Sometimes you want to keep the SDH track for accessibility and produce a parallel standard track for viewers who don't need the extras. This is the workflow most professional subtitle houses use.
+
+## How to convert SDH to standard subtitles
+
+The [Subtitle Tag Stripper](/subtitle-tag-stripper) handles SDH conversion in one pass. Two toggles do the work:
+
+**Hearing-impaired annotations** — strips bracketed sound descriptions like `[MUSIC PLAYING]` or `[FOOTSTEPS]`, and removes standalone parenthetical lines like `(door slams)`. The regex is intentionally conservative — it won't touch parentheticals inside dialogue like `(I think) it's a good idea`, which would be a real dialogue mistake.
+
+**Speaker labels** — strips all-caps speaker prefixes like `JOHN:`, `DR. SMITH:`, or `NARRATOR:`. The match pattern only catches all-caps labels followed by a colon, so mixed-case names like `Dr. Smith:` are preserved. This is intentional because mixed-case patterns are too easily confused with sentences that happen to end in a colon.
+
+Enable both toggles, paste your SDH subtitle file in, and the cleaned dialogue-only version appears instantly. Cues that contained only SDH content (a cue that was just `[MUSIC PLAYING]`, for example) are removed entirely, and the remaining cues are renumbered sequentially.
+
+The whole process runs in your browser. Nothing gets uploaded.
+
+## What to do after converting
+
+A few common next steps:
+
+**If the dialogue-only track has timing gaps** where SDH cues used to be, you don't need to do anything — the gaps are correct. Standard subtitles don't fill silence with content; they simply don't appear during silent or non-dialogue moments.
+
+**If you want to compare the SDH version against an official standard subtitle track** (when one exists), the [Subtitle Find & Replace](/subtitle-find-replace) tool lets you spot-check phrases between versions.
+
+**If the converted file has timing issues** unrelated to the SDH removal (the dialogue is offset from the video), use the [Subtitle Time Shifter](/subtitle-time-shifter) to apply a uniform offset.
+
+**If you're preparing the file for a web video player**, convert it to VTT using the [SRT to VTT Converter](/srt-to-vtt-converter) — VTT is the format most modern web players expect.
+
+## Frequently Asked Questions
+
+### What's the difference between SDH and CC?
+
+Closed captions (CC) were developed for broadcast television and are delivered through a specific data channel embedded in the video signal. SDH (Subtitles for the Deaf and Hard of Hearing) emerged later for streaming and is delivered as standard subtitle files like SRT or VTT. The content is functionally identical — sound descriptions, speaker labels, music indicators — but the delivery mechanism is different. In modern streaming contexts, SDH is the more common term.
+
+### Will the tool remove regular dialogue that happens to be in parentheses?
+
+No. The hearing-impaired annotation regex is intentionally conservative. It strips bracketed content (anything in square brackets) and standalone parenthetical lines (a whole line wrapped in parentheses). Inline parentheticals inside dialogue, like `(I think) we should go`, are preserved exactly as they appear.
+
+### What if my SDH file uses mixed-case speaker labels?
+
+The speaker label option only catches all-caps labels like `JOHN:` or `DR. SMITH:`. Mixed-case labels like `Dr. Smith:` or `John:` won't be touched, because matching them risks false positives on sentences ending in a colon. If your file uses mixed-case speaker labels, you can use the [Subtitle Find & Replace](/subtitle-find-replace) tool for targeted removal.
+
+### Are SDH subtitles the same on all streaming platforms?
+
+The content conventions are similar — bracketed sound effects, speaker labels, music indicators — but each platform has its own style guide for exact formatting. Netflix uses one set of conventions, Disney+ another, HBO Max another. The Subtitle Tag Stripper handles the common patterns across all of them, but if you're working with a platform-specific file with unusual formatting, you may need to do manual cleanup for edge cases.
+
+### Should I keep the original SDH file?
+
+Yes. SDH is the accessible version, and removing it permanently is bad practice. Save your dialogue-only conversion as a separate file alongside the original SDH track. Most professional subtitle workflows maintain both versions.
+
+### Can I keep the speaker labels but remove the sound effects?
+
+Yes. The tool has separate toggles for hearing-impaired annotations (sound effects in brackets) and speaker labels (all-caps prefixes). Enable only the first toggle to remove sound effects while preserving speaker IDs, or only the second to do the reverse.
