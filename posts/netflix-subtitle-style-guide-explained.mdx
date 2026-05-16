@@ -1,0 +1,123 @@
+---
+title: "The Netflix Subtitle Style Guide Explained: Line Length, Reading Speed, and Why It Matters"
+description: "Netflix's 42-character line length and reading speed rules explained. Why streaming platforms reject subtitle files, and how to fix non-compliant SRT and VTT files."
+date: "2026-05-27"
+slug: "netflix-subtitle-style-guide-explained"
+---
+
+If you've ever submitted subtitles to Netflix and had them bounce back with a compliance error, you've already met the wall every captioner eventually hits. Netflix publishes one of the most detailed subtitle style guides in the streaming industry, and they enforce it strictly. Files that don't comply don't go through.
+
+The most common rejection reason isn't translation quality or timing — it's line length. Netflix specifies a maximum of 42 characters per line, with a hard limit on the number of lines per cue, and machine-generated transcripts or files from older workflows routinely break both rules.
+
+This post explains what the Netflix style guide actually requires, where the rules come from, why streaming platforms care so much about them, and how to bring a non-compliant file into spec quickly.
+
+## What the Netflix style guide actually specifies
+
+Netflix's Timed Text Style Guide is a public document that covers dozens of formatting requirements across more than 30 languages. The full guide runs to many pages, but a handful of rules account for the majority of rejections.
+
+**Maximum 42 characters per line.** This is the headline number and the most common rejection trigger. It applies to most Latin-script languages, including English, Spanish, French, German, Italian, and Portuguese.
+
+**Maximum 2 lines per subtitle event.** A single subtitle cue can display at most two lines of text on screen at once. If your dialogue won't fit in two lines at 42 characters, the cue must be split into two consecutive events.
+
+**Reading speed limits.** Adult content has a maximum reading speed of 17 characters per second (CPS). Children's content drops to 13 CPS. Cues that violate this — usually because they're too short for the amount of text — get flagged.
+
+**Minimum and maximum cue duration.** Cues should display for at least 5/6 of a second (around 833 milliseconds) and no more than 7 seconds. Anything outside that window needs adjustment.
+
+**Specific punctuation, capitalization, and dash conventions** for dialogue, off-screen speakers, and on-screen text. These vary by language and account for many smaller rejections.
+
+The two rules that cause the most resubmissions are the 42-character line limit and the 2-line maximum per cue. The other rules matter, but they're easier to spot during a manual QC pass. Line length problems compound across thousands of cues and are nearly impossible to fix by hand.
+
+## Where these rules come from
+
+The numbers aren't arbitrary. They come from decades of broadcast captioning research and viewer testing.
+
+**42 characters per line** is roughly the maximum width that fits comfortably on screen across a range of display sizes — from smartphones to large televisions — without forcing the eye to track too far horizontally. Some platforms use slightly different limits (BBC uses 37, broadcast TV sometimes 32), but 42 has become the streaming-era default because it balances screen real estate against readability.
+
+**The 2-line maximum** exists because subtitles compete with the picture for the viewer's attention. Three or four lines of text dominate the lower third of the frame and pull focus away from the action. Two lines is enough to display a full sentence in most languages without obscuring critical visual content.
+
+**Reading speed limits** are based on cognitive research into subtitle comprehension. At 17 CPS, an average adult viewer can read the subtitle, glance at the picture, and return to the next subtitle without losing track of either. Push beyond 17 CPS and viewers start missing dialogue or losing visual context.
+
+**Cue duration limits** prevent flash-cuts (text that appears and disappears too quickly to read) and stale captions (text that lingers long after the speaker has moved on). The minimum gives viewers time to register the text; the maximum forces captioners to break up long monologues into digestible chunks.
+
+These rules aren't unique to Netflix. The BBC has its own style guide with broadly similar principles. Disney+, Amazon Prime Video, and Apple TV+ all publish their own variations. The numbers differ slightly, but the underlying logic is the same — keep cues short enough to read, leave the picture visible, and don't make the viewer work.
+
+## Why streaming platforms enforce these rules so strictly
+
+The strict enforcement isn't bureaucratic perfectionism. It serves three concrete purposes.
+
+**Consistency across a global library.** Netflix has tens of thousands of titles available in dozens of languages. If every captioner produced subtitles to their own personal preference, the viewing experience would vary wildly title to title. The style guide ensures that a viewer watching a Korean drama and then switching to a French film gets the same caption quality, layout, and pacing.
+
+**Accessibility compliance.** Reading speed limits in particular are critical for accessibility — Deaf and Hard of Hearing viewers, language learners, and viewers in noisy environments all rely on captions being readable at a sustainable pace. Fast or crowded captions fail those audiences.
+
+**Display compatibility.** Netflix subtitles render on phones, tablets, smart TVs, web browsers, game consoles, and dedicated streaming devices. A subtitle that fits on a 4K TV may overflow on a phone. The 42-character limit ensures captions display correctly across the widest possible range of devices.
+
+The practical consequence: subtitle files that violate the style guide get rejected by Netflix's automated QC tools before they ever reach a human reviewer. There's no manual override. Either your file complies or it doesn't get accepted.
+
+## How to bring a non-compliant file into spec
+
+If you've been handed a subtitle file that doesn't meet Netflix's requirements, the manual approach is brutal. Each cue needs to be checked, long lines need to be re-wrapped at word boundaries, and overly long cues need to be split into two events with proportional timing. For a feature film with 1,500 cues, that's hours of work.
+
+The [Subtitle Line Length Limiter](/subtitle-line-length-limiter) automates the entire process. Paste your SRT or VTT file in, select the 42-character preset (which is the default), and the tool produces a compliant output instantly. Cues that exceed two lines after wrapping are automatically split into two consecutive cues with timing distributed proportionally based on character count.
+
+A few specifics that matter for Netflix submission:
+
+**Timing math is exact.** When the tool splits a cue, it calculates the split point based on the character count of each half. If the first half contains 60 percent of the wrapped characters, the first cue gets 60 percent of the original duration. There's no rounding error or timing drift across thousands of cues.
+
+**Word boundaries are respected.** The tool never breaks a word mid-character. Lines wrap only at spaces. This matches Netflix's requirement that subtitles must be readable as natural language units.
+
+**Original timestamps are preserved.** The first cue in a split pair retains the original start time; the second cue retains the original end time. There's no gap or overlap between them — the split timestamp is shared exactly.
+
+**It runs in your browser.** For studio work, unreleased content, or anything under NDA, your subtitle file never leaves your device. No upload, no account, no server-side processing. You can use the tool on an air-gapped machine if you need to.
+
+## What the tool doesn't fix
+
+A few Netflix style guide requirements still need manual attention:
+
+**Reading speed (CPS) violations** aren't automatically corrected because they require editorial judgement — sometimes the fix is shortening the text, sometimes it's extending the cue duration, sometimes it's splitting differently. The Line Length Limiter focuses on the structural problem of line count and character count per line.
+
+**Punctuation, capitalization, and dash conventions** vary by target language and aren't covered by automated wrapping. Netflix's guide is detailed on these for each supported language.
+
+**Speaker labels, sound effects, and SDH formatting** aren't touched by the line length tool. If your file has SDH content that needs stripping or reformatting first, run it through the [Subtitle Tag Stripper](/subtitle-tag-stripper) before the line length pass.
+
+**Frame-aligned timing** for broadcast workflows isn't part of streaming requirements but matters for some submission pipelines. Netflix accepts SRT and TTML with millisecond timing; broadcast workflows often require frame-aligned cuts.
+
+The Line Length Limiter solves the biggest single source of rejections, but it's one step in a larger compliance workflow. The pattern most professional captioners use: clean the file (strip tags, fix encoding), apply line length rules, manually QC the reading speed and punctuation, then submit.
+
+## A workflow for fixing a non-compliant file
+
+If you've got a file that needs to meet Netflix specs, here's a clean order of operations:
+
+1. **Fix encoding first** using the [Subtitle Encoding Fixer](/subtitle-encoding-fixer) if the file shows mojibake or wrong-character issues.
+2. **Strip unwanted formatting** with the [Subtitle Tag Stripper](/subtitle-tag-stripper) — HTML tags, color codes, position overrides from `.ass` conversions, and SDH annotations if you're producing a non-SDH track.
+3. **Apply line length rules** with the [Subtitle Line Length Limiter](/subtitle-line-length-limiter) at the 42-character Netflix preset, with the split-long-cues toggle on.
+4. **Check timing** with the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) if cue splits introduced any micro-overlaps with adjacent cues.
+5. **Manually QC** reading speed (CPS), punctuation, and speaker labels per Netflix's language-specific guidelines.
+6. **Submit and verify** through Netflix's QC pipeline.
+
+The first four steps are mechanical and can be automated. The fifth is editorial and requires human review. The sixth is the moment of truth.
+
+## Frequently Asked Questions
+
+### Does Netflix accept SRT files or only TTML?
+
+Netflix accepts both SRT and TTML (Timed Text Markup Language) for most submission pipelines. SRT is simpler and more widely supported by upstream tools, but TTML supports richer styling and is preferred for some specific use cases like dual-language tracks or styled karaoke captions. The style guide rules apply equally to both formats.
+
+### What happens if my file is just over the line length limit on a few cues?
+
+Netflix's automated QC tools don't grant exceptions for "just over" violations. A cue with 43 characters on a line gets flagged the same as one with 60. The platform doesn't distinguish between minor and major violations at the line-length stage. The Line Length Limiter handles both equally — every cue gets reformatted to comply.
+
+### Can I keep the original line breaks if they look good?
+
+Not if they violate the limit. The tool will re-wrap any line that exceeds the character limit, even if the existing break looks natural. If you want manual control over specific break points, you can edit individual cues after running the tool, but for compliance purposes the automated wrapping is reliable and consistent.
+
+### Do these rules apply to other streaming platforms too?
+
+The principles are the same across major platforms — Disney+, Amazon Prime Video, Apple TV+, HBO Max, and others all have published or de facto style guides with similar 40-to-42-character line limits and 2-line maximums. The exact numbers vary slightly, and each platform has its own punctuation and formatting quirks. The Line Length Limiter supports custom character limits between 20 and 80, so you can match any platform's specification.
+
+### What about subtitles in Chinese, Japanese, or Korean?
+
+CJK scripts use different conventions because each character is a full display unit (not a letter). Netflix specifies lower per-line limits for these languages — typically around 16 characters for Chinese and Japanese. The Line Length Limiter's character-counting logic works correctly for CJK because it counts characters as discrete units. Use the Custom preset to enter a CJK-appropriate limit.
+
+### Can I check my reading speed (CPS) compliance with this tool?
+
+Not in this tool — the Line Length Limiter focuses on the structural rules (line count, characters per line, splitting overly long cues). Reading speed compliance is a different check that requires comparing the character count of each cue against its duration. For now, that's a manual QC step. If reading speed is your biggest rejection source, that's worth flagging — we may add a dedicated tool for it in future.
