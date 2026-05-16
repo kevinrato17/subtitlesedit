@@ -49,6 +49,10 @@ const toolsLinks = [
     label: "Subtitle Tag Stripper",
   },
   {
+    label: "Subtitle Line Length Limiter",
+    href: "/subtitle-line-length-limiter",
+  },
+  {
     href: "/subtitle-merger",
     label: "Subtitle Merger",
   },

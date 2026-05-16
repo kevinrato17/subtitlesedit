@@ -76,6 +76,12 @@ function ToolGrid() {
       aria: "Open the Subtitle Tag Stripper tool",
     },
     {
+      href: "/subtitle-line-length-limiter",
+      name: "Subtitle Line Length Limiter",
+      desc: "Reformat subtitle files to Netflix, BBC, or custom line length standards. Splits long cues automatically.",
+      aria: "Open the Subtitle Line Length Limiter tool",
+    },
+    {
       href: "/subtitle-merger",
       name: "Subtitle Merger",
       desc: "Combine multiple .srt or .vtt files",
@@ -416,6 +422,14 @@ const jsonLdItemList = {
       url: "https://subtitlesedit.com/subtitle-tag-stripper",
       description:
         "Strip HTML tags, color codes, position tags, and SDH annotations from SRT/VTT files.",
+    },
+    {
+      "@type": "ListItem",
+      position: 16,
+      name: "Subtitle Line Length Limiter",
+      url: "https://subtitlesedit.com/subtitle-line-length-limiter",
+      description:
+        "Reformat subtitle files to Netflix, BBC, or custom line length standards. Splits long cues automatically.",
     },
   ],
 };
