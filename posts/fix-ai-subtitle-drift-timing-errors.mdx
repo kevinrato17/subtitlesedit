@@ -1,0 +1,143 @@
+---
+title: "How to Fix AI Subtitle Drift and Timing Mismatch Errors"
+description: "AI subtitles from Whisper or CapCut going out of sync? Learn why drift happens and how to fix progressive timing errors in your SRT files."
+date: "2026-05-26"
+slug: "fix-ai-subtitle-drift-timing-errors"
+---
+
+# How to Fix AI Subtitle Drift and Timing Mismatch Errors
+
+AI transcription tools like OpenAI Whisper and CapCut have made captioning faster than ever — but if you've used them on longer videos, you've probably noticed something frustrating: the subtitles start fine, then slowly drift further and further out of sync as the video plays. By the end of a 30-minute recording, they can be several seconds behind the audio.
+
+This is called **subtitle drift**, and it's one of the most common problems people run into with AI-generated captions. The good news is it's fixable — often in under a minute.
+
+---
+
+## Why Do AI Subtitles Get Out of Sync?
+
+Understanding the cause makes it much easier to fix. There are three main culprits.
+
+### Variable Frame Rate (VFR) Video
+
+Most smartphones and screen recorders shoot video at a variable frame rate — meaning the frame rate isn't constant throughout the recording. AI transcription models assume a fixed frame rate when mapping audio timestamps to subtitle cues. When those assumptions are wrong, the sync slowly drifts.
+
+This is the most common reason Whisper subtitles get out of sync, especially on videos recorded on a phone or captured via screen recording software.
+
+### Audio Compression Artifacts
+
+Long recordings (podcasts, webinars, lectures) are often compressed to reduce file size. Some codecs introduce tiny timing discrepancies during compression. These are imperceptible when listening, but AI models pick them up and accumulate small errors over the duration of the video.
+
+### Processing Lag in CapCut and Similar Apps
+
+CapCut and other mobile video editors generate captions by processing audio in chunks. If your video has background noise, music, or multiple speakers, the model sometimes misses cues or delays the timestamp anchor, which causes everything after that point to slide out of alignment.
+
+---
+
+## The Difference Between a Simple Delay and Drift
+
+This distinction matters a lot for how you fix the problem.
+
+A **simple delay** means all your subtitles are off by the same amount — maybe they're all 2.5 seconds too early or too late. This is easy to fix with a global time shift.
+
+**Drift** is different. It means the offset changes gradually as the video progresses. The first subtitle might only be 0.2 seconds off. Forty minutes later, that same subtitle file is 8 seconds behind. A global shift won't fix drift — it will just make different parts of the video wrong.
+
+---
+
+## How to Fix a Simple Subtitle Delay
+
+If your subtitles are uniformly out of sync — every line is off by the same amount — use the [Subtitle Time Shifter](/subtitle-time-shifter).
+
+1. Paste your SRT file into the tool
+2. Play your video and find a line where the spoken words and subtitle clearly don't match — note the gap in milliseconds
+3. Enter that value as a positive number to push subtitles forward, or a negative number to pull them back
+4. Download the adjusted file
+
+This takes about 30 seconds and fixes the vast majority of simple sync problems.
+
+---
+
+## How to Fix Progressive Subtitle Drift
+
+For drift that gets worse over time, you need a different approach: **multi-point correction**.
+
+The idea is to pick two or three anchor points in your video — moments where you know what the subtitle *should* say and roughly *when* — then calculate how far out of sync the file is at each anchor. From those measurements, you can work out both the starting offset and the drift rate, then apply a proportional correction across the entire file.
+
+### Step 1: Find Your Anchor Points
+
+Pick three moments in the video — ideally spread across the beginning, middle, and end. Pause at each and note:
+
+- The video timestamp (e.g. 00:04:15)
+- What subtitle cue number is currently displayed
+- How many seconds early or late the subtitle appears
+
+### Step 2: Calculate the Drift Rate
+
+Take the offset at your first anchor and your last anchor, then divide the difference by the time between them. For example:
+
+- At 5 minutes in, subtitles are 1 second late
+- At 45 minutes in, subtitles are 9 seconds late
+- Drift rate: 8 seconds over 40 minutes = 0.2 seconds per minute, or roughly 200ms per minute
+
+### Step 3: Apply the Correction
+
+Use the [Subtitle Time Shifter](/subtitle-time-shifter) for the initial offset. For the progressive component, open your SRT file in a text editor and apply proportional adjustments to the timestamps in the middle and end sections — or use the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) afterwards to catch any cues that end up colliding as a result.
+
+---
+
+## Fixing Frame Rate Subtitle Drift (PAL vs NTSC)
+
+A specific type of drift happens when content is converted between different broadcast standards. PAL video runs at 25fps; NTSC runs at approximately 23.976fps. When a subtitle file created for one frame rate is applied to video encoded at another, the mismatch causes a mathematically predictable drift.
+
+The calculation looks like this:
+
+- NTSC to PAL: multiply all timestamps by (25 / 23.976) = approximately 1.0427
+- PAL to NTSC: multiply all timestamps by (23.976 / 25) = approximately 0.9590
+
+If you're working with broadcast or archival content and notice drift that follows a very clean, consistent pattern from the very first subtitle, a frame rate mismatch is almost certainly the cause.
+
+---
+
+## Fixing YouTube Auto-Caption Sync Errors
+
+YouTube's auto-captions are generated in a proprietary `.sbv` format. If you've downloaded them and found the timestamps are off, there are two steps:
+
+1. Convert the `.sbv` file to SRT using the [SBV to SRT Converter](/sbv-to-srt-converter)
+2. Apply any timing correction needed using the [Subtitle Time Shifter](/subtitle-time-shifter)
+
+YouTube's captions can also contain duplicate or overlapping cues if the video was processed multiple times. Run the adjusted file through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) as a final cleanup step.
+
+---
+
+## Why VLC Hotkeys Aren't a Permanent Fix
+
+VLC lets you nudge subtitle timing in real time using `G` and `H` on your keyboard. This is useful for watching a video once, but it doesn't change the underlying file — the next time you (or anyone else) opens that file, the sync problem is back.
+
+For a permanent fix that travels with the subtitle file, you need to edit the timestamps themselves. All the tools mentioned in this guide do exactly that — they modify the file directly, in your browser, with no upload required.
+
+---
+
+## Frequently Asked Questions
+
+### Why do my Whisper subtitles get out of sync on long videos?
+
+Whisper processes audio in fixed-length chunks and assumes a constant frame rate. If your video uses a variable frame rate (common in smartphone recordings), small errors accumulate over time, causing progressive drift. The longer the video, the more noticeable it becomes.
+
+### Can I fix subtitle drift online without installing software?
+
+Yes. The [Subtitle Time Shifter](/subtitle-time-shifter) lets you shift all timestamps by a fixed amount entirely in your browser — no installation, no file upload, no account needed.
+
+### What's the difference between subtitle delay and subtitle drift?
+
+A delay means all subtitles are off by the same fixed amount. Drift means the offset grows over time — subtitles are slightly off at the start and significantly off by the end. Delay needs a single global shift; drift requires proportional correction across the file.
+
+### How do I fix CapCut caption drift?
+
+CapCut drift is usually caused by VFR video or audio chunking errors. Export your caption file from CapCut as an SRT, identify the offset at the start and end of the video, and apply a corrected time shift using the [Subtitle Time Shifter](/subtitle-time-shifter).
+
+### What causes subtitle frame rate delay?
+
+When a subtitle file encoded for one frame rate standard (e.g. NTSC at 23.976fps) is used with video encoded at another (e.g. PAL at 25fps), all timestamps become systematically wrong. The fix requires multiplying every timestamp by a conversion factor — approximately 1.0427 for NTSC-to-PAL and 0.9590 for PAL-to-NTSC.
+
+### Is there a free online tool to fix out-of-sync subtitles?
+
+Yes — the [Subtitle Time Shifter](/subtitle-time-shifter) is free, runs entirely in your browser, and requires no sign-up. For SRT files with overlapping cues after adjustment, the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) is also free and browser-based.

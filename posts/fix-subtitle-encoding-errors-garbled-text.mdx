@@ -1,0 +1,144 @@
+---
+title: "How to Fix Garbled Text and Encoding Errors in Subtitle Files"
+description: "Subtitles showing weird symbols, boxes, or scrambled characters? This guide explains why subtitle encoding errors happen and how to fix them fast."
+date: "2026-05-30"
+slug: "fix-subtitle-encoding-errors-garbled-text"
+---
+
+# How to Fix Garbled Text and Encoding Errors in Subtitle Files
+
+You load a subtitle file, press play, and instead of readable text you get a stream of question marks, boxes, strange symbols, or completely scrambled characters. This is called **Mojibake** — a Japanese term (文字化け) for the garbled output that appears when a file is read using the wrong character encoding.
+
+It looks alarming, but encoding errors are almost always fixable. This guide explains exactly what's happening and how to clean it up.
+
+---
+
+## What Is a Subtitle Encoding Error?
+
+Every text file — including SRT and VTT subtitle files — is stored as a sequence of numbers. The encoding is the rulebook that maps those numbers to characters. If your media player or conversion tool uses a different rulebook than the one the file was originally written in, the characters come out wrong.
+
+The most common encoding mismatch in subtitle files is between **UTF-8** (the modern universal standard) and older regional encodings like **Windows-1252**, **ISO-8859-1**, or **ISO-8859-2**.
+
+A file written in Windows-1252 and opened as UTF-8 will produce garbled output for any character outside the basic ASCII range — so accented letters (é, ü, ñ), curly quotes, dashes, and any non-Latin script will all display incorrectly.
+
+---
+
+## Why Do SRT Subtitles Show Weird Symbols?
+
+There are several specific reasons this happens.
+
+### Legacy Subtitle Downloads
+
+Subtitle files downloaded from older databases (OpenSubtitles, Subscene, and similar) are often saved in regional encodings — particularly for non-English content. A French or Polish subtitle file downloaded in 2012 is very likely to be in ISO-8859-1 or Windows-1252, not UTF-8.
+
+### Conversion Pipeline Errors
+
+When subtitle files pass through conversion tools — particularly older desktop software or command-line utilities — each step can introduce encoding changes. A file might start as UTF-8, pass through a tool that strips the encoding declaration, and arrive at the destination re-interpreted as ANSI.
+
+### Byte Order Mark (BOM) Problems
+
+UTF-8 files sometimes include a **Byte Order Mark** at the very start of the file — three hidden bytes (EF BB BF) that signal the encoding. Some players handle this correctly; others don't. A BOM that confuses the parser can cause the first line of subtitles to appear garbled or blank, even if the rest of the file is fine.
+
+### Copy-Paste from Word Processors
+
+If subtitle text was ever drafted or edited in Microsoft Word, Google Docs, or similar, smart quotes (`"` `"` `'` `'`), em dashes (`—`), and ellipses (`…`) often get pasted in as their Unicode codepoints rather than standard ASCII equivalents. Many players and platforms don't render these correctly.
+
+---
+
+## How to Fix Garbled Subtitle Text
+
+### Method 1: Re-encode to UTF-8
+
+The fix for most encoding errors is simply to re-open the file with the correct source encoding and save it as UTF-8.
+
+Use the [Subtitle Encoding Fixer](/subtitle-encoding-fixer) — paste your subtitle content, select the likely source encoding, and download a clean UTF-8 version. If you're not sure which encoding your file uses, try Windows-1252 first (it covers most Western European languages), then ISO-8859-2 (Central/Eastern European), then ISO-8859-5 (Cyrillic).
+
+### Method 2: Remove the BOM
+
+If your first subtitle cue displays correctly but the very first character is garbled, a Byte Order Mark is the likely cause. The [Subtitle Encoding Fixer](/subtitle-encoding-fixer) removes BOMs as part of the UTF-8 conversion process.
+
+### Method 3: Clean Up Word Processor Characters
+
+If your file has smart quotes, em dashes, or other curly characters causing problems, use the [Subtitle Find and Replace](/subtitle-find-replace) tool to swap them for their plain ASCII equivalents: `"` for `"` and `"`, `-` or `--` for `—`, `...` for `…`.
+
+---
+
+## Fixing Arabic Subtitles That Display Backwards or with Detached Letters
+
+Arabic script is Right-to-Left (RTL), and many subtitle players don't render it correctly unless specific conditions are met.
+
+If your Arabic subtitles display as disconnected, reversed, or scrambled letters, the problem is usually one of three things:
+
+**1. Missing RTL marker.** Add a Right-to-Left Mark (Unicode character U+200F) at the beginning of each Arabic line. This tells the rendering engine which direction to display the text.
+
+**2. Wrong encoding.** Arabic text is most commonly stored in ISO-8859-6 or Windows-1256. Re-encoding to UTF-8 using the correct source encoding usually resolves detached letter issues.
+
+**3. Player doesn't support RTL rendering.** VLC and mpv handle Arabic well; some simpler players don't. If the file looks correct in VLC but wrong elsewhere, the issue is the player rather than the file.
+
+---
+
+## Fixing Subtitle Files That Show Boxes Instead of Characters
+
+Boxes (□ or ▯) appear when the correct glyph for a character doesn't exist in the font being used. This is different from an encoding error — the text data is correct, but the display font can't render the character.
+
+This is most common with:
+
+- Characters from scripts that require specialist fonts (Chinese, Japanese, Korean, Devanagari, Thai)
+- Symbols and emoji that were added to Unicode after the player's font was last updated
+- Corrupted codepoints that map to unassigned Unicode ranges
+
+For the first two cases, switching to a media player with better Unicode font support (VLC or mpv) will typically resolve it without changing the file. For corrupted codepoints, use the [Subtitle Encoding Fixer](/subtitle-encoding-fixer) to clean the file.
+
+---
+
+## Why Do Accented Characters Break in SRT Files?
+
+Accented characters (é, ü, ñ, ç, ő, and so on) are the most common casualties of encoding errors. In UTF-8, each of these characters requires two bytes. In ISO-8859-1 or Windows-1252, they're stored as a single byte.
+
+When a two-byte UTF-8 sequence gets misread as single-byte ISO-8859-1, you typically see two garbled characters in place of one accented letter — for example, `Ã©` instead of `é`.
+
+This is a reliable diagnostic. If you see pairs of garbled symbols wherever accented letters should appear, re-encoding from ISO-8859-1 to UTF-8 will fix it in one step.
+
+---
+
+## How to Convert an SRT File to UTF-8
+
+1. Open the [Subtitle Encoding Fixer](/subtitle-encoding-fixer)
+2. Paste your SRT content into the input field
+3. Select the source encoding (try ISO-8859-1 / Windows-1252 for Western European content)
+4. The tool outputs a clean UTF-8 version
+5. Download and replace your original file
+
+The conversion runs entirely in your browser — your subtitle text is never sent to a server.
+
+---
+
+## Frequently Asked Questions
+
+### How do I fix garbled text in my subtitle file?
+
+Garbled text is almost always a character encoding mismatch. Use the [Subtitle Encoding Fixer](/subtitle-encoding-fixer) to re-encode your file to UTF-8, selecting the source encoding that matches the original file. ISO-8859-1 or Windows-1252 covers most Western European files.
+
+### Why are my SRT subtitles showing weird symbols?
+
+Your media player is interpreting the file using a different character encoding than the one it was saved in. Re-encoding the file to UTF-8 solves this in the vast majority of cases.
+
+### How do I convert an SRT file to UTF-8 online for free?
+
+Use the [Subtitle Encoding Fixer](/subtitle-encoding-fixer) — paste your SRT, select the source encoding, and download a clean UTF-8 file. No upload, no account, no software needed.
+
+### How do I fix SRT file encoding errors?
+
+The most reliable fix is to identify the original encoding (usually ISO-8859-1 or Windows-1252 for older files) and re-save as UTF-8. The [Subtitle Encoding Fixer](/subtitle-encoding-fixer) handles this conversion in your browser.
+
+### Why do accented characters break in SRT files?
+
+Accented characters require two bytes in UTF-8. If your file is read as a single-byte encoding instead, each accented character produces two garbled symbols. Re-encoding from ISO-8859-1 to UTF-8 corrects this.
+
+### How do I fix Arabic subtitles that appear backwards or have detached letters?
+
+Arabic script requires Right-to-Left rendering. Make sure your file is encoded in UTF-8, and add a Right-to-Left Mark (U+200F) at the start of each Arabic line if your player doesn't detect the direction automatically. VLC and mpv both handle RTL subtitle rendering well.
+
+### What does it mean when a subtitle file shows boxes instead of characters?
+
+Boxes mean the font being used can't render that character — not necessarily that the file is corrupted. Try opening the file in VLC or mpv, which have better Unicode font coverage. If boxes appear everywhere rather than for specific characters, re-encode the file using the [Subtitle Encoding Fixer](/subtitle-encoding-fixer).

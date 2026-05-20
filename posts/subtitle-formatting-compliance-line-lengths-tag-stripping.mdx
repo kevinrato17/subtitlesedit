@@ -1,0 +1,179 @@
+---
+title: "Subtitle Formatting Compliance: Line Lengths and Tag Stripping"
+description: "Failing subtitle validation on Netflix or a streaming platform? Learn the character limits, line length rules, and how to strip unwanted tags from SRT files."
+date: "2026-06-02"
+slug: "subtitle-formatting-compliance-line-lengths-tag-stripping"
+---
+
+# Subtitle Formatting Compliance: Line Lengths and Tag Stripping
+
+If you've ever submitted subtitle files to a streaming platform, broadcast network, or professional video pipeline, you've probably hit a wall of validation errors. Lines too long. Unsupported styling tags. SDH annotations in the wrong format. Files that work fine in VLC but get flatly rejected by an ingestion system.
+
+This guide covers the technical formatting rules you need to meet — and how to clean up your files quickly without manually editing every cue.
+
+---
+
+## Why Streaming Platforms Have Strict Subtitle Rules
+
+Netflix, Amazon Prime Video, Apple TV+, and similar platforms process subtitle files through automated ingestion pipelines. These systems validate files against a specific style guide before they'll accept them. The rules exist to ensure subtitles display consistently across thousands of different devices — from 4K TVs to phones with tiny screens — without causing layout problems.
+
+Failing validation doesn't always produce an obvious error message. Sometimes the file is silently rejected; sometimes individual cues get dropped; sometimes the entire track is flagged for review.
+
+Getting your formatting right before submission saves an enormous amount of back-and-forth.
+
+---
+
+## Netflix Subtitle Line Length Rules
+
+Netflix's Timed Text Style Guide (TTSG) sets out specific constraints for subtitle formatting. For standard SRT and TTML files, the key character limits are:
+
+- **Maximum 42 characters per line** for most languages
+- **Maximum 2 lines per cue** for standard subtitles
+- No line should exceed 17 words
+- Text should not be centred unless following a specific character or speaker
+
+The 42-character limit applies to the *displayed* text — it doesn't count HTML tags or other formatting markup that might be embedded in the file.
+
+A subtitle line that runs to 60 or 70 characters will typically get auto-wrapped by the platform, but the wrap point may fall in an awkward place grammatically. It's always better to break lines yourself at natural phrase boundaries.
+
+---
+
+## How to Automatically Wrap Long Subtitle Lines
+
+Manually splitting every overlong cue is tedious and error-prone. The [Subtitle Splitter](/subtitle-splitter) can break long cues into shorter ones, and you can use the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) afterwards to make sure the timing is clean.
+
+For wrapping within a cue (splitting a long line into two shorter lines rather than creating a new cue), the general principle is:
+
+- Break at a natural grammatical boundary — after a comma, before a conjunction, or between subject and verb
+- Keep both resulting lines as close to equal length as possible
+- Never break in the middle of a proper noun, number, or grammatical phrase
+
+---
+
+## How to Strip HTML Tags from SRT Files
+
+Older subtitle files are often full of formatting tags: `<i>` for italics, `<b>` for bold, `<font color="#ffffff">` for colour, and sometimes `<u>` for underline. Many modern platforms don't support inline HTML styling in SRT files, and some will reject files that contain it.
+
+Here's what an SRT cue with tags looks like:
+
+```
+14
+00:02:11,400 --> 00:02:13,900
+<i>I never thought it would come to this.</i>
+```
+
+And the clean version:
+
+```
+14
+00:02:11,400 --> 00:02:13,900
+I never thought it would come to this.
+```
+
+Use the [Subtitle Tag Stripper](/subtitle-tag-stripper) to remove all HTML formatting tags from your file in one pass. The tool strips `<i>`, `<b>`, `<u>`, `<font>`, and their closing counterparts, leaving clean plain text.
+
+---
+
+## How to Remove Font Colour Tags from SRT Files
+
+Colour tags (`<font color="...">`) are frequently added by karaoke editors, DVD ripping tools, and older subtitle authoring software. They cause rejection on most streaming platforms and display as raw markup in players that don't parse HTML.
+
+The [Subtitle Tag Stripper](/subtitle-tag-stripper) removes these in a single pass. It handles both the opening `<font color="...">` tag and the corresponding `</font>` closing tag, leaving the text content intact.
+
+---
+
+## Removing SDH Annotations
+
+SDH stands for Subtitles for the Deaf and Hard of Hearing. SDH files include speaker identifications (`JOHN:`) and sound descriptions (`[DOOR SLAMS]`, `(dramatic music)`) in addition to dialogue.
+
+These annotations are required for accessibility compliance on many platforms — but if you're creating a clean dialogue track (for foreign language distribution, for example), you'll want to strip them.
+
+The [Subtitle Find and Replace](/subtitle-find-replace) tool can target and remove annotation patterns. For example:
+
+- Search for `[.*?]` (anything in square brackets) and replace with nothing
+- Search for `(.*?)` (anything in parentheses on its own line) and replace with nothing
+- Remove speaker labels by searching for capitalised names followed by a colon at the start of a line
+
+For complex SDH removal, run the file through [Subtitle Find and Replace](/subtitle-find-replace) and then check the output for any empty cues — these can be cleaned up manually or avoided by adding a filter for blank lines.
+
+---
+
+## Cleaning Up VTT Files
+
+WebVTT (`.vtt`) files can contain a range of additional metadata that isn't present in SRT: cue position settings, region definitions, style blocks, and note sections. When converting VTT to SRT for broadcast use, or when submitting VTT files to web video platforms, you often need to strip this extra markup.
+
+A VTT file with style blocks looks like this at the top:
+
+```
+WEBVTT
+
+STYLE
+::cue {
+  color: white;
+  font-size: 120%;
+}
+
+NOTE This file was generated automatically.
+```
+
+The [SRT to VTT Converter](/srt-to-vtt-converter) and [VTT to SRT Converter](/vtt-to-srt-converter) both produce clean output without embedded style blocks. If you're working with a VTT file that already contains these blocks, a text editor find-and-replace targeting `STYLE` and `NOTE` blocks before conversion will clean it up quickly.
+
+---
+
+## Building a Subtitle Compliance Checklist
+
+Before submitting subtitle files to any streaming platform or professional distribution pipeline, run through this list:
+
+- [ ] Maximum 42 characters per line
+- [ ] Maximum 2 lines per cue
+- [ ] No HTML formatting tags (`<i>`, `<b>`, `<font>`, etc.)
+- [ ] UTF-8 encoding without BOM
+- [ ] No overlapping cue timings — check with [Subtitle Overlap Fixer](/subtitle-overlap-fixer)
+- [ ] SDH annotations removed (if producing a clean dialogue track)
+- [ ] Consistent line break style at cue boundaries
+- [ ] No empty cues (cues with timestamps but blank text)
+
+---
+
+## Subtitle Style Guides by Platform
+
+The major streaming and broadcast platforms all publish formal subtitle style guides. The key references:
+
+- **Netflix:** Netflix Timed Text Style Guide (search "Netflix TTSG")
+- **Amazon Prime Video:** Prime Video Direct Help Center → Subtitle formatting
+- **BBC:** BBC Subtitle Guidelines (publicly available via BBC Academy)
+- **EBU:** EBU Tech 3264 — the broadcast industry standard
+
+These guides cover not just character limits but also reading speed targets (usually 17–20 characters per second), minimum cue duration (typically 5 frames minimum), and rules around punctuation, numbers, and speaker identification.
+
+---
+
+## Frequently Asked Questions
+
+### What is the Netflix subtitle line length character limit?
+
+Netflix's Timed Text Style Guide specifies a maximum of 42 characters per line for most languages. Lines should also contain no more than 17 words and each cue should be a maximum of two lines.
+
+### How do I strip HTML tags from an SRT file?
+
+Use the [Subtitle Tag Stripper](/subtitle-tag-stripper) — paste your SRT, and the tool removes all HTML formatting tags (`<i>`, `<b>`, `<u>`, `<font>`) in one pass, leaving clean plain text.
+
+### How do I remove SDH annotations from a subtitle file?
+
+SDH annotations (speaker labels and sound descriptions in square brackets or parentheses) can be removed using [Subtitle Find and Replace](/subtitle-find-replace). Search for the annotation pattern and replace with nothing.
+
+### How do I automatically wrap long subtitle lines?
+
+Use the [Subtitle Splitter](/subtitle-splitter) to break long cues into shorter ones. Break at natural grammatical boundaries — after punctuation or before conjunctions — and keep both resulting lines roughly equal in length.
+
+### Why does my subtitle file get rejected by streaming platforms?
+
+Common rejection reasons include lines over the character limit, unsupported HTML tags, overlapping cue timings, non-UTF-8 encoding, or formatting that violates the platform's style guide. Run your file through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) and [Subtitle Tag Stripper](/subtitle-tag-stripper), and check encoding before submission.
+
+### How do I delete font colour tags from an SRT file?
+
+Use the [Subtitle Tag Stripper](/subtitle-tag-stripper) — it removes `<font color="...">` tags and their closing `</font>` counterparts, leaving the text content untouched.
+
+### How do I clean up formatting tags from a VTT file?
+
+Convert your VTT to SRT using the [VTT to SRT Converter](/vtt-to-srt-converter), which produces clean output without position settings, style blocks, or note sections. Then work with the clean SRT for any further processing.
