@@ -1,0 +1,143 @@
+---
+title: "How to Fix Overlapping Subtitles in VLC (and in the File)"
+description: "Subtitles piling up or overlapping in VLC? Here's why it happens, how to fix the VLC display issue, and how to permanently correct overlapping timecodes in the SRT file."
+date: "2026-06-13"
+slug: "how-to-fix-overlapping-subtitles-vlc"
+---
+
+# How to Fix Overlapping Subtitles in VLC (and in the File)
+
+You're watching a video in VLC and two or three subtitle lines are stacking up on screen at once — earlier cues haven't cleared before new ones appear. Or you're seeing the last few words of one subtitle displayed at the same time as the first few words of the next.
+
+This is the overlapping subtitles problem, and it can be fixed two different ways: either by adjusting how VLC displays the subtitles, or by actually correcting the timestamps in the subtitle file itself. One of those fixes is temporary; the other is permanent. This guide covers both.
+
+---
+
+## Why Do Subtitles Overlap in VLC?
+
+There are two distinct causes, and understanding which one you're dealing with determines the fix.
+
+### Cause 1: The Subtitle File Has Overlapping Timecodes
+
+This is the most common cause. An SRT file has overlapping timecodes when the end time of one cue is later than the start time of the next cue.
+
+For example:
+```
+3
+00:01:15,200 --> 00:01:18,600
+Wait — I thought you said it was fine.
+
+4
+00:01:17,400 --> 00:01:20,100
+It was fine. Until it wasn't.
+```
+
+Cue 3 ends at 00:01:18,600 and cue 4 starts at 00:01:17,400 — they overlap by 1.2 seconds. During that window, VLC displays both cues simultaneously.
+
+This usually happens when subtitle files are manually edited, when two files are merged without timing adjustment, or when AI transcription tools produce cues that run into each other.
+
+### Cause 2: VLC's Multiple Subtitle Tracks
+
+If you've accidentally enabled two subtitle tracks in VLC at the same time, both will display simultaneously — which looks identical to overlapping cues but is a player setting, not a file problem.
+
+Check: go to **Subtitle → Sub Track** in VLC's menu. If you see two tracks checked, uncheck one of them. This resolves the stacking immediately without touching the file.
+
+---
+
+## The Temporary Fix: VLC Display Settings
+
+If you need to watch the video right now and don't have time to edit the file, VLC's subtitle delay controls can help you push one track out of the visible window.
+
+However, the real solution — and the one that's portable across any device or player — is fixing the subtitle file itself. VLC's display settings don't change the file, so the overlap problem comes back the next time anyone opens it.
+
+---
+
+## The Permanent Fix: Correct the Timestamps in the SRT File
+
+### Using the Subtitle Overlap Fixer
+
+The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) is the fastest way to resolve overlapping timecodes. Paste your SRT content into the tool and it automatically detects every cue where the end time runs into the next cue's start time, then trims the end time to create a small gap between cues.
+
+The fix preserves all your subtitle text and keeps timing as close to the original as possible — it only adjusts the cue endpoints that are actually causing overlaps.
+
+### What the Tool Does Exactly
+
+For each overlap, the Overlap Fixer:
+
+1. Detects where cue N's end time is later than cue N+1's start time
+2. Sets cue N's end time to a few milliseconds before cue N+1's start time
+3. Leaves all text content untouched
+4. Repeats for every overlap in the file
+
+The result is a clean SRT file with no overlapping cues — ready for VLC, any other player, or submission to a streaming platform.
+
+---
+
+## How to Check If Your SRT File Has Overlapping Timecodes
+
+If you want to diagnose the file manually before using the tool, open your SRT file in a plain text editor (Notepad, TextEdit, or VS Code) and look at consecutive cue blocks. For each cue, check that the end time of the current cue is **earlier** than the start time of the next cue.
+
+Specifically, compare these two timestamps:
+- Line 2 of cue N (the `end time` part after `-->`)
+- Line 2 of cue N+1 (the `start time` part before `-->`)
+
+If the end time of cue N is larger than the start time of cue N+1, you have an overlap at that point.
+
+In a long subtitle file, doing this manually for hundreds of cues is impractical — that's exactly what the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) automates.
+
+---
+
+## Overlapping Subtitles After Merging Files
+
+Merging two subtitle files is one of the most common ways overlapping timecodes get introduced. If you've used the [Subtitle Merger](/subtitle-merger) to combine two separate subtitle tracks and are seeing overlaps in the output, it's because the original files had cues that were timed to coexist rather than follow sequentially.
+
+The solution is to run the merged file through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) after merging. This is a standard two-step workflow:
+
+1. Merge → [Subtitle Merger](/subtitle-merger)
+2. Clean up → [Subtitle Overlap Fixer](/subtitle-overlap-fixer)
+
+---
+
+## Overlapping Subtitles After Time-Shifting
+
+If you've shifted all timestamps using the [Subtitle Time Shifter](/subtitle-time-shifter) and now have overlapping cues, the shift amount you applied probably pushed some cues into each other. This can happen when a large negative shift brings early cues too close to zero.
+
+Run the shifted file through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) to clean up any collisions introduced by the shift.
+
+---
+
+## What VLC's Subtitle Delay Controls Actually Do
+
+For completeness: VLC has a subtitle delay control accessible via **Tools → Track Synchronization** or by pressing `H` and `G` during playback. These controls move all subtitles earlier or later in real time.
+
+This is useful for a uniform timing mismatch (all subtitles too early or too late by the same amount) but doesn't fix overlapping cues — it just moves all of them together. If your problem is overlapping timecodes in the file, the delay control makes no difference to the overlap.
+
+For a uniform timing fix that's permanent (written into the file rather than applied per-session in VLC), use the [Subtitle Time Shifter](/subtitle-time-shifter).
+
+---
+
+## Frequently Asked Questions
+
+### How do I fix overlapping subtitles in VLC?
+
+First check whether two subtitle tracks are enabled at once (Subtitle → Sub Track in VLC). If only one track is active, the problem is in the SRT file — use the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) to automatically correct overlapping timecodes and download a clean file.
+
+### Why are my subtitles piling up in VLC?
+
+The most common cause is overlapping timecodes in your SRT file — cues where the end time of one subtitle runs into the start time of the next. VLC displays both simultaneously during the overlap. Use the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) to detect and fix all overlaps automatically.
+
+### How do I fix overlapping timecodes in an SRT file?
+
+Use the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) — paste your SRT content, and the tool automatically trims any cue end times that overlap with the next cue's start time. The fixed file can be downloaded and loaded in VLC immediately.
+
+### Does fixing overlapping subtitles change the text content?
+
+No. The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) only adjusts the timestamps — specifically the end time of cues that run too long. All subtitle text is preserved exactly as written.
+
+### Why do subtitles overlap after merging SRT files?
+
+When two subtitle files are merged, the combined file may have cues that were individually timed correctly but now run into each other when placed in sequence. Running the merged output through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) is the standard cleanup step after any merge.
+
+### Can I fix overlapping subtitles without installing software?
+
+Yes. The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) runs entirely in your browser — no download, no installation, no account required. Paste your SRT file, click fix, and download the corrected version.

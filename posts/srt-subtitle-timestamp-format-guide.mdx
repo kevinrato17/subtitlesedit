@@ -1,0 +1,181 @@
+---
+title: "SRT Subtitle Timestamp Format Explained (HH:MM:SS,MMM)"
+description: "A complete guide to the SRT timestamp format HH:MM:SS,mmm — how it works, common errors that break media players, and how to fix them fast."
+date: "2026-06-09"
+slug: "srt-subtitle-timestamp-format-guide"
+---
+
+# SRT Subtitle Timestamp Format Explained (HH:MM:SS,MMM)
+
+The SRT timestamp format looks simple enough at first glance — but it's one of the most common sources of subtitle errors. A single wrong character (a dot instead of a comma, a missing leading zero, an extra space) is enough to make a media player refuse to load the file or display every subtitle at the wrong time.
+
+This guide explains exactly how the SRT timestamp format works, what each part means, and how to diagnose and fix the formatting errors that trip people up most often.
+
+---
+
+## What the SRT Format Looks Like
+
+A complete SRT subtitle file is made up of individual cue blocks. Each block has three parts: a sequence number, a timestamp line, and one or more lines of text. Here's a typical example:
+
+```
+1
+00:00:04,200 --> 00:00:06,800
+Are you sure about this?
+
+2
+00:00:07,150 --> 00:00:09,400
+I've never been more sure of anything.
+```
+
+The blank line between blocks is required — it's what tells the parser where one cue ends and the next begins.
+
+---
+
+## Breaking Down the Timestamp: HH:MM:SS,MMM
+
+The timestamp line follows this exact pattern:
+
+```
+HH:MM:SS,mmm --> HH:MM:SS,mmm
+```
+
+Let's break each component down:
+
+**HH** — Hours, always two digits. Even if the value is zero, it must be written as `00`. Writing `0:00:04,200` is a format violation — it should be `00:00:04,200`.
+
+**MM** — Minutes, always two digits. Range is 00 to 59.
+
+**SS** — Seconds, always two digits. Range is 00 to 59.
+
+**,mmm** — Milliseconds, always three digits after a **comma** (not a dot). This is the most common error in SRT files. The comma is mandatory — `00:00:04.200` is VTT format, not SRT format.
+
+**-->** — The arrow separator between start and end timestamps. There must be exactly one space before it and one space after it. `00:00:04,200-->00:00:06,800` (no spaces) will break many parsers.
+
+---
+
+## The Comma vs Dot Problem
+
+This is the most frequently encountered SRT formatting error, and it causes a lot of confusion because the two formats look almost identical:
+
+| Format | Millisecond separator | Example |
+|--------|----------------------|---------|
+| SRT | Comma `,` | `00:00:04,200 --> 00:00:06,800` |
+| VTT | Period `.` | `00:00:04.200 --> 00:00:06.800` |
+
+If you open an SRT file in a text editor and notice periods instead of commas in the timestamps, you either have a VTT file that's been renamed with an `.srt` extension, or a conversion tool introduced the wrong separator. Use the [VTT to SRT Converter](/vtt-to-srt-converter) to correct this properly — it replaces all `.` separators with `,` and fixes the header in one pass.
+
+---
+
+## Why Are Sequence Numbers Required?
+
+Each cue block must start with a sequential integer: `1`, `2`, `3`, and so on. The numbers don't technically have to be sequential in every media player, but the SRT specification requires them and many parsers will fail or skip cues if they're missing or duplicated.
+
+If your SRT file was manually edited and cue numbers got out of order or went missing, the [Subtitle Time Shifter](/subtitle-time-shifter) preserves and correctly renumbers cues as part of the output.
+
+---
+
+## Common SRT Timestamp Errors and How to Fix Them
+
+### Error 1: Period Instead of Comma
+
+**What it looks like:** `00:00:04.200 --> 00:00:06.800`
+**What it should be:** `00:00:04,200 --> 00:00:06,800`
+**Fix:** Use the [VTT to SRT Converter](/vtt-to-srt-converter) if the file is actually a VTT file in disguise, or use [Subtitle Find and Replace](/subtitle-find-replace) to do a targeted swap.
+
+### Error 2: Missing Leading Zero on Hours
+
+**What it looks like:** `0:00:04,200 --> 0:00:06,800`
+**What it should be:** `00:00:04,200 --> 00:00:06,800`
+**Fix:** This is usually a sign the file was exported from older software. Most modern parsers tolerate this, but strict validators will reject it.
+
+### Error 3: No Spaces Around the Arrow
+
+**What it looks like:** `00:00:04,200-->00:00:06,800`
+**What it should be:** `00:00:04,200 --> 00:00:06,800`
+**Fix:** The SRT specification requires a single space before and after `-->`. A text editor find-and-replace targeting `-->` and replacing with ` --> ` will fix it across the whole file (with the caveat of checking for any instances that already have correct spacing).
+
+### Error 4: Missing Blank Line Between Cues
+
+**What it looks like:**
+```
+1
+00:00:04,200 --> 00:00:06,800
+Are you sure about this?
+2
+00:00:07,150 --> 00:00:09,400
+I've never been more sure.
+```
+
+**What it should be:** One blank line between each cue block. Without it, many parsers merge the blocks together or skip them entirely.
+
+### Error 5: Timestamps Out of Order
+
+If the start time of a cue is later than the end time, or if cues are not in chronological order, most players will either skip those cues or stall. The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) catches timing inversions and overlaps and corrects them automatically.
+
+### Error 6: Wrong Encoding
+
+This isn't a timestamp error, but it's often confused for one. If your subtitles display as garbled characters or boxes, the issue is encoding rather than timestamp format. The [Subtitle Encoding Fixer](/subtitle-encoding-fixer) converts files to UTF-8 and resolves character encoding problems.
+
+---
+
+## How the SRT Format Handles Hours Over 23
+
+Unlike timecode formats in video editing software, SRT timestamps don't roll over at 24 hours. An SRT file for a very long recording can legitimately have a timestamp like `99:59:59,999`. The hours component is not constrained to 23.
+
+This means SRT format is perfectly suited to long-form content: lectures, conference recordings, podcast episodes, and films — as long as the timestamps are sequential and correctly formatted.
+
+---
+
+## Validating Your SRT File
+
+Before loading a subtitle file into a media player or submitting it to a platform, it's worth doing a quick validation check. Things to look for:
+
+- Every cue starts with a sequential integer on its own line
+- Every timestamp follows `HH:MM:SS,mmm --> HH:MM:SS,mmm` exactly
+- Commas (not periods) in all timestamps
+- One space before and after `-->`
+- A blank line between every cue block
+- No cue block where the end time is earlier than the start time
+- UTF-8 encoding without a Byte Order Mark
+
+The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) catches the timing problems automatically. For encoding issues, use the [Subtitle Encoding Fixer](/subtitle-encoding-fixer).
+
+---
+
+## SRT vs VTT vs SBV: Timestamp Format Comparison
+
+| Format | Separator | Hours format | Example |
+|--------|-----------|--------------|---------|
+| SRT | `,` | `HH:MM:SS,mmm` | `00:01:23,456` |
+| VTT | `.` | `HH:MM:SS.mmm` | `00:01:23.456` |
+| SBV | `.` | `H:MM:SS.mmm` | `0:01:23.456` |
+
+The SBV format (used by YouTube) also omits leading zeros on the hours and uses a comma as the cue separator rather than an arrow. If you're converting YouTube captions to SRT, use the [SBV to SRT Converter](/sbv-to-srt-converter) rather than trying to reformat the timestamps manually.
+
+---
+
+## Frequently Asked Questions
+
+### What is the correct SRT timestamp format?
+
+The SRT timestamp format is `HH:MM:SS,mmm --> HH:MM:SS,mmm`. Hours, minutes, and seconds are always two digits; milliseconds are always three digits after a **comma** (not a period). There is one space before and after the `-->` arrow separator.
+
+### Why does SRT use a comma and not a dot for milliseconds?
+
+The SRT format was created by SubRip software and the original specification uses a comma as the decimal separator — following European number formatting conventions. VTT (WebVTT), the web standard, uses a period instead. This is the source of many conversion errors.
+
+### What does HH:MM:SS,mmm mean in subtitles?
+
+HH is hours (two digits), MM is minutes (two digits), SS is seconds (two digits), and mmm is milliseconds (three digits). The comma separates seconds from milliseconds. So `00:01:23,456` means 1 minute, 23 seconds, and 456 milliseconds into the video.
+
+### How do I fix a subtitle file with wrong timestamp format?
+
+If the file has periods instead of commas, it's likely a VTT file — use the [VTT to SRT Converter](/vtt-to-srt-converter). If the timestamps are in the right format but the timing is wrong, use the [Subtitle Time Shifter](/subtitle-time-shifter). For overlapping cues, use the [Subtitle Overlap Fixer](/subtitle-overlap-fixer).
+
+### Why is there an arrow (-->) in SRT timestamps?
+
+The `-->` arrow is the separator between the start and end time of a subtitle cue, and it's a required part of the SRT format. It must have exactly one space on each side. Some parsers are forgiving about the spacing, but strict validators and some platforms will reject files where the spacing around `-->` is missing or inconsistent.
+
+### Can I have more than two hours in an SRT timestamp?
+
+Yes. The hours component in SRT timestamps is not capped at 23. You can have timestamps like `99:59:59,999` for very long recordings. The file will be read correctly by any SRT-compliant parser.

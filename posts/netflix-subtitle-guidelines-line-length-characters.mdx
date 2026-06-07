@@ -1,0 +1,170 @@
+---
+title: "Netflix Subtitle Guidelines: Line Length, Characters, and Splitting Rules"
+description: "A practical breakdown of Netflix's Timed Text Style Guide — maximum characters per line, word count limits, and how to split subtitle lines correctly."
+date: "2026-06-11"
+slug: "netflix-subtitle-guidelines-line-length-characters"
+---
+
+# Netflix Subtitle Guidelines: Line Length, Characters, and Splitting Rules
+
+If you're preparing subtitle files for Netflix delivery, you're working to one of the most detailed style guides in the industry. The Netflix Timed Text Style Guide (TTSG) covers everything from character limits and line splitting rules to reading speed and punctuation preferences — and the ingestion pipeline enforces a good portion of it automatically.
+
+This guide focuses on the formatting rules that trip people up most: line length limits, how to split long lines correctly, and the word count guidelines that govern how much text can appear in a single cue.
+
+---
+
+## The Core Character Limit: 42 Characters Per Line
+
+The most-cited Netflix subtitle specification is the **42-character-per-line maximum**. This applies to the displayable text in each line — HTML tags, if present, are not counted.
+
+The 42-character limit exists for a practical reason: subtitle readability across devices. On a 65-inch TV the limit looks generous. On a 6-inch phone screen in portrait mode, a 42-character line is already pushing the boundaries of comfortable reading.
+
+Lines that exceed 42 characters risk:
+- Getting truncated on small screens
+- Being auto-wrapped by the player at an awkward point
+- Causing your file to fail Netflix's automated validation
+
+Use the [Subtitle Line Length Limiter](/subtitle-line-length-limiter) to automatically flag and trim lines that exceed this limit.
+
+---
+
+## Maximum Two Lines Per Cue
+
+Netflix's style guide allows a maximum of two lines of text per subtitle cue. Three-line cues are not permitted.
+
+This rule interacts with the character limit. If you have a long passage of dialogue that doesn't fit in two lines of 42 characters each, the solution is to split it into two separate cues — not to add a third line.
+
+---
+
+## Word Count Per Line
+
+Beyond character count, the Netflix TTSG sets a **maximum of 17 words per line**. In practice, the character limit (42) will constrain you before the word limit does for most languages — but for languages with very short words (like English), you can occasionally reach 17 words before 42 characters, so both limits apply.
+
+---
+
+## Reading Speed: Characters Per Second
+
+Netflix specifies a **maximum reading speed of 20 characters per second** for most languages (17 CPS for children's content). This means that if you have a short cue that's on screen for 1 second, it should contain no more than 20 characters.
+
+This is separate from the character-per-line limit. It governs how long each cue needs to stay on screen to be readable.
+
+If your subtitle file has very dense cues — lots of text, short display duration — the [Subtitle Splitter](/subtitle-splitter) can help break them into shorter, faster-readable units.
+
+---
+
+## How to Split Long Subtitle Lines Correctly
+
+When a line exceeds 42 characters, you need to break it. Netflix has rules about *where* to break, not just *that* you should break.
+
+### Split at Natural Grammatical Boundaries
+
+Netflix's guidance is to split lines at natural grammatical breaks. In priority order:
+
+1. After a comma or semicolon
+2. Before a conjunction (and, but, or, so, because, which)
+3. Before a preposition (in, on, at, with, after, before)
+4. Between subject and verb in simple sentences
+
+**Avoid** breaking:
+- In the middle of a proper noun ("New / York" is wrong)
+- Between a number and its unit ("42 / characters" is wrong)
+- In the middle of a prepositional phrase
+
+### Keep Both Lines Roughly Equal in Length
+
+Netflix prefers subtitle lines to be as close to equal in length as possible. This creates a visually balanced, pyramid-like shape. A first line of 42 characters and a second of 4 characters is considered poor form.
+
+**Good:**
+```
+He told me he would never
+come back to this place again.
+```
+
+**Poor:**
+```
+He told me he would never come back
+to this.
+```
+
+### Don't Split After an Article
+
+A, an, and the should stay with their noun. "He opened the / door" is wrong. "He opened / the door" is correct.
+
+---
+
+## Minimum Cue Duration
+
+Netflix's style guide specifies a minimum cue duration of **5 frames** — meaning no cue should be shorter than approximately 200 milliseconds (at 25fps). Cues shorter than this are difficult to read and may be stripped by the platform.
+
+Use the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) to check for and resolve extremely short cues that might result from splits or timing corrections.
+
+---
+
+## Handling the End of Sentences
+
+Netflix requires that dialogue be split so that a complete sentence (or the end of a sentence) stays together in one cue whenever possible. Avoid splitting a sentence across two separate cues — try to end the sentence at the end of the cue.
+
+If a character speaks two complete sentences that together fall within a single timed speech unit, both can be in the same cue as long as they stay within the two-line, 42-character-per-line limits.
+
+---
+
+## Punctuation Rules Worth Knowing
+
+A few Netflix-specific punctuation rules that differ from general usage:
+
+- **Ellipses** at the end of a cue indicate that a sentence continues into the next cue. They're acceptable but shouldn't be overused.
+- **Ellipses at the start** of a cue indicate continuation from the previous cue. Netflix accepts this but prefers complete sentences when possible.
+- **Em dashes** (—) are used to indicate interrupted speech, not hyphens (-).
+- **Italics** are used for off-screen narration, foreign-language dialogue, titles of works, and emphasis. Use `<i>` tags in SRT.
+
+---
+
+## What Happens When You Submit a File That Violates These Rules?
+
+Netflix's Backlot ingestion platform validates subtitle files against the TTSG on upload. Depending on the severity of the violation:
+
+- **Hard failures** — the file is rejected and you receive an error message. These typically include missing cues, incorrect formatting, or files that can't be parsed.
+- **Soft failures / warnings** — the file is accepted but flagged for review. These typically include reading speed violations or lines that exceed the character limit slightly.
+- **Silent issues** — some formatting problems pass initial validation but cause display problems on certain devices. Line-length overruns and three-line cues sometimes fall into this category.
+
+The safest approach is to run your file through the [Subtitle Line Length Limiter](/subtitle-line-length-limiter) to check for character overruns and the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) to catch timing issues before submission.
+
+---
+
+## Netflix Language-Specific Exceptions
+
+The 42-character limit and most TTSG rules apply to Latin-script languages. Netflix publishes language-specific style guides for non-Latin scripts (Arabic, Chinese, Japanese, Korean, Thai, and others) with different character limits and direction rules.
+
+For Arabic and Hebrew, for example, the display is Right-to-Left, and character limits may differ. Always check the Netflix language-specific TTSG for the language you're working in.
+
+---
+
+## Frequently Asked Questions
+
+### What is the Netflix subtitle character limit per line?
+
+Netflix's Timed Text Style Guide specifies a maximum of **42 characters per line** for most languages. Each cue is limited to a maximum of two lines.
+
+### How many words per line does Netflix allow in subtitles?
+
+Netflix's style guide specifies a maximum of **17 words per line**. For most languages, the 42-character limit will be the binding constraint before the word limit is reached.
+
+### How do I split subtitle lines according to Netflix guidelines?
+
+Break lines at natural grammatical boundaries — after commas, before conjunctions, or between subject and verb. Keep both lines roughly equal in length. Never break in the middle of a proper noun or between an article and its noun. Use the [Subtitle Line Length Limiter](/subtitle-line-length-limiter) to flag lines that exceed 42 characters.
+
+### What tool can I use to fix long subtitle lines for Netflix?
+
+The [Subtitle Line Length Limiter](/subtitle-line-length-limiter) identifies and trims lines that exceed Netflix's 42-character-per-line requirement. For cues that need to be split into separate timed entries, use the [Subtitle Splitter](/subtitle-splitter).
+
+### What is the Netflix subtitle reading speed limit?
+
+Netflix sets a maximum reading speed of **20 characters per second** for most content, and 17 CPS for children's programming. This governs the minimum on-screen duration of each cue relative to its length.
+
+### Why does Netflix reject my subtitle file?
+
+Common rejection reasons include lines over 42 characters, cues with three or more lines, overlapping timestamps, files not in the required format (Netflix typically requires TTML/DFXP for professional delivery, though SRT is sometimes accepted), and encoding issues. Run your file through the [Subtitle Line Length Limiter](/subtitle-line-length-limiter) and [Subtitle Overlap Fixer](/subtitle-overlap-fixer) before submission.
+
+### What is the Netflix Timed Text Style Guide?
+
+The Netflix Timed Text Style Guide (TTSG) is Netflix's official specification for subtitle formatting. It covers character limits, reading speed, line splitting rules, punctuation, font, positioning, and language-specific requirements. Netflix publishes the TTSG publicly — search "Netflix Timed Text Style Guide" to find the current version on their partner portal.
