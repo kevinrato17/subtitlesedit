@@ -11,11 +11,206 @@ const p =
 const ol =
   "mb-4 list-decimal pl-5 text-[#334155] space-y-2 [&_p]:mb-0 [&_li>p]:mb-0";
 
-const PAGE_TITLE =
-  "VTT to TXT Converter – Free Online Tool to Extract Text from WebVTT Subtitles";
+const PAGE_TITLE = "VTT to TXT Converter — Extract WebVTT Text Free";
 const META_DESC =
-  "Convert VTT (WebVTT) subtitle files to plain TXT instantly in your browser. Extract dialogue text from web captions with or without timestamps. Free, private, no uploads.";
+  "Convert WebVTT (.vtt) subtitles to plain TXT in your browser. Extract caption text with or without timestamps. Free, private, no uploads or sign-up.";
 const CANONICAL = "https://subtitlesedit.com/vtt-to-txt-converter";
+const OG_IMG =
+  "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp";
+
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://subtitlesedit.com/#organization",
+      name: "Subtitlesedit.com",
+      url: "https://subtitlesedit.com",
+      email: "support@subtitlesedit.com",
+      logo: {
+        "@type": "ImageObject",
+        "@id": "https://subtitlesedit.com/#logo",
+        url: "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
+        contentUrl:
+          "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
+        caption: "Subtitles Edit",
+        inLanguage: "en-US",
+        width: 500,
+        height: 500,
+      },
+      description:
+        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online — no software installation or sign-up required.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://subtitlesedit.com/#website",
+      url: "https://subtitlesedit.com",
+      name: "Subtitles Edit",
+      alternateName: "SubtitlesEdit.com",
+      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://subtitlesedit.com/vtt-to-txt-converter#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://subtitlesedit.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "VTT to TXT Converter",
+          item: "https://subtitlesedit.com/vtt-to-txt-converter",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://subtitlesedit.com/vtt-to-txt-converter#webpage",
+      url: "https://subtitlesedit.com/vtt-to-txt-converter",
+      name: PAGE_TITLE,
+      isPartOf: { "@id": "https://subtitlesedit.com/#website" },
+      primaryImageOfPage: { "@id": "https://subtitlesedit.com/#logo" },
+      breadcrumb: {
+        "@id": "https://subtitlesedit.com/vtt-to-txt-converter#breadcrumb",
+      },
+      mainEntity: {
+        "@id": "https://subtitlesedit.com/vtt-to-txt-converter#tool",
+      },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://subtitlesedit.com/vtt-to-txt-converter#tool",
+      name: "VTT to TXT Converter",
+      url: "https://subtitlesedit.com/vtt-to-txt-converter",
+      applicationCategory: "MultimediaApplication",
+      operatingSystem: "Any (runs in a web browser)",
+      browserRequirements:
+        "Requires a modern web browser with JavaScript enabled",
+      description:
+        "Free browser-based tool that extracts plain text from WebVTT (.vtt) subtitle files. Runs entirely client-side with no uploads; it skips WEBVTT, NOTE, STYLE and REGION blocks, outputs dialogue with or without start timestamps, and strips inline WebVTT tags.",
+      isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      featureList: [
+        "Extract plain dialogue text from WebVTT subtitles",
+        "Optional timestamped output with cue start times",
+        "100% client-side processing with no file uploads",
+        "Skips WEBVTT, NOTE, STYLE and REGION blocks",
+        "Strips inline WebVTT tags such as voice, class, and styling",
+        "Copy the output or download a .txt file",
+      ],
+      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://subtitlesedit.com/vtt-to-txt-converter#faq",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Is the VTT to TXT converter free to use?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. The converter is completely free with no sign-up, no watermarks, and no limit on how many files you convert. Because everything runs in your browser, there are no server costs to pass on, so you can extract text from as many WebVTT files as you need at no charge.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Are my subtitle files uploaded anywhere?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. Every step runs locally in your browser using JavaScript, so your VTT content never leaves your device or touches a server. That makes the tool safe for confidential transcripts, unreleased captions, and client work, and it also means conversion is instant with no upload wait.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What's the difference between plain text and timestamped output?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Plain text only returns dialogue lines with no timings, one cue per line, which is ideal for transcripts and drafts. Include timestamps prefixes each line with the cue's start time in brackets, like [00:01:02] Hello there. Milliseconds from the WebVTT file are dropped so the times stay easy to read.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Which WebVTT tags does the converter remove?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "The converter strips WebVTT inline markup including italics, bold, underline, voice spans, class and cue spans, ruby annotations, and font tags. The spoken words inside those tags are always kept; only the markup is removed, leaving clean readable dialogue with no leftover angle-bracket code.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How are multi-line cues handled?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "When a cue spans two or more lines, the converter joins them into one line separated by a space, so each cue becomes a single readable sentence. This removes the on-screen line breaks that WebVTT uses for display and gives you tidy, paragraph-friendly text.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Why am I getting an \"Invalid WebVTT cue\" error?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "That error means a cue's timing line is missing or malformed. WebVTT timings need the form 00:00:01.000 --> 00:00:04.000 (or MM:SS.mmm), joined by the --> arrow. Check that the arrow is present and the start time is valid, then convert again.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What's the difference between VTT and SRT?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "SRT (SubRip) is the classic plain-text subtitle format with comma-separated milliseconds and no header. WebVTT is the web-native caption format used by HTML5 players and many platforms; it opens with a WEBVTT header, uses dots for fractions, and supports optional styling blocks. This page reads .vtt directly.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I convert SRT files to TXT?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Use the SRT to TXT Converter for SubRip files; it matches this tool's workflow for .srt uploads and pasted text. Both tools strip subtitle markup and offer the same plain or timestamped output, so you can pick whichever format you happen to have on hand.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Where can I get VTT subtitle files from?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Many platforms produce WebVTT: HTML5 video workflows, some learning and hosting tools, captions saved from web players, and files you create when you convert SRT to VTT elsewhere. If you only have a .srt file, use the SRT to TXT tool instead of this one.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I clean up captions before converting?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. To fix recurring typos or names first, run the file through Subtitle Find and Replace, or remove leftover styling with the Subtitle Tag Stripper, then bring the cleaned VTT here. Editing before extraction means your TXT transcript comes out polished in a single pass.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does this tool work offline?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "After the page loads once, the converter keeps working without a connection in most modern browsers, because all processing is client-side. If you reload the tab while offline it may not reopen, so keep the page open if you plan to convert several files away from a network.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Which browsers and devices does it work on?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "The converter runs in any modern browser such as Chrome, Edge, Firefox, or Safari, on Windows, macOS, Linux, Android, or iOS. No installation, extension, or account is required. On mobile you can paste WebVTT text straight into the box if choosing a file is awkward.",
+          },
+        },
+      ],
+    },
+  ],
+};
 
 /** Strip WebVTT inline tags: i, b, u, c, v, ruby, rt, font (and closing variants). */
 const STRIP_TAGS_RE =
@@ -427,12 +622,14 @@ const faqItemTitle =
 function FaqSection() {
   const items = [
     {
-      q: "Is the VTT to TXT Converter free to use?",
+      q: "Is the VTT to TXT converter free to use?",
       id: "faq-free",
       body: (
         <p>
-          Yes. The tool is free with no sign-up, no watermarks, and no limits on
-          how many files you convert.
+          Yes. The converter is completely free with no sign-up, no watermarks,
+          and no limit on how many files you convert. Because everything runs in
+          your browser, there are no server costs to pass on, so you can extract
+          text from as many WebVTT files as you need at no charge.
         </p>
       ),
     },
@@ -441,8 +638,11 @@ function FaqSection() {
       id: "faq-privacy",
       body: (
         <p>
-          No. Everything runs locally in your browser. Your VTT content never
-          leaves your device.
+          No. Every step runs locally in your browser using JavaScript, so your
+          VTT content never leaves your device or touches a server. That makes
+          the tool safe for confidential transcripts, unreleased captions, and
+          client work, and it also means conversion is instant with no upload
+          wait.
         </p>
       ),
     },
@@ -451,16 +651,58 @@ function FaqSection() {
       id: "faq-modes",
       body: (
         <p>
-          <strong>Plain text only</strong> gives you dialogue lines only, one cue
-          per line, with WebVTT tags like{" "}
-          <code className="rounded bg-gray-100 px-1">&lt;i&gt;</code> or{" "}
-          <code className="rounded bg-gray-100 px-1">&lt;c.name&gt;</code>{" "}
-          removed. <strong>Include timestamps</strong> adds the start time in
-          brackets before each line, like{" "}
+          <strong>Plain text only</strong> returns dialogue lines with no
+          timings, one cue per line — ideal for transcripts and drafts.{" "}
+          <strong>Include timestamps</strong> prefixes each line with the
+          cue&apos;s start time in brackets, like{" "}
+          <code className="rounded bg-gray-100 px-1">[00:01:02] Hello there</code>
+          . Milliseconds from the WebVTT file are dropped so the times stay easy
+          to read.
+        </p>
+      ),
+    },
+    {
+      q: "Which WebVTT tags does the converter remove?",
+      id: "faq-tags",
+      body: (
+        <p>
+          The converter strips WebVTT inline markup — italics (
+          <code className="rounded bg-gray-100 px-1">&lt;i&gt;</code>), bold,
+          underline, voice spans (
+          <code className="rounded bg-gray-100 px-1">&lt;v&gt;</code>), class and
+          cue spans (
+          <code className="rounded bg-gray-100 px-1">&lt;c&gt;</code>), ruby
+          annotations, and font tags. The spoken words inside those tags are
+          always kept; only the markup is removed.
+        </p>
+      ),
+    },
+    {
+      q: "How are multi-line cues handled?",
+      id: "faq-multiline",
+      body: (
+        <p>
+          When a cue spans two or more lines, the converter joins them into one
+          line separated by a space, so each cue becomes a single readable
+          sentence. This removes the on-screen line breaks that WebVTT uses for
+          display and gives you tidy, paragraph-friendly text.
+        </p>
+      ),
+    },
+    {
+      q: "Why am I getting an \"Invalid WebVTT cue\" error?",
+      id: "faq-error",
+      body: (
+        <p>
+          That error means a cue&apos;s timing line is missing or malformed.
+          WebVTT timings need the form{" "}
           <code className="rounded bg-gray-100 px-1">
-            [00:01:02] Hello there
-          </code>
-          (milliseconds from the WebVTT file are omitted).
+            00:00:01.000 --&gt; 00:00:04.000
+          </code>{" "}
+          (or <code className="rounded bg-gray-100 px-1">MM:SS.mmm</code>),
+          joined by the <code className="rounded bg-gray-100 px-1">--&gt;</code>{" "}
+          arrow. Check that the arrow is present and the start time is valid,
+          then convert again.
         </p>
       ),
     },
@@ -469,13 +711,13 @@ function FaqSection() {
       id: "faq-vtt-srt",
       body: (
         <p>
-          <strong>SRT (SubRip)</strong> is the classic plain-text subtitle format
-          with comma-separated milliseconds and no file header.{" "}
+          <strong>SRT (SubRip)</strong> is the classic plain-text subtitle
+          format with comma-separated milliseconds and no file header.{" "}
           <strong>VTT (WebVTT)</strong> is the web-native caption format used by
-          HTML5 players, YouTube downloads, and many platforms — it starts with a{" "}
+          HTML5 players and many platforms — it starts with a{" "}
           <code className="rounded bg-gray-100 px-1">WEBVTT</code> header, uses
-          dots for fractions, and supports optional styling blocks. This page reads{" "}
-          <strong>.vtt</strong> directly.
+          dots for fractions, and supports optional styling blocks. This page
+          reads <strong>.vtt</strong> directly.
         </p>
       ),
     },
@@ -491,18 +733,10 @@ function FaqSection() {
           >
             SRT to TXT Converter
           </a>{" "}
-          for SubRip files — it matches this tool’s workflow for .srt uploads
-          and paste.
-        </p>
-      ),
-    },
-    {
-      q: "Does this tool work offline?",
-      id: "faq-offline",
-      body: (
-        <p>
-          After the page has loaded once, the converter keeps working offline in
-          most browsers because processing is entirely client-side.
+          for SubRip files; it matches this tool&apos;s workflow for .srt
+          uploads and pasted text. Both tools strip subtitle markup and offer the
+          same plain or timestamped output, so you can pick whichever format you
+          happen to have on hand.
         </p>
       ),
     },
@@ -511,16 +745,66 @@ function FaqSection() {
       id: "faq-sources",
       body: (
         <p>
-          Many platforms export or use WebVTT: browser and HTML5 video workflows,
-          some learning and hosting tools, captions saved from web players, and
-          files produced when you{" "}
+          Many platforms produce WebVTT: HTML5 video workflows, some learning
+          and hosting tools, captions saved from web players, and files you
+          create when you{" "}
           <a
             href="/srt-to-vtt-converter"
             className="text-[#046bd2] underline hover:text-[#045cb4]"
           >
             convert SRT to VTT
           </a>{" "}
-          elsewhere. If you only have .srt, use the SRT to TXT tool instead.
+          elsewhere. If you only have a .srt file, use the SRT to TXT tool
+          instead of this one.
+        </p>
+      ),
+    },
+    {
+      q: "Can I clean up captions before converting?",
+      id: "faq-cleanup",
+      body: (
+        <p>
+          Yes. To fix recurring typos or names first, run the file through{" "}
+          <a
+            href="/subtitle-find-replace"
+            className="text-[#046bd2] underline hover:text-[#045cb4]"
+          >
+            Subtitle Find &amp; Replace
+          </a>
+          , or remove leftover styling with the{" "}
+          <a
+            href="/subtitle-tag-stripper"
+            className="text-[#046bd2] underline hover:text-[#045cb4]"
+          >
+            Subtitle Tag Stripper
+          </a>
+          , then bring the cleaned VTT here so your TXT transcript comes out
+          polished in a single pass.
+        </p>
+      ),
+    },
+    {
+      q: "Does this tool work offline?",
+      id: "faq-offline",
+      body: (
+        <p>
+          After the page loads once, the converter keeps working without a
+          connection in most modern browsers, because all processing is
+          client-side. If you reload the tab while offline it may not reopen, so
+          keep the page open if you plan to convert several files away from a
+          network.
+        </p>
+      ),
+    },
+    {
+      q: "Which browsers and devices does it work on?",
+      id: "faq-browsers",
+      body: (
+        <p>
+          The converter runs in any modern browser — Chrome, Edge, Firefox, or
+          Safari — on Windows, macOS, Linux, Android, or iOS. No installation,
+          extension, or account is required. On mobile you can paste WebVTT text
+          straight into the box if choosing a file is awkward on your device.
         </p>
       ),
     },
@@ -554,6 +838,20 @@ export default function VttToTxtConverterPage() {
         <title>{PAGE_TITLE}</title>
         <meta name="description" content={META_DESC} />
         <link rel="canonical" href={CANONICAL} />
+        <meta property="og:site_name" content="Subtitles Edit" />
+        <meta property="og:title" content={PAGE_TITLE} />
+        <meta property="og:description" content={META_DESC} />
+        <meta property="og:url" content={CANONICAL} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={OG_IMG} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={PAGE_TITLE} />
+        <meta name="twitter:description" content={META_DESC} />
+        <meta name="twitter:image" content={OG_IMG} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+        />
       </Head>
 
       <div className="mx-auto max-w-[1240px] bg-white">
@@ -638,6 +936,60 @@ export default function VttToTxtConverterPage() {
                   </li>
                 </ol>
 
+                <h2 className={h2}>Plain Text vs Timestamped Output</h2>
+                <p className={p}>
+                  The converter offers two output modes, and the right one
+                  depends on what you plan to do with the text. Both strip
+                  WebVTT markup and give you clean, readable lines — the only
+                  difference is whether each line keeps its start time.
+                </p>
+                <p className={p}>
+                  <strong>Plain text only</strong> is best for a
+                  natural-reading transcript: a blog draft, translation source,
+                  or AI prompt where timings would only get in the way.{" "}
+                  <strong>Include timestamps</strong> is better for review and
+                  QA work, where being able to jump to the moment a line is
+                  spoken matters. Start times appear in brackets with the
+                  milliseconds removed.
+                </p>
+                <p className={p}>
+                  Here is the same WebVTT cue block in each mode:
+                </p>
+                <div className="mb-4">
+                  <div className="mb-2 text-sm font-semibold text-slate-700">
+                    WebVTT input
+                  </div>
+                  <pre className="overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+                    <code>{`WEBVTT
+
+00:00:01.000 --> 00:00:04.000
+<v Host>Welcome</v> to the show.
+
+00:00:04.500 --> 00:00:07.200
+Thanks for joining us today.`}</code>
+                  </pre>
+                </div>
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <div>
+                    <div className="mb-2 text-sm font-semibold text-slate-700">
+                      Plain text only
+                    </div>
+                    <pre className="overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+                      <code>{`Welcome to the show.
+Thanks for joining us today.`}</code>
+                    </pre>
+                  </div>
+                  <div>
+                    <div className="mb-2 text-sm font-semibold text-slate-700">
+                      Include timestamps
+                    </div>
+                    <pre className="overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+                      <code>{`[00:00:01] Welcome to the show.
+[00:00:04] Thanks for joining us today.`}</code>
+                    </pre>
+                  </div>
+                </div>
+
                 <h2 className={h2}>Features</h2>
                 <ul className="mb-6 space-y-3 text-[#334155]">
                   <li className="flex gap-3">
@@ -680,6 +1032,54 @@ export default function VttToTxtConverterPage() {
                   <li className="flex gap-3">
                     <CheckIcon />
                     <span>Free forever — no trial limits or subscription.</span>
+                  </li>
+                </ul>
+
+                <h2 className={h2}>Who Uses a VTT to TXT Converter</h2>
+                <p className={p}>
+                  Pulling plain text out of web captions is useful well beyond
+                  video editing. A few groups reach for it regularly:
+                </p>
+                <ul className="mb-6 space-y-3 text-[#334155]">
+                  <li className="flex gap-3">
+                    <CheckIcon />
+                    <span>
+                      <strong>Content creators and marketers</strong> turn web
+                      video captions into blog posts, newsletters, and social
+                      copy without retyping a word.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckIcon />
+                    <span>
+                      <strong>Course creators and educators</strong> convert
+                      captions from hosted lessons into handouts, notes, and
+                      searchable study material.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckIcon />
+                    <span>
+                      <strong>Translators and localizers</strong> pull readable
+                      source copy that is far easier to segment than raw WebVTT
+                      markup.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckIcon />
+                    <span>
+                      <strong>Accessibility and QA teams</strong> read the full
+                      on-screen script as plain text to proof wording and catch
+                      errors.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckIcon />
+                    <span>
+                      <strong>Anyone using AI tools</strong> feeds clean,
+                      timestamp-free dialogue into chatbots for summaries,
+                      tagging, or rewriting.
+                    </span>
                   </li>
                 </ul>
               </div>
