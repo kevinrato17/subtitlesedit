@@ -11,11 +11,205 @@ const p =
 const ol =
   "mb-4 list-decimal pl-5 text-[#334155] space-y-2 [&_p]:mb-0 [&_li>p]:mb-0";
 
-const PAGE_TITLE =
-  "SRT to TXT Converter – Free Online Tool to Extract Text from SRT Subtitles";
+const PAGE_TITLE = "SRT to TXT Converter — Extract Subtitle Text Free";
 const META_DESC =
-  "Convert SRT subtitle files to plain TXT instantly in your browser. Extract dialogue text from subtitles with or without timestamps. Free, private, no uploads.";
+  "Convert SRT subtitles to plain TXT in your browser. Extract dialogue text with or without timestamps. Free, private, no uploads or sign-up.";
 const CANONICAL = "https://subtitlesedit.com/srt-to-txt-converter";
+const OG_IMG =
+  "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp";
+
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://subtitlesedit.com/#organization",
+      name: "Subtitlesedit.com",
+      url: "https://subtitlesedit.com",
+      email: "support@subtitlesedit.com",
+      logo: {
+        "@type": "ImageObject",
+        "@id": "https://subtitlesedit.com/#logo",
+        url: "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
+        contentUrl:
+          "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
+        caption: "Subtitles Edit",
+        inLanguage: "en-US",
+        width: 500,
+        height: 500,
+      },
+      description:
+        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online — no software installation or sign-up required.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://subtitlesedit.com/#website",
+      url: "https://subtitlesedit.com",
+      name: "Subtitles Edit",
+      alternateName: "SubtitlesEdit.com",
+      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://subtitlesedit.com/srt-to-txt-converter#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://subtitlesedit.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "SRT to TXT Converter",
+          item: "https://subtitlesedit.com/srt-to-txt-converter",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://subtitlesedit.com/srt-to-txt-converter#webpage",
+      url: "https://subtitlesedit.com/srt-to-txt-converter",
+      name: PAGE_TITLE,
+      isPartOf: { "@id": "https://subtitlesedit.com/#website" },
+      primaryImageOfPage: { "@id": "https://subtitlesedit.com/#logo" },
+      breadcrumb: {
+        "@id": "https://subtitlesedit.com/srt-to-txt-converter#breadcrumb",
+      },
+      mainEntity: {
+        "@id": "https://subtitlesedit.com/srt-to-txt-converter#tool",
+      },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://subtitlesedit.com/srt-to-txt-converter#tool",
+      name: "SRT to TXT Converter",
+      url: "https://subtitlesedit.com/srt-to-txt-converter",
+      applicationCategory: "MultimediaApplication",
+      operatingSystem: "Any (runs in a web browser)",
+      browserRequirements:
+        "Requires a modern web browser with JavaScript enabled",
+      description:
+        "Free browser-based tool that extracts plain text from SubRip (SRT) subtitle files. Runs entirely client-side with no uploads; it outputs dialogue with or without start timestamps and strips inline italic, bold, and font tags.",
+      isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      featureList: [
+        "Extract plain dialogue text from SRT subtitles",
+        "Optional timestamped output with cue start times",
+        "100% client-side processing with no file uploads",
+        "Removes inline italic, bold, and font tags",
+        "Copy the output or download a .txt file",
+      ],
+      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://subtitlesedit.com/srt-to-txt-converter#faq",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Is the SRT to TXT converter free to use?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. The converter is completely free with no sign-up, no watermarks, and no limit on how many files you convert. Because everything runs in your browser, there are no server costs to pass on, so you can extract text from as many SRT files as you need at no charge.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Are my subtitle files uploaded anywhere?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. Every step runs locally in your browser using JavaScript, so your SRT content never leaves your device or touches a server. That makes the tool safe for confidential transcripts, unreleased scripts, and client work, and it also means conversion is instant with no upload wait.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What's the difference between plain text and timestamped output?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Plain text only returns dialogue lines with no timings, one cue per line, which is ideal for transcripts and drafts. Include timestamps prefixes each line with the cue's start time in brackets, like [00:01:02] Hello there, which helps when you need to reference where a line appears in the video.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Which formatting tags does the converter remove?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "The converter strips common inline subtitle markup such as italics, bold, and font tags, so your text reads cleanly without leftover code. The words between those tags are always kept; only the tags themselves are removed, leaving plain readable dialogue.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How are multi-line subtitle cues handled?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "When a single cue spans two or more lines, the converter joins them into one line separated by a space, so each cue becomes a single readable sentence. This keeps the transcript tidy and avoids the awkward mid-sentence breaks that on-screen subtitle wrapping introduces.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Why am I getting an \"Invalid SRT cue\" error?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "That error means a block does not match SRT structure, usually a missing or malformed timestamp line. Each cue needs timings in the pattern 00:00:00,000 --> 00:00:00,000, optionally preceded by a cue number. Fix the broken timing line and convert again.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I convert VTT files to TXT?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "This page is built for SRT specifically. For WebVTT files, use our VTT to TXT Converter, which handles WebVTT cue syntax directly. If you have an SRT but need WebVTT later, the SRT to VTT Converter covers that direction too.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I clean up the dialogue before converting?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. To fix recurring typos or names first, run the file through Subtitle Find and Replace, or remove leftover styling with the Subtitle Tag Stripper, then bring the cleaned SRT here so your TXT transcript comes out polished.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does this tool work offline?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "After the page loads once, the converter keeps working without a connection in most modern browsers, because all processing is client-side. If you reload the tab while offline it may not reopen, so keep the page open if you plan to convert several files away from a network.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What can I do with the converted TXT file?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Use it as a transcript, a script or blog draft, a translation source document, AI prompt material, podcast show notes, or accessibility copy. Plain text drops easily into word processors and content tools that cannot read subtitle markup, so the dialogue becomes reusable across almost any workflow.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Which browsers and devices does it work on?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "The converter runs in any modern browser such as Chrome, Edge, Firefox, or Safari, on Windows, macOS, Linux, Android, or iOS. No installation, extension, or account is required. On mobile you can paste SRT text straight into the box if choosing a file is awkward on your device.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Will large subtitle files convert without issues?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Subtitle files are small as text, so even a feature-length SRT with thousands of cues converts almost instantly on a typical phone or laptop. Because the work happens locally there is no upload size cap; the only practical limit is your device's available memory.",
+          },
+        },
+      ],
+    },
+  ],
+};
 
 /** Matches SRT timestamp line: 00:00:00,000 --> 00:00:00,000 (comma or dot ms). */
 const TIMESTAMP_LINE_RE =
@@ -396,12 +590,14 @@ const faqItemTitle =
 function FaqSection() {
   const items = [
     {
-      q: "Is the SRT to TXT Converter free to use?",
+      q: "Is the SRT to TXT converter free to use?",
       id: "faq-free",
       body: (
         <p>
-          Yes. The tool is free with no sign-up, no watermarks, and no limits on
-          how many files you convert.
+          Yes. The converter is completely free with no sign-up, no watermarks,
+          and no limit on how many files you convert. Because everything runs in
+          your browser, there are no server costs to pass on, so you can extract
+          text from as many SRT files as you need at no charge.
         </p>
       ),
     },
@@ -410,8 +606,11 @@ function FaqSection() {
       id: "faq-privacy",
       body: (
         <p>
-          No. Everything runs locally in your browser. Your SRT content never
-          leaves your device.
+          No. Every step runs locally in your browser using JavaScript, so your
+          SRT content never leaves your device or touches a server. That makes
+          the tool safe for confidential transcripts, unreleased scripts, and
+          client work, and it also means conversion is instant with no upload
+          wait.
         </p>
       ),
     },
@@ -420,15 +619,56 @@ function FaqSection() {
       id: "faq-modes",
       body: (
         <p>
-          <strong>Plain text only</strong> gives you dialogue lines only, one cue
-          per line, with basic tags like{" "}
-          <code className="rounded bg-gray-100 px-1">&lt;i&gt;</code> removed.{" "}
-          <strong>Include timestamps</strong> adds the start time in brackets
-          before each line, like{" "}
+          <strong>Plain text only</strong> returns dialogue lines with no
+          timings, one cue per line — ideal for transcripts and drafts.{" "}
+          <strong>Include timestamps</strong> prefixes each line with the
+          cue&apos;s start time in brackets, like{" "}
+          <code className="rounded bg-gray-100 px-1">[00:01:02] Hello there</code>
+          , which helps when you need to reference where a line appears in the
+          video.
+        </p>
+      ),
+    },
+    {
+      q: "Which formatting tags does the converter remove?",
+      id: "faq-tags",
+      body: (
+        <p>
+          The converter strips common inline subtitle markup — italics (
+          <code className="rounded bg-gray-100 px-1">&lt;i&gt;</code>), bold (
+          <code className="rounded bg-gray-100 px-1">&lt;b&gt;</code>), and{" "}
+          <code className="rounded bg-gray-100 px-1">&lt;font&gt;</code> tags — so
+          your text reads cleanly without leftover code. The words between those
+          tags are always kept; only the tags themselves are removed.
+        </p>
+      ),
+    },
+    {
+      q: "How are multi-line subtitle cues handled?",
+      id: "faq-multiline",
+      body: (
+        <p>
+          When a single cue spans two or more lines, the converter joins them
+          into one line separated by a space, so each cue becomes a single
+          readable sentence. This keeps the transcript tidy and avoids the
+          awkward mid-sentence breaks that on-screen subtitle wrapping
+          introduces.
+        </p>
+      ),
+    },
+    {
+      q: "Why am I getting an \"Invalid SRT cue\" error?",
+      id: "faq-error",
+      body: (
+        <p>
+          That error means a block does not match SRT structure — usually a
+          missing or malformed timestamp line. Each cue needs timings in the
+          pattern{" "}
           <code className="rounded bg-gray-100 px-1">
-            [00:01:02] Hello there
+            00:00:00,000 --&gt; 00:00:00,000
           </code>
-          .
+          , optionally preceded by a cue number. Fix the broken timing line and
+          convert again.
         </p>
       ),
     },
@@ -437,9 +677,46 @@ function FaqSection() {
       id: "faq-vtt",
       body: (
         <p>
-          This page is built for SRT. For WebVTT, open your .vtt in an editor,
-          copy the cues, or use an SRT-based workflow (for example convert with
-          the VTT to SRT tool first, then extract text here).
+          This page is built for SRT specifically. For WebVTT files, use our{" "}
+          <a
+            href="/vtt-to-txt-converter"
+            className="text-sky-600 underline hover:text-sky-700"
+          >
+            VTT to TXT Converter
+          </a>
+          , which handles WebVTT cue syntax directly. If you have an SRT but need
+          WebVTT later, the{" "}
+          <a
+            href="/srt-to-vtt-converter"
+            className="text-sky-600 underline hover:text-sky-700"
+          >
+            SRT to VTT Converter
+          </a>{" "}
+          covers that direction too.
+        </p>
+      ),
+    },
+    {
+      q: "Can I clean up the dialogue before converting?",
+      id: "faq-cleanup",
+      body: (
+        <p>
+          Yes. To fix recurring typos or names first, run the file through{" "}
+          <a
+            href="/subtitle-find-replace"
+            className="text-sky-600 underline hover:text-sky-700"
+          >
+            Subtitle Find &amp; Replace
+          </a>
+          , or remove leftover styling with the{" "}
+          <a
+            href="/subtitle-tag-stripper"
+            className="text-sky-600 underline hover:text-sky-700"
+          >
+            Subtitle Tag Stripper
+          </a>
+          , then bring the cleaned SRT here so your TXT transcript comes out
+          polished.
         </p>
       ),
     },
@@ -448,8 +725,11 @@ function FaqSection() {
       id: "faq-offline",
       body: (
         <p>
-          After the page has loaded once, the converter keeps working offline in
-          most browsers because processing is entirely client-side.
+          After the page loads once, the converter keeps working without a
+          connection in most modern browsers, because all processing is
+          client-side. If you reload the tab while offline it may not reopen, so
+          keep the page open if you plan to convert several files away from a
+          network.
         </p>
       ),
     },
@@ -458,9 +738,35 @@ function FaqSection() {
       id: "faq-uses",
       body: (
         <p>
-          Use it as a transcript, blog or script draft, translation source
-          document, AI prompt material, captions for documents, or any workflow
-          that needs plain text instead of subtitles.
+          Use it as a transcript, a script or blog draft, a translation source
+          document, AI prompt material, podcast show notes, or accessibility
+          copy. Plain text drops easily into word processors and content tools
+          that cannot read subtitle markup, so the dialogue becomes reusable
+          across almost any workflow.
+        </p>
+      ),
+    },
+    {
+      q: "Which browsers and devices does it work on?",
+      id: "faq-browsers",
+      body: (
+        <p>
+          The converter runs in any modern browser — Chrome, Edge, Firefox, or
+          Safari — on Windows, macOS, Linux, Android, or iOS. No installation,
+          extension, or account is required. On mobile you can paste SRT text
+          straight into the box if choosing a file is awkward on your device.
+        </p>
+      ),
+    },
+    {
+      q: "Will large subtitle files convert without issues?",
+      id: "faq-largefiles",
+      body: (
+        <p>
+          Yes. Subtitle files are small as text, so even a feature-length SRT
+          with thousands of cues converts almost instantly on a typical phone or
+          laptop. Because the work happens locally there is no upload size cap;
+          the only practical limit is your device&apos;s available memory.
         </p>
       ),
     },
@@ -494,6 +800,20 @@ export default function SrtToTxtConverterPage() {
         <title>{PAGE_TITLE}</title>
         <meta name="description" content={META_DESC} />
         <link rel="canonical" href={CANONICAL} />
+        <meta property="og:site_name" content="Subtitles Edit" />
+        <meta property="og:title" content={PAGE_TITLE} />
+        <meta property="og:description" content={META_DESC} />
+        <meta property="og:url" content={CANONICAL} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={OG_IMG} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={PAGE_TITLE} />
+        <meta name="twitter:description" content={META_DESC} />
+        <meta name="twitter:image" content={OG_IMG} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+        />
       </Head>
 
       <div className="mx-auto max-w-[1240px] bg-white">
@@ -576,6 +896,57 @@ export default function SrtToTxtConverterPage() {
                   </li>
                 </ol>
 
+                <h2 className={h2}>Plain Text vs Timestamped Output</h2>
+                <p className={p}>
+                  The converter offers two output modes, and the right one
+                  depends on what you plan to do with the text. Both strip
+                  subtitle markup and give you clean, readable lines — the only
+                  difference is whether each line keeps its start time.
+                </p>
+                <p className={p}>
+                  <strong>Plain text only</strong> is best for a
+                  natural-reading transcript: a blog draft, translation source,
+                  or AI prompt where timings would only get in the way.{" "}
+                  <strong>Include timestamps</strong> is better for review and
+                  QA work, where being able to jump to the moment a line is
+                  spoken matters.
+                </p>
+                <p className={p}>Here is the same SRT cue block in each mode:</p>
+                <div className="mb-4">
+                  <div className="mb-2 text-sm font-semibold text-slate-700">
+                    SRT input
+                  </div>
+                  <pre className="overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+                    <code>{`1
+00:00:01,000 --> 00:00:04,000
+<i>Welcome</i> to the show.
+
+2
+00:00:04,500 --> 00:00:07,200
+Thanks for joining us today.`}</code>
+                  </pre>
+                </div>
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <div>
+                    <div className="mb-2 text-sm font-semibold text-slate-700">
+                      Plain text only
+                    </div>
+                    <pre className="overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+                      <code>{`Welcome to the show.
+Thanks for joining us today.`}</code>
+                    </pre>
+                  </div>
+                  <div>
+                    <div className="mb-2 text-sm font-semibold text-slate-700">
+                      Include timestamps
+                    </div>
+                    <pre className="overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+                      <code>{`[00:00:01] Welcome to the show.
+[00:00:04] Thanks for joining us today.`}</code>
+                    </pre>
+                  </div>
+                </div>
+
                 <h2 className={h2}>Features</h2>
                 <ul className="mb-6 space-y-3 text-[#334155]">
                   <li className="flex gap-3">
@@ -617,6 +988,52 @@ export default function SrtToTxtConverterPage() {
                   <li className="flex gap-3">
                     <CheckIcon />
                     <span>Free forever — no trial limits or subscription.</span>
+                  </li>
+                </ul>
+
+                <h2 className={h2}>Who Uses an SRT to TXT Converter</h2>
+                <p className={p}>
+                  Extracting plain text from subtitles is useful well beyond
+                  video editing. A few groups reach for it regularly:
+                </p>
+                <ul className="mb-6 space-y-3 text-[#334155]">
+                  <li className="flex gap-3">
+                    <CheckIcon />
+                    <span>
+                      <strong>Content creators and marketers</strong> turn
+                      spoken video into blog posts, newsletters, and social
+                      captions without retyping a word.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckIcon />
+                    <span>
+                      <strong>Translators and localizers</strong> pull readable
+                      source copy that is far easier to segment than raw SRT
+                      markup.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckIcon />
+                    <span>
+                      <strong>Researchers and students</strong> convert lecture
+                      or interview captions into searchable, quotable notes.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckIcon />
+                    <span>
+                      <strong>Accessibility and QA teams</strong> read the full
+                      script as plain text to proof wording and catch errors.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckIcon />
+                    <span>
+                      <strong>Anyone using AI tools</strong> feeds clean,
+                      timestamp-free dialogue into chatbots for summaries,
+                      tagging, or rewriting.
+                    </span>
                   </li>
                 </ul>
               </div>
