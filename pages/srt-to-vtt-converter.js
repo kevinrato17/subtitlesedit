@@ -20,7 +20,7 @@ const PAGE_TITLE = "SRT to VTT Converter Online Free | Subtitles Edit";
 const META_DESC =
   "Convert SRT to VTT online for free. Instantly transform .srt subtitles to .vtt format in your browser with no uploads required.";
 
-const rankMathSchema = {
+const pageSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -35,20 +35,20 @@ const rankMathSchema = {
         url: "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
         contentUrl:
           "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
-        caption: "https://subtitlesedit.com",
+        caption: "Subtitles Edit",
         inLanguage: "en-US",
-        width: "500",
-        height: "500",
+        width: 500,
+        height: 500,
       },
       description:
-        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online — no software installation or sign-up required.\n\nOur simple, privacy-friendly tools include SRT to VTT converters, subtitle mergers, splitters, time shifters, and overlap fixers that work instantly right in your browser. Whether you need to convert SRT to WebVTT, resync subtitles, or fix overlapping cues, Subtitles Edit makes it quick and effortless.\n\nTrusted by content creators worldwide, we focus on speed, accuracy, and simplicity, helping you make every subtitle perfectly timed and platform-ready.",
+        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online — no software installation or sign-up required.",
     },
     {
       "@type": "WebSite",
       "@id": "https://subtitlesedit.com/#website",
       url: "https://subtitlesedit.com",
-      name: "https://subtitlesedit.com",
-      alternateName: "Subtitles Edit",
+      name: "Subtitles Edit",
+      alternateName: "SubtitlesEdit.com",
       publisher: { "@id": "https://subtitlesedit.com/#organization" },
       inLanguage: "en-US",
     },
@@ -56,82 +56,222 @@ const rankMathSchema = {
       "@type": "ImageObject",
       "@id": OG_IMG,
       url: OG_IMG,
-      width: "200",
-      height: "200",
+      contentUrl: OG_IMG,
+      width: 768,
+      height: 403,
       inLanguage: "en-US",
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://subtitlesedit.com/srt-to-vtt-converter/#breadcrumb",
+      "@id": "https://subtitlesedit.com/srt-to-vtt-converter#breadcrumb",
       itemListElement: [
         {
           "@type": "ListItem",
-          position: "1",
-          item: { "@id": "https://subtitlesedit.com", name: "Home" },
+          position: 1,
+          name: "Home",
+          item: "https://subtitlesedit.com",
         },
         {
           "@type": "ListItem",
-          position: "2",
-          item: {
-            "@id": "https://subtitlesedit.com/srt-to-vtt-converter/",
-            name: "SRT to VTT Converter – Free Online Tool to Convert SRT to WebVTT Files",
-          },
+          position: 2,
+          name: "SRT to VTT Converter",
+          item: "https://subtitlesedit.com/srt-to-vtt-converter",
         },
       ],
     },
     {
       "@type": "WebPage",
-      "@id": "https://subtitlesedit.com/srt-to-vtt-converter/#webpage",
-      url: "https://subtitlesedit.com/srt-to-vtt-converter/",
-      name: "SRT to VTT Converter – Fast, Accurate & 100% Free Online Tool",
+      "@id": "https://subtitlesedit.com/srt-to-vtt-converter#webpage",
+      url: "https://subtitlesedit.com/srt-to-vtt-converter",
+      name: "SRT to VTT Converter Online Free | Subtitles Edit",
       datePublished: "2025-11-03T22:39:11+00:00",
       dateModified: "2025-11-29T13:23:48+00:00",
       isPartOf: { "@id": "https://subtitlesedit.com/#website" },
       primaryImageOfPage: { "@id": OG_IMG },
-      inLanguage: "en-US",
       breadcrumb: {
-        "@id": "https://subtitlesedit.com/srt-to-vtt-converter/#breadcrumb",
+        "@id": "https://subtitlesedit.com/srt-to-vtt-converter#breadcrumb",
       },
-    },
-    {
-      "@type": "Person",
-      "@id": "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-      name: "Subtitles Edit",
-      url: "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-      image: {
-        "@type": "ImageObject",
-        "@id":
-          "https://secure.gravatar.com/avatar/dadac46feb548479fffced65ed9edb7cba49be5576172058b3b522c2bf0267b6?s=96&d=mm&r=g",
-        url: "https://secure.gravatar.com/avatar/dadac46feb548479fffced65ed9edb7cba49be5576172058b3b522c2bf0267b6?s=96&d=mm&r=g",
-        caption: "Subtitles Edit",
-        inLanguage: "en-US",
+      mainEntity: {
+        "@id": "https://subtitlesedit.com/srt-to-vtt-converter#tool",
       },
-      sameAs: ["http://subtitlesedit.com"],
-      worksFor: { "@id": "https://subtitlesedit.com/#organization" },
-    },
-    {
-      "@type": "Article",
-      headline: "SRT to VTT Converter – Fast, Accurate & 100% Free Online Tool",
-      keywords: "SRT to VTT converter",
-      datePublished: "2025-11-03T22:39:11+00:00",
-      dateModified: "2025-11-29T13:23:48+00:00",
-      author: {
-        "@id": "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-        name: "Subtitles Edit",
-      },
-      publisher: { "@id": "https://subtitlesedit.com/#organization" },
-      description:
-        "Free SRT to VTT converter that\u2019s fast, accurate, and secure. Convert subtitle files instantly online\u2014perfect for YouTubers, editors, and content creators.",
-      name: "SRT to VTT Converter – Fast, Accurate & 100% Free Online Tool",
-      "@id": "https://subtitlesedit.com/srt-to-vtt-converter/#richSnippet",
-      isPartOf: {
-        "@id": "https://subtitlesedit.com/srt-to-vtt-converter/#webpage",
-      },
-      image: { "@id": OG_IMG },
       inLanguage: "en-US",
-      mainEntityOfPage: {
-        "@id": "https://subtitlesedit.com/srt-to-vtt-converter/#webpage",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://subtitlesedit.com/srt-to-vtt-converter#tool",
+      name: "SRT to VTT Converter",
+      url: "https://subtitlesedit.com/srt-to-vtt-converter",
+      applicationCategory: "MultimediaApplication",
+      operatingSystem: "Any (runs in a web browser)",
+      browserRequirements:
+        "Requires a modern web browser with JavaScript enabled",
+      description:
+        "Free browser-based tool that converts SubRip (.srt) subtitle files into WebVTT (.vtt) format. All processing happens locally in your browser, with no file uploads and no sign-up.",
+      isAccessibleForFree: true,
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
       },
+      featureList: [
+        "Convert SRT subtitles to WebVTT in the browser",
+        "100% client-side processing — files never leave your device",
+        "Accurate timestamp conversion and WEBVTT header formatting",
+        "Full Unicode support for non-English subtitles",
+        "No installation, sign-up, or uploads required",
+      ],
+      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://subtitlesedit.com/srt-to-vtt-converter#faq",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "How can I convert SRT to VTT online for free?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "You can upload or paste your SRT file into the SRT to VTT converter, click Convert, and download your WebVTT file instantly. The entire process is free and runs in your browser.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Is this SRT to VTT converter safe and private?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. All conversions are done locally in your browser, so your subtitle file never leaves your device.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Do I need to install any software to convert SRT to WebVTT?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No installation is required. Everything works directly in your browser without plugins or downloads.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I convert multiple SRT files to VTT at once?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "You can do this by merging subtitles first using the Subtitle Merger tool and convert the merged file afterward.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What is the difference between SRT and WebVTT?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "SRT uses commas for milliseconds and offers basic formatting. WebVTT uses dots, supports styling, metadata, and is required by HTML5 video players.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Why do some video platforms require VTT instead of SRT?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "WebVTT follows the HTML5 standard and supports better formatting and browser compatibility, making it the preferred choice for modern players.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I convert VTT back to SRT?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes, you can use the VTT to SRT Converter tool to reverse the format conversion.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does this converter keep all subtitle text exactly the same?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Only the formatting and timestamps change. Your subtitle text remains untouched.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does the converter fix timing errors automatically?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "The SRT to VTT Converter only adjusts timestamps to VTT format. To fix timing delays, use the Subtitle Time Shifter tool.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Are WebVTT files compatible with YouTube?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. YouTube accepts both SRT and VTT, but VTT offers better styling and browser compatibility.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Will this converter work offline?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Once the page has loaded, the tool works fully offline because it processes everything in your browser.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I convert subtitles created in Adobe Premiere or DaVinci Resolve?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes, as long as they are exported as SRT files. The converter will transform them into WebVTT correctly.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Why does my VTT file need a WEBVTT header?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "This header is required by the WebVTT specification and ensures compatibility with HTML5 players.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can this tool convert SRT captions to VTT for websites?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Web developers commonly use this converter to prepare VTT files for video players, streaming pages, and e-learning platforms.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What should I do if the converted VTT does not load in my player?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Make sure the file extension is .vtt and check that your video player supports WebVTT.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does this tool support emojis, Unicode, and non-English subtitles?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. All Unicode characters are fully supported.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I convert SubRip subtitles from different languages?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Absolutely. As long as the file is in SRT format, the converter will handle any language.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What other subtitle tools does SubtitlesEdit.com offer?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "You can merge subtitles, split subtitles, fix overlapping cues, shift timing, and edit subtitle format type using the full suite of tools available on the site.",
+          },
+        },
+      ],
     },
   ],
 };
@@ -424,7 +564,7 @@ const faqRows = [
   },
   {
     id: "e-n-accordion-item-12814",
-    q: " What should I do if the converted VTT does not load in my player ",
+    q: " What should I do if the converted VTT does not load in my player? ",
     body: (
       <p>
         Make sure the file extension is .vtt and check that your video player
@@ -504,7 +644,7 @@ export default function SrtToVttConverterPage() {
         />
         <link
           rel="canonical"
-          href="https://subtitlesedit.com/srt-to-vtt-converter/"
+          href="https://subtitlesedit.com/srt-to-vtt-converter"
         />
         <meta property="og:locale" content="en_US" />
         <meta property="og:type" content="article" />
@@ -520,9 +660,9 @@ export default function SrtToVttConverterPage() {
         />
         <meta
           property="og:url"
-          content="https://subtitlesedit.com/srt-to-vtt-converter/"
+          content="https://subtitlesedit.com/srt-to-vtt-converter"
         />
-        <meta property="og:site_name" content="https://subtitlesedit.com" />
+        <meta property="og:site_name" content="Subtitles Edit" />
         <meta property="og:updated_time" content="2025-11-29T13:23:48+00:00" />
         <meta property="og:image" content={OG_IMG} />
         <meta property="og:image:secure_url" content={OG_IMG} />
@@ -552,7 +692,7 @@ export default function SrtToVttConverterPage() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(rankMathSchema),
+            __html: JSON.stringify(pageSchema),
           }}
         />
       </Head>
@@ -623,9 +763,9 @@ export default function SrtToVttConverterPage() {
                     rel="noopener noreferrer"
                     className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]"
                   >
-                    Click here
-                  </a>{" "}
-                  to learn more about SRT format.
+                    Learn more about the SRT format
+                  </a>
+                  .
                 </p>
                 <h3 className={h3}>What Is a VTT or WebVTT File</h3>
                 <p className={p}>
@@ -639,9 +779,9 @@ export default function SrtToVttConverterPage() {
                     rel="noopener noreferrer"
                     className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]"
                   >
-                    Click here
-                  </a>{" "}
-                  to learn more about WebVTT format.
+                    Learn more about the WebVTT specification
+                  </a>
+                  .
                 </p>
                 <p className={p}> </p>
 
@@ -727,7 +867,7 @@ export default function SrtToVttConverterPage() {
                 <p className={p}>
                   1
                   <br />
-                  {"00:00:02,000 \u2013> 00:00:04,000"}
+                  {"00:00:02,000 --> 00:00:04,000"}
                   <br />
                   Hello there!
                 </p>
@@ -735,7 +875,7 @@ export default function SrtToVttConverterPage() {
                 <p className={p}>
                   WEBVTT
                   <br />
-                  {"00:00:02.000 \u2013> 00:00:04.000"}
+                  {"00:00:02.000 --> 00:00:04.000"}
                   <br />
                   Hello there!
                 </p>
