@@ -8,6 +8,203 @@ const META_DESC =
   "Convert YouTube SBV captions to SRT format free in your browser. No upload, no signup. Works with multi-line cues and preserves timing exactly.";
 const OG_URL = "https://subtitlesedit.com/sbv-to-srt-converter";
 
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://subtitlesedit.com/#organization",
+      name: "Subtitlesedit.com",
+      url: "https://subtitlesedit.com",
+      email: "support@subtitlesedit.com",
+      logo: {
+        "@type": "ImageObject",
+        "@id": "https://subtitlesedit.com/#logo",
+        url: "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
+        contentUrl:
+          "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
+        caption: "Subtitles Edit",
+        inLanguage: "en-US",
+        width: 500,
+        height: 500,
+      },
+      description:
+        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online — no software installation or sign-up required.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://subtitlesedit.com/#website",
+      url: "https://subtitlesedit.com",
+      name: "Subtitles Edit",
+      alternateName: "SubtitlesEdit.com",
+      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://subtitlesedit.com/sbv-to-srt-converter#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://subtitlesedit.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "SBV to SRT Converter",
+          item: "https://subtitlesedit.com/sbv-to-srt-converter",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://subtitlesedit.com/sbv-to-srt-converter#webpage",
+      url: "https://subtitlesedit.com/sbv-to-srt-converter",
+      name: "SBV to SRT Converter — Free YouTube Caption Tool",
+      isPartOf: { "@id": "https://subtitlesedit.com/#website" },
+      primaryImageOfPage: { "@id": "https://subtitlesedit.com/#logo" },
+      breadcrumb: {
+        "@id": "https://subtitlesedit.com/sbv-to-srt-converter#breadcrumb",
+      },
+      mainEntity: {
+        "@id": "https://subtitlesedit.com/sbv-to-srt-converter#tool",
+      },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://subtitlesedit.com/sbv-to-srt-converter#tool",
+      name: "SBV to SRT Converter",
+      url: "https://subtitlesedit.com/sbv-to-srt-converter",
+      applicationCategory: "MultimediaApplication",
+      operatingSystem: "Any (runs in a web browser)",
+      browserRequirements:
+        "Requires a modern web browser with JavaScript enabled",
+      description:
+        "Free browser-based tool that converts YouTube SBV caption files into SubRip (.srt) format. All processing happens locally in your browser, with no file uploads and no sign-up.",
+      isAccessibleForFree: true,
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      featureList: [
+        "Convert YouTube SBV captions to SRT in the browser",
+        "100% client-side processing — files never leave your device",
+        "Preserves exact cue timing down to the millisecond",
+        "Keeps multi-line dialogue and full Unicode text intact",
+        "No installation, sign-up, or uploads required",
+      ],
+      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://subtitlesedit.com/sbv-to-srt-converter#faq",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What is an SBV file?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "SBV (SubViewer-style timing used by YouTube) is a plain-text caption format where each cue starts with a single line of start and end times separated by a comma, followed by one or more dialogue lines. YouTube Studio generates and understands SBV natively, which is why exports from the caption editor often arrive as .sbv.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Where does YouTube store SBV files I have created?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Your captions live with the video inside YouTube Studio, not as a permanent download folder on your channel page. YouTube does not expose a simple always-on SBV download link in every region anymore; most creators grab a file from the caption editor's Actions then Download menu after opening the subtitle track, or they rely on third-party download tools when that menu is unavailable. This converter then turns that SBV export into universal SRT.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Will my caption timing change after conversion?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. The parser reads each SBV timestamp exactly as written and rewrites it in SRT's required hour-minute-second-millisecond layout. Millisecond values are not rounded or recalculated, so what you hear in YouTube should line up the same in any player that respects SRT timing.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does this tool work with non-English subtitles?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. The conversion only touches structure and timecodes, not language. Any Unicode dialogue — Cyrillic, Arabic, CJK characters, accented Latin, emoji — passes through unchanged as long as your source file is valid UTF-8, which is what modern browsers assume when reading the file locally.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I convert multiple SBV files at once?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "The page is built around one file at a time so previews stay fast and readable. For a batch of videos, run the converter once per SBV export; each pass still stays fully private because nothing ever leaves your browser tab.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Why does not my video player accept SBV directly?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Most general-purpose players implement SubRip (SRT) and WebVTT first because those formats dominate broadcast, streaming, and authoring tools. SBV remained closely tied to YouTube's own pipelines, so desktop players often never added a parser. SRT gives you the same words and times in a format they already ship with.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Is the SBV to SRT converter free?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. The converter is completely free with no sign-up, no watermark, and no file limits. It runs entirely in your browser, so there is nothing to install.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What is the difference between SBV and SRT timestamps?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "SBV puts the start and end time on one line separated by a comma and uses a period before the milliseconds, like 0:00:02.000,0:00:05.000. SRT puts a cue number first, then the start and end time on their own line joined by an arrow, using a comma before the milliseconds, like 00:00:02,000 --> 00:00:05,000. The converter handles this reformatting automatically.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What does the Invalid SBV format error mean?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "It means a cue's timing line did not match the expected SBV pattern — usually a missing comma between the start and end times, a stray blank line inside a cue, or text that is not actually SBV. Re-export the file from YouTube Studio, or check the cue shown in the error, and try again.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I convert SRT back to SBV?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Use the SRT to SBV Converter to go the other direction. The same browser-based, fully private process applies.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I convert SBV directly to VTT?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Not in one step here. Convert your SBV file to SRT first, then use the SRT to VTT Converter to produce a WebVTT file for HTML5 video.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does the SBV to SRT converter work on mobile?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Because everything runs in the browser, it works on phones and tablets as well as desktops. You can paste your SBV text or choose a file the same way.",
+          },
+        },
+      ],
+    },
+  ],
+};
+
 const section =
   "mx-auto max-w-4xl px-4 py-12 font-[system-ui,-apple-system,Segoe_UI,Roboto,Arial,sans-serif]";
 const h2 =
@@ -357,6 +554,13 @@ export default function SbvToSrtConverterPage() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={META_TITLE} />
         <meta name="twitter:description" content={META_DESC} />
+        <meta property="og:image" content="https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp" />
+        <meta property="og:image:alt" content="SBV to SRT Converter" />
+        <meta name="twitter:image" content="https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+        />
       </Head>
 
       <Layout>
@@ -426,6 +630,36 @@ export default function SbvToSrtConverterPage() {
             </div>
           </section>
 
+          <section className={section} aria-labelledby="changes-heading">
+            <h2 id="changes-heading" className={h2}>
+              SBV vs SRT: What Actually Changes
+            </h2>
+            <p className={p}>
+              The two formats carry the same words and the same timing — they
+              just structure them differently. SBV places each cue&apos;s start
+              and end time on a single line, separated by a comma, with a period
+              before the milliseconds. SRT adds a sequential cue number, puts the
+              times on their own line joined by an arrow, and uses a comma before
+              the milliseconds. This converter rewrites that structure cue by
+              cue, leaving your dialogue and timing untouched.
+            </p>
+            <h3 className={h3}>Before (SBV)</h3>
+            <pre className="mb-4 overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4 font-mono text-sm text-[#334155]">
+{`0:00:02.000,0:00:05.000
+Welcome to the channel.`}
+            </pre>
+            <h3 className={h3}>After (SRT)</h3>
+            <pre className="mb-4 overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4 font-mono text-sm text-[#334155]">
+{`1
+00:00:02,000 --> 00:00:05,000
+Welcome to the channel.`}
+            </pre>
+            <p className={p}>
+              The hour is zero-padded to two digits and a cue number is added,
+              but every millisecond of timing stays exactly as it was.
+            </p>
+          </section>
+
           <section className={section} aria-labelledby="context-heading">
             <h2 id="context-heading" className={h2}>
               Why convert SBV to SRT?
@@ -451,6 +685,45 @@ export default function SbvToSrtConverterPage() {
               preserved, while the file becomes compatible with the tools your
               workflow already uses.
             </p>
+          </section>
+
+          <section className={section} aria-labelledby="usecases-heading">
+            <h2 id="usecases-heading" className={h2}>
+              Who Uses an SBV to SRT Converter
+            </h2>
+            <p className={p}>
+              Anyone moving captions out of the YouTube ecosystem tends to need
+              this conversion at some point:
+            </p>
+            <ul className="mb-4 list-disc pl-5 text-[#334155] space-y-2">
+              <li>
+                <strong className="font-semibold text-[#1e293b]">
+                  Creators
+                </strong>{" "}
+                repurposing a video&apos;s captions for another platform or a
+                podcast clip.
+              </li>
+              <li>
+                <strong className="font-semibold text-[#1e293b]">
+                  Video editors
+                </strong>{" "}
+                importing subtitles into Premiere Pro, DaVinci Resolve, or Final
+                Cut, none of which read SBV.
+              </li>
+              <li>
+                <strong className="font-semibold text-[#1e293b]">
+                  Translators and localizers
+                </strong>{" "}
+                handing finished captions to clients in the format they expect.
+              </li>
+              <li>
+                <strong className="font-semibold text-[#1e293b]">
+                  Archivists
+                </strong>{" "}
+                storing captions in a portable, widely supported format for the
+                long term.
+              </li>
+            </ul>
           </section>
 
           <section className={section} aria-labelledby="faq-heading">
@@ -533,6 +806,76 @@ export default function SbvToSrtConverterPage() {
                   pipelines, so desktop players often never added a parser. SRT
                   gives you the same words and times in a format they already
                   ship with.
+                </p>
+              </div>
+              <div>
+                <h3 className={`${h3} mt-0`}>
+                  Is the SBV to SRT converter free?
+                </h3>
+                <p className={p}>
+                  Yes. The converter is completely free with no sign-up, no
+                  watermark, and no file limits. It runs entirely in your
+                  browser, so there is nothing to install.
+                </p>
+              </div>
+              <div>
+                <h3 className={`${h3} mt-0`}>
+                  What is the difference between SBV and SRT timestamps?
+                </h3>
+                <p className={p}>
+                  SBV puts the start and end time on one line separated by a
+                  comma and uses a period before the milliseconds, like
+                  0:00:02.000,0:00:05.000. SRT puts a cue number first, then the
+                  start and end time on their own line joined by an arrow, using
+                  a comma before the milliseconds, like 00:00:02,000 --&gt;
+                  00:00:05,000. The converter handles this reformatting
+                  automatically.
+                </p>
+              </div>
+              <div>
+                <h3 className={`${h3} mt-0`}>
+                  What does the &quot;Invalid SBV format&quot; error mean?
+                </h3>
+                <p className={p}>
+                  It means a cue&apos;s timing line did not match the expected SBV
+                  pattern — usually a missing comma between the start and end
+                  times, a stray blank line inside a cue, or text that is not
+                  actually SBV. Re-export the file from YouTube Studio, or check
+                  the cue shown in the error, and try again.
+                </p>
+              </div>
+              <div>
+                <h3 className={`${h3} mt-0`}>Can I convert SRT back to SBV?</h3>
+                <p className={p}>
+                  Yes. Use the{" "}
+                  <Link href="/srt-to-sbv-converter" className="text-sky-600 underline underline-offset-2 hover:text-sky-700">
+                    SRT to SBV Converter
+                  </Link>{" "}
+                  to go the other direction. The same browser-based, fully
+                  private process applies.
+                </p>
+              </div>
+              <div>
+                <h3 className={`${h3} mt-0`}>
+                  Can I convert SBV directly to VTT?
+                </h3>
+                <p className={p}>
+                  Not in one step here. Convert your SBV file to SRT first, then
+                  use the{" "}
+                  <Link href="/srt-to-vtt-converter" className="text-sky-600 underline underline-offset-2 hover:text-sky-700">
+                    SRT to VTT Converter
+                  </Link>{" "}
+                  to produce a WebVTT file for HTML5 video.
+                </p>
+              </div>
+              <div>
+                <h3 className={`${h3} mt-0`}>
+                  Does the SBV to SRT converter work on mobile?
+                </h3>
+                <p className={p}>
+                  Yes. Because everything runs in the browser, it works on phones
+                  and tablets as well as desktops. You can paste your SBV text or
+                  choose a file the same way.
                 </p>
               </div>
             </div>
