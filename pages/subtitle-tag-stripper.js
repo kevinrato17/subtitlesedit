@@ -6,6 +6,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const CANONICAL = "https://subtitlesedit.com/subtitle-tag-stripper";
 const META_DESC =
   "Strip HTML tags, color codes, position tags, and hearing-impaired annotations from SRT and VTT subtitle files. Free, browser-based, no upload.";
+const PAGE_TITLE = "Subtitle Tag Stripper — Remove HTML & Formatting";
+const OG_IMG =
+  "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp";
 
 const TS_LINE_RE =
   /\d{2}:\d{2}:\d{2}[.,]\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}[.,]\d{3}/;
@@ -16,20 +19,97 @@ const textareaClass =
 const skyBtnSolid =
   "inline-flex items-center justify-center rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500";
 
-const ldJson = {
+const pageSchema = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Subtitle Tag Stripper",
-  description:
-    "Strip HTML tags, color codes, position tags, hearing-impaired annotations, and speaker labels from SRT and WebVTT subtitle files in the browser.",
-  applicationCategory: "MultimediaApplication",
-  operatingSystem: "Web",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-  },
-  url: CANONICAL,
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://subtitlesedit.com/#organization",
+      name: "Subtitlesedit.com",
+      url: "https://subtitlesedit.com",
+      email: "support@subtitlesedit.com",
+      logo: {
+        "@type": "ImageObject",
+        "@id": "https://subtitlesedit.com/#logo",
+        url: "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
+        contentUrl:
+          "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
+        caption: "Subtitles Edit",
+        inLanguage: "en-US",
+        width: 500,
+        height: 500,
+      },
+      description:
+        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online \u2014 no software installation or sign-up required.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://subtitlesedit.com/#website",
+      url: "https://subtitlesedit.com",
+      name: "Subtitles Edit",
+      alternateName: "SubtitlesEdit.com",
+      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://subtitlesedit.com/subtitle-tag-stripper#breadcrumb",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://subtitlesedit.com" },
+        { "@type": "ListItem", position: 2, name: "Subtitle Tag Stripper", item: "https://subtitlesedit.com/subtitle-tag-stripper" },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://subtitlesedit.com/subtitle-tag-stripper#webpage",
+      url: "https://subtitlesedit.com/subtitle-tag-stripper",
+      name: PAGE_TITLE,
+      isPartOf: { "@id": "https://subtitlesedit.com/#website" },
+      primaryImageOfPage: { "@id": "https://subtitlesedit.com/#logo" },
+      breadcrumb: { "@id": "https://subtitlesedit.com/subtitle-tag-stripper#breadcrumb" },
+      mainEntity: { "@id": "https://subtitlesedit.com/subtitle-tag-stripper#tool" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://subtitlesedit.com/subtitle-tag-stripper#tool",
+      name: "Subtitle Tag Stripper",
+      url: "https://subtitlesedit.com/subtitle-tag-stripper",
+      applicationCategory: "MultimediaApplication",
+      operatingSystem: "Any (runs in a web browser)",
+      browserRequirements: "Requires a modern web browser with JavaScript enabled",
+      description:
+        "A free, browser-based tool that strips HTML tags, color and styling tags, ASS/SSA position overrides, hearing-impaired annotations, and speaker labels from SRT and WebVTT subtitle files. Each option is an independent toggle, stripping is deterministic, and everything runs client-side, so files are never uploaded.",
+      isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      featureList: [
+        "Strip italic, bold, and underline HTML tags",
+        "Remove font color and WebVTT class styling tags",
+        "Remove inline WebVTT timestamp (karaoke) tags",
+        "Remove ASS/SSA position overrides such as an8 codes",
+        "Optionally strip hearing-impaired annotations and speaker labels",
+        "Auto-detects SRT and WebVTT; 100% client-side with no uploads",
+      ],
+      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://subtitlesedit.com/subtitle-tag-stripper#faq",
+      mainEntity: [
+        { "@type": "Question", name: "Will this tool remove dialogue I want to keep?", acceptedAnswer: { "@type": "Answer", text: "By default, no. The smart defaults only strip HTML, color, and position tags — all of which are rendering instructions, not content. Hearing-impaired annotations and speaker labels are turned off by default because they are content you might want to keep. Only enable those toggles if you have reviewed your file and want them removed." } },
+        { "@type": "Question", name: "Why didn't it remove every speaker label in my file?", acceptedAnswer: { "@type": "Answer", text: "The speaker label option only catches all-caps names followed by a colon, like JOHN: or DR. SMITH:. This is intentional — mixed-case names like Dr. Smith: are too easily confused with regular sentences that happen to end in a colon, so the tool plays it safe. If your file uses mixed-case speaker labels, use the Subtitle Find & Replace tool for targeted removal." } },
+        { "@type": "Question", name: "Does this work with Advanced SubStation Alpha (.ass/.ssa) files?", acceptedAnswer: { "@type": "Answer", text: "Not directly — the tool reads SRT and VTT only. However, if you convert your .ass file to SRT first using a desktop tool like Subtitle Edit or Aegisub, the resulting SRT will often carry over position overrides like {\\an8}. Running the converted file through this tool strips those overrides cleanly." } },
+        { "@type": "Question", name: "What happens to cues that become empty after stripping?", acceptedAnswer: { "@type": "Answer", text: "If a cue's text is entirely removed — for example, a cue that contained only [MUSIC PLAYING] when you strip hearing-impaired annotations — the entire cue is removed from the output, and the remaining cues are renumbered sequentially for SRT files. The status line reports how many empty cues were removed." } },
+        { "@type": "Question", name: "Will my italics stay if I want to keep them?", acceptedAnswer: { "@type": "Answer", text: "Yes — uncheck the HTML tags option and italics, bold, and underline tags will be preserved. You can mix and match toggles to keep some formatting and strip the rest. For example, keep italics on but still strip the heavy color and position tags." } },
+        { "@type": "Question", name: "Is anything uploaded to your server?", acceptedAnswer: { "@type": "Answer", text: "No. Everything happens inside your browser — your subtitle file never leaves your device. There is no upload, no account, and no tracking of file contents. You can verify this by disconnecting from the internet after loading the page; the tool will continue to work." } },
+        { "@type": "Question", name: "Does stripping tags change my subtitle timing or cue order?", acceptedAnswer: { "@type": "Answer", text: "No. The tool only edits the dialogue text inside each cue; timestamps and the order of cues are left exactly as they are. The one exception is that SRT cues are renumbered when an empty cue is dropped, but their start and end times never move. If you also need to retime, use the Subtitle Time Shifter afterwards." } },
+        { "@type": "Question", name: "How is the tag stripper different from Find & Replace?", acceptedAnswer: { "@type": "Answer", text: "The tag stripper applies preset rules for known subtitle markup — HTML, color, position, SDH, and speaker patterns — in one click. Subtitle Find & Replace is for arbitrary text you type in yourself, such as a recurring typo or a watermark line. Use the stripper for standard tags and Find & Replace for anything custom." } },
+        { "@type": "Question", name: "Can I clean several subtitle files at once?", acceptedAnswer: { "@type": "Answer", text: "Not in a single pass — the tool processes one file at a time. Load a file, toggle the options you want, then copy or download the cleaned result and repeat for the next file. Because the settings stay put between files, batching by hand is quick once your toggles are set." } },
+        { "@type": "Question", name: "Does it keep my WebVTT header and cue identifiers?", acceptedAnswer: { "@type": "Answer", text: "Yes — for VTT input the WEBVTT header line and each cue's identifier are preserved, and only the dialogue text inside cues is cleaned. Note that separate NOTE comment, STYLE, and REGION blocks are not carried into the output, so if you rely on a custom STYLE or REGION block, keep your original file." } },
+      ],
+    },
+  ],
 };
 
 function stripBOM(text) {
@@ -579,7 +659,7 @@ function TagStripperTool() {
       </div>
 
       <div className="mx-auto mt-12 max-w-4xl px-4">
-        <h2 className="mt-10 mb-4 text-2xl font-bold text-slate-800">
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
           How it works
         </h2>
         <ol className="mb-4 ml-6 list-decimal space-y-2 text-slate-700">
@@ -605,7 +685,7 @@ function TagStripperTool() {
           </li>
         </ol>
 
-        <h2 className="mt-10 mb-4 text-2xl font-bold text-slate-800">
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
           What each option strips
         </h2>
 
@@ -659,7 +739,7 @@ function TagStripperTool() {
           mixed-case names that might appear inside dialogue.
         </p>
 
-        <h2 className="mt-10 mb-4 text-2xl font-bold text-slate-800">
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
           Common use cases
         </h2>
 
@@ -694,7 +774,7 @@ function TagStripperTool() {
           dialogue, then save the result as a parallel standard subtitle track.
         </p>
 
-        <h2 className="mt-10 mb-4 text-2xl font-bold text-slate-800">
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
           Why use this tool
         </h2>
         <p className="mb-4 leading-relaxed text-slate-700">
@@ -733,7 +813,7 @@ function TagStripperTool() {
           when a download arrives garbled.
         </p>
 
-        <h2 className="mt-10 mb-4 text-2xl font-bold text-slate-800">
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
           Frequently Asked Questions
         </h2>
 
@@ -807,6 +887,99 @@ function TagStripperTool() {
           contents. You can verify this by disconnecting from the internet after
           loading the page; the tool will continue to work.
         </p>
+
+        <h3 className="mt-6 mb-2 text-xl font-semibold text-slate-700">
+          Does stripping tags change my subtitle timing or cue order?
+        </h3>
+        <p className="mb-4 leading-relaxed text-slate-700">
+          No. The tool only edits the dialogue text inside each cue; timestamps and
+          the order of cues are left exactly as they are. The one exception is that
+          SRT cues are renumbered when an empty cue is dropped, but their start and
+          end times never move. If you also need to retime, use the{" "}
+          <Link
+            href="/subtitle-time-shifter"
+            className="text-sky-600 underline hover:text-sky-700"
+          >
+            Subtitle Time Shifter
+          </Link>{" "}
+          afterwards.
+        </p>
+
+        <h3 className="mt-6 mb-2 text-xl font-semibold text-slate-700">
+          How is the tag stripper different from Find &amp; Replace?
+        </h3>
+        <p className="mb-4 leading-relaxed text-slate-700">
+          The tag stripper applies preset rules for known subtitle markup — HTML,
+          color, position, SDH, and speaker patterns — in one click. The{" "}
+          <Link
+            href="/subtitle-find-replace"
+            className="text-sky-600 underline hover:text-sky-700"
+          >
+            Subtitle Find &amp; Replace
+          </Link>{" "}
+          tool is for arbitrary text you type in yourself, such as a recurring typo
+          or a watermark line. Use the stripper for standard tags and Find &amp;
+          Replace for anything custom.
+        </p>
+
+        <h3 className="mt-6 mb-2 text-xl font-semibold text-slate-700">
+          Can I clean several subtitle files at once?
+        </h3>
+        <p className="mb-4 leading-relaxed text-slate-700">
+          Not in a single pass — the tool processes one file at a time. Load a file,
+          toggle the options you want, then copy or download the cleaned result and
+          repeat for the next file. Because the settings stay put between files,
+          batching by hand is quick once your toggles are set.
+        </p>
+
+        <h3 className="mt-6 mb-2 text-xl font-semibold text-slate-700">
+          Does it keep my WebVTT header and cue identifiers?
+        </h3>
+        <p className="mb-4 leading-relaxed text-slate-700">
+          Yes — for VTT input the WEBVTT header line and each cue&apos;s identifier
+          are preserved, and only the dialogue text inside cues is cleaned. Note that
+          separate NOTE comment, STYLE, and REGION blocks are not carried into the
+          output, so if you rely on a custom STYLE or REGION block, keep your
+          original file.
+        </p>
+
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
+          Related tools
+        </h2>
+        <ul className="mb-6 list-disc space-y-2 pl-5 text-slate-700">
+          <li>
+            <Link
+              href="/subtitle-find-replace"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              Subtitle Find &amp; Replace
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/subtitle-encoding-fixer"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              Subtitle Encoding Fixer
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/subtitle-time-shifter"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              Subtitle Time Shifter
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/srt-to-vtt-converter"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              SRT to VTT Converter
+            </Link>
+          </li>
+        </ul>
       </div>
     </section>
   );
@@ -816,28 +989,22 @@ export default function SubtitleTagStripperPage() {
   return (
     <>
       <Head>
-        <title>
-          Subtitle Tag Stripper — Remove HTML &amp; Formatting from SRT/VTT
-        </title>
+        <title>{PAGE_TITLE}</title>
         <meta name="description" content={META_DESC} />
         <link rel="canonical" href={CANONICAL} />
-        <meta
-          property="og:title"
-          content="Subtitle Tag Stripper — Remove HTML &amp; Formatting from SRT/VTT"
-        />
+        <meta property="og:site_name" content="Subtitles Edit" />
+        <meta property="og:title" content={PAGE_TITLE} />
         <meta property="og:description" content={META_DESC} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={CANONICAL} />
-        <meta property="og:site_name" content="SubtitlesEdit" />
+        <meta property="og:image" content={OG_IMG} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Subtitle Tag Stripper — Remove HTML &amp; Formatting from SRT/VTT"
-        />
+        <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={META_DESC} />
+        <meta name="twitter:image" content={OG_IMG} />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
         />
       </Head>
 
