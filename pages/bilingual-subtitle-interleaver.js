@@ -1,17 +1,20 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Layout from "@/components/Layout";
 
 const CANONICAL = "https://subtitlesedit.com/bilingual-subtitle-interleaver";
 const OG_IMG =
-  "https://subtitlesedit.com/wp-content/uploads/2025/11/SRT-to-VTT-Converter-1-768x403.webp";
+  "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp";
 const META_DESC =
   "Merge two subtitle files into one dual-language file for language learning. Free, browser-based, no upload. Works with SRT and VTT.";
+const PAGE_TITLE =
+  "Bilingual Subtitle Interleaver — Free Dual-Language Tool";
 
 const section =
   "mx-auto max-w-4xl px-4 mt-12 font-[system-ui,-apple-system,Segoe_UI,Roboto,Arial,sans-serif]";
 const h2 =
-  "text-[1.875rem] font-semibold leading-snug text-[#1e293b] mb-4 mt-2";
+  "text-[1.875rem] font-semibold leading-snug text-[#1e293b] mb-4 mt-12";
 const h3 = "text-xl font-semibold text-[#1e293b] mb-3 mt-8";
 const p =
   "mb-4 text-[#334155] leading-relaxed [&_strong]:font-semibold [&_strong]:text-[#1e293b]";
@@ -23,19 +26,97 @@ const textareaClass =
 const skyBtn =
   "inline-flex items-center justify-center rounded-lg bg-sky-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:cursor-not-allowed disabled:opacity-60";
 
-const ldJson = {
+const pageSchema = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Bilingual Subtitle Interleaver",
-  description: META_DESC,
-  applicationCategory: "MultimediaApplication",
-  operatingSystem: "Any",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-  },
-  url: CANONICAL,
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://subtitlesedit.com/#organization",
+      name: "Subtitlesedit.com",
+      url: "https://subtitlesedit.com",
+      email: "support@subtitlesedit.com",
+      logo: {
+        "@type": "ImageObject",
+        "@id": "https://subtitlesedit.com/#logo",
+        url: "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
+        contentUrl:
+          "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
+        caption: "Subtitles Edit",
+        inLanguage: "en-US",
+        width: 500,
+        height: 500,
+      },
+      description:
+        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online \u2014 no software installation or sign-up required.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://subtitlesedit.com/#website",
+      url: "https://subtitlesedit.com",
+      name: "Subtitles Edit",
+      alternateName: "SubtitlesEdit.com",
+      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://subtitlesedit.com/bilingual-subtitle-interleaver#breadcrumb",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://subtitlesedit.com" },
+        { "@type": "ListItem", position: 2, name: "Bilingual Subtitle Interleaver", item: "https://subtitlesedit.com/bilingual-subtitle-interleaver" },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://subtitlesedit.com/bilingual-subtitle-interleaver#webpage",
+      url: "https://subtitlesedit.com/bilingual-subtitle-interleaver",
+      name: PAGE_TITLE,
+      isPartOf: { "@id": "https://subtitlesedit.com/#website" },
+      primaryImageOfPage: { "@id": "https://subtitlesedit.com/#logo" },
+      breadcrumb: { "@id": "https://subtitlesedit.com/bilingual-subtitle-interleaver#breadcrumb" },
+      mainEntity: { "@id": "https://subtitlesedit.com/bilingual-subtitle-interleaver#tool" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://subtitlesedit.com/bilingual-subtitle-interleaver#tool",
+      name: "Bilingual Subtitle Interleaver",
+      url: "https://subtitlesedit.com/bilingual-subtitle-interleaver",
+      applicationCategory: "MultimediaApplication",
+      operatingSystem: "Any (runs in a web browser)",
+      browserRequirements: "Requires a modern web browser with JavaScript enabled",
+      description:
+        "A free, browser-based tool that merges two subtitle files into a single dual-language track, stacking both languages inside each timed cue. It aligns cues by index or by closest timestamp, supports SRT and WebVTT on input and output, and runs entirely client-side, so files are never uploaded.",
+      isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      featureList: [
+        "Merge two subtitle tracks into one dual-language file",
+        "Align cues by index or by closest timestamp (within 2 seconds)",
+        "Accepts SRT and WebVTT input, exports SRT or VTT",
+        "Optional per-cue language labels",
+        "100% client-side processing with no file uploads",
+      ],
+      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://subtitlesedit.com/bilingual-subtitle-interleaver#faq",
+      mainEntity: [
+        { "@type": "Question", name: "What is a bilingual subtitle file?", acceptedAnswer: { "@type": "Answer", text: "It is a normal SRT or WebVTT file where each timed cue contains two languages at once, usually stacked so one language appears on the first line (or block) and the other directly underneath. Players and study tools then show both readings in sync with the same on-screen timing." } },
+        { "@type": "Question", name: "Will this work for Netflix or YouTube subtitles?", acceptedAnswer: { "@type": "Answer", text: "Yes, as long as you have legitimately obtained subtitle files for both languages. Results are cleanest when both tracks come from the same platform or release, because cue boundaries and timing then tend to line up more predictably." } },
+        { "@type": "Question", name: "What's the difference between cue index and closest timestamp alignment?", acceptedAnswer: { "@type": "Answer", text: "Match by cue index pairs the first cue in File A with the first cue in File B, the second with the second, and so on. It is the fastest option when both files follow the same dialogue order. Match by closest timestamp is for files where translators split or merged lines differently: for each cue in A, the tool picks the unclaimed cue in B whose start time is nearest, as long as it is within about two seconds, then adds any leftover B cues on their own." } },
+        { "@type": "Question", name: "Can I mix an SRT and a VTT file?", acceptedAnswer: { "@type": "Answer", text: "Yes. Each side is detected independently from its contents — a WEBVTT header marks a file as WebVTT, otherwise it is read as SRT — so you can pair an SRT track with a VTT track freely. You then choose whether the merged file is written out as SRT or VTT." } },
+        { "@type": "Question", name: "Does this tool upload my files anywhere?", acceptedAnswer: { "@type": "Answer", text: "No. Parsing, alignment, and export all happen locally in your browser using JavaScript; your files are never sent to a server, stored, or logged. That keeps classroom clips, personal collections, and unreleased material private, and closing the tab clears everything you loaded." } },
+        { "@type": "Question", name: "Why don't my two subtitle files have the same number of cues?", acceptedAnswer: { "@type": "Answer", text: "Different translators and platforms often split sentences into different numbers of on-screen lines. If counts do not match, try closest timestamp mode so cues are paired by time instead of by position in the list." } },
+        { "@type": "Question", name: "How is this different from the Subtitle Merger?", acceptedAnswer: { "@type": "Answer", text: "The Subtitle Merger joins subtitle tracks along the timeline — useful for stitching together parts of one film or combining clips in sequence. This interleaver instead stacks two languages inside the same cue, so each on-screen entry shows both readings at once. Use the merger to extend a timeline, and the interleaver to study two languages together." } },
+        { "@type": "Question", name: "The two languages are in the wrong order — how do I switch them?", acceptedAnswer: { "@type": "Answer", text: "Use the Swap A and B button above the File B box. It exchanges the contents of the two panels, so whichever language you loaded into File B moves to the top line and File A drops underneath. The output updates instantly, so you can flip the order without reloading either file." } },
+        { "@type": "Question", name: "What does the Matched / Unmatched status line mean?", acceptedAnswer: { "@type": "Answer", text: "After both files load, the tool reports how many cues it paired and how many were left over on each side. A high unmatched count usually means the two files were split differently or are out of sync. Switching to closest-timestamp mode often raises the matched count by pairing cues within a two-second window." } },
+        { "@type": "Question", name: "My subtitles are out of sync before I even merge them — what should I do?", acceptedAnswer: { "@type": "Answer", text: "Fix the timing first, then interleave. If a whole track is uniformly early or late, run it through the Subtitle Time Shifter; if it drifts further off as the video plays, use the AI Subtitle Drift Stabilizer. Once both tracks line up against the same video, this tool can pair them cleanly." } },
+        { "@type": "Question", name: "Should I export the merged file as SRT or VTT?", acceptedAnswer: { "@type": "Answer", text: "Choose SRT for desktop players and editors like VLC, IINA, or most NLEs, since it is the most broadly supported caption format. Choose VTT when embedding captions in a browser or HTML5 video. If you change your mind later, the SRT to VTT and VTT to SRT converters will switch formats without re-merging." } },
+      ],
+    },
+  ],
 };
 
 function stripBOM(text) {
@@ -795,27 +876,22 @@ export default function BilingualSubtitleInterleaverPage() {
   return (
     <Layout>
       <Head>
-        <title>Bilingual Subtitle Interleaver — Free Dual-Language Tool</title>
+        <title>{PAGE_TITLE}</title>
         <meta name="description" content={META_DESC} />
         <link rel="canonical" href={CANONICAL} />
-        <meta
-          property="og:title"
-          content="Bilingual Subtitle Interleaver — Free Dual-Language Tool"
-        />
+        <meta property="og:site_name" content="Subtitles Edit" />
+        <meta property="og:title" content={PAGE_TITLE} />
         <meta property="og:description" content={META_DESC} />
         <meta property="og:url" content={CANONICAL} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={OG_IMG} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Bilingual Subtitle Interleaver — Free Dual-Language Tool"
-        />
+        <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={META_DESC} />
         <meta name="twitter:image" content={OG_IMG} />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
         />
       </Head>
 
@@ -864,6 +940,56 @@ export default function BilingualSubtitleInterleaverPage() {
               without renaming.
             </li>
           </ol>
+
+          <h2 className={h2}>What the merged output looks like</h2>
+          <p className={p}>
+            Suppose File A holds the English track and File B holds the Spanish
+            track, each with a cue at the same time:
+          </p>
+          <div className="my-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <div className="mb-2 text-sm font-semibold text-[#1e293b]">
+                File A (English)
+              </div>
+              <pre className="overflow-x-auto rounded-[10px] border border-slate-200 bg-slate-50 p-3 text-sm leading-relaxed text-[#334155]">
+                <code>{`1
+00:00:01,000 --> 00:00:03,000
+Good morning.`}</code>
+              </pre>
+            </div>
+            <div>
+              <div className="mb-2 text-sm font-semibold text-[#1e293b]">
+                File B (Spanish)
+              </div>
+              <pre className="overflow-x-auto rounded-[10px] border border-slate-200 bg-slate-50 p-3 text-sm leading-relaxed text-[#334155]">
+                <code>{`1
+00:00:01,000 --> 00:00:03,000
+Buenos días.`}</code>
+              </pre>
+            </div>
+          </div>
+          <p className={p}>
+            Interleaving them produces one cue with both languages stacked
+            (shown here as SRT):
+          </p>
+          <pre className="my-4 overflow-x-auto rounded-[10px] border border-slate-200 bg-slate-50 p-3 text-sm leading-relaxed text-[#334155]">
+            <code>{`1
+00:00:01,000 --> 00:00:03,000
+Good morning.
+Buenos días.`}</code>
+          </pre>
+          <p className={p}>
+            With language labels enabled, the same cue is tagged so each line is
+            easy to identify:
+          </p>
+          <pre className="my-4 overflow-x-auto rounded-[10px] border border-slate-200 bg-slate-50 p-3 text-sm leading-relaxed text-[#334155]">
+            <code>{`1
+00:00:01,000 --> 00:00:03,000
+[English]
+Good morning.
+[Spanish]
+Buenos días.`}</code>
+          </pre>
 
           <h2 className={h2}>
             When to use cue index versus closest timestamp
@@ -1008,15 +1134,19 @@ export default function BilingualSubtitleInterleaverPage() {
 
           <h3 className={h3}>Can I mix an SRT and a VTT file?</h3>
           <p className={p}>
-            Yes. Each side is parsed according to whether it looks like WebVTT
-            (WEBVTT header) or SRT. You still choose whether the merged file is
-            written as SRT or VTT.
+            Yes. Each side is detected independently from its contents — a WEBVTT
+            header marks a file as WebVTT, otherwise it is read as SRT — so you
+            can pair an SRT track with a VTT track freely. You then choose whether
+            the merged file is written out as SRT or VTT.
           </p>
 
           <h3 className={h3}>Does this tool upload my files anywhere?</h3>
           <p className={p}>
-            No. Parsing, alignment, and export all happen in your browser. Your
-            files never leave your device.
+            No. Parsing, alignment, and export all happen locally in your browser
+            using JavaScript; your files are never sent to a server, stored, or
+            logged. That keeps classroom clips, personal collections, and
+            unreleased material private, and closing the tab clears everything you
+            loaded.
           </p>
 
           <h3 className={h3}>
@@ -1028,6 +1158,129 @@ export default function BilingualSubtitleInterleaverPage() {
             <strong>closest timestamp</strong> mode so cues are paired by time
             instead of by position in the list.
           </p>
+
+          <h3 className={h3}>How is this different from the Subtitle Merger?</h3>
+          <p className={p}>
+            The{" "}
+            <Link
+              href="/subtitle-merger"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              Subtitle Merger
+            </Link>{" "}
+            joins subtitle tracks along the timeline — useful for stitching
+            together parts of one film or combining clips in sequence. This
+            interleaver instead stacks two languages inside the same cue, so each
+            on-screen entry shows both readings at once. Use the merger to extend a
+            timeline, and the interleaver to study two languages together.
+          </p>
+
+          <h3 className={h3}>
+            The two languages are in the wrong order — how do I switch them?
+          </h3>
+          <p className={p}>
+            Use the {"\u201c"}Swap A {"\u2194"} B{"\u201d"} button above the File
+            B box. It exchanges the contents of the two panels, so whichever
+            language you loaded into File B moves to the top line and File A drops
+            underneath. The output updates instantly, so you can flip the order
+            without reloading either file.
+          </p>
+
+          <h3 className={h3}>
+            What does the {"\u201c"}Matched / Unmatched{"\u201d"} status line
+            mean?
+          </h3>
+          <p className={p}>
+            After both files load, the tool reports how many cues it paired and
+            how many were left over on each side. A high unmatched count usually
+            means the two files were split differently or are out of sync.
+            Switching to closest-timestamp mode often raises the matched count by
+            pairing cues within a two-second window.
+          </p>
+
+          <h3 className={h3}>
+            My subtitles are out of sync before I even merge them — what should I
+            do?
+          </h3>
+          <p className={p}>
+            Fix the timing first, then interleave. If a whole track is uniformly
+            early or late, run it through the{" "}
+            <Link
+              href="/subtitle-time-shifter"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              Subtitle Time Shifter
+            </Link>
+            ; if it drifts further off as the video plays, use the{" "}
+            <Link
+              href="/subtitle-drift-stabilizer"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              AI Subtitle Drift Stabilizer
+            </Link>
+            . Once both tracks line up against the same video, this tool can pair
+            them cleanly.
+          </p>
+
+          <h3 className={h3}>
+            Should I export the merged file as SRT or VTT?
+          </h3>
+          <p className={p}>
+            Choose SRT for desktop players and editors like VLC, IINA, or most
+            NLEs, since it is the most broadly supported caption format. Choose
+            VTT when embedding captions in a browser or HTML5 video. If you change
+            your mind later, the{" "}
+            <Link
+              href="/srt-to-vtt-converter"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              SRT to VTT
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/vtt-to-srt-converter"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              VTT to SRT
+            </Link>{" "}
+            converters will switch formats without re-merging.
+          </p>
+
+          <h2 className={h2}>Related tools</h2>
+          <ul className="mb-6 list-disc space-y-2 pl-5 text-[#334155]">
+            <li>
+              <Link
+                href="/subtitle-merger"
+                className="text-sky-600 underline hover:text-sky-700"
+              >
+                Subtitle Merger
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/subtitle-time-shifter"
+                className="text-sky-600 underline hover:text-sky-700"
+              >
+                Subtitle Time Shifter
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/srt-to-vtt-converter"
+                className="text-sky-600 underline hover:text-sky-700"
+              >
+                SRT to VTT Converter
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/vtt-to-srt-converter"
+                className="text-sky-600 underline hover:text-sky-700"
+              >
+                VTT to SRT Converter
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
     </Layout>
