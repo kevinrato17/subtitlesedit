@@ -16,20 +16,193 @@ const textareaClass =
 const skyBtnSolid =
   'inline-flex items-center justify-center rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500'
 
-const ldJson = {
+const OG_IMG =
+  'https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp'
+
+const PAGE_TITLE = 'Subtitle Line Length Limiter — Fix Long SRT & VTT Lines'
+
+const pageSchema = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'Subtitle Line Length Limiter',
-  description:
-    'Reformat SRT and VTT subtitle files to Netflix, BBC, or custom line length standards with automatic re-wrapping and optional cue splitting.',
-  applicationCategory: 'MultimediaApplication',
-  operatingSystem: 'Web',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'USD',
-  },
-  url: CANONICAL,
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://subtitlesedit.com/#organization',
+      name: 'Subtitlesedit.com',
+      url: 'https://subtitlesedit.com',
+      email: 'support@subtitlesedit.com',
+      logo: {
+        '@type': 'ImageObject',
+        '@id': 'https://subtitlesedit.com/#logo',
+        url: 'https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp',
+        contentUrl:
+          'https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp',
+        caption: 'Subtitles Edit',
+        inLanguage: 'en-US',
+        width: 500,
+        height: 500,
+      },
+      description:
+        'SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online \u2014 no software installation or sign-up required.',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://subtitlesedit.com/#website',
+      url: 'https://subtitlesedit.com',
+      name: 'Subtitles Edit',
+      alternateName: 'SubtitlesEdit.com',
+      publisher: { '@id': 'https://subtitlesedit.com/#organization' },
+      inLanguage: 'en-US',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://subtitlesedit.com/subtitle-line-length-limiter#breadcrumb',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://subtitlesedit.com',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Subtitle Line Length Limiter',
+          item: 'https://subtitlesedit.com/subtitle-line-length-limiter',
+        },
+      ],
+    },
+    {
+      '@type': 'WebPage',
+      '@id': 'https://subtitlesedit.com/subtitle-line-length-limiter#webpage',
+      url: 'https://subtitlesedit.com/subtitle-line-length-limiter',
+      name: PAGE_TITLE,
+      isPartOf: { '@id': 'https://subtitlesedit.com/#website' },
+      primaryImageOfPage: { '@id': 'https://subtitlesedit.com/#logo' },
+      breadcrumb: {
+        '@id': 'https://subtitlesedit.com/subtitle-line-length-limiter#breadcrumb',
+      },
+      mainEntity: {
+        '@id': 'https://subtitlesedit.com/subtitle-line-length-limiter#tool',
+      },
+      inLanguage: 'en-US',
+    },
+    {
+      '@type': 'SoftwareApplication',
+      '@id': 'https://subtitlesedit.com/subtitle-line-length-limiter#tool',
+      name: 'Subtitle Line Length Limiter',
+      url: 'https://subtitlesedit.com/subtitle-line-length-limiter',
+      applicationCategory: 'MultimediaApplication',
+      operatingSystem: 'Any (runs in a web browser)',
+      browserRequirements: 'Requires a modern web browser with JavaScript enabled',
+      description:
+        'A free, browser-based tool that reformats SRT and VTT subtitles to a chosen characters-per-line limit (Netflix 42, BBC 37, or custom). It re-wraps text at word boundaries and can split overly long cues into two with proportional timing. All processing happens locally in your browser with no uploads or sign-up.',
+      isAccessibleForFree: true,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      featureList: [
+        'Auto-detects SRT and VTT input',
+        'Netflix (42), BBC (37), and custom 20-80 character limits',
+        'Word-aware line wrapping',
+        'Optional proportional cue splitting',
+        'Runs entirely in the browser with no file uploads',
+      ],
+      publisher: { '@id': 'https://subtitlesedit.com/#organization' },
+      inLanguage: 'en-US',
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://subtitlesedit.com/subtitle-line-length-limiter#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'What character limit should I use?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: "For streaming platforms, 42 (Netflix's standard) is the safest default. For UK broadcast or BBC-style work, use 37. For loose web video or internal training content, 47 is fine. If you're producing for a specific platform, check their style guide for the exact requirement and use the custom field.",
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What happens to the timing when a cue is split in two?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: "The tool splits the timing proportionally based on character count. If the first half of the wrapped text is 60 percent of the total characters, it gets 60 percent of the original cue's duration, and the second half gets the remaining 40 percent. Original timestamps are preserved at the boundaries: the first cue starts when the original did, and the second cue ends when the original did.",
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Why did not the tool break this long word across two lines?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'By design. Breaking a word mid-character produces unreadable results and breaks language conventions. If a single word exceeds your character limit, such as a long URL or unusual compound word, the tool lets that line overflow rather than fragment the word. You can manually edit the cue or raise the character limit if needed.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Will this work on subtitles in non-Latin scripts (Chinese, Arabic, etc.)?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Partially. The character-counting logic treats each character as one unit, which works for Chinese and Japanese where each character is roughly one display unit. For Arabic and Hebrew, right-to-left direction is preserved but you should verify the wrap points suit your language. The 42-character convention is Latin-script-centric; consider lower limits of 15 to 20 for CJK scripts.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What if a split cue still exceeds two lines after splitting?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'The tool splits each oversized cue once. If one of the resulting halves is still too long for two lines at your character limit, the tool accepts the overflow rather than recursively splitting, which would fragment timing absurdly. This is rare and only happens with extremely long cues at very tight limits. The fix is to raise your limit or break the cue manually.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is anything uploaded to your server?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No. Everything happens inside your browser, so your subtitle file never leaves your device. There is no upload, no account, and no tracking of file contents. You can verify by disconnecting from the internet after loading the page; the tool keeps working normally.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Does the tool merge short lines or only break long ones?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Both. It re-flows the full text of each cue to fit your character limit, so a long line is broken across multiple lines and two short lines that comfortably fit together are merged into one. The result is consistent wrapping throughout the file rather than a mix of your original line breaks and new ones.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I limit line length without creating extra cues?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: "Yes. Untick the 'Split overly long cues' checkbox in Settings. With splitting off, every cue keeps its original timing and stays a single cue; the text is simply wrapped to your chosen limit, even if that leaves more than two lines on screen. Turn splitting back on when a platform requires strict two-line cues.",
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Why are the subtitle numbers different in my SRT output?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'The tool renumbers SRT cues sequentially from 1 in the output. If your input had gaps in its numbering, or a cue was split into two, the output numbers will not match the originals. This is expected and keeps the file valid, because players rely on cue order and timing, not on the specific index values.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Why does my VTT file have extra blank lines between cues?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'The VTT output can include an extra blank line between cues. This is harmless: the WebVTT format treats any run of blank lines as a single separator, so the file plays correctly in every compliant player and editor. If you prefer tighter spacing, collapse the blank lines in any text editor.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How does this fit with other subtitle tools?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'It is one step in a clean-up workflow. Strip styling with the Subtitle Tag Stripper, fix line lengths here, then correct timing with the Subtitle Time Shifter or resolve clashes with the Subtitle Overlap Fixer. If you need to break a long file into smaller parts rather than re-wrap lines, use the Subtitle Splitter instead.',
+          },
+        },
+      ],
+    },
+  ],
 }
 
 function detectFormat(text) {
@@ -571,7 +744,7 @@ function LineLengthLimiterTool() {
       </div>
 
       <div className="mx-auto mt-12 max-w-4xl px-4">
-        <h2 className="mt-10 mb-4 text-2xl font-bold text-slate-800">
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
           How it works
         </h2>
         <ol className="mb-4 ml-6 list-decimal space-y-2 text-slate-700">
@@ -597,7 +770,45 @@ function LineLengthLimiterTool() {
           </li>
         </ol>
 
-        <h2 className="mt-10 mb-4 text-2xl font-bold text-slate-800">
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
+          Before and after example
+        </h2>
+        <p className="mb-4 leading-relaxed text-slate-700">
+          Here is a single overlong line reformatted to the 42-character Netflix
+          limit. Because the wrapped text needs more than two lines, the tool splits
+          it into two cues and divides the original duration proportionally by
+          character count.
+        </p>
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="min-w-0">
+            <p className="mb-2 text-sm font-semibold text-slate-700">
+              Before — one long line
+            </p>
+            <pre className="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm leading-relaxed text-slate-800">
+              <code>{`1
+00:00:01,000 --> 00:00:05,000
+This is a really long single line of subtitle text that clearly runs well past the forty-two character limit and needs wrapping.`}</code>
+            </pre>
+          </div>
+          <div className="min-w-0">
+            <p className="mb-2 text-sm font-semibold text-slate-700">
+              After — wrapped to 42, split into two cues
+            </p>
+            <pre className="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm leading-relaxed text-slate-800">
+              <code>{`1
+00:00:01,000 --> 00:00:03,438
+This is a really long single line of
+subtitle text that clearly runs well past
+
+2
+00:00:03,438 --> 00:00:05,000
+the forty-two character limit and needs
+wrapping.`}</code>
+            </pre>
+          </div>
+        </div>
+
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
           Choosing the right character limit
         </h2>
 
@@ -640,7 +851,7 @@ function LineLengthLimiterTool() {
           subtitles that overrun mobile screens.
         </p>
 
-        <h2 className="mt-10 mb-4 text-2xl font-bold text-slate-800">
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
           Common use cases
         </h2>
 
@@ -677,7 +888,33 @@ function LineLengthLimiterTool() {
           editing.
         </p>
 
-        <h2 className="mt-10 mb-4 text-2xl font-bold text-slate-800">
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
+          Who uses this tool
+        </h2>
+        <ul className="mb-4 ml-6 list-disc space-y-2 text-slate-700">
+          <li>
+            <strong>Streaming and broadcast captioners</strong> preparing files to
+            Netflix (42), BBC (37), or platform-specific limits before submission.
+          </li>
+          <li>
+            <strong>YouTubers and video editors</strong> cleaning up auto-generated
+            captions that arrive as long, unbroken lines.
+          </li>
+          <li>
+            <strong>Translators and localizers</strong> re-wrapping subtitles after
+            translation expands the text beyond the original line breaks.
+          </li>
+          <li>
+            <strong>E-learning and corporate video teams</strong> standardizing
+            caption formatting across large content libraries.
+          </li>
+          <li>
+            <strong>Anyone working from Whisper or AI transcripts</strong> that ignore
+            professional line-length conventions.
+          </li>
+        </ul>
+
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
           Why use this tool
         </h2>
         <p className="mb-4 leading-relaxed text-slate-700">
@@ -715,7 +952,7 @@ function LineLengthLimiterTool() {
           when cues drift on the timeline.
         </p>
 
-        <h2 className="mt-10 mb-4 text-2xl font-bold text-slate-800">
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
           Frequently Asked Questions
         </h2>
 
@@ -785,6 +1022,134 @@ function LineLengthLimiterTool() {
           contents. You can verify by disconnecting from the internet after loading the
           page; the tool will continue to work normally.
         </p>
+
+        <h3 className="mt-6 mb-2 text-xl font-semibold text-slate-700">
+          Does the tool merge short lines or only break long ones?
+        </h3>
+        <p className="mb-4 leading-relaxed text-slate-700">
+          Both. It re-flows the full text of each cue to fit your character limit, so a
+          long line is broken across multiple lines and two short lines that comfortably
+          fit together are merged into one. The result is consistent wrapping throughout
+          the file rather than a mix of your original line breaks and new ones.
+        </p>
+
+        <h3 className="mt-6 mb-2 text-xl font-semibold text-slate-700">
+          Can I limit line length without creating extra cues?
+        </h3>
+        <p className="mb-4 leading-relaxed text-slate-700">
+          Yes. Untick the &quot;Split overly long cues&quot; checkbox in Settings. With
+          splitting off, every cue keeps its original timing and stays a single cue — the
+          text is simply wrapped to your chosen limit, even if that leaves more than two
+          lines on screen. Turn splitting back on when a platform requires strict
+          two-line cues.
+        </p>
+
+        <h3 className="mt-6 mb-2 text-xl font-semibold text-slate-700">
+          Why are the subtitle numbers different in my SRT output?
+        </h3>
+        <p className="mb-4 leading-relaxed text-slate-700">
+          The tool renumbers SRT cues sequentially from 1 in the output. If your input
+          had gaps in its numbering, or a cue was split into two, the output numbers
+          won&apos;t match the originals. This is expected and keeps the file valid —
+          players rely on cue order and timing, not on the specific index values.
+        </p>
+
+        <h3 className="mt-6 mb-2 text-xl font-semibold text-slate-700">
+          Why does my VTT file have extra blank lines between cues?
+        </h3>
+        <p className="mb-4 leading-relaxed text-slate-700">
+          The VTT output can include an extra blank line between cues. This is harmless:
+          the WebVTT format treats any run of blank lines as a single separator, so the
+          file plays correctly in every compliant player and editor. If you prefer tighter
+          spacing, collapse the blank lines in any text editor.
+        </p>
+
+        <h3 className="mt-6 mb-2 text-xl font-semibold text-slate-700">
+          How does this fit with other subtitle tools?
+        </h3>
+        <p className="mb-4 leading-relaxed text-slate-700">
+          It is one step in a clean-up workflow. Strip styling with the{' '}
+          <Link
+            href="/subtitle-tag-stripper"
+            className="text-sky-600 underline hover:text-sky-700"
+          >
+            Subtitle Tag Stripper
+          </Link>
+          , fix line lengths here, then correct timing with the{' '}
+          <Link
+            href="/subtitle-time-shifter"
+            className="text-sky-600 underline hover:text-sky-700"
+          >
+            Subtitle Time Shifter
+          </Link>{' '}
+          or resolve clashes with the{' '}
+          <Link
+            href="/subtitle-overlap-fixer"
+            className="text-sky-600 underline hover:text-sky-700"
+          >
+            Subtitle Overlap Fixer
+          </Link>
+          . If you need to break a long file into smaller parts rather than re-wrap
+          lines, use the{' '}
+          <Link
+            href="/subtitle-splitter"
+            className="text-sky-600 underline hover:text-sky-700"
+          >
+            Subtitle Splitter
+          </Link>{' '}
+          instead.
+        </p>
+
+        <h2 className="mt-12 mb-4 text-2xl font-bold text-slate-800">
+          Related tools
+        </h2>
+        <ul className="mb-4 ml-6 list-disc space-y-2 text-slate-700">
+          <li>
+            <Link
+              href="/subtitle-tag-stripper"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              Subtitle Tag Stripper
+            </Link>{' '}
+            — remove HTML, styling, and formatting tags before re-wrapping.
+          </li>
+          <li>
+            <Link
+              href="/subtitle-time-shifter"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              Subtitle Time Shifter
+            </Link>{' '}
+            — move every cue earlier or later by a fixed offset.
+          </li>
+          <li>
+            <Link
+              href="/subtitle-overlap-fixer"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              Subtitle Overlap Fixer
+            </Link>{' '}
+            — resolve cues whose timings collide on the timeline.
+          </li>
+          <li>
+            <Link
+              href="/subtitle-merger"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              Subtitle Merger
+            </Link>{' '}
+            — join multiple subtitle files into one.
+          </li>
+          <li>
+            <Link
+              href="/subtitle-splitter"
+              className="text-sky-600 underline hover:text-sky-700"
+            >
+              Subtitle Splitter
+            </Link>{' '}
+            — break one subtitle file into smaller parts.
+          </li>
+        </ul>
       </div>
     </section>
   )
@@ -794,28 +1159,22 @@ export default function SubtitleLineLengthLimiterPage() {
   return (
     <>
       <Head>
-        <title>
-          Subtitle Line Length Limiter — Fix Long SRT &amp; VTT Lines
-        </title>
+        <title>{PAGE_TITLE}</title>
         <meta name="description" content={META_DESC} />
         <link rel="canonical" href={CANONICAL} />
-        <meta
-          property="og:title"
-          content="Subtitle Line Length Limiter — Fix Long SRT &amp; VTT Lines"
-        />
+        <meta property="og:site_name" content="Subtitles Edit" />
+        <meta property="og:title" content={PAGE_TITLE} />
         <meta property="og:description" content={META_DESC} />
-        <meta property="og:type" content="website" />
         <meta property="og:url" content={CANONICAL} />
-        <meta property="og:site_name" content="SubtitlesEdit" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={OG_IMG} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Subtitle Line Length Limiter — Fix Long SRT &amp; VTT Lines"
-        />
+        <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={META_DESC} />
+        <meta name="twitter:image" content={OG_IMG} />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
         />
       </Head>
 
