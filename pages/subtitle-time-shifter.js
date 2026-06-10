@@ -18,7 +18,7 @@ const PAGE_TITLE = "Subtitle Time Shifter Online Free | Subtitles Edit";
 const META_DESC =
   "Shift subtitle timing online for free. Adjust SRT and VTT timestamps forward or backward instantly in your browser with no uploads.";
 
-const rankMathSchema = {
+const pageSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -33,20 +33,20 @@ const rankMathSchema = {
         url: "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
         contentUrl:
           "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
-        caption: "https://subtitlesedit.com",
+        caption: "Subtitles Edit",
         inLanguage: "en-US",
-        width: "500",
-        height: "500",
+        width: 500,
+        height: 500,
       },
       description:
-        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online \u2014 no software installation or sign-up required.\n\nOur simple, privacy-friendly tools include SRT to VTT converters, subtitle mergers, splitters, time shifters, and overlap fixers that work instantly right in your browser. Whether you need to convert SRT to WebVTT, resync subtitles, or fix overlapping cues, Subtitles Edit makes it quick and effortless.\n\nTrusted by content creators worldwide, we focus on speed, accuracy, and simplicity, helping you make every subtitle perfectly timed and platform-ready.",
+        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online \u2014 no software installation or sign-up required.",
     },
     {
       "@type": "WebSite",
       "@id": "https://subtitlesedit.com/#website",
       url: "https://subtitlesedit.com",
-      name: "https://subtitlesedit.com",
-      alternateName: "Subtitles Edit",
+      name: "Subtitles Edit",
+      alternateName: "SubtitlesEdit.com",
       publisher: { "@id": "https://subtitlesedit.com/#organization" },
       inLanguage: "en-US",
     },
@@ -54,81 +54,78 @@ const rankMathSchema = {
       "@type": "ImageObject",
       "@id": OG_IMG,
       url: OG_IMG,
-      width: "200",
-      height: "200",
+      contentUrl: OG_IMG,
+      caption: "Subtitle Time Shifter",
+      width: 1024,
+      height: 538,
       inLanguage: "en-US",
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://subtitlesedit.com/subtitle-time-shifter/#breadcrumb",
+      "@id": "https://subtitlesedit.com/subtitle-time-shifter#breadcrumb",
       itemListElement: [
-        {
-          "@type": "ListItem",
-          position: "1",
-          item: { "@id": "https://subtitlesedit.com", name: "Home" },
-        },
-        {
-          "@type": "ListItem",
-          position: "2",
-          item: {
-            "@id": "https://subtitlesedit.com/subtitle-time-shifter/",
-            name: "Subtitle Time Shifter to Synchronize Subtitles Instantly (SRT & VTT)",
-          },
-        },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://subtitlesedit.com" },
+        { "@type": "ListItem", position: 2, name: "Subtitle Time Shifter", item: "https://subtitlesedit.com/subtitle-time-shifter" },
       ],
     },
     {
       "@type": "WebPage",
-      "@id": "https://subtitlesedit.com/subtitle-time-shifter/#webpage",
-      url: "https://subtitlesedit.com/subtitle-time-shifter/",
-      name: "Subtitle Time Shifter \u2013 Synchronize Subtitles Instantly",
-      datePublished: "2025-11-04T17:21:16+00:00",
-      dateModified: "2025-12-03T16:49:52+00:00",
+      "@id": "https://subtitlesedit.com/subtitle-time-shifter#webpage",
+      url: "https://subtitlesedit.com/subtitle-time-shifter",
+      name: PAGE_TITLE,
       isPartOf: { "@id": "https://subtitlesedit.com/#website" },
       primaryImageOfPage: { "@id": OG_IMG },
-      inLanguage: "en-US",
-      breadcrumb: {
-        "@id": "https://subtitlesedit.com/subtitle-time-shifter/#breadcrumb",
-      },
-    },
-    {
-      "@type": "Person",
-      "@id": "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-      name: "Subtitles Edit",
-      url: "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-      image: {
-        "@type": "ImageObject",
-        "@id":
-          "https://secure.gravatar.com/avatar/dadac46feb548479fffced65ed9edb7cba49be5576172058b3b522c2bf0267b6?s=96&d=mm&r=g",
-        url: "https://secure.gravatar.com/avatar/dadac46feb548479fffced65ed9edb7cba49be5576172058b3b522c2bf0267b6?s=96&d=mm&r=g",
-        caption: "Subtitles Edit",
-        inLanguage: "en-US",
-      },
-      sameAs: ["http://subtitlesedit.com"],
-      worksFor: { "@id": "https://subtitlesedit.com/#organization" },
-    },
-    {
-      "@type": "Article",
-      headline: "Subtitle Time Shifter \u2013 Synchronize Subtitles Instantly",
-      keywords: "Subtitle Time Shifter",
+      breadcrumb: { "@id": "https://subtitlesedit.com/subtitle-time-shifter#breadcrumb" },
+      mainEntity: { "@id": "https://subtitlesedit.com/subtitle-time-shifter#tool" },
       datePublished: "2025-11-04T17:21:16+00:00",
       dateModified: "2025-12-03T16:49:52+00:00",
-      author: {
-        "@id": "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-        name: "Subtitles Edit",
-      },
-      publisher: { "@id": "https://subtitlesedit.com/#organization" },
-      description: META_DESC,
-      name: "Subtitle Time Shifter \u2013 Synchronize Subtitles Instantly",
-      "@id": "https://subtitlesedit.com/subtitle-time-shifter/#richSnippet",
-      isPartOf: {
-        "@id": "https://subtitlesedit.com/subtitle-time-shifter/#webpage",
-      },
-      image: { "@id": OG_IMG },
       inLanguage: "en-US",
-      mainEntityOfPage: {
-        "@id": "https://subtitlesedit.com/subtitle-time-shifter/#webpage",
-      },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://subtitlesedit.com/subtitle-time-shifter#tool",
+      name: "Subtitle Time Shifter",
+      url: "https://subtitlesedit.com/subtitle-time-shifter",
+      applicationCategory: "MultimediaApplication",
+      operatingSystem: "Any (runs in a web browser)",
+      browserRequirements: "Requires a modern web browser with JavaScript enabled",
+      description:
+        "A free, browser-based subtitle time shifter that adjusts every timestamp in an SRT or VTT file by a fixed offset. All processing runs client-side in your browser, so subtitle files are never uploaded to a server.",
+      isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      featureList: [
+        "Shift SRT and VTT timestamps by a fixed offset",
+        "Positive (delay) and negative (advance) shifts",
+        "Fractional-second precision",
+        "100% client-side processing with no file uploads",
+        "Instant download of the resynced subtitle file",
+      ],
+      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://subtitlesedit.com/subtitle-time-shifter#faq",
+      mainEntity: [
+        { "@type": "Question", name: "How do I synchronize subtitles using a subtitle time shifter?", acceptedAnswer: { "@type": "Answer", text: "You upload or paste your SRT or VTT file, enter a positive or negative time value, and apply the shift. The tool instantly updates every timestamp and gives you a corrected subtitle file to download." } },
+        { "@type": "Question", name: "What's the difference between positive and negative subtitle values?", acceptedAnswer: { "@type": "Answer", text: "A positive value delays the subtitles, making them appear later. A negative value makes subtitles appear earlier. Use whichever direction fixes your sync issue." } },
+        { "@type": "Question", name: "How do I fix subtitles that are delayed or appear too early?", acceptedAnswer: { "@type": "Answer", text: "Determine how far the subtitles are from the audio, enter that amount into the time shifter, and apply the shift. For example, if subtitles appear 1.2 seconds late, enter -1.2." } },
+        { "@type": "Question", name: "Can I resync both SRT and VTT subtitles?", acceptedAnswer: { "@type": "Answer", text: "Yes. The tool supports SRT, VTT, and WebVTT files. You can synchronize subtitles in any of these formats instantly." } },
+        { "@type": "Question", name: "Why do my subtitles have a constant delay across the video?", acceptedAnswer: { "@type": "Answer", text: "Constant delay usually occurs when a video is trimmed, re-encoded, or exported differently. A single offset shift corrects the delay for the entire file." } },
+        { "@type": "Question", name: "What time value should I use to fix a small subtitle delay?", acceptedAnswer: { "@type": "Answer", text: "Most delays fall between 0.1 and 2 seconds. Test small adjustments until the subtitles match the spoken dialogue accurately." } },
+        { "@type": "Question", name: "Can I sync subtitles without downloading any software?", acceptedAnswer: { "@type": "Answer", text: "Yes. This time shifter works entirely in your browser. No downloads, no accounts, and no installations required." } },
+        { "@type": "Question", name: "Is this a subtitle sync program or an online browser tool?", acceptedAnswer: { "@type": "Answer", text: "It behaves like offline software, but runs in your browser. All processing is local to your device, so no files are uploaded." } },
+        { "@type": "Question", name: "Can I edit my subtitles after applying a time shift?", acceptedAnswer: { "@type": "Answer", text: "Yes. You can further edit the file using any text editor or by using tools like a subtitle editor, merger, splitter, or overlap fixer." } },
+        { "@type": "Question", name: "Why do subtitles go out of sync when I trim or cut a video?", acceptedAnswer: { "@type": "Answer", text: "Removing the start of a video shifts the audio timeline, but the subtitles keep their original timestamps. A time offset corrects this instantly." } },
+        { "@type": "Question", name: "Can I shift subtitles by milliseconds or fractional seconds?", acceptedAnswer: { "@type": "Answer", text: "Yes. You can enter values like 0.25, -0.8, or 1.75 to fine-tune subtitle timing. The tool supports millisecond-level precision." } },
+        { "@type": "Question", name: "Does applying a time shift change the text or formatting?", acceptedAnswer: { "@type": "Answer", text: "No. Only timestamps are adjusted. All text, cue numbers, and formatting remain unchanged." } },
+        { "@type": "Question", name: "Can I sync subtitles for movies, YouTube videos, and custom media?", acceptedAnswer: { "@type": "Answer", text: "Yes. As long as your subtitles are in SRT or VTT format, you can sync them for any video source." } },
+        { "@type": "Question", name: "Why do subtitles break if I manually edit timestamps incorrectly?", acceptedAnswer: { "@type": "Answer", text: "Incorrect timestamp formatting (wrong separators or hours/minutes placement) makes subtitles unreadable to video players. This tool preserves proper formatting automatically." } },
+        { "@type": "Question", name: "Can I convert formats (SRT/VTT) while syncing subtitles?", acceptedAnswer: { "@type": "Answer", text: "You can shift timing first, then use our VTT and SRT converters to change formats if needed." } },
+        { "@type": "Question", name: "What is the best method to fix subtitles that are consistently out of sync?", acceptedAnswer: { "@type": "Answer", text: "Identify the delay by comparing the first spoken line with the first subtitle, then apply an equal offset across the entire file." } },
+        { "@type": "Question", name: "Is it safe to sync subtitles directly in my browser?", acceptedAnswer: { "@type": "Answer", text: "Yes. Because everything runs locally, your subtitle file never leaves your device. This makes it safe for private or professional projects." } },
+        { "@type": "Question", name: "Does this subtitle time shifter work with large SRT/VTT files?", acceptedAnswer: { "@type": "Answer", text: "Yes. Most movie-length subtitle files work perfectly. Extremely large files may take slightly longer depending on your device's performance." } },
+      ],
     },
   ],
 };
@@ -420,7 +417,7 @@ const faqRows = [
   },
   {
     id: "e-n-accordion-item-18014",
-    q: " . Can I convert formats (SRT/VTT) while syncing subtitles? ",
+    q: " Can I convert formats (SRT/VTT) while syncing subtitles? ",
     body: (
       <p>
         You can shift timing first, then use our VTT {"\u2194"} SRT converters to
@@ -473,45 +470,28 @@ export default function SubtitleTimeShifterPage() {
         />
         <link
           rel="canonical"
-          href="https://subtitlesedit.com/subtitle-time-shifter/"
+          href="https://subtitlesedit.com/subtitle-time-shifter"
         />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:type" content="article" />
-        <meta
-          property="og:title"
-          content="Subtitle Time Shifter – Synchronize Subtitles Instantly"
-        />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Subtitles Edit" />
+        <meta property="og:title" content={PAGE_TITLE} />
         <meta property="og:description" content={META_DESC} />
         <meta
           property="og:url"
-          content="https://subtitlesedit.com/subtitle-time-shifter/"
+          content="https://subtitlesedit.com/subtitle-time-shifter"
         />
-        <meta property="og:site_name" content="https://subtitlesedit.com" />
-        <meta property="og:updated_time" content="2025-12-03T16:49:52+00:00" />
         <meta property="og:image" content={OG_IMG} />
         <meta property="og:image:secure_url" content={OG_IMG} />
         <meta property="og:image:alt" content="Subtitle Time Shifter" />
-        <meta
-          property="article:published_time"
-          content="2025-11-04T17:21:16+00:00"
-        />
-        <meta
-          property="article:modified_time"
-          content="2025-12-03T16:49:52+00:00"
-        />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Subtitle Time Shifter – Synchronize Subtitles Instantly"
-        />
+        <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={META_DESC} />
         <meta name="twitter:image" content={OG_IMG} />
-        <meta name="twitter:label1" content="Time to read" />
-        <meta name="twitter:data1" content="9 minutes" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(rankMathSchema),
+            __html: JSON.stringify(pageSchema),
           }}
         />
       </Head>
@@ -555,14 +535,13 @@ export default function SubtitleTimeShifterPage() {
                 <p className={p}>
                   A <strong>subtitle time shifter</strong> adjusts every
                   timestamp in your subtitle file by the same amount. This fixes
-                  subtitles that appear too early or too late, helping you{" "}
-                  <strong>synchronize subtitles</strong> with your video
+                  subtitles that appear too early or too late,                   helping you synchronize subtitles with your video
                   instantly.
                 </p>
                 <p className={p}>
                   Fix delayed subtitles in seconds. Use this fast and private
                   subtitle time shifter to shift SRT or VTT files{" "}
-                  <strong>forward or backward</strong> with pinpoint accuracy.
+                  forward or backward with pinpoint accuracy.
                   Adjust your timing, synchronize subtitles, and download a fully
                   corrected file {"\u2014"} all directly in your browser.
                 </p>
@@ -591,8 +570,7 @@ export default function SubtitleTimeShifterPage() {
                 </h3>
                 <p className={p}>
                   Audio and video changes {"\u2014"} even small edits {"\u2014"}{" "}
-                  can create timing issues. This <strong>Subtitle Shifter</strong>{" "}
-                  tool gives you precise control to resync subtitles instantly.
+                  can create timing issues. This subtitle shifter tool gives you precise control to resync subtitles instantly.
                 </p>
 
                 <h2 className={h2}>
@@ -624,7 +602,7 @@ export default function SubtitleTimeShifterPage() {
                   3. Apply the Offset and Download the Synced File
                 </h3>
                 <p className={p}>
-                  Click {"\u201c"}Shift Time{"\u201d"} and your corrected subtitles
+                  Click {"\u201c"}Apply Shift{"\u201d"} and your corrected subtitles
                   appear instantly. Download the synchronized file and play it with
                   your video to confirm accuracy.
                 </p>
@@ -685,27 +663,27 @@ export default function SubtitleTimeShifterPage() {
                   How Timestamp Formatting Differs in SRT vs VTT
                 </h3>
                 <p className={p}>
-                  SRT uses <strong>commas</strong> for milliseconds.{" "}
+                  SRT uses <strong>commas</strong> for milliseconds {"\u2014"} see the{" "}
                   <a
                     href="https://en.wikipedia.org/wiki/SubRip"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={linkClass}
                   >
-                    Click here
-                  </a>{" "}
-                  to learn more about SRT format.
+                    SubRip (SRT) format reference
+                  </a>
+                  .
                   <br />
-                  VTT uses <strong>periods</strong>.{" "}
+                  VTT uses <strong>periods</strong> {"\u2014"} see the{" "}
                   <a
                     href="https://www.w3.org/TR/webvtt1/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={linkClass}
                   >
-                    Click here
-                  </a>{" "}
-                  to learn more about WebVTT format.
+                    WebVTT specification
+                  </a>
+                  .
                   <br />
                   The tool handles both formats automatically.
                 </p>
@@ -731,6 +709,35 @@ export default function SubtitleTimeShifterPage() {
                   <br />
                   Text, cue numbers, and formatting remain untouched.
                 </p>
+
+                <h3 className={h3}>Before and After: A +2 Second Shift</h3>
+                <p className={p}>
+                  Here is the same SRT cue before and after shifting every
+                  timestamp forward by 2 seconds. Only the times change {"\u2014"}{" "}
+                  the cue number and the text stay identical.
+                </p>
+                <div className="my-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <div>
+                    <div className="mb-2 text-sm font-semibold text-[#1e293b]">
+                      Before (original)
+                    </div>
+                    <pre className="overflow-x-auto rounded-[10px] border border-gray-200 bg-gray-50 p-3 text-sm leading-relaxed text-[#334155]">
+                      <code>{`1
+00:00:05,000 --> 00:00:07,500
+Welcome to the show.`}</code>
+                    </pre>
+                  </div>
+                  <div>
+                    <div className="mb-2 text-sm font-semibold text-[#1e293b]">
+                      After (shifted +2s)
+                    </div>
+                    <pre className="overflow-x-auto rounded-[10px] border border-gray-200 bg-gray-50 p-3 text-sm leading-relaxed text-[#334155]">
+                      <code>{`1
+00:00:07,000 --> 00:00:09,500
+Welcome to the show.`}</code>
+                    </pre>
+                  </div>
+                </div>
                 <p className={p}> </p>
 
                 <h2 className={h2}>
@@ -810,23 +817,23 @@ export default function SubtitleTimeShifterPage() {
                   tools to refine, convert, or clean your subtitles:
                 </p>
                 <p className={p}>
-                  <a href="/srt-to-vtt-converter/" className={linkClass}>
+                  <a href="/srt-to-vtt-converter" className={linkClass}>
                     SRT to VTT Converter
                   </a>
                   <br />
-                  <a href="/vtt-to-srt-converter/" className={linkClass}>
+                  <a href="/vtt-to-srt-converter" className={linkClass}>
                     VTT to SRT Converter
                   </a>
                   <br />
-                  <a href="/subtitle-merger/" className={linkClass}>
+                  <a href="/subtitle-merger" className={linkClass}>
                     Subtitle Merger
                   </a>
                   <br />
-                  <a href="/subtitle-splitter/" className={linkClass}>
+                  <a href="/subtitle-splitter" className={linkClass}>
                     Subtitle Splitter
                   </a>
                   <br />
-                  <a href="/subtitle-overlap-fixer/" className={linkClass}>
+                  <a href="/subtitle-overlap-fixer" className={linkClass}>
                     Subtitle Overlap Fixer
                   </a>
                 </p>
@@ -861,9 +868,8 @@ export default function SubtitleTimeShifterPage() {
                   Frequently Asked Questions (FAQ)
                 </h2>
                 <p className={p}>
-                  Incorrect timestamp formatting (wrong separators or
-                  hours/minutes placement) makes subtitles unreadable to video
-                  players. This tool preserves proper formatting automatically.
+                  Common questions about shifting subtitle timing, fixing sync
+                  problems, and working with SRT and VTT files in your browser.
                 </p>
                 <FaqAccordion rows={faqRows} />
               </div>
