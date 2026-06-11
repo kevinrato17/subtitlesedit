@@ -2,11 +2,12 @@ import Head from "next/head";
 import Script from "next/script";
 import Layout from "@/components/Layout";
 import ToolPageGradientHero from "@/components/ToolPageGradientHero";
+import { useState } from "react";
 
 const section =
   "mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-[3rem] py-10 lg:py-12";
 const h2 =
-  "text-[1.875rem] font-semibold leading-snug text-[#1e293b] mb-4 mt-2";
+  "text-[1.875rem] font-semibold leading-snug text-[#1e293b] mb-4 mt-12";
 const h3 = "text-xl font-semibold text-[#1e293b] mb-3 mt-8";
 const p =
   "mb-4 text-[#334155] leading-relaxed [&_strong]:font-semibold [&_strong]:text-[#1e293b]";
@@ -19,7 +20,7 @@ const META_DESC =
 
 const PAGE_TITLE = "Subtitle Merger Online Free | Subtitles Edit";
 
-const rankMathSchema = {
+const pageSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -34,20 +35,20 @@ const rankMathSchema = {
         url: "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
         contentUrl:
           "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
-        caption: "https://subtitlesedit.com",
+        caption: "Subtitles Edit",
         inLanguage: "en-US",
-        width: "500",
-        height: "500",
+        width: 500,
+        height: 500,
       },
       description:
-        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online \u2014 no software installation or sign-up required.\n\nOur simple, privacy-friendly tools include SRT to VTT converters, subtitle mergers, splitters, time shifters, and overlap fixers that work instantly right in your browser. Whether you need to convert SRT to WebVTT, resync subtitles, or fix overlapping cues, Subtitles Edit makes it quick and effortless.\n\nTrusted by content creators worldwide, we focus on speed, accuracy, and simplicity, helping you make every subtitle perfectly timed and platform-ready.",
+        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online \u2014 no software installation or sign-up required.",
     },
     {
       "@type": "WebSite",
       "@id": "https://subtitlesedit.com/#website",
       url: "https://subtitlesedit.com",
-      name: "https://subtitlesedit.com",
-      alternateName: "Subtitles Edit",
+      name: "Subtitles Edit",
+      alternateName: "SubtitlesEdit.com",
       publisher: { "@id": "https://subtitlesedit.com/#organization" },
       inLanguage: "en-US",
     },
@@ -55,81 +56,81 @@ const rankMathSchema = {
       "@type": "ImageObject",
       "@id": OG_IMG,
       url: OG_IMG,
-      width: "200",
-      height: "200",
+      contentUrl: OG_IMG,
+      caption: "Subtitle Merger",
+      width: 1024,
+      height: 538,
       inLanguage: "en-US",
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://subtitlesedit.com/subtitle-merger/#breadcrumb",
+      "@id": "https://subtitlesedit.com/subtitle-merger#breadcrumb",
       itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://subtitlesedit.com" },
         {
           "@type": "ListItem",
-          position: "1",
-          item: { "@id": "https://subtitlesedit.com", name: "Home" },
-        },
-        {
-          "@type": "ListItem",
-          position: "2",
-          item: {
-            "@id": "https://subtitlesedit.com/subtitle-merger/",
-            name: "Subtitle Merger to Merge Subtitles Instantly (SRT & VTT)",
-          },
+          position: 2,
+          name: "Subtitle Merger",
+          item: "https://subtitlesedit.com/subtitle-merger",
         },
       ],
     },
     {
       "@type": "WebPage",
-      "@id": "https://subtitlesedit.com/subtitle-merger/#webpage",
-      url: "https://subtitlesedit.com/subtitle-merger/",
-      name: "Subtitle Merger \u2013 Merge Subtitles (SRT & VTT) Instantly",
-      datePublished: "2025-11-04T17:22:27+00:00",
-      dateModified: "2025-11-29T13:11:57+00:00",
+      "@id": "https://subtitlesedit.com/subtitle-merger#webpage",
+      url: "https://subtitlesedit.com/subtitle-merger",
+      name: PAGE_TITLE,
       isPartOf: { "@id": "https://subtitlesedit.com/#website" },
       primaryImageOfPage: { "@id": OG_IMG },
+      breadcrumb: { "@id": "https://subtitlesedit.com/subtitle-merger#breadcrumb" },
+      mainEntity: { "@id": "https://subtitlesedit.com/subtitle-merger#tool" },
       inLanguage: "en-US",
-      breadcrumb: {
-        "@id": "https://subtitlesedit.com/subtitle-merger/#breadcrumb",
-      },
     },
     {
-      "@type": "Person",
-      "@id": "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-      name: "Subtitles Edit",
-      url: "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-      image: {
-        "@type": "ImageObject",
-        "@id":
-          "https://secure.gravatar.com/avatar/dadac46feb548479fffced65ed9edb7cba49be5576172058b3b522c2bf0267b6?s=96&d=mm&r=g",
-        url: "https://secure.gravatar.com/avatar/dadac46feb548479fffced65ed9edb7cba49be5576172058b3b522c2bf0267b6?s=96&d=mm&r=g",
-        caption: "Subtitles Edit",
-        inLanguage: "en-US",
-      },
-      sameAs: ["http://subtitlesedit.com"],
-      worksFor: { "@id": "https://subtitlesedit.com/#organization" },
-    },
-    {
-      "@type": "Article",
-      headline: "Subtitle Merger \u2013 Merge Subtitles (SRT & VTT) Instantly",
-      keywords: "Subtitle Merger",
-      datePublished: "2025-11-04T17:22:27+00:00",
-      dateModified: "2025-11-29T13:11:57+00:00",
-      author: {
-        "@id": "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-        name: "Subtitles Edit",
-      },
+      "@type": "SoftwareApplication",
+      "@id": "https://subtitlesedit.com/subtitle-merger#tool",
+      name: "Subtitle Merger",
+      url: "https://subtitlesedit.com/subtitle-merger",
+      applicationCategory: "MultimediaApplication",
+      operatingSystem: "Any (runs in a web browser)",
+      browserRequirements: "Requires a modern web browser with JavaScript enabled",
+      description:
+        "A free, browser-based tool that combines multiple SRT or VTT subtitle files into one. It orders every cue by start time, renumbers the result, and exports as SRT or WebVTT. All processing happens locally in your browser with no uploads or sign-up.",
+      isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      featureList: [
+        "Combines multiple SRT and VTT files into one",
+        "Orders cues chronologically by start time",
+        "Automatic SRT cue renumbering",
+        "Export as SRT or WebVTT",
+        "Runs entirely in the browser with no uploads",
+      ],
       publisher: { "@id": "https://subtitlesedit.com/#organization" },
-      description: META_DESC,
-      name: "Subtitle Merger \u2013 Merge Subtitles (SRT & VTT) Instantly",
-      "@id": "https://subtitlesedit.com/subtitle-merger/#richSnippet",
-      isPartOf: {
-        "@id": "https://subtitlesedit.com/subtitle-merger/#webpage",
-      },
-      image: { "@id": OG_IMG },
       inLanguage: "en-US",
-      mainEntityOfPage: {
-        "@id": "https://subtitlesedit.com/subtitle-merger/#webpage",
-      },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://subtitlesedit.com/subtitle-merger#faq",
+      mainEntity: [
+        { "@type": "Question", name: "How do I merge SRT files into one subtitle file?", acceptedAnswer: { "@type": "Answer", text: "Choose your SRT files in any order, then click Merge Files. The tool sorts every cue by its start time, combines them into one clean SRT file, and renumbers the cues automatically." } },
+        { "@type": "Question", name: "Can I merge VTT or WebVTT subtitle files?", acceptedAnswer: { "@type": "Answer", text: "Yes. The subtitle merger supports both VTT and WebVTT files." } },
+        { "@type": "Question", name: "Does this subtitle merger work with different languages?", acceptedAnswer: { "@type": "Answer", text: "Yes. The tool merges subtitles in any language, such as English, Spanish, Arabic, or Hindi, including mixed-language tracks, without affecting characters, accents, or Unicode formatting." } },
+        { "@type": "Question", name: "Can I merge subtitle files offline in my browser?", acceptedAnswer: { "@type": "Answer", text: "Yes. All merging happens locally in your browser using JavaScript. Nothing uploads to a server, making this a private, offline-friendly merging tool." } },
+        { "@type": "Question", name: "Can I edit the merged subtitle file afterward?", acceptedAnswer: { "@type": "Answer", text: "Yes. After merging, you can open the combined file in any subtitle editor, or in tools like the Subtitle Splitter or Subtitle Time Shifter, or your preferred text editor." } },
+        { "@type": "Question", name: "Does the tool renumber cues automatically?", acceptedAnswer: { "@type": "Answer", text: "Yes. SRT cue numbers are automatically renumbered from start to finish in the correct sequence, so your merged file stays clean and structured. VTT output does not use numeric cue indexes." } },
+        { "@type": "Question", name: "Will merging change the timing of subtitles?", acceptedAnswer: { "@type": "Answer", text: "No. Every cue keeps its exact original timestamps; the tool only sorts and combines, it never re-times anything. If two files cover overlapping time ranges, their cues are interleaved by start time but not adjusted, so use the Subtitle Overlap Fixer afterward if cues collide." } },
+        { "@type": "Question", name: "Can I merge subtitles for multi-part episodes or movies?", acceptedAnswer: { "@type": "Answer", text: "Yes, as long as the timestamps of each part continue in sequence. The tool orders every cue by its absolute start time, so if Part 2 and Part 3 each restart at 00:00 their cues will interleave with Part 1. Shift each later part with the Subtitle Time Shifter first, then merge." } },
+        { "@type": "Question", name: "Does merging affect formatting such as italics or line breaks?", acceptedAnswer: { "@type": "Answer", text: "Inline formatting carries over, including italics, bold, line breaks, and speaker labels. Note that VTT cue settings such as line: or align:, and named cue identifiers, are not carried into the merged file; only the timing and text are kept." } },
+        { "@type": "Question", name: "Can I merge large SRT files with thousands of lines?", acceptedAnswer: { "@type": "Answer", text: "Yes. The tool handles large subtitle files efficiently because merging happens directly in your browser without server limits." } },
+        { "@type": "Question", name: "How do I merge subtitles from different software or platforms?", acceptedAnswer: { "@type": "Answer", text: "Export your subtitles as SRT or VTT and choose them in the tool. It merges files from YouTube, Adobe Premiere, DaVinci Resolve, Aegisub, and any subtitle generator." } },
+        { "@type": "Question", name: "Is the subtitle merger a software or an online tool?", acceptedAnswer: { "@type": "Answer", text: "The subtitle merger behaves like offline software but runs in your browser. All processing is local, so it is technically an online tool with offline functionality." } },
+        { "@type": "Question", name: "Does the tool support both SRT and VTT merging equally well?", acceptedAnswer: { "@type": "Answer", text: "Yes. Both formats merge accurately and you can mix SRT and VTT inputs. Timestamps and cue numbering are handled based on the output format you choose." } },
+        { "@type": "Question", name: "What is the best way to merge subtitles without losing data?", acceptedAnswer: { "@type": "Answer", text: "Use clean, well-formatted files whose timestamps run in sequence, or shift later parts first. Because the tool orders cues by start time, files with continuous, non-overlapping timing merge seamlessly into one file." } },
+        { "@type": "Question", name: "Why do some merged files show duplicates or gaps?", acceptedAnswer: { "@type": "Answer", text: "Duplicates can occur if two files contain cues at similar timestamps, since the tool does not remove repeats. Gaps appear when there is a long time difference between file segments." } },
+        { "@type": "Question", name: "Can this tool replace a professional subtitle editor?", acceptedAnswer: { "@type": "Answer", text: "No. This tool merges subtitles only. For rewriting text, fixing grammar, adjusting timing, or editing styles, use a full subtitle editor." } },
+        { "@type": "Question", name: "Is it safe to merge subtitles directly in my browser?", acceptedAnswer: { "@type": "Answer", text: "Yes. Your files never leave your device. Nothing is uploaded, stored, or processed on a server, making the tool secure for personal and professional work." } },
+        { "@type": "Question", name: "Can I merge subtitles and then convert them to another format?", acceptedAnswer: { "@type": "Answer", text: "Yes. You can set the output format to SRT or WebVTT before merging, or run the merged file through the SRT to VTT Converter or VTT to SRT Converter afterward." } },
+      ],
     },
   ],
 };
@@ -138,6 +139,13 @@ const converterActionBtnClass =
   "inline-flex items-center justify-center rounded-[10px] bg-[#0ea5e9] px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#0284c7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0ea5e9] disabled:cursor-not-allowed disabled:opacity-60";
 
 function MergerTool() {
+  const [fileNames, setFileNames] = useState([]);
+
+  const handleFilesChosen = (e) => {
+    const files = e.target.files ? Array.from(e.target.files) : [];
+    setFileNames(files.map((f) => f.name));
+  };
+
   return (
     <section className="se-scope mx-auto my-8 max-w-[820px] font-[system-ui,-apple-system,Segoe_UI,Roboto,Arial,sans-serif]">
       <p className="mb-4 mt-1 text-[#6b7280]">
@@ -167,17 +175,36 @@ function MergerTool() {
           accept=".srt,.vtt,text/plain"
           multiple
           type="file"
+          onChange={handleFilesChosen}
         />
         <label
           htmlFor="mergeFiles"
           className={`${converterActionBtnClass} cursor-pointer`}
         >
-          Choose File
+          Choose Files
         </label>
         <button type="button" id="btnMerge" className={converterActionBtnClass}>
           Merge Files
         </button>
       </div>
+
+      {fileNames.length > 0 ? (
+        <div
+          className="mb-4 rounded-[10px] border border-gray-200 bg-[#f8fafc] p-3 text-sm text-[#334155]"
+          aria-live="polite"
+        >
+          <p className="mb-1 font-medium text-[#111827]">
+            {fileNames.length} file{fileNames.length === 1 ? "" : "s"} added
+          </p>
+          <ul className="list-disc pl-5">
+            {fileNames.map((name, i) => (
+              <li key={`${name}-${i}`} className="break-all">
+                {name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
 
       <textarea
         id="mergeOut"
@@ -205,6 +232,7 @@ function MergerTool() {
           type="button"
           id="btnMergeClear"
           className={`${converterActionBtnClass} ml-2`}
+          onClick={() => setFileNames([])}
         >
           Clear
         </button>
@@ -247,187 +275,199 @@ const faqRows = [
   {
     id: "e-n-accordion-item-1800",
     open: true,
-    q: " How do I merge SRT files into one subtitle file? ",
+    q: "How do I merge SRT files into one subtitle file?",
     body: (
       <p>
-        Upload or paste your SRT files into the tool, arrange them in the
-        correct order, and click {"\u201cMerge Subtitles,\u201d"} The tool
-        instantly combines them into one clean SRT file with correct cue
-        numbering.
+        Choose your SRT files in any order, then click Merge Files. The tool sorts
+        every cue by its start time, combines them into one clean SRT file, and
+        renumbers the cues automatically.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-1801",
-    q: " Can I merge VTT or WebVTT subtitle files? ",
-    body: <p>Yes. The subtitle merger supports both VTT and WebVTT files. </p>,
+    q: "Can I merge VTT or WebVTT subtitle files?",
+    body: <p>Yes. The subtitle merger supports both VTT and WebVTT files.</p>,
   },
   {
     id: "e-n-accordion-item-1802",
-    q: " Does this subtitle merger work with different languages? ",
+    q: "Does this subtitle merger work with different languages?",
     body: (
       <p>
-        Yes. The tool merges subtitles in any language {"\u2014"} English,
-        Spanish, Arabic, Hindi, or mixed language tracks {"\u2014"} without
-        affecting characters, accents, or Unicode formatting.
+        Yes. The tool merges subtitles in any language, such as English, Spanish,
+        Arabic, or Hindi, including mixed-language tracks, without affecting
+        characters, accents, or Unicode formatting.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-1803",
-    q: " Can I merge subtitle files offline in my browser? ",
+    q: "Can I merge subtitle files offline in my browser?",
     body: (
       <p>
-        Yes. All merging happens locally in your browser using JavaScript.
-        Nothing uploads to a server, making this a private, offline-friendly
-        merging tool.
+        Yes. All merging happens locally in your browser using JavaScript. Nothing
+        uploads to a server, making this a private, offline-friendly merging tool.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-1804",
-    q: " Can I edit the merged subtitle file afterward? ",
+    q: "Can I edit the merged subtitle file afterward?",
     body: (
       <p>
-        Yes. After merging, you can open the combined file in any subtitle
-        editor or in tools like subtitle splitter, time shifter, or your
-        preferred text editor.
+        Yes. After merging, you can open the combined file in any subtitle editor, or
+        in tools like the{" "}
+        <a href="/subtitle-splitter" className={linkClass}>Subtitle Splitter</a> or{" "}
+        <a href="/subtitle-time-shifter" className={linkClass}>Subtitle Time Shifter</a>,
+        or your preferred text editor.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-1805",
-    q: " Does the tool renumber cues automatically? ",
+    q: "Does the tool renumber cues automatically?",
     body: (
       <p>
-        Yes. Cue numbers are automatically renumbered from start to finish in
-        the correct sequence, ensuring your merged file remains clean and
-        structured.
+        Yes. SRT cue numbers are automatically renumbered from start to finish in the
+        correct sequence, so your merged file stays clean and structured. VTT output
+        does not use numeric cue indexes.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-1806",
-    q: " Will merging change the timing of subtitles? ",
+    q: "Will merging change the timing of subtitles?",
     body: (
       <p>
-        No. Each file keeps its original timestamps. Timing only changes if the
-        original files contain overlapping or incorrect timestamps.
+        No. Every cue keeps its exact original timestamps; the tool only sorts and
+        combines, it never re-times anything. If two files cover overlapping time
+        ranges, their cues are interleaved by start time but not adjusted, so use the{" "}
+        <a href="/subtitle-overlap-fixer" className={linkClass}>Subtitle Overlap Fixer</a>{" "}
+        afterward if cues collide.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-1807",
-    q: " Can I merge subtitles for multi-part episodes or movies? ",
+    q: "Can I merge subtitles for multi-part episodes or movies?",
     body: (
       <p>
-        Absolutely. This tool is ideal for joining subtitles from split videos
-        such as Part 1, Part 2, and Part 3 into one continuous subtitle file.
+        Yes, as long as the timestamps of each part continue in sequence. The tool
+        orders every cue by its absolute start time, so if Part 2 and Part 3 each
+        restart at 00:00 their cues will interleave with Part 1. Shift each later part
+        with the{" "}
+        <a href="/subtitle-time-shifter" className={linkClass}>Subtitle Time Shifter</a>{" "}
+        first, then merge.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-1808",
-    q: " Does merging affect formatting such as italics or line breaks? ",
+    q: "Does merging affect formatting such as italics or line breaks?",
     body: (
       <p>
-        No. Formatting is preserved exactly as in the original files, including
-        italics, bold cues, line breaks, and speaker labels.
+        Inline formatting carries over, including italics, bold, line breaks, and
+        speaker labels. Note that VTT cue settings such as line: or align:, and named
+        cue identifiers, are not carried into the merged file; only the timing and text
+        are kept.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-1809",
-    q: " Can I merge large SRT files with thousands of lines? ",
+    q: "Can I merge large SRT files with thousands of lines?",
     body: (
       <p>
-        Yes. The tool handles large subtitle files efficiently because merging
-        happens directly in your browser without server limits.
+        Yes. The tool handles large subtitle files efficiently because merging happens
+        directly in your browser without server limits.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-18010",
-    q: " How do I merge subtitles from different software or platforms? ",
+    q: "How do I merge subtitles from different software or platforms?",
     body: (
       <p>
-        Export your subtitles as SRT or VTT and upload them. The tool merges
-        files from YouTube, Adobe Premiere, DaVinci Resolve, Aegisub, and any
-        subtitle generator.
+        Export your subtitles as SRT or VTT and choose them in the tool. It merges
+        files from YouTube, Adobe Premiere, DaVinci Resolve, Aegisub, and any subtitle
+        generator.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-18011",
-    q: " Is subtitle merger tool a software or an online tool? ",
+    q: "Is the subtitle merger a software or an online tool?",
     body: (
       <p>
-        Subtitles Merger tool behaves like offline software but runs in your
-        browser. All processing is local, so it{"\u2019"}s technically an
-        online tool with offline functionality.
+        The subtitle merger behaves like offline software but runs in your browser. All
+        processing is local, so it is technically an online tool with offline
+        functionality.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-18012",
-    q: " Does the tool support both SRT and VTT merging equally well? ",
+    q: "Does the tool support both SRT and VTT merging equally well?",
     body: (
       <p>
-        Yes. Both formats merge accurately. Timestamps and cue numbering are
-        handled based on the format you upload.
+        Yes. Both formats merge accurately and you can mix SRT and VTT inputs.
+        Timestamps and cue numbering are handled based on the output format you choose.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-18013",
-    q: " What is the best way to merge subtitles without losing data? ",
+    q: "What is the best way to merge subtitles without losing data?",
     body: (
       <p>
-        Merge clean, well-formatted subtitle files and ensure they are arranged
-        in the correct order. This guarantees a seamless final subtitle file.
+        Use clean, well-formatted files whose timestamps run in sequence, or shift later
+        parts first. Because the tool orders cues by start time, files with continuous,
+        non-overlapping timing merge seamlessly into one file.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-18014",
-    q: " Why do some merged files show duplicates or gaps? ",
+    q: "Why do some merged files show duplicates or gaps?",
     body: (
       <p>
-        Duplicates occur if two files contain similar timestamps. Gaps appear if
-        there{"\u2019"}s a long time difference between file segments.
+        Duplicates can occur if two files contain cues at similar timestamps, since the
+        tool does not remove repeats. Gaps appear when there is a long time difference
+        between file segments.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-18015",
-    q: " Can this tool replace a professional subtitle editor? ",
+    q: "Can this tool replace a professional subtitle editor?",
     body: (
       <p>
-        This tool merges subtitles only. For rewriting text, fixing grammar,
-        adjusting timing, or editing styles, you should use a full subtitle
-        editor.
+        No. This tool merges subtitles only. For rewriting text, fixing grammar,
+        adjusting timing, or editing styles, use a full subtitle editor.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-18016",
-    q: " Is it safe to merge subtitles directly in my browser? ",
+    q: "Is it safe to merge subtitles directly in my browser?",
     body: (
-      <p data-start="4425" data-end="4644">
+      <p>
         Yes. Your files never leave your device. Nothing is uploaded, stored, or
-        processed on a server, making the tool secure for personal and
-        professional work.
+        processed on a server, making the tool secure for personal and professional
+        work.
       </p>
     ),
   },
   {
     id: "e-n-accordion-item-18017",
-    q: " Can I merge subtitles and then convert them to another format? ",
+    q: "Can I merge subtitles and then convert them to another format?",
     body: (
       <p>
-        Yes. After merging, you can use tools like {"\u201c"}SRT to VTT
-        Converter{"\u201d"} or {"\u201c"}VTT to SRT Converter{"\u201d"} to
-        convert the merged file to your desired format.
+        Yes. You can set the output format to SRT or WebVTT before merging, or run the
+        merged file through the{" "}
+        <a href="/srt-to-vtt-converter" className={linkClass}>SRT to VTT Converter</a> or{" "}
+        <a href="/vtt-to-srt-converter" className={linkClass}>VTT to SRT Converter</a>{" "}
+        afterward.
       </p>
     ),
   },
@@ -443,39 +483,23 @@ export default function SubtitleMergerPage() {
           name="robots"
           content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
         />
-        <link rel="canonical" href="https://subtitlesedit.com/subtitle-merger/" />
+        <link rel="canonical" href="https://subtitlesedit.com/subtitle-merger" />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Subtitles Edit" />
         <meta property="og:title" content={PAGE_TITLE} />
         <meta property="og:description" content={META_DESC} />
-        <meta
-          property="og:url"
-          content="https://subtitlesedit.com/subtitle-merger/"
-        />
-        <meta property="og:site_name" content="https://subtitlesedit.com" />
-        <meta property="og:updated_time" content="2025-11-29T13:11:57+00:00" />
+        <meta property="og:url" content="https://subtitlesedit.com/subtitle-merger" />
         <meta property="og:image" content={OG_IMG} />
         <meta property="og:image:secure_url" content={OG_IMG} />
         <meta property="og:image:alt" content="Subtitle Merger" />
-        <meta
-          property="article:published_time"
-          content="2025-11-04T17:22:27+00:00"
-        />
-        <meta
-          property="article:modified_time"
-          content="2025-11-29T13:11:57+00:00"
-        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={META_DESC} />
         <meta name="twitter:image" content={OG_IMG} />
-        <meta name="twitter:label1" content="Time to read" />
-        <meta name="twitter:data1" content="8 minutes" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(rankMathSchema),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
         />
       </Head>
 
@@ -515,15 +539,15 @@ export default function SubtitleMergerPage() {
                   What a Subtitle Merger Does and When You Need It
                 </h2>
                 <p className={p}>
-                  A <strong>subtitle merger</strong> combines two or more subtitle
+                  A subtitle merger combines two or more subtitle
                   files into one continuous file. If you{"\u2019"}re working with
                   split videos, multi-language subtitles, or separate caption
                   tracks, merging subtitles keeps your workflow simple and
                   organized.
                 </p>
                 <p className={p}>
-                  Merge multiple subtitle files into one clean, structured{" "}
-                  <strong>SRT or VTT</strong> file in seconds. This subtitle
+                  Merge multiple subtitle files into one clean, structured SRT or VTT
+                  file in seconds. This subtitle
                   merger helps you combine subtitles quickly and accurately{" "}
                   {"\u2014"} ideal for multi-part videos, translations,
                   compilations, and editing workflows. Everything runs offline in
@@ -567,7 +591,7 @@ export default function SubtitleMergerPage() {
                 </p>
 
                 <h3 className={h3}>
-                  1. Upload or Paste Multiple SRT/VTT Files
+                  1. Choose Multiple SRT/VTT Files
                 </h3>
                 <p className={p}>
                   Add your subtitle files in any order. The tool supports both{" "}
@@ -579,7 +603,7 @@ export default function SubtitleMergerPage() {
                 </h3>
                 <p className={p}>
                   Click {"\u201c"}
-                  <strong>Merge Subtitles</strong>
+                  <strong>Merge Files</strong>
                   ,{"\u201d"} and the tool instantly generates a new subtitle file.
                   Download it and use it in your video editor or player.
                 </p>
@@ -650,8 +674,8 @@ export default function SubtitleMergerPage() {
 
                 <h2 className={h2}>What Happens During a Subtitle Merge?</h2>
                 <p className={p}>
-                  Understanding how <strong>subtitle merger</strong> subtitles helps
-                  you trust the accuracy of the final output.
+                  Understanding how the subtitle merger works helps you trust the
+                  accuracy of the final output.
                 </p>
 
                 <h3 className={h3}>How Timestamp Ranges Are Preserved</h3>
@@ -662,9 +686,11 @@ export default function SubtitleMergerPage() {
                 </p>
 
                 <h3 className={h3}>How Formatting Is Kept Intact</h3>
-                <p data-start="3897" data-end="4016">
-                  Line breaks, italics, styles, and basic formatting are preserved
-                  so the merged file looks correct in all media players.
+                <p className={p}>
+                  Line breaks, italics, bold, and inline text formatting are preserved
+                  so the merged file reads correctly in media players. VTT positioning
+                  and cue settings are not carried over {"\u2014"} only the timing and
+                  text are kept.
                 </p>
                 <p data-start="3897" data-end="4016"> </p>
 
@@ -680,9 +706,14 @@ export default function SubtitleMergerPage() {
                   Merging Subtitles for Split Videos (Part 1, Part 2, Part 3)
                 </h3>
                 <p className={p}>
-                  If your subtitles correspond to different segments of a video,
-                  merging them produces a <strong>single, continuous</strong>{" "}
-                  subtitle file.
+                  If each part continues in sequence, merging produces a single,
+                  continuous subtitle file. Because cues are ordered by absolute start
+                  time, a later part that restarts at 00:00 will interleave with the
+                  first {"\u2014"} shift it with the{" "}
+                  <a href="/subtitle-time-shifter" className={linkClass}>
+                    Subtitle Time Shifter
+                  </a>{" "}
+                  before merging.
                 </p>
 
                 <h3 className={h3}>
@@ -728,33 +759,36 @@ export default function SubtitleMergerPage() {
 
                 <h2 className={h2}>Related Subtitle Tools</h2>
                 <p className={p}>
-                  In addition of <strong>Subtitle Merger</strong>, we have below
-                  tools for <strong>editing subtitles</strong>
+                  In addition to the subtitle merger, we have these tools for editing
+                  subtitles:
                 </p>
-                <p className={p}>
-                  <a href="/subtitle-time-shifter" className={linkClass}>
-                    Subtitle Time Shifter
-                  </a>
-                  <br />
-                  <a href="/srt-to-vtt-converter/" className={linkClass}>
-                    SRT to VTT Converter
-                  </a>
-                  <br />
-                  <a href="/vtt-to-srt-converter/" className={linkClass}>
-                    VTT to SRT Converter
-                  </a>
-                  <br />
-                  <a href="/subtitle-splitter/" className={linkClass}>
-                    Subtitle Splitter
-                  </a>
-                  <br />
-                  <a href="/subtitle-overlap-fixer/" className={linkClass}>
-                    Subtitle{" "}
-                  </a>
-                  <a href="/subtitle-overlap-fixer/" className={linkClass}>
-                    Overlap Fixer
-                  </a>
-                </p>
+                <ul className="mb-4 ml-6 list-disc space-y-2 text-[#334155]">
+                  <li>
+                    <a href="/subtitle-time-shifter" className={linkClass}>
+                      Subtitle Time Shifter
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/srt-to-vtt-converter" className={linkClass}>
+                      SRT to VTT Converter
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/vtt-to-srt-converter" className={linkClass}>
+                      VTT to SRT Converter
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/subtitle-splitter" className={linkClass}>
+                      Subtitle Splitter
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/subtitle-overlap-fixer" className={linkClass}>
+                      Subtitle Overlap Fixer
+                    </a>
+                  </li>
+                </ul>
 
                 <h2 className={h2}>
                   Why Choose SubtitlesEdit.com for Subtitle Merging?
