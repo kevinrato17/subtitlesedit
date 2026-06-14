@@ -6,27 +6,27 @@ import ToolPageGradientHero from "@/components/ToolPageGradientHero";
 const section =
   "mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-[3rem] py-10 lg:py-12";
 const h2 =
-  "text-[1.875rem] font-semibold leading-snug text-[#1e293b] mb-4 mt-2";
+  "text-[1.875rem] font-semibold leading-snug text-[#1e293b] mb-4 mt-12";
 const h3 = "text-xl font-semibold text-[#1e293b] mb-3 mt-8";
 const p =
   "mb-4 text-[#334155] leading-relaxed [&_strong]:font-semibold [&_strong]:text-[#1e293b]";
 
-const OG_IMG =
-  "https://subtitlesedit.com/wp-content/uploads/2025/11/Subtitle-Overlap-Fixer-tool-1024x538.webp";
+const PAGE_TITLE =
+  "Subtitle Overlap Fixer Online Free | Subtitles Edit";
 
 const META_DESC =
   "Fix overlapping subtitles online for free. Detect and correct overlapping cue timings in SRT and VTT files instantly in your browser.";
 
-const PAGE_TITLE =
-  "Subtitle Overlap Fixer Online Free | Subtitles Edit";
+const OG_IMG =
+  "https://subtitlesedit.com/wp-content/uploads/2025/11/Subtitle-Overlap-Fixer-tool-1024x538.webp";
 
-const rankMathSchema = {
+const pageSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Organization",
       "@id": "https://subtitlesedit.com/#organization",
-      name: "Subtitlesedit.com",
+      name: "Subtitles Edit",
       url: "https://subtitlesedit.com",
       email: "support@subtitlesedit.com",
       logo: {
@@ -35,102 +35,176 @@ const rankMathSchema = {
         url: "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
         contentUrl:
           "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
-        caption: "https://subtitlesedit.com",
+        caption: "Subtitles Edit",
         inLanguage: "en-US",
-        width: "500",
-        height: "500",
+        width: 500,
+        height: 500,
       },
       description:
-        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online \u2014 no software installation or sign-up required.\n\nOur simple, privacy-friendly tools include SRT to VTT converters, subtitle mergers, splitters, time shifters, and overlap fixers that work instantly right in your browser. Whether you need to convert SRT to WebVTT, resync subtitles, or fix overlapping cues, Subtitles Edit makes it quick and effortless.\n\nTrusted by content creators worldwide, we focus on speed, accuracy, and simplicity, helping you make every subtitle perfectly timed and platform-ready.",
+        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online — no software installation or sign-up required.",
     },
     {
       "@type": "WebSite",
       "@id": "https://subtitlesedit.com/#website",
       url: "https://subtitlesedit.com",
-      name: "https://subtitlesedit.com",
-      alternateName: "Subtitles Edit",
+      name: "Subtitles Edit",
       publisher: { "@id": "https://subtitlesedit.com/#organization" },
       inLanguage: "en-US",
     },
     {
-      "@type": "ImageObject",
-      "@id": OG_IMG,
-      url: OG_IMG,
-      width: "200",
-      height: "200",
-      inLanguage: "en-US",
-    },
-    {
       "@type": "BreadcrumbList",
-      "@id": "https://subtitlesedit.com/subtitle-overlap-fixer/#breadcrumb",
+      "@id": "https://subtitlesedit.com/subtitle-overlap-fixer#breadcrumb",
       itemListElement: [
         {
           "@type": "ListItem",
-          position: "1",
-          item: { "@id": "https://subtitlesedit.com", name: "Home" },
+          position: 1,
+          name: "Home",
+          item: "https://subtitlesedit.com",
         },
         {
           "@type": "ListItem",
-          position: "2",
-          item: {
-            "@id": "https://subtitlesedit.com/subtitle-overlap-fixer/",
-            name: "Subtitle Overlap Fixer to Remove Overlapping Subtitles Instantly (SRT & VTT)",
-          },
+          position: 2,
+          name: "Subtitle Overlap Fixer",
+          item: "https://subtitlesedit.com/subtitle-overlap-fixer",
         },
       ],
     },
     {
       "@type": "WebPage",
-      "@id": "https://subtitlesedit.com/subtitle-overlap-fixer/#webpage",
-      url: "https://subtitlesedit.com/subtitle-overlap-fixer/",
-      name: "Subtitle Overlap Fixer \u2013 Remove Overlapping Subtitles (SRT & VTT)",
-      datePublished: "2025-11-04T17:24:23+00:00",
-      dateModified: "2025-12-04T05:30:59+00:00",
-      isPartOf: { "@id": "https://subtitlesedit.com/#website" },
-      primaryImageOfPage: { "@id": OG_IMG },
-      inLanguage: "en-US",
-      breadcrumb: {
-        "@id": "https://subtitlesedit.com/subtitle-overlap-fixer/#breadcrumb",
-      },
-    },
-    {
-      "@type": "Person",
-      "@id": "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-      name: "Subtitles Edit",
-      url: "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-      image: {
-        "@type": "ImageObject",
-        "@id":
-          "https://secure.gravatar.com/avatar/dadac46feb548479fffced65ed9edb7cba49be5576172058b3b522c2bf0267b6?s=96&d=mm&r=g",
-        url: "https://secure.gravatar.com/avatar/dadac46feb548479fffced65ed9edb7cba49be5576172058b3b522c2bf0267b6?s=96&d=mm&r=g",
-        caption: "Subtitles Edit",
-        inLanguage: "en-US",
-      },
-      sameAs: ["http://subtitlesedit.com"],
-      worksFor: { "@id": "https://subtitlesedit.com/#organization" },
-    },
-    {
-      "@type": "Article",
-      headline: "Subtitle Overlap Fixer \u2013 Remove Overlapping Subtitles (SRT & VTT)",
-      keywords: "Subtitle Overlap Fixer",
-      datePublished: "2025-11-04T17:24:23+00:00",
-      dateModified: "2025-12-04T05:30:59+00:00",
-      author: {
-        "@id": "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-        name: "Subtitles Edit",
-      },
-      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      "@id": "https://subtitlesedit.com/subtitle-overlap-fixer#webpage",
+      url: "https://subtitlesedit.com/subtitle-overlap-fixer",
+      name: PAGE_TITLE,
       description: META_DESC,
-      name: "Subtitle Overlap Fixer \u2013 Remove Overlapping Subtitles (SRT & VTT)",
-      "@id": "https://subtitlesedit.com/subtitle-overlap-fixer/#richSnippet",
-      isPartOf: {
-        "@id": "https://subtitlesedit.com/subtitle-overlap-fixer/#webpage",
+      isPartOf: { "@id": "https://subtitlesedit.com/#website" },
+      breadcrumb: {
+        "@id": "https://subtitlesedit.com/subtitle-overlap-fixer#breadcrumb",
       },
-      image: { "@id": OG_IMG },
+      primaryImageOfPage: { "@type": "ImageObject", url: OG_IMG },
       inLanguage: "en-US",
-      mainEntityOfPage: {
-        "@id": "https://subtitlesedit.com/subtitle-overlap-fixer/#webpage",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://subtitlesedit.com/subtitle-overlap-fixer#software",
+      name: "Subtitle Overlap Fixer",
+      url: "https://subtitlesedit.com/subtitle-overlap-fixer",
+      applicationCategory: "MultimediaApplication",
+      operatingSystem: "Any (browser-based)",
+      browserRequirements: "Requires JavaScript",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
       },
+      featureList: [
+        "Detects overlapping cue timings in SRT and VTT files",
+        "Pushes overlapping cue starts to the previous cue's end",
+        "Enforces a 300 ms minimum cue duration",
+        "Preserves cue numbers, dialogue text, and inline formatting tags",
+        "Runs entirely in the browser — no uploads, no sign-up",
+      ],
+      isPartOf: { "@id": "https://subtitlesedit.com/#website" },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://subtitlesedit.com/subtitle-overlap-fixer#faq",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: 'What does "overlapping subtitles" mean?',
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Overlapping subtitles happen when one cue's start time is earlier than the previous cue's end time, so two subtitle lines briefly appear on screen at the same moment. This causes flickering, doubled text, or upload warnings on platforms like YouTube. The fix is to shift the later cue so it begins after the earlier one ends.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How does this tool fix overlapping subtitles?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "For each cue, the tool compares its start time against the previous cue's end time. If the cue would overlap, its start time is pushed forward to where the previous cue ended. Cue text, cue numbers, and inline formatting tags are left untouched — only the timestamps on conflicting lines are rewritten.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does the tool change my dialogue, cue numbers, or formatting tags?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. The tool only rewrites timestamp lines. Cue numbers, dialogue text, line breaks, italic and bold tags, font tags, underline tags, speaker labels, and blank line spacing all pass through unchanged. The output file keeps the same structure as the input — just with corrected timings on overlapping cues.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does it handle both SRT and VTT files?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes — SRT and VTT timing lines are both detected and corrected, and the output uses the input format's decimal separator (comma for SRT, dot for VTT). One caveat: VTT cue settings on timing lines, like line:50% or align:center, are dropped during processing. Every timing line is rewritten with just the timestamps.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What happens to cues that are too short after a fix?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "The tool enforces a minimum cue duration of 300 milliseconds. If pushing a cue's start time forward would leave it shorter than 300 ms, the end time is extended so the cue stays on screen long enough to read. Cues already longer than 300 ms are left at their original duration.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Will fixing one overlap affect later cues?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Most of the time, no. A fix only touches cues whose start time falls before the previous (corrected) end time. However, if extending a very short cue to the 300 ms minimum makes it overlap the next cue, that next cue gets pushed too — so a chain of very short overlaps can cause a small cascade forward.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What causes overlapping subtitles in the first place?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Common sources include AI auto-captioning tools (Whisper, YouTube auto-captions), merging subtitle files from different parts, manual edits where end times were not tightened, frame-rate conversions, and copy-paste mistakes. Overlaps are especially common in files where multiple speakers talk over each other or where captions were generated in bursts.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does this tool require an upload or install?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. The Subtitle Overlap Fixer runs entirely in your browser using local JavaScript. Your subtitle file never leaves your device, no account is required, and there is nothing to install. The tool is free with no usage limits, no watermark on the corrected file, and no ads injected into the output.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can it handle large subtitle files?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. The tool processes files line by line in a single pass, so even subtitles for long films or full TV episodes with thousands of cues finish in well under a second on a typical laptop. Performance is bound only by your browser since nothing is sent to a server.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Will it fix subtitles exported from Whisper, YouTube auto-captions, or Premiere?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Subtitle files exported from Whisper, YouTube Studio auto-captions, Adobe Premiere, DaVinci Resolve, Final Cut Pro, Aegisub, and most other caption tools are plain SRT or VTT and work directly. The tool reads the file as text, finds overlapping timing lines, and rewrites them — the source tool does not matter.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What's the difference between this and a subtitle time shifter?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "A time shifter moves every cue forward or backward by the same amount, used when subtitles are uniformly out of sync with video. This Overlap Fixer only changes timestamps on cues that actually conflict with each other. The two tools solve different problems and can be used together in any order.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does it work as an SRT to VTT converter or vice versa?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No — the output keeps the same format as the input. If you upload SRT, you get SRT back. If you upload VTT, you get VTT back. To convert between formats, use the dedicated SRT to VTT Converter or VTT to SRT Converter, then run the Overlap Fixer if needed.",
+          },
+        },
+      ],
     },
   ],
 };
@@ -148,9 +222,9 @@ function OverlapFixerTool() {
       id="se-fix"
     >
       <p className="my-2 mb-4 text-[#374151]">
-        Detect and correct overlapping subtitle timestamps. Works with{" "}
-        <strong>.srt</strong> and <strong>.vtt</strong>. Only cues that actually
-        overlap are shifted. Non-overlapping cues are left untouched.
+        Detect and correct overlapping subtitle timestamps. Works with .srt and
+        .vtt files. Overlapping cues are pushed forward to where the previous
+        cue ended; non-overlapping cues pass through unchanged.
       </p>
 
       <div className="flex flex-wrap gap-3">
@@ -246,193 +320,165 @@ function FaqAccordion({ rows }) {
 
 const faqRows = [
   {
-    id: "e-n-accordion-item-1370",
+    id: "faq-overlap-1",
     open: true,
-    q: " What does “overlapping subtitles” mean? ",
+    q: 'What does "overlapping subtitles" mean?',
     body: (
       <p>
-        Overlapping subtitles occur when one cue starts before the previous cue
-        ends, causing two subtitles to appear at the same time. This leads to
-        flickering, unreadable text, or upload errors on video platforms.
+        Overlapping subtitles happen when one cue&apos;s start time is earlier than
+        the previous cue&apos;s end time, so two subtitle lines briefly appear on
+        screen at the same moment. This causes flickering, doubled text, or
+        upload warnings on platforms like YouTube. The fix is to shift the
+        later cue so it begins after the earlier one ends.
       </p>
     ),
   },
   {
-    id: "e-n-accordion-item-1371",
-    q: " How do I fix overlapping subtitle times? ",
+    id: "faq-overlap-2",
+    q: "How does this tool fix overlapping subtitles?",
     body: (
       <p>
-        Upload your SRT or VTT file into the Subtitle Overlap Fixer and click
-        “Fix Overlaps.” The tool automatically corrects conflicting timestamps
-        while keeping your text fully intact.
+        For each cue, the tool compares its start time against the previous
+        cue&apos;s end time. If the cue would overlap, its start time is pushed
+        forward to where the previous cue ended. Cue text, cue numbers, and
+        inline formatting tags are left untouched — only the timestamps on
+        conflicting lines are rewritten.
       </p>
     ),
   },
   {
-    id: "e-n-accordion-item-1372",
-    q: " Will this tool change my text or cue numbering? ",
+    id: "faq-overlap-3",
+    q: "Does the tool change my dialogue, cue numbers, or formatting tags?",
     body: (
       <p>
-        No. Your dialogue, formatting, and cue numbering remain unchanged. Only
-        the overlapping timecodes are corrected.
+        No. The tool only rewrites timestamp lines. Cue numbers, dialogue text,
+        line breaks, italic and bold tags, font tags, underline tags, speaker
+        labels, and blank line spacing all pass through unchanged. The output
+        file keeps the same structure as the input — just with corrected timings
+        on overlapping cues.
       </p>
     ),
   },
   {
-    id: "e-n-accordion-item-1373",
-    q: " Can I edit subtitles afterward? ",
+    id: "faq-overlap-4",
+    q: "Does it handle both SRT and VTT files?",
     body: (
       <p>
-        Yes. After fixing overlaps, you can edit the file using any subtitle
-        editor or text editor without issues.
+        Yes — SRT and VTT timing lines are both detected and corrected, and the
+        output uses the input format&apos;s decimal separator (comma for SRT, dot
+        for VTT). One caveat: VTT cue settings on timing lines, like{" "}
+        <code>line:50%</code> or <code>align:center</code>, are dropped during
+        processing. Every timing line is rewritten with just the timestamps.
       </p>
     ),
   },
   {
-    id: "e-n-accordion-item-1374",
-    q: " Is this safe for professional subtitle workflows? ",
+    id: "faq-overlap-5",
+    q: "What happens to cues that are too short after a fix?",
     body: (
       <p>
-        Absolutely. The tool preserves professional formatting and produces
-        clean, valid timecodes suitable for broadcasters, clients, and platforms
-        like YouTube.
+        The tool enforces a minimum cue duration of 300 milliseconds. If
+        pushing a cue&apos;s start time forward would leave it shorter than 300 ms,
+        the end time is extended so the cue stays on screen long enough to
+        read. Cues already longer than 300 ms are left at their original
+        duration.
       </p>
     ),
   },
   {
-    id: "e-n-accordion-item-1375",
-    q: " Does this work with WebVTT subtitle files too? ",
+    id: "faq-overlap-6",
+    q: "Will fixing one overlap affect later cues?",
     body: (
       <p>
-        Yes. The tool fully supports both SRT and VTT/WebVTT formats, correcting
-        overlaps in either file type.
+        Most of the time, no. A fix only touches cues whose start time falls
+        before the previous (corrected) end time. However, if extending a very
+        short cue to the 300 ms minimum makes it overlap the next cue, that
+        next cue gets pushed too — so a chain of very short overlaps can cause
+        a small cascade forward.
       </p>
     ),
   },
   {
-    id: "e-n-accordion-item-1376",
-    q: " What causes overlapping subtitles in the first place? ",
+    id: "faq-overlap-7",
+    q: "What causes overlapping subtitles in the first place?",
     body: (
       <p>
-        Overlaps usually come from manual editing, AI-generated subtitles,
-        merging multiple files, or incorrect time shifts applied during editing.
+        Common sources include AI auto-captioning tools (Whisper, YouTube
+        auto-captions), merging subtitle files from different parts, manual
+        edits where end times were not tightened, frame-rate conversions, and
+        copy-paste mistakes. Overlaps are especially common in files where
+        multiple speakers talk over each other or where captions were generated
+        in bursts.
       </p>
     ),
   },
   {
-    id: "e-n-accordion-item-1377",
-    q: " Are overlaps common when merging subtitle files? ",
+    id: "faq-overlap-8",
+    q: "Does this tool require an upload or install?",
     body: (
       <p>
-        Yes. When combining subtitles from different sources, overlapping
-        timestamps are very common. This tool resolves them instantly.
+        No. The Subtitle Overlap Fixer runs entirely in your browser using
+        local JavaScript. Your subtitle file never leaves your device, no
+        account is required, and there is nothing to install. The tool is free
+        with no usage limits, no watermark on the corrected file, and no ads
+        injected into the output.
       </p>
     ),
   },
   {
-    id: "e-n-accordion-item-1378",
-    q: " Will removing overlaps affect subtitle syncing? ",
+    id: "faq-overlap-9",
+    q: "Can it handle large subtitle files?",
     body: (
       <p>
-        No. The tool only fixes conflicts — it does not change the meaning,
-        position, or natural timing of your subtitles.
+        Yes. The tool processes files line by line in a single pass, so even
+        subtitles for long films or full TV episodes with thousands of cues
+        finish in well under a second on a typical laptop. Performance is bound
+        only by your browser since nothing is sent to a server.
       </p>
     ),
   },
   {
-    id: "e-n-accordion-item-1379",
-    q: " Does the tool maintain bold, italic, or speaker labels? ",
+    id: "faq-overlap-10",
+    q: "Will it fix subtitles exported from Whisper, YouTube auto-captions, or Premiere?",
     body: (
       <p>
-        Yes. Formatting and style tags remain untouched throughout the fixing
-        process.
+        Yes. Subtitle files exported from Whisper, YouTube Studio
+        auto-captions, Adobe Premiere, DaVinci Resolve, Final Cut Pro,
+        Aegisub, and most other caption tools are plain SRT or VTT and work
+        directly. The tool reads the file as text, finds overlapping timing
+        lines, and rewrites them — the source tool does not matter.
       </p>
     ),
   },
   {
-    id: "e-n-accordion-item-13710",
-    q: " Is the overlap fixing done offline in my browser? ",
+    id: "faq-overlap-11",
+    q: "What's the difference between this and a subtitle time shifter?",
     body: (
       <p>
-        Yes. Everything runs locally in your browser, so your subtitle files
-        never leave your device.
+        A time shifter moves every cue forward or backward by the same amount,
+        used when subtitles are uniformly out of sync with video. This Overlap
+        Fixer only changes timestamps on cues that actually conflict with each
+        other. The two tools solve different problems and can be used together
+        in any order.
       </p>
     ),
   },
   {
-    id: "e-n-accordion-item-13711",
-    q: " Is the tool free to use? ",
+    id: "faq-overlap-12",
+    q: "Does it work as an SRT to VTT converter or vice versa?",
     body: (
       <p>
-        Yes. The subtitle overlap fixer is completely free with no limits,
-        signups, or installations required.
-      </p>
-    ),
-  },
-  {
-    id: "e-n-accordion-item-13712",
-    q: " Can I use this for subtitles created by AI tools? ",
-    body: (
-      <p>
-        Yes. AI-generated subtitles frequently contain timing issues, and this
-        tool is perfect for cleaning them up.
-      </p>
-    ),
-  },
-  {
-    id: "e-n-accordion-item-13713",
-    q: " Does it work on long movies or large subtitle files? ",
-    body: (
-      <p>
-        Yes. The tool processes large SRT and VTT files without performance
-        issues since everything runs offline.
-      </p>
-    ),
-  },
-  {
-    id: "e-n-accordion-item-13714",
-    q: " Will it fix overlapping subtitles from YouTube or Premiere exports? ",
-    body: (
-      <p>
-        Yes. Subtitles exported from YouTube Studio, Adobe Premiere, Resolve,
-        or Aegisub are all supported.
-      </p>
-    ),
-  },
-  {
-    id: "e-n-accordion-item-13715",
-    q: " What if only a few lines overlap? Does the tool adjust only those? ",
-    body: (
-      <p>
-        Yes. The tool detects and repairs only the cues that are overlapping
-        while leaving all other cues untouched.
-      </p>
-    ),
-  },
-  {
-    id: "e-n-accordion-item-13716",
-    q: " Does the tool support SRT and VTT equally well? ",
-    body: (
-      <p>Yes. Both formats receive accurate overlap detection and correction.</p>
-    ),
-  },
-  {
-    id: "e-n-accordion-item-13717",
-    q: " Can I combine this with a subtitle time shifter? ",
-    body: (
-      <p>
-        Yes. You can shift subtitle timing first or fix overlaps first — both
-        workflows are compatible.
-      </p>
-    ),
-  },
-  {
-    id: "e-n-accordion-item-13718",
-    q: " Will this fix playback issues on VLC or MX Player? ",
-    body: (
-      <p>
-        Yes. Overlapping cues are a common cause of playback glitches, and
-        fixing them ensures smooth display.
+        No — the output keeps the same format as the input. If you upload SRT,
+        you get SRT back. If you upload VTT, you get VTT back. To convert
+        between formats, use the dedicated{" "}
+        <a href="/srt-to-vtt-converter" className={linkClass}>
+          SRT to VTT Converter
+        </a>{" "}
+        or{" "}
+        <a href="/vtt-to-srt-converter" className={linkClass}>
+          VTT to SRT Converter
+        </a>
+        , then run the Overlap Fixer if needed.
       </p>
     ),
   },
@@ -450,39 +496,28 @@ export default function SubtitleOverlapFixerPage() {
         />
         <link
           rel="canonical"
-          href="https://subtitlesedit.com/subtitle-overlap-fixer/"
+          href="https://subtitlesedit.com/subtitle-overlap-fixer"
         />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="website" />
         <meta property="og:title" content={PAGE_TITLE} />
         <meta property="og:description" content={META_DESC} />
         <meta
           property="og:url"
-          content="https://subtitlesedit.com/subtitle-overlap-fixer/"
+          content="https://subtitlesedit.com/subtitle-overlap-fixer"
         />
-        <meta property="og:site_name" content="https://subtitlesedit.com" />
-        <meta property="og:updated_time" content="2025-12-04T05:30:59+00:00" />
+        <meta property="og:site_name" content="Subtitles Edit" />
         <meta property="og:image" content={OG_IMG} />
         <meta property="og:image:secure_url" content={OG_IMG} />
         <meta property="og:image:alt" content="Subtitle Overlap Fixer" />
-        <meta
-          property="article:published_time"
-          content="2025-11-04T17:24:23+00:00"
-        />
-        <meta
-          property="article:modified_time"
-          content="2025-12-04T05:30:59+00:00"
-        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={META_DESC} />
         <meta name="twitter:image" content={OG_IMG} />
-        <meta name="twitter:label1" content="Time to read" />
-        <meta name="twitter:data1" content="7 minutes" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(rankMathSchema),
+            __html: JSON.stringify(pageSchema),
           }}
         />
       </Head>
@@ -505,8 +540,8 @@ export default function SubtitleOverlapFixerPage() {
                 className="text-3xl font-semibold leading-tight text-[#1e293b] md:text-[2rem]"
                 itemProp="headline"
               >
-                Subtitle Overlap Fixer to Remove Overlapping Subtitles Instantly
-                (SRT &amp; VTT)
+                Subtitle Overlap Fixer — Remove Overlapping Subtitles in SRT
+                and VTT Files
               </h1>
             </header>
 
@@ -521,267 +556,242 @@ export default function SubtitleOverlapFixerPage() {
 
               <div className={`${section} entry-content se-content`}>
                 <h2 className={h2}>
-                  What Overlapping Subtitles Are and Why They Must Be Fixed
+                  What Overlapping Subtitles Are and Why They Need Fixing
                 </h2>
                 <p className={p}>
-                  Overlapping subtitles occur when two or more cues share the
-                  same timestamp or when one cue starts before the previous cue
-                  ends. This causes playback issues, upload errors, and broken
-                  subtitle syncing.
+                  Overlapping subtitles happen when one cue&apos;s start time falls
+                  before the previous cue&apos;s end time, so two lines briefly
+                  stack on screen at the same moment. This causes flickering
+                  text, rapid on-screen changes, and occasional upload warnings
+                  on platforms that prefer strictly sequential cues.
                 </p>
                 <p className={p}>
-                  Fix overlapping subtitles in seconds with this{" "}
-                  <strong>Subtitle Overlap Fixer</strong>, designed to clean up
-                  incorrect timecodes in both <strong>SRT</strong> and{" "}
-                  <strong>VTT</strong> files. The tool automatically detects
-                  conflicting cues and corrects them while keeping your text,
-                  formatting, and cue structure completely intact. Everything
-                  processes <strong>100% offline in your browser</strong>,
-                  ensuring fast and private subtitle corrections.
-                </p>
-                <p className={p}> </p>
-
-                <h2 className={h2}>
-                  What Overlapping Subtitles Are and Why They Must Be Fixed
-                </h2>
-                <p className={p}>
-                  Overlapping subtitles occur when two or more cues share the
-                  same timestamp or when one cue starts before the previous cue
-                  ends. This causes playback issues, upload errors, and broken
-                  subtitle syncing.
-                </p>
-
-                <h3 className={h3}>
-                  How Subtitle Overlaps Break Sync and Viewer Experience
-                </h3>
-                <p className={p}>
-                  Overlaps can create flickering text, repeated cues, or rapid
-                  on-screen changes that make subtitles hard to read.
-                </p>
-
-                <h3 className={h3}>
-                  Why Overlaps Cause Upload Errors on YouTube, VLC, and Editing
-                  Platforms
-                </h3>
-                <p className={p}>
-                  Platforms such as <strong>YouTube</strong>,{" "}
-                  <strong>VLC</strong>, and <strong>Davinci Resolve</strong>{" "}
-                  often reject subtitle files with timing conflicts, preventing
-                  you from uploading or exporting your video.
-                </p>
-
-                <h3 className={h3}>
-                  Common Causes of Subtitle Timing Conflicts (Editing, AI Tools,
-                  Frame Shifts)
-                </h3>
-                <p className={p}>
-                  Overlaps usually happen after editing subtitles manually,
-                  merging multiple files, using AI subtitle generators, or
-                  adjusting timings incorrectly.
-                </p>
-                <p className={p}> </p>
-
-                <h2 className={h2}>
-                  How to Fix Overlapping Subtitles (Quick Step-by-Step Guide)
-                </h2>
-                <p className={p}>
-                  Correcting timing conflicts only takes a few seconds:
-                </p>
-
-                <h3 className={h3}>
-                  1. Upload or Paste Your SRT or VTT File
-                </h3>
-                <p className={p}>
-                  Add your subtitle file to the input box. Subtitle Overlap
-                  Fixer supports{" "}
+                  The Subtitle Overlap Fixer scans your{" "}
                   <a
                     href="https://en.wikipedia.org/wiki/SubRip"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={linkClass}
                   >
-                    <strong>SRT</strong>
+                    SRT
                   </a>{" "}
-                  and{" "}
+                  or{" "}
                   <a
                     href="https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={linkClass}
                   >
-                    <strong>VTT/WebVTT</strong>
+                    VTT/WebVTT
                   </a>{" "}
-                  subtitle formats.
+                  file for these conflicts and pushes overlapping cues forward
+                  to where the previous cue ended. Cue text, cue numbers, and
+                  inline formatting tags are left untouched. Everything runs
+                  in your browser — no uploads, no sign-up, no install.
+                </p>
+
+                <h2 className={h2}>How the Subtitle Overlap Fixer Works</h2>
+                <p className={p}>
+                  The tool walks through your file line by line and looks at
+                  every timestamp line (<code>HH:MM:SS,mmm --&gt; HH:MM:SS,mmm</code>{" "}
+                  for SRT, <code>HH:MM:SS.mmm --&gt; HH:MM:SS.mmm</code> for
+                  VTT). For each cue, it compares the start time to the end
+                  time of the previous cue. If the start is earlier than the
+                  previous end, the cue is overlapping, and its start time is
+                  pushed forward to where the previous cue ends. If pushing the
+                  start forward would leave the cue shorter than 300
+                  milliseconds, the end time is extended so the cue stays on
+                  screen long enough to read.
                 </p>
 
                 <h3 className={h3}>
-                  2. Run the Subtitle Overlap Fixer With One Click
+                  1. Choose your SRT or VTT file (or paste the contents)
                 </h3>
                 <p className={p}>
-                  Click the <strong>“Fix Overlaps”</strong> button to
-                  automatically detect and repair any conflicting timecodes.
+                  Click <em>Choose File</em> to load a subtitle file from your
+                  device, or paste the contents directly into the input box.
                 </p>
 
-                <h3 className={h3}>
-                  3. Download the Clean, Corrected Subtitle File Instantly
-                </h3>
+                <h3 className={h3}>2. Click &quot;Fix Overlaps&quot;</h3>
                 <p className={p}>
-                  The tool generates a revised file with clean, non-overlapping
-                  timestamps — ready for players, editors, and upload platforms.
-                </p>
-                <p className={p}> </p>
-
-                <h2 className={h2}>
-                  Key Features of Our Subtitle Overlap Fixer Tool
-                </h2>
-                <p className={p}>
-                  This tool is built to ensure clean, precise and professional
-                  subtitle timing.
+                  The tool processes the file in a single pass and writes the
+                  corrected version to the output box. Cues that were already
+                  in order are left at their original timings.
                 </p>
 
-                <h3 className={h3}>
-                  Automatically Detects and Corrects All Overlapping Timecodes
-                </h3>
+                <h3 className={h3}>3. Download the fixed file</h3>
                 <p className={p}>
-                  The tool scans your entire subtitle file and fixes every timing
-                  conflict automatically.
+                  Click <em>Download</em> to save the corrected file. The
+                  output keeps the same format as the input — <code>.srt</code>{" "}
+                  in, <code>.srt</code> out; <code>.vtt</code> in,{" "}
+                  <code>.vtt</code> out.
                 </p>
 
-                <h3 className={h3}>
-                  Preserves Text, Formatting, and Cue Styling
-                </h3>
+                <h2 className={h2}>Before and After</h2>
                 <p className={p}>
-                  Your subtitle content stays untouched — only the timing is
-                  repaired.
+                  Input (SRT with cue 2 overlapping cue 1):
+                </p>
+                <pre className="mb-4 overflow-x-auto rounded-[10px] border border-gray-200 bg-gray-50 p-3 font-mono text-sm leading-snug text-[#334155]">
+{`1
+00:00:01,000 --> 00:00:03,500
+First line of dialogue.
+
+2
+00:00:03,000 --> 00:00:05,000
+Second line starts before the first ends.
+
+3
+00:00:05,200 --> 00:00:07,000
+Third line — no overlap.`}
+                </pre>
+                <p className={p}>
+                  Output (cue 2&apos;s start pushed to cue 1&apos;s end):
+                </p>
+                <pre className="mb-4 overflow-x-auto rounded-[10px] border border-gray-200 bg-gray-50 p-3 font-mono text-sm leading-snug text-[#334155]">
+{`1
+00:00:01,000 --> 00:00:03,500
+First line of dialogue.
+
+2
+00:00:03,500 --> 00:00:05,000
+Second line starts before the first ends.
+
+3
+00:00:05,200 --> 00:00:07,000
+Third line — no overlap.`}
+                </pre>
+                <p className={p}>
+                  Cue 2&apos;s start time was pushed from <code>00:00:03,000</code>{" "}
+                  to <code>00:00:03,500</code> (matching cue 1&apos;s end). Cue 3
+                  was untouched because its original start time was already
+                  past cue 2&apos;s new end. Dialogue, cue numbers, and blank-line
+                  spacing pass through unchanged.
                 </p>
 
-                <h3 className={h3}>
-                  100% Offline Processing for Privacy and Speed
-                </h3>
+                <h2 className={h2}>VTT Cue Settings and What Gets Dropped</h2>
                 <p className={p}>
-                  No uploads, no servers. All subtitle fixes run in your browser
-                  for maximum security.
+                  VTT files can include cue settings on the timing line itself,
+                  for example:{" "}
+                  <code>
+                    00:00:01.000 --&gt; 00:00:02.000 line:50% align:center
+                  </code>
+                  . When the tool rewrites a timing line, it keeps only the
+                  start and end timestamps — the cue settings on that line are
+                  dropped. This happens on every cue, not just overlapping
+                  ones, because every timing line gets rewritten.
+                </p>
+                <p className={p}>
+                  Other VTT structures pass through unchanged: WEBVTT headers,
+                  NOTE blocks, STYLE blocks, REGION blocks, and named cue
+                  identifiers. Italic, bold, font, and underline tags inside
+                  dialogue text (<code>&lt;i&gt;</code>, <code>&lt;b&gt;</code>
+                  , <code>&lt;font&gt;</code>, <code>&lt;u&gt;</code>) are
+                  preserved on every cue because they live on text lines, not
+                  timestamp lines.
                 </p>
 
-                <h3 className={h3}>
-                  Works for SRT and VTT Formats Without Changing Content
-                </h3>
+                <h2 className={h2}>When to Use the Subtitle Overlap Fixer</h2>
                 <p className={p}>
-                  Subtitle Overlap Fixer supports industry-standard formats used
-                  across professional workflows.
+                  Overlap fixing is most useful in these workflows:
+                </p>
+                <ul className="mb-4 ml-6 list-disc space-y-2 text-[#334155]">
+                  <li>
+                    After running AI auto-captioning (Whisper, YouTube
+                    auto-captions, Otter.ai) — these tools often produce
+                    back-to-back cues with millisecond overlaps that flicker on
+                    playback.
+                  </li>
+                  <li>
+                    After merging multiple subtitle files — if two source files
+                    share the same time range, their cues can interleave and
+                    overlap.
+                  </li>
+                  <li>
+                    Before exporting from a subtitle editor for professional
+                    captioning deliveries, where clean timing is expected.
+                  </li>
+                  <li>
+                    Before uploading to platforms — most modern players
+                    tolerate small overlaps, but cleaner timing reduces flicker
+                    in players that don&apos;t.
+                  </li>
+                  <li>
+                    After a partial time-shift — if you shifted only part of a
+                    file, the boundary cues may now overlap.
+                  </li>
+                </ul>
+
+                <h2 className={h2}>Who Uses This Tool</h2>
+                <p className={p}>
+                  Video editors and captioners cleaning up AI-generated
+                  subtitle drafts. Translators who merge source-language and
+                  target-language files. YouTubers preparing captions for
+                  upload. Documentary and film teams polishing deliverables.
+                  Anyone who downloaded SRT or VTT files from auto-captioning
+                  services and noticed flicker on playback.
                 </p>
 
-                <h3 className={h3}>
-                  Compatible With Any Subtitle Editor or Video Player
-                </h3>
-                <p className={p}>
-                  Your corrected file works with <strong>VLC</strong>,{" "}
-                  <strong>Premiere Pro</strong>, <strong>Shotcut</strong>,{" "}
-                  <strong>Final Cut</strong>, <strong>YouTube</strong>, and more.
-                </p>
-                <p className={p}> </p>
-
-                <h2 className={h2}>
-                  When You Should Use the Subtitle Overlap Fixer
-                </h2>
-                <p className={p}>
-                  Fixing overlaps is essential before publishing or editing
-                  subtitles.
-                </p>
-
-                <h3 className={h3}>
-                  After Editing Subtitles Manually or Using AI Tools
-                </h3>
-                <p className={p}>
-                  Timing mistakes commonly appear when subtitles are edited or
-                  generated by AI caption tools.
-                </p>
-
-                <h3 className={h3}>
-                  When Combining or Merging Multiple Subtitle Files
-                </h3>
-                <p className={p}>
-                  Merged subtitles often contain back-to-back or overlapping
-                  timestamps that must be corrected.
-                </p>
-
-                <h3 className={h3}>
-                  When Uploading Subtitles Fails Due to Timing Errors
-                </h3>
-                <p className={p}>
-                  If your subtitle upload is rejected, overlapping cues are often
-                  the reason.
-                </p>
-
-                <h3 className={h3}>
-                  Before Final Export for Professional Subtitle Deliveries
-                </h3>
-                <p className={p}>
-                  Clean timecodes are required for broadcasters, clients,
-                  platforms, and professional workflows.
-                </p>
-                <p className={p}> </p>
+                <h2 className={h2}>Why Use This Subtitle Overlap Fixer</h2>
+                <ul className="mb-4 ml-6 list-disc space-y-2 text-[#334155]">
+                  <li>
+                    Honest, deterministic logic — the tool only changes
+                    timestamps on cues that overlap. Everything else passes
+                    through.
+                  </li>
+                  <li>
+                    No uploads — your file is read into the browser tab and
+                    processed locally. Nothing is sent to a server.
+                  </li>
+                  <li>
+                    Both SRT and VTT supported — the tool detects the format
+                    and outputs the matching decimal separator.
+                  </li>
+                  <li>
+                    Free, no account, no install — open the page, fix the
+                    file, close the tab.
+                  </li>
+                  <li>
+                    Single-pass line-by-line processing — fast even on
+                    feature-length captions with thousands of cues.
+                  </li>
+                </ul>
 
                 <h2 className={h2}>Related Subtitle Tools</h2>
                 <p className={p}>
-                  In addition to <strong>Subtitle Overlap Fixer</strong>, try our
-                  other free Subtitle Editing tools
+                  Other free subtitle tools you can use alongside the Overlap
+                  Fixer:
                 </p>
-                <p className={p}>
-                  <a href="/subtitle-time-shifter/" className={linkClass}>
-                    Subtitle Time Shifter
-                  </a>
-                  <br />
-                  <a href="/subtitle-merger/" className={linkClass}>
-                    Subtitle Merger
-                  </a>
-                  <br />
-                  <a href="/srt-to-vtt-converter/" className={linkClass}>
-                    SRT to VTT Converter
-                  </a>
-                  <br />
-                  <a href="/vtt-to-srt-converter/" className={linkClass}>
-                    VTT to SRT Converter
-                  </a>
-                  <br />
-                  <a href="/subtitle-splitter/" className={linkClass}>
-                    Subtitle Splitter
-                  </a>
-                </p>
-                <p className={p}> </p>
-
-                <h2 className={h2}>
-                  Why Choose SubtitlesEdit.com for Fixing Subtitle Overlaps?
-                </h2>
-
-                <h3 className={h3}>
-                  Trusted Accuracy With Clean, Professional Timecodes
-                </h3>
-                <p className={p}>
-                  The tool delivers reliable timing corrections suitable for
-                  professional captioning workflows.
-                </p>
-
-                <h3 className={h3}>Offline, Fast, and Completely Secure</h3>
-                <p className={p}>
-                  Your subtitle files remain private and are never uploaded
-                  anywhere.
-                </p>
-
-                <h3 className={h3}>
-                  Ideal for Editors, Translators, and Professional Subtitlers
-                </h3>
-                <p className={p}>
-                  Accurate timing is essential for quality subtitles — this tool
-                  ensures it every time.
-                </p>
-                <p className={p}> </p>
+                <ul className="mb-4 ml-6 list-disc space-y-2 text-[#334155]">
+                  <li>
+                    <a href="/subtitle-time-shifter" className={linkClass}>
+                      Subtitle Time Shifter
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/subtitle-merger" className={linkClass}>
+                      Subtitle Merger
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/srt-to-vtt-converter" className={linkClass}>
+                      SRT to VTT Converter
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/vtt-to-srt-converter" className={linkClass}>
+                      VTT to SRT Converter
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/subtitle-splitter" className={linkClass}>
+                      Subtitle Splitter
+                    </a>
+                  </li>
+                </ul>
               </div>
 
               <div className={`${section} entry-content se-content`}>
-                <h2 className={h2}>
-                  Frequently Asked Question (FAQ)
-                </h2>
+                <h2 className={h2}>Frequently Asked Questions (FAQ)</h2>
                 <FaqAccordion rows={faqRows} />
               </div>
             </div>
