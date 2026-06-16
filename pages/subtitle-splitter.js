@@ -475,7 +475,7 @@ export default function SubtitleSplitterPage() {
         />
         <link
           rel="canonical"
-          href="https://subtitlesedit.com/subtitle-splitter/"
+          href="https://subtitlesedit.com/subtitle-splitter"
         />
         <meta property="og:locale" content="en_US" />
         <meta property="og:type" content="article" />
@@ -483,7 +483,7 @@ export default function SubtitleSplitterPage() {
         <meta property="og:description" content={META_DESC} />
         <meta
           property="og:url"
-          content="https://subtitlesedit.com/subtitle-splitter/"
+          content="https://subtitlesedit.com/subtitle-splitter"
         />
         <meta property="og:site_name" content="https://subtitlesedit.com" />
         <meta property="og:updated_time" content="2025-11-29T13:12:39+00:00" />
@@ -862,23 +862,23 @@ export default function SubtitleSplitterPage() {
                   other free Subtitle Editor Tools
                 </p>
                 <p data-start="5641" data-end="5742" className={p}>
-                  <a href="/subtitle-merger/" className={linkClass}>
+                  <a href="/subtitle-merger" className={linkClass}>
                     Subtitle Merger
                   </a>
                   <br />
-                  <a href="/subtitle-time-shifter/" className={linkClass}>
+                  <a href="/subtitle-time-shifter" className={linkClass}>
                     Subtitle Time Shifter
                   </a>
                   <br />
-                  <a href="/srt-to-vtt-converter/" className={linkClass}>
+                  <a href="/srt-to-vtt-converter" className={linkClass}>
                     SRT to VTT Converter
                   </a>
                   <br />
-                  <a href="/vtt-to-srt-converter/" className={linkClass}>
+                  <a href="/vtt-to-srt-converter" className={linkClass}>
                     VTT to SRT Converter
                   </a>
                   <br />
-                  <a href="/subtitle-overlap-fixer/" className={linkClass}>
+                  <a href="/subtitle-overlap-fixer" className={linkClass}>
                     Subtitle Overlap Fixer
                   </a>
                 </p>

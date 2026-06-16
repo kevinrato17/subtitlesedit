@@ -891,35 +891,35 @@ export default function VttToSrtConverterPage() {
                 <ul className="mb-4 list-disc pl-5 text-[#334155]">
                   <li>
                     <p className="mb-0">
-                      <a href="/srt-to-vtt-converter/" className={linkClass}>
+                      <a href="/srt-to-vtt-converter" className={linkClass}>
                         SRT to VTT Converter
                       </a>
                     </p>
                   </li>
                   <li>
                     <p className="mb-0">
-                      <a href="/subtitle-merger/" className={linkClass}>
+                      <a href="/subtitle-merger" className={linkClass}>
                         Subtitle Merger
                       </a>
                     </p>
                   </li>
                   <li>
                     <p className="mb-0">
-                      <a href="/subtitle-splitter/" className={linkClass}>
+                      <a href="/subtitle-splitter" className={linkClass}>
                         Subtitle Splitter
                       </a>
                     </p>
                   </li>
                   <li>
                     <p className="mb-0">
-                      <a href="/subtitle-time-shifter/" className={linkClass}>
+                      <a href="/subtitle-time-shifter" className={linkClass}>
                         Subtitle Time Shifter
                       </a>
                     </p>
                   </li>
                   <li>
                     <p className="mb-0">
-                      <a href="/subtitle-overlap-fixer/" className={linkClass}>
+                      <a href="/subtitle-overlap-fixer" className={linkClass}>
                         Subtitle Overlap Fixer
                       </a>
                     </p>

@@ -28,7 +28,7 @@ export default function BlogPost({ source, title, date, description, slug }) {
         <meta name="description" content={description} />
         <link
           rel="canonical"
-          href={`https://subtitlesedit.com/blog/${slug}/`}
+          href={`https://subtitlesedit.com/blog/${slug}`}
         />
       </Head>
 

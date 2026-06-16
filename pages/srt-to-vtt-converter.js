@@ -896,7 +896,7 @@ export default function SrtToVttConverterPage() {
                 <ul className="mb-6 space-y-3">
                   <li>
                     <a
-                      href="/vtt-to-srt-converter/"
+                      href="/vtt-to-srt-converter"
                       className="flex items-start gap-3 text-[#046bd2] hover:text-[#045cb4]"
                     >
                       <DotIcon />
@@ -905,7 +905,7 @@ export default function SrtToVttConverterPage() {
                   </li>
                   <li>
                     <a
-                      href="/subtitle-merger/"
+                      href="/subtitle-merger"
                       className="flex items-start gap-3 text-[#046bd2] hover:text-[#045cb4]"
                     >
                       <DotIcon />
@@ -914,7 +914,7 @@ export default function SrtToVttConverterPage() {
                   </li>
                   <li>
                     <a
-                      href="/subtitle-splitter/"
+                      href="/subtitle-splitter"
                       className="flex items-start gap-3 text-[#046bd2] hover:text-[#045cb4]"
                     >
                       <DotIcon />
@@ -923,7 +923,7 @@ export default function SrtToVttConverterPage() {
                   </li>
                   <li>
                     <a
-                      href="/subtitle-time-shifter/"
+                      href="/subtitle-time-shifter"
                       className="flex items-start gap-3 text-[#046bd2] hover:text-[#045cb4]"
                     >
                       <DotIcon />
@@ -932,7 +932,7 @@ export default function SrtToVttConverterPage() {
                   </li>
                   <li>
                     <a
-                      href="/subtitle-overlap-fixer/"
+                      href="/subtitle-overlap-fixer"
                       className="flex items-start gap-3 text-[#046bd2] hover:text-[#045cb4]"
                     >
                       <DotIcon />

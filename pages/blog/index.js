@@ -26,7 +26,7 @@ export default function BlogIndex({ posts }) {
           name="description"
           content="Articles and guides about SRT and VTT subtitles, editing tips, and updates from Subtitles Edit."
         />
-        <link rel="canonical" href="https://subtitlesedit.com/blog/" />
+        <link rel="canonical" href="https://subtitlesedit.com/blog" />
       </Head>
 
       <div className="mx-auto max-w-[1240px] bg-white">

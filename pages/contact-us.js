@@ -57,7 +57,7 @@ export default function ContactUsPage() {
           name="description"
           content="Contact Subtitles Edit for support, feedback, or partnership inquiries. Send us a message and we will get back to you soon."
         />
-        <link rel="canonical" href="https://subtitlesedit.com/contact-us/" />
+        <link rel="canonical" href="https://subtitlesedit.com/contact-us" />
       </Head>
 
       <div className="mx-auto max-w-[1240px] bg-white">
