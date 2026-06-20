@@ -5,6 +5,7 @@
   const fileEl = document.getElementById("splitFile");
   const btn = document.getElementById("splitBtn");
   const out = document.getElementById("splitOutput");
+  const continueEl = document.getElementById("splitContinue");
   if (!btn || !out) return;
 
   const TS_LINE =
@@ -67,14 +68,14 @@
   }
 
   // Render one group of cues, renumbered from 1, in the chosen format.
-  function renderPart(cues, fmt) {
+  function renderPart(cues, fmt, startNum = 1) {
     const lines = [];
     if (fmt === "vtt") lines.push("WEBVTT", "");
     cues.forEach((c, i) => {
       if (fmt === "vtt") {
         lines.push(`${fmtTs(c.start, "vtt")} --> ${fmtTs(c.end, "vtt")}`);
       } else {
-        lines.push(String(i + 1));
+        lines.push(String(startNum + i));
         lines.push(`${fmtTs(c.start, "srt")} --> ${fmtTs(c.end, "srt")}`);
       }
       lines.push(c.text || "");
@@ -126,9 +127,13 @@
       const mode = modeEl.value === "minutes" ? "minutes" : "cues";
       const value = parseFloat(valEl.value);
       const groups = splitCues(cues, mode, value);
+      const continuous = !!(continueEl && continueEl.checked);
       out.innerHTML = "";
+      let cueOffset = 0;
       groups.forEach((g, i) => {
-        const partText = renderPart(g, fmt);
+        const startNum = continuous ? cueOffset + 1 : 1;
+        const partText = renderPart(g, fmt, startNum);
+        cueOffset += g.length;
         const link = document.createElement("a");
         link.textContent = `Download part ${i + 1} (${g.length} cues)`;
         link.href = URL.createObjectURL(

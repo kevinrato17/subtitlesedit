@@ -185,6 +185,20 @@ function SplitterTool() {
           </select>
         </div>
 
+        <div className="mt-2 flex items-start gap-2">
+          <input
+            id="splitContinue"
+            type="checkbox"
+            className="mt-0.5 h-4 w-4 accent-[#0ea5e9]"
+          />
+          <label htmlFor="splitContinue" className="text-sm text-[#374151]">
+            Continue cue numbering across parts
+            <span className="block text-xs text-[#64748b]">
+              Part 2 carries on from Part 1 (e.g. 201, then 401). Applies to SRT output.
+            </span>
+          </label>
+        </div>
+
         <div className="mt-2 flex flex-wrap items-center gap-3">
           <input
             id="splitFile"
@@ -336,8 +350,22 @@ const faqRows = [
     q: " Does the tool renumber cues for each split file? ",
     body: (
       <p>
-        Yes. Each split file starts fresh from cue number 1, ensuring clean and
-        organized output.
+        By default, yes {"\u2014"} each split file starts fresh from cue number
+        1. If you prefer continuous numbering, tick {"\u201c"}Continue cue
+        numbering across parts{"\u201d"} and Part 2 carries on from Part 1 (for
+        example 201, then 401).
+      </p>
+    ),
+  },
+  {
+    id: "e-n-accordion-item-19020",
+    q: " Can I keep cue numbers continuous across split parts? ",
+    body: (
+      <p>
+        Yes. Tick {"\u201c"}Continue cue numbering across parts{"\u201d"} before
+        splitting and the tool numbers cues continuously instead of restarting
+        each part at 1, so a 200-cue split runs 1{"\u2013"}200, then 201
+        {"\u2013"}400, and so on. This currently applies to SRT output.
       </p>
     ),
   },
@@ -730,14 +758,15 @@ export default function SubtitleSplitterPage() {
                 </p>
 
                 <h3 className={h3}>
-                  Automatic Cue Renumbering for Each Split File
+                  Flexible Cue Renumbering for Each Split File
                 </h3>
                 <p className={p}>
-                  Each split file starts with cue{" "}
-                  <strong data-start="3181" data-end="3186">
-                    1
-                  </strong>
-                  , keeping your subtitles clean and organized.
+                  By default, each split file starts fresh from cue{" "}
+                  <strong>1</strong>, keeping every part clean and
+                  self-contained. Prefer continuous numbering? Tick{" "}
+                  <strong>Continue cue numbering across parts</strong> and Part 2
+                  carries on from where Part 1 ended (for example 201, then 401)
+                  {" \u2014 "}ideal for translation and re-merging workflows.
                 </p>
                 <p className={p}> </p>
 
