@@ -194,7 +194,7 @@ function SplitterTool() {
           <label htmlFor="splitContinue" className="text-sm text-[#374151]">
             Continue cue numbering across parts
             <span className="block text-xs text-[#64748b]">
-              Part 2 carries on from Part 1 (e.g. 201, then 401). Applies to SRT output.
+              Part 2 carries on from Part 1 (e.g. 201, then 401). Works for SRT and VTT output.
             </span>
           </label>
         </div>
@@ -365,7 +365,7 @@ const faqRows = [
         Yes. Tick {"\u201c"}Continue cue numbering across parts{"\u201d"} before
         splitting and the tool numbers cues continuously instead of restarting
         each part at 1, so a 200-cue split runs 1{"\u2013"}200, then 201
-        {"\u2013"}400, and so on. This currently applies to SRT output.
+        {"\u2013"}400, and so on. This works for both SRT and VTT output.
       </p>
     ),
   },

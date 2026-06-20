@@ -73,9 +73,10 @@
     if (fmt === "vtt") lines.push("WEBVTT", "");
     cues.forEach((c, i) => {
       if (fmt === "vtt") {
+        if (startNum != null) lines.push(String(startNum + i));
         lines.push(`${fmtTs(c.start, "vtt")} --> ${fmtTs(c.end, "vtt")}`);
       } else {
-        lines.push(String(startNum + i));
+        lines.push(String((startNum == null ? 1 : startNum) + i));
         lines.push(`${fmtTs(c.start, "srt")} --> ${fmtTs(c.end, "srt")}`);
       }
       lines.push(c.text || "");
@@ -131,7 +132,11 @@
       out.innerHTML = "";
       let cueOffset = 0;
       groups.forEach((g, i) => {
-        const startNum = continuous ? cueOffset + 1 : 1;
+        const startNum = continuous
+          ? cueOffset + 1
+          : fmt === "vtt"
+          ? null
+          : 1;
         const partText = renderPart(g, fmt, startNum);
         cueOffset += g.length;
         const link = document.createElement("a");
