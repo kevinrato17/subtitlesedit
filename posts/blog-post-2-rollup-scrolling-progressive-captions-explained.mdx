@@ -1,0 +1,197 @@
+---
+title: "Rollup, Scrolling, and Progressive Captions: What They Are and Why They Cause Problems"
+description: "Why YouTube and live-caption VTT files contain duplicated text, how rollup rendering works, and what to do when you need clean cues instead."
+date: "2026-07-06"
+slug: "rollup-scrolling-progressive-captions-explained"
+---
+
+# Rollup, Scrolling, and Progressive Captions: What They Are and Why They Cause Problems
+
+If you work with subtitles long enough, you'll eventually run into a file that looks broken. The same sentence appears over and over, each repetition slightly longer than the last. Words you're sure were said only once show up in cue after cue. The timing seems fine, but the text is unreadable.
+
+You haven't broken anything. The file is in **rollup** format — and once you understand what rollup is, why it exists, and where it comes from, the fix becomes obvious.
+
+This is a reference guide to rollup captions: what they are, how they relate to other captioning styles, and what to do when you need clean cues instead.
+
+## The Short Version
+
+Rollup captions are a style of caption rendering where each cue contains the full text of the sentence built up so far. Every new cue adds one or two more words to the end. Played in a video player they create the smooth scrolling effect you see on YouTube live streams. Saved as a file, they look like massive text duplication.
+
+YouTube auto-captions, Zoom captions, Microsoft Teams captions, Google Meet captions, Otter, and any browser-based tool built on the Web Speech API all produce rollup VTT files.
+
+This is correct behaviour for live display. It's wrong for almost everything else.
+
+## The History: Why Rollup Exists
+
+Rollup didn't start with YouTube. It comes from broadcast television closed captioning, going back to the 1980s. Live news broadcasts couldn't wait for a sentence to finish before showing captions — the words had to appear as the anchor spoke them, in something close to real time.
+
+The solution was rollup. Captioners would type as fast as they could, and each chunk of words was sent to the screen as soon as it was ready. New text pushed older text upward, one line at a time. The bottom line was always being built up; the top line was always scrolling off.
+
+When live speech recognition moved to the web, it inherited the same rendering model — and exported the same file structure. YouTube's auto-caption pipeline emits one cue every time the recognizer has new words, with the full current state of the sentence repeated in each cue.
+
+The [W3C even has a working draft](https://www.w3.org/community/texttracks/wiki/RollupCaptions) trying to standardize how WebVTT should handle rollup natively. As of today, however, the file format has no first-class support for it. Tools that produce rollup just emit lots of cumulative cues, which is why your files end up looking the way they do.
+
+## The Four Caption Styles, In Plain English
+
+Rollup is one of four common caption rendering styles. Understanding the others helps you spot rollup when you see it.
+
+### Rollup (or scrolling)
+
+What we've been describing. New text appears at the bottom, old text scrolls upward, the cue file contains a snapshot at every growth step.
+
+**Looks like:**
+
+```
+00:00:01.000 --> 00:00:01.200
+Hello
+
+00:00:01.200 --> 00:00:01.400
+Hello, you
+
+00:00:01.400 --> 00:00:01.800
+Hello, you are
+```
+
+**Used by:** YouTube auto-captions, yt-dlp auto-subs, Zoom, Teams, Meet, Otter, Web Speech API.
+
+### Pop-on
+
+The default for movies and TV. Each cue is a complete unit. It appears, stays on screen for its duration, and disappears, replaced by the next cue. No accumulation, no scrolling.
+
+**Looks like:**
+
+```
+00:00:01.000 --> 00:00:03.000
+Hello, you are very welcome.
+
+00:00:03.500 --> 00:00:06.000
+Welcome to the show.
+```
+
+**Used by:** Most professional caption files, BBC subtitles, Netflix subtitles, anything human-created in a captioning tool.
+
+### Paint-on
+
+Captions appear letter-by-letter or word-by-word in a single position, as if being typed. Sometimes used for emphasis or for short labels in news graphics. Rare in modern video.
+
+**Used by:** Some broadcast captioning, some video games.
+
+### Roll-up (variant)
+
+A variant of rollup where each line of dialogue rolls up to the previous position when the next line comes in, but each line itself is a complete cue. This is closer to pop-on than to scrolling rollup. Confusingly, it sometimes appears in documentation as just "rollup," which is part of why the terminology is a mess.
+
+For practical purposes: if you have a file with growing-prefix duplication, you have what YouTube produces, and what this guide calls rollup.
+
+## How to Tell If You Have a Rollup File
+
+Open your VTT in any text editor and look at the first ten or so cues. Three signs tell you it's rollup:
+
+1. **Cumulative growth.** Each cue starts with the same words as the previous cue, with one or two more on the end.
+2. **Tight, sub-second timestamps.** Rollup cues are usually 100–500ms apart, because they're emitted as fast as the recognizer can produce new words.
+3. **Two-line cues with mid-sentence breaks.** When the current sentence gets long enough to wrap to two lines in the player, you'll see cues like `"sentence first part\nsentence growing here"` — the top line is the rendered-but-scrolling-off remainder.
+
+If you see all three, it's a rollup file. The cleaner is what you need.
+
+## Why Rollup Files Cause Problems
+
+Rollup files work fine for one thing: live display in a video player that knows to only show the latest cue. Outside that narrow use case, they break almost every workflow.
+
+### Reading them as transcripts is impossible
+
+The same sentence appears thirty to fifty times in a row. A human can't read it. Search and find-in-page are useless.
+
+### Translation tools choke on them
+
+Machine translation services bill by character or word count. A rollup file inflates the character count by roughly 30x. Beyond the cost, the duplication produces translation output that's also duplicated, which has to be cleaned downstream anyway.
+
+### Search and indexing don't work
+
+If you're indexing video captions for search (for instance to build a video-search feature on a learning platform), rollup files create huge numbers of phantom matches. The phrase "Hello, you are very welcome" matches every one of the cues containing it as a prefix.
+
+### Editing is impractical
+
+Any subtitle editing tool — desktop or web — shows you the cues as they are. With rollup, you'd be editing the same words in fifty places. Manual cleanup is impossible at any reasonable file length.
+
+### LLMs and AI models hit token limits
+
+Pasting a rollup file into ChatGPT to "clean it up" usually fails. A 30-minute YouTube video can produce 100,000+ tokens of duplicated text, which exceeds the context window of most models, and which causes severe degradation even in models that can hold it.
+
+## Why a Dedicated Cleaner Is the Right Approach
+
+There are three categories of tools that can handle rollup files, and only one of them works reliably.
+
+**Manual text editing.** Possible for tiny files. Impossible at any realistic size.
+
+**Regex find-and-replace.** Can catch the obvious cases but breaks on two-line cues, on multi-cue sentences, and on real dialogue with legitimate repetition. Gets you 70% of the way there, leaves the hard 30% for you to fix by hand.
+
+**Purpose-built rollup detection.** A small deterministic script that walks the file, identifies cumulative prefix chains, and collapses each one to its final form. This is what [the Subtitle Rollup Cleaner](/subtitle-rollup-cleaner) does. It's reliable because rollup has a precise structural definition, and structural problems are best solved by structural tools.
+
+LLMs are notably not in this list. They can sometimes clean a few cues correctly, but at scale they hallucinate cues that weren't there, drop timestamps, and merge things they shouldn't. They're the wrong tool for the job. Deterministic prefix detection is.
+
+## What You Actually Want After Cleaning
+
+Once a rollup file is cleaned, it looks like a normal pop-on VTT. From there, you can do whatever you'd do with any subtitle file:
+
+- **Convert to SRT** for upload to platforms that don't accept VTT, using the [VTT to SRT Converter](/vtt-to-srt-converter).
+- **Extract a plain-text transcript** using the [VTT to TXT Converter](/vtt-to-txt-converter).
+- **Shift the timing** if your captions are out of sync with the audio, using the [Subtitle Time Shifter](/subtitle-time-shifter).
+- **Split into chapters or translation batches** using the [Subtitle Splitter](/subtitle-splitter).
+- **Fix overlapping cues** that occasionally appear when rollup spans sentence boundaries, using the [Subtitle Overlap Fixer](/subtitle-overlap-fixer).
+
+The point of cleaning rollup is to get back to a normal subtitle file, after which all the standard tools work again.
+
+## A Note on Privacy
+
+YouTube auto-captions of meetings, lectures, calls, and personal videos often contain sensitive content — names, private discussions, medical or financial detail. Uploading these to a server-based cleaning tool means trusting that server with content it has no business seeing.
+
+Browser-based tools sidestep this entirely. The [Subtitle Rollup Cleaner](/subtitle-rollup-cleaner) reads the file into your browser's memory, processes it locally, and writes the cleaned version to your download folder. Nothing is uploaded, logged, or transmitted. For meeting transcripts and personal-video captions, this isn't a nice-to-have — it's the only acceptable model.
+
+## Frequently Asked Questions
+
+### What is the difference between rollup and scrolling captions?
+
+There isn't one. They're the same thing — the same cumulative-cue rendering style — and the two terms are used interchangeably.
+
+### Are rollup captions the same as live captions?
+
+In practice, mostly yes. Live captions almost always use rollup rendering because the system can't show a sentence until it's been spoken, and rollup is how captions appear in real time. Live captions saved after the fact retain the rollup structure.
+
+### Why doesn't YouTube give me clean captions to download?
+
+YouTube generates captions live and stores them in the format they were produced in. The platform doesn't post-process them into pop-on form, because for display inside YouTube itself the rollup format works perfectly. The mess only shows up when you download the file.
+
+### Can I tell YouTube to give me captions in pop-on format instead?
+
+No. Auto-generated captions are always in rollup format. If a video has creator-uploaded captions, those are usually pop-on, but you have no control over the auto-generated track's format.
+
+### How do I clean a rollup VTT file?
+
+Upload it to the [Subtitle Rollup Cleaner](/subtitle-rollup-cleaner). It detects rollup chains, collapses each one into a single clean cue, and gives you back a normal VTT file. Everything runs in your browser.
+
+### Will cleaning a rollup file change the timing?
+
+No. The cleaned cues inherit the start time of the first rollup snapshot and the end time of the last, so each sentence's timing matches the original speech.
+
+### What if my file isn't rollup but I run it through the cleaner anyway?
+
+The cleaner only collapses cues that match the cumulative-prefix pattern. Non-rollup files pass through essentially unchanged.
+
+### Are rollup files standard VTT?
+
+Yes. WebVTT allows any number of overlapping or back-to-back cues with any text content. Rollup files are technically valid VTT — they just use the format in a way that's only useful for live display.
+
+### Does subtitle rollup affect SRT files?
+
+Rarely. Almost no live recognizer exports SRT directly; they export VTT. If you have a rollup-looking SRT, it was probably converted from VTT after the fact, and you're better off finding the original VTT and cleaning it.
+
+### Is rollup the same as "duplicated subtitles" that some other tools talk about?
+
+Not quite. "Duplicate subtitles" usually means exact-duplicate cues caused by bad merges or DVD ripping problems. Rollup is cumulative-prefix duplication caused by live captioning. Different problems, different tools. The [Subtitle Rollup Cleaner](/subtitle-rollup-cleaner) is purpose-built for rollup specifically.
+
+### Can I prevent rollup from happening in my own videos?
+
+If you're recording videos and want clean captions, upload your own SRT or VTT instead of relying on YouTube's auto-caption. If you're producing live content, rollup is unavoidable during the broadcast — but you can clean the resulting file afterwards before publishing it as a transcript.
+
+## In Closing
+
+Rollup captions are a 1980s broadcast standard that ended up baked into 2020s live speech recognition. They work fine for what they were designed to do, and badly for everything else. Understanding the format is half the battle. The other half is having a tool that handles it correctly — and that's what the [Subtitle Rollup Cleaner](/subtitle-rollup-cleaner) is for.
