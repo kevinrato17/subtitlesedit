@@ -106,6 +106,12 @@ function ToolGrid() {
       aria: "Open Subtitle Encoding Fixer",
     },
     {
+      href: "/subtitle-rollup-cleaner",
+      name: "Subtitle Rollup Cleaner",
+      desc: "Clean rollup captions from YouTube auto-generated and live-caption VTT files.",
+      aria: "Open Subtitle Rollup Cleaner",
+    },
+    {
       href: "/subtitle-find-replace",
       name: "Subtitle Find & Replace",
       desc: "Find and replace text across SRT, VTT, and TXT files with regex support. Timestamps stay untouched.",
@@ -430,6 +436,14 @@ const jsonLdItemList = {
       url: "https://subtitlesedit.com/subtitle-line-length-limiter",
       description:
         "Reformat subtitle files to Netflix, BBC, or custom line length standards. Splits long cues automatically.",
+    },
+    {
+      "@type": "ListItem",
+      position: 17,
+      name: "Subtitle Rollup Cleaner",
+      url: "https://subtitlesedit.com/subtitle-rollup-cleaner",
+      description:
+        "Clean rollup captions from YouTube auto-generated and live-caption VTT files. Removes cumulative-prefix duplication and preserves accurate timing.",
     },
   ],
 };

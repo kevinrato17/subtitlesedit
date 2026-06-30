@@ -69,6 +69,10 @@ const toolsLinks = [
     label: "Subtitle Encoding Fixer",
   },
   {
+    href: "/subtitle-rollup-cleaner",
+    label: "Subtitle Rollup Cleaner",
+  },
+  {
     href: "/subtitle-find-replace",
     label: "Subtitle Find & Replace",
   },
@@ -297,7 +301,7 @@ export default function Layout({ children }) {
                   role="region"
                   aria-labelledby="mobile-tools-trigger"
                   className={`overflow-hidden transition-[max-height] duration-300 ease-out ${
-                    mobileToolsExpanded ? "max-h-[560px]" : "max-h-0"
+                    mobileToolsExpanded ? "max-h-[640px]" : "max-h-0"
                   }`}
                 >
                   <ul className="flex flex-col gap-1 pb-3 pl-5 pt-1">
