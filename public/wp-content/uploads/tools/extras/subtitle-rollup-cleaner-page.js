@@ -3,7 +3,28 @@
   const btn = document.getElementById("rollupBtn");
   const out = document.getElementById("rollupOutput");
   const clearBtn = document.getElementById("btnRollupClear");
+  const statusEl = document.getElementById("rollupFileStatus");
+  const inputPreviewEl = document.getElementById("rollupInputPreview");
+  const outputPreviewEl = document.getElementById("rollupOutputPreview");
   if (!btn || !out) return;
+
+  const PREVIEW_CUE_LIMIT = 50;
+
+  function buildPreview(cues) {
+    if (!cues.length) return "";
+    const shown = cues.slice(0, PREVIEW_CUE_LIMIT);
+    const lines = ["WEBVTT", ""];
+    shown.forEach((c) => {
+      lines.push(`${fmtTs(c.start)} --> ${fmtTs(c.end)}`);
+      lines.push(c.text);
+      lines.push("");
+    });
+    let text = lines.join("\n").replace(/\n+$/, "") + "\n";
+    if (cues.length > PREVIEW_CUE_LIMIT) {
+      text += `\n... and ${cues.length - PREVIEW_CUE_LIMIT} more cues (preview truncated)\n`;
+    }
+    return text;
+  }
 
   const TS_LINE =
     /(\d{2}:\d{2}:\d{2}[.,]\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2}[.,]\d{3})/;
@@ -220,6 +241,29 @@
     out.appendChild(div);
   }
 
+  if (fileEl) {
+    fileEl.addEventListener("change", () => {
+      const f = fileEl.files[0];
+      if (!f) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const cues = parseCues(String(e.target.result || ""));
+        if (statusEl) {
+          statusEl.textContent = cues.length
+            ? `Loaded: ${f.name} (${cues.length} cues detected)`
+            : `Loaded: ${f.name} (no cues detected)`;
+        }
+        if (inputPreviewEl) {
+          inputPreviewEl.value = buildPreview(cues);
+        }
+        if (outputPreviewEl) {
+          outputPreviewEl.value = "";
+        }
+      };
+      reader.readAsText(f, "UTF-8");
+    });
+  }
+
   btn.addEventListener("click", () => {
     const f = fileEl && fileEl.files[0];
     if (!f) {
@@ -241,6 +285,9 @@
       const text = renderVtt(cleaned);
       const before = cues.length;
       const after = cleaned.length;
+      if (outputPreviewEl) {
+        outputPreviewEl.value = buildPreview(cleaned);
+      }
       out.innerHTML = "";
       const stat = document.createElement("p");
       stat.className = "text-sm text-[#475569] mb-2";
@@ -272,6 +319,9 @@
   if (clearBtn) {
     clearBtn.addEventListener("click", () => {
       if (fileEl) fileEl.value = "";
+      if (statusEl) statusEl.textContent = "";
+      if (inputPreviewEl) inputPreviewEl.value = "";
+      if (outputPreviewEl) outputPreviewEl.value = "";
       out.innerHTML = "";
     });
   }
