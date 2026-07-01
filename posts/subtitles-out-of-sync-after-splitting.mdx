@@ -1,0 +1,135 @@
+---
+title: "Why Are My Subtitles Out of Sync After Splitting the File?"
+description: "If your subtitles vanish or start at the wrong time after splitting an SRT or VTT, the fix isn't a resync — it's understanding how subtitle timestamps actually work."
+date: "2026-07-08"
+slug: "subtitles-out-of-sync-after-splitting"
+---
+
+You split a subtitle file cleanly in half. The first half plays perfectly. The second half doesn't show up at all — or shows up an hour late, or three hours late, or at some other time that seems completely random.
+
+You haven't broken anything. Your split was fine. The file is valid. The problem is that subtitle files don't work the way most people assume they do, and once you understand how timestamps are actually stored, the fix is obvious.
+
+## Subtitle Files Store Absolute Timestamps, Not Relative Ones
+
+Open any SRT file in a text editor and you'll see something like this:
+
+```
+1
+00:00:15,000 --> 00:00:18,000
+First line of dialogue.
+
+2
+00:00:22,500 --> 00:00:24,000
+Second line.
+```
+
+Those timestamps aren't measured from the start of the file. They're measured from the start of the original video. `00:00:15,000` doesn't mean "show this cue 15 seconds into the SRT" — it means "show this cue when the video's playhead reaches 15 seconds."
+
+That distinction doesn't matter when the SRT and the video are one-to-one. It matters enormously the moment you split the SRT and pair each part with a shorter clip.
+
+## What Actually Happens When You Split a Subtitle File
+
+A splitter's job is to take one long list of cues and produce several shorter lists. If your original SRT has 400 cues and you split at cue 200, Part 1 contains cues 1–200 and Part 2 contains cues 201–400.
+
+But **the timestamps inside those cues don't change**. Cue 201 still says `01:00:15,000` because that's when it happens in the original video's timeline.
+
+If your Part 2 SRT is paired with a video clip that starts at `00:00:00`, the player looks at cue 201 and thinks: "OK, I'll show this at the one-hour mark." Your clip is only 45 minutes long. The subtitle never appears.
+
+This is why the problem sometimes manifests as "subtitles are out of sync by exactly one hour" or "exactly 30 minutes" — the offset matches the exact duration of Part 1.
+
+## Two Different Problems, Two Different Fixes
+
+There are two distinct scenarios that both feel like "subtitles are out of sync after splitting," and they need opposite fixes.
+
+**Scenario A: You split the video too.**
+
+You cut a 2-hour movie into two 1-hour clips, each starting at `00:00:00`. You split the SRT to match. Part 2's subtitles should now start playing at second one of your second clip.
+
+Fix: rebase Part 2's timestamps so its first cue starts at (or near) `00:00:00`. This is what the "Reset timing for each part" option in the [Subtitle Splitter](/subtitle-splitter) does automatically — it subtracts the offset of each part's first cue from every cue in that part.
+
+**Scenario B: You kept the video whole and only split the subtitles.**
+
+You divided the SRT for translation, editing convenience, or to work around a tool's file-size limit. The video itself hasn't been touched.
+
+Fix: do nothing to the timestamps. Both parts still need to reference the original video's timeline. If you rebase Part 2 to start at zero, it will now be desynced against the original full-length video by an hour.
+
+**The critical takeaway:** whether "resetting timing" is the right answer depends entirely on whether the *video* was also split, not on whether the subtitles look wrong to you at first glance.
+
+## How to Tell Which Scenario You're In
+
+Ask this question: **does the video clip Part 2 will play against start at `00:00:00`?**
+
+- If yes, you need to reset timing.
+- If no (the clip's playhead still counts from the original video's start), you don't.
+
+If you're not sure, load the video into any player and check what the timecode reads at frame one. If it's `00:00:00,000`, the video has been re-encoded starting from zero and you need rebased subtitles.
+
+## Why the "One Hour Off" Symptom Is So Common
+
+Because feature films, TV episodes, and long-form YouTube content are almost always split on the hour boundary. A 90-minute film gets split at 45 minutes. A 2-hour interview gets split at the 1-hour mark. When you then don't rebase Part 2, its first cue is offset by whatever duration Part 1 had — which is why the subtitles show up exactly one hour, or 45 minutes, or 30 minutes late.
+
+If your subtitles are off by a random-looking amount like `00:47:23,000`, that's still the same problem — that number is just the timestamp of Part 2's first cue in the original timeline. It looks random only because you don't remember exactly where you cut the video.
+
+## Related Problems That Look Like the Same Bug
+
+Two other issues sometimes get diagnosed as "split broke my subtitles" when they're actually unrelated.
+
+**Missing WEBVTT header.** If you split a VTT file with a tool that doesn't emit `WEBVTT` at the top of each output part, HTML5 video players will reject the file entirely and no subtitles show. The [Subtitle Splitter](/subtitle-splitter) writes a fresh header on every part, so this doesn't happen — but some scriptable tools skip it.
+
+**Wrong file extension.** Renaming a `.vtt` to `.srt` (or vice versa) without converting the timestamp format leaves you with a file most players silently reject. If you need to change formats, use the [SRT to VTT Converter](/srt-to-vtt-converter) or [VTT to SRT Converter](/vtt-to-srt-converter) — they rewrite the internal syntax, not just the extension.
+
+**Cue overlap at the split boundary.** Very rarely, the last cue of Part 1 and the first cue of Part 2 have close or overlapping timestamps because of how the original file was authored. This isn't the splitter's fault, but it can look wrong. The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) resolves it in one pass.
+
+## When to Reach for a Time Shifter Instead
+
+If Part 2's timing is off by only a small amount — say a few hundred milliseconds or a couple of seconds — you probably don't have a split problem. You have a general sync problem, and the [Subtitle Time Shifter](/subtitle-time-shifter) is the right tool. It applies a positive or negative offset uniformly across the whole file.
+
+The rule of thumb: if the offset matches Part 1's duration almost exactly, you have a split-and-rebase problem. If it's a small fixed number that doesn't match any obvious boundary, you have a general sync issue.
+
+## Summary
+
+Subtitle files carry absolute timestamps tied to the original video's timeline. Splitting the file doesn't change those timestamps — it just distributes them across multiple output files. If you also cut the video into clips starting from zero, each output part needs its timestamps shifted back to zero. If the video is intact, the timestamps should stay untouched.
+
+The [Subtitle Splitter](/subtitle-splitter) has a checkbox — **Reset timing for each part** — that handles the shift automatically for both SRT and VTT output. Tick it when your clips start at zero. Leave it unticked when they don't.
+
+## Frequently Asked Questions
+
+### Why are my subtitles exactly one hour late after splitting?
+
+Because Part 2's first cue still carries its original timestamp, which is offset by however long Part 1 was. If Part 1 covered the first hour of the video, Part 2's cues all start with `01:xx:xx` timestamps. Playing Part 2 against a one-hour clip that starts at zero means every subtitle is scheduled for a time that clip never reaches.
+
+### Does splitting a subtitle file damage the timing?
+
+No. Splitting only divides the list of cues into groups. Timestamps are copied through unchanged. Any "sync problem" that appears after splitting is a mismatch between the timestamps and the video the parts are being played against — not a corruption of the file.
+
+### How do I tell whether I need to reset timing on the parts?
+
+Check whether the video Part 2 will play against starts at `00:00:00`. If yes, reset timing. If the video is the original untouched full-length file, don't reset.
+
+### What does "reset timing" do to the file?
+
+It subtracts the offset of each part's first cue from every cue in that part. If Part 2 originally started at `01:00:15,000`, that cue becomes `00:00:00,000` after reset. Every other cue in Part 2 shifts by the same amount, preserving the gaps between them.
+
+### Why doesn't every subtitle splitter do this automatically?
+
+Because it's the wrong behaviour when the video hasn't been split. Rebasing every part to zero by default would break the common case of using splits for translation or editing convenience against the original video. The right behaviour is opt-in — which is why the [Subtitle Splitter](/subtitle-splitter) has it as a checkbox rather than always on.
+
+### My subtitles are off by 30 seconds, not by hours. Same problem?
+
+Probably not. A small offset is more likely a general sync issue caused by a mismatched framerate, encoding drift, or a container-vs-file timing difference. Use the [Subtitle Time Shifter](/subtitle-time-shifter) instead — it applies a uniform positive or negative shift to all cues.
+
+### Can this happen with VTT files as well as SRT?
+
+Yes. WebVTT stores absolute timestamps the same way SRT does — the only difference is the millisecond separator (`.` instead of `,`) and a required `WEBVTT` header. The out-of-sync-after-split problem is identical for both formats.
+
+### If I've already split the file without resetting timing, can I fix it now?
+
+Yes. Load Part 2 into the [Subtitle Time Shifter](/subtitle-time-shifter) and apply a negative offset equal to Part 2's first cue timestamp. Or simply re-run the original split with the "Reset timing for each part" option enabled from the start.
+
+### Do subtitle timestamps carry any information about the video itself?
+
+No. They're just numbers — hours, minutes, seconds, milliseconds. There's no reference to the video's filename, duration, or framerate embedded in the SRT or VTT. That's why the same file can be paired with any video, correctly or incorrectly — the file has no way to know whether the video it's playing against matches its original source.
+
+### Is there any risk of data loss when I split with reset timing enabled?
+
+No. Nothing is deleted, and no cue is modified except its timestamps. Text, cue numbering, formatting (italics, line breaks, speaker labels), and character encoding all pass through unchanged. Only the timeline reference shifts.

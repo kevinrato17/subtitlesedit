@@ -1,0 +1,124 @@
+---
+title: "How to Split an SRT for a Shorter Video Clip (Without Breaking Timing)"
+description: "Splitting an SRT for a cut video clip? Here's how to divide the file and reset each part's timing so subtitles line up with your clip from 00:00:00."
+date: "2026-07-04"
+slug: "split-srt-for-video-clip"
+---
+
+You've cut a long video into shorter clips. You export the subtitle file, split it in half, drop the second half into your editor next to the second clip — and the subtitles don't show up at all until an hour into playback.
+
+That's not a bug in your editor. That's your SRT still holding the timestamps from the original full-length file. Part 2 thinks it starts at `01:00:00,000` because that's where it used to start. Your clip starts at `00:00:00`.
+
+This is the single most common problem people hit when splitting subtitles for a re-cut video. Here's how to fix it in about ten seconds with no software installed.
+
+## The Two Things That Have to Happen When You Split for a Clip
+
+Splitting a subtitle file for a shorter clip is a two-step problem, and most free splitters only handle the first step.
+
+**Step 1: Divide the file into parts.** Every splitter can do this. You choose where to cut — by cue count, by minute mark, or at a specific timestamp — and you get two or more smaller files.
+
+**Step 2: Rebase each part's timing.** This is the step that gets missed. If Part 2's first cue was originally at `01:00:15,000`, and your clip starts at `00:00:00`, that cue needs to be shifted back so it reads `00:00:15,000`. Every subsequent cue in that part needs the same offset applied. Otherwise Part 2 is unplayable against the cut clip.
+
+Missing Step 2 is why so many people end up hand-editing timestamps in Notepad, or reaching for desktop tools like Subtitle Edit or Aegisub just to shift the timing after the split.
+
+## How to Split and Rebase in One Pass
+
+The [Subtitle Splitter](/subtitle-splitter) on this site handles both steps in a single upload, entirely in your browser. No file leaves your machine.
+
+1. Open the [Subtitle Splitter](/subtitle-splitter).
+2. Click **Choose File** and pick your SRT.
+3. Set **Split mode** — usually **By cues** if you know roughly how many lines each half needs, or **By time (minutes)** if you're splitting at a clock time (say, the 60-minute mark).
+4. Set the **Output format** to SRT.
+5. Tick **Reset timing for each part (start at 00:00:00)**.
+6. Click **Split**.
+
+Each part downloads as a separate `.srt` file with its own timing reset to zero. Drop Part 1 next to your first clip and Part 2 next to your second clip. Subtitles play from the first frame of each clip.
+
+## When to Use Reset Timing and When to Leave It Off
+
+The reset timing option is opt-in for a reason. Two common workflows want the opposite behaviour.
+
+**Use Reset timing when:**
+
+- You've physically cut a video into shorter clips and each clip starts at `00:00:00`.
+- You're preparing subtitles for individual episodes exported from a single source file.
+- You're sending clips to a platform (social media, embedded players) that expects subtitle timing to start from zero.
+
+**Leave Reset timing off when:**
+
+- You're keeping the original video intact and just want the subtitle file split into smaller chunks for translation or editing.
+- You plan to [merge the parts back together](/subtitle-merger) later and need timestamps to stay end-to-end continuous.
+- You're distributing the parts to translators who will re-import them into a full-length project.
+
+Getting this wrong is the reason "my subtitles are out of sync by exactly one hour" is such a common complaint. The subtitles are perfectly synced — just to the wrong reference point.
+
+## Splitting at a Specific Timestamp Instead of by Count
+
+If you know your video was cut at exactly `00:45:00,000`, you don't want to guess at a cue count. Use **By time (minutes)** and enter `45`. The splitter divides the file at the 45-minute mark of the original timeline. Combined with **Reset timing for each part**, both output files will be ready to drop next to their matching clip.
+
+The splitter cuts between whole cues — it will never break a subtitle mid-cue. If cue 250 straddles the 45-minute boundary, it stays intact in Part 1 and Part 2 picks up from cue 251.
+
+## What About VTT?
+
+The same feature works identically for VTT output. Change **Output format** to VTT before splitting. The `WEBVTT` header is emitted at the top of each part, and if you also tick **Reset timing**, each VTT part starts at `00:00:00.000` (VTT uses `.` instead of `,` for milliseconds).
+
+VTT is what you want for HTML5 `<video>` embeds, YouTube uploads, and most modern web players. SRT is what you want for VLC, Plex, most desktop players, and anywhere you're editing subtitles in a text-based tool.
+
+## After Splitting: Optional Cleanups
+
+A few things to check on the output files, depending on where they're going.
+
+- **Test in your target player.** If subtitles show up at the start of the clip, timing is right.
+- Run each part through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) if you notice any cue overlaps at the split boundary — rare, but occasionally the last cue of Part 1 and the first cue of Part 2 have close timings that look wrong in isolation.
+- Use the [Subtitle Time Shifter](/subtitle-time-shifter) if you need to nudge either part by a few hundred milliseconds — for example, if the video cut wasn't precisely on the timecode you expected.
+- If the clip is going to a platform that requires WebVTT, convert with the [SRT to VTT Converter](/srt-to-vtt-converter).
+
+## Why This Isn't Handled Well Elsewhere
+
+Most free online splitters treat splitting as a pure cue-count operation and leave timing untouched. That's the correct default when you're just chunking a file for editing convenience — but it's the wrong default when the output is intended for standalone playback. Desktop tools like Subtitle Edit and Aegisub handle rebasing well but require installation, and Aegisub's split workflow in particular is not intuitive.
+
+Server-based tools handle it but require uploading your file — a problem for confidential content, and slower than doing the work locally in a browser tab.
+
+Handling both split and rebase in one click, entirely client-side, is what makes this workflow fast enough to run without thinking about it.
+
+## Frequently Asked Questions
+
+### Why don't my subtitles show up when I split an SRT for a shorter video clip?
+
+Because the timestamps inside the SRT still reference the original full-length video's timeline. If your clip starts at `00:00:00` but Part 2's first cue is at `01:00:15`, the player waits an hour before showing anything. Tick "Reset timing for each part" when splitting to shift each part's timestamps so they start at zero.
+
+### What does "reset timing" actually change inside the SRT?
+
+It shifts every cue in a part backwards by the amount of the part's first cue. If Part 2's first cue was `01:00:15,000 --> 01:00:18,000`, it becomes `00:00:00,000 --> 00:00:03,000`. Every following cue in that part gets the same offset applied, so the relative timing between cues stays exactly the same.
+
+### Does resetting timing lose any information?
+
+No. Nothing is deleted. The timestamps are shifted, not truncated. The text of every cue, the cue count, and the gaps between cues are all preserved. Only the absolute timeline reference changes.
+
+### Can I split an SRT at a specific timestamp instead of by cue count?
+
+Yes. Set **Split mode** to **By time (minutes)** and enter the minute value. If you enter `45`, the file is split at the 45-minute mark of the original timeline. The splitter always cuts between whole cues, so no subtitle gets broken in half.
+
+### Can I do the same thing for a VTT file?
+
+Yes. Change **Output format** to VTT before splitting. The same reset-timing option applies. Each output part gets a proper `WEBVTT` header and timestamps in VTT's `.` millisecond format.
+
+### Do I need to install anything?
+
+No. The [Subtitle Splitter](/subtitle-splitter) runs entirely in your browser. Files are never uploaded — the split and rebase both happen on your machine.
+
+### Will splitting change the text of my subtitles?
+
+No. Text, formatting (italics, line breaks, speaker labels), and Unicode characters all pass through unchanged. Only cue numbers (if you enable continuous numbering) and timestamps (if you enable reset timing) are modified.
+
+### What if my video was cut at a slightly different time than I thought?
+
+Run the split with your best estimate of the cut point, then use the [Subtitle Time Shifter](/subtitle-time-shifter) to nudge the output by the small difference. A few hundred milliseconds is easy to correct after the fact.
+
+### Can I merge the parts back into one file later?
+
+Yes. Use the [Subtitle Merger](/subtitle-merger). If you plan to merge later, do **not** enable "Reset timing for each part" during the split — the merger expects end-to-end timestamps to stay continuous.
+
+### How large a file can I split this way?
+
+There's no server-side upload limit because nothing is uploaded. Files with thousands of cues split in under a second on most machines. Very large files (tens of thousands of cues) may take a couple of seconds but still complete without issue.
