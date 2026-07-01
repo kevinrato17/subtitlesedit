@@ -199,6 +199,22 @@ function SplitterTool() {
           </label>
         </div>
 
+
+
+        <div className="mt-2 flex items-start gap-2">
+          <input
+            id="splitRebase"
+            type="checkbox"
+            className="mt-0.5 h-4 w-4 accent-[#0ea5e9]"
+          />
+          <label htmlFor="splitRebase" className="text-sm text-[#374151]">
+            Reset timing for each part (start at 00:00:00)
+            <span className="block text-xs text-[#64748b]">
+              Useful when each part will play as a standalone clip. Works for SRT and VTT output.
+            </span>
+          </label>
+        </div>
+
         <div className="mt-2 flex flex-wrap items-center gap-3">
           <input
             id="splitFile"
@@ -230,6 +246,13 @@ function SplitterTool() {
             Download
           </button>
         </div>
+
+        <div
+          id="splitFileStatus"
+          className="mt-2 text-sm font-medium text-[#0ea5e9]"
+          style={{ display: "none" }}
+          aria-live="polite"
+        />
 
         <div
           id="splitOutput"
@@ -310,8 +333,10 @@ const faqRows = [
     q: " Will the subtitle timing remain accurate after splitting? ",
     body: (
       <p>
-        Yes. The tool preserves all original timestamps. Each split part keeps
-        the exact timing from the source file.
+        Yes. By default the tool preserves all original timestamps, so each
+        split part keeps the exact timing from the source file. If you tick
+        {" \u201c"}Reset timing for each part{"\u201d"} the timestamps inside
+        each part are shifted so that part starts at 00:00:00 instead.
       </p>
     ),
   },
@@ -366,6 +391,20 @@ const faqRows = [
         splitting and the tool numbers cues continuously instead of restarting
         each part at 1, so a 200-cue split runs 1{"\u2013"}200, then 201
         {"\u2013"}400, and so on. This works for both SRT and VTT output.
+      </p>
+    ),
+  },
+  {
+    id: "e-n-accordion-item-19021",
+    q: " Can I reset each split part's timing to start at 00:00:00? ",
+    body: (
+      <p>
+        Yes. Tick {"\u201c"}Reset timing for each part{"\u201d"} before
+        splitting and every part{"\u2019"}s timestamps are shifted so the
+        first cue starts at 00:00:00. This is ideal when each part will play
+        as a standalone clip {"\u2014"} for example, a 2-hour movie cut into
+        two 1-hour halves where each half needs subtitles starting from zero.
+        Leave the box unticked to keep the original end-to-end timing.
       </p>
     ),
   },
@@ -434,8 +473,11 @@ const faqRows = [
     q: " Does splitting affect subtitle syncing with the video? ",
     body: (
       <p>
-        No. Timing remains untouched. As long as you use the correct parts for
-        the matching video sections, sync stays accurate.
+        No. By default, timing remains untouched and sync stays accurate as
+        long as you use the correct parts for the matching video sections.
+        If your video has been cut so each clip starts at zero, tick
+        {" \u201c"}Reset timing for each part{"\u201d"} so every part begins
+        at 00:00:00 and lines up with the cut clip without manual adjustment.
       </p>
     ),
   },
@@ -768,6 +810,18 @@ export default function SubtitleSplitterPage() {
                   carries on from where Part 1 ended (for example 201, then 401)
                   {" \u2014 "}ideal for translation and re-merging workflows.
                 </p>
+
+                <h3 className={h3}>
+                  Reset Timing to Start Each Part at 00:00:00
+                </h3>
+                <p className={p}>
+                  Splitting a long file into clips you{"\u2019"}ll play
+                  separately? Tick{" "}
+                  <strong>Reset timing for each part</strong> and every part
+                  begins at <strong>00:00:00</strong>, so subtitles line up
+                  with cut video clips without manual time-shifting. Leave it
+                  unticked to preserve the original end-to-end timestamps.
+                </p>
                 <p className={p}> </p>
 
                 <h2 className={h2}>
@@ -800,12 +854,13 @@ export default function SubtitleSplitterPage() {
                   How the Tool Maintains Timing Accuracy During Splitting
                 </h3>
                 <p className={p}>
-                  The tool doesn{"\u2019"}t adjust timestamps {"\u2014"} it simply
-                  groups them into separate files, ensuring{" "}
-                  <strong data-start="3834" data-end="3868">
-                    timing accuracy remains intact
-                  </strong>
-                  .
+                  By default, the tool doesn{"\u2019"}t adjust timestamps
+                  {" \u2014 "}it simply groups them into separate files,
+                  ensuring <strong>timing accuracy remains intact</strong>.
+                  If each part needs to play as a standalone clip starting
+                  from zero, tick{" "}
+                  <strong>Reset timing for each part</strong> and every part
+                  will begin at 00:00:00.
                 </p>
                 <p className={p}> </p>
 

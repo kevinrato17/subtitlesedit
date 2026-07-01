@@ -6,7 +6,28 @@
   const btn = document.getElementById("splitBtn");
   const out = document.getElementById("splitOutput");
   const continueEl = document.getElementById("splitContinue");
+  const rebaseEl = document.getElementById("splitRebase");
+  const statusEl = document.getElementById("splitFileStatus");
   if (!btn || !out) return;
+
+  function fmtBytes(n) {
+    if (n < 1024) return n + " B";
+    if (n < 1024 * 1024) return (n / 1024).toFixed(1) + " KB";
+    return (n / (1024 * 1024)).toFixed(2) + " MB";
+  }
+
+  if (fileEl && statusEl) {
+    fileEl.addEventListener("change", () => {
+      const f = fileEl.files && fileEl.files[0];
+      if (f) {
+        statusEl.textContent = `\u2713 File loaded: ${f.name} (${fmtBytes(f.size)})`;
+        statusEl.style.display = "block";
+      } else {
+        statusEl.textContent = "";
+        statusEl.style.display = "none";
+      }
+    });
+  }
 
   const TS_LINE =
     /(\d{2}:\d{2}:\d{2}[.,]\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2}[.,]\d{3})/;
@@ -129,9 +150,21 @@
       const value = parseFloat(valEl.value);
       const groups = splitCues(cues, mode, value);
       const continuous = !!(continueEl && continueEl.checked);
+      const rebase = !!(rebaseEl && rebaseEl.checked);
+      const finalGroups = rebase
+        ? groups.map((g) => {
+            if (!g.length) return g;
+            const offset = g[0].start;
+            return g.map((c) => ({
+              start: Math.max(0, c.start - offset),
+              end: Math.max(0, c.end - offset),
+              text: c.text,
+            }));
+          })
+        : groups;
       out.innerHTML = "";
       let cueOffset = 0;
-      groups.forEach((g, i) => {
+      finalGroups.forEach((g, i) => {
         const startNum = continuous
           ? cueOffset + 1
           : fmt === "vtt"
@@ -165,6 +198,11 @@
     clear.addEventListener("click", () => {
       if (fileEl) fileEl.value = "";
       if (out) out.innerHTML = "";
+      const statusEl = document.getElementById("splitFileStatus");
+      if (statusEl) {
+        statusEl.textContent = "";
+        statusEl.style.display = "none";
+      }
     });
   }
   if (download) {
