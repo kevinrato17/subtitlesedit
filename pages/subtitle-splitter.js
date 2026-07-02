@@ -5,8 +5,8 @@ import ToolPageGradientHero from "@/components/ToolPageGradientHero";
 
 const section =
   "mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-[3rem] py-10 lg:py-12";
-const h2 =
-  "text-[1.875rem] font-semibold leading-snug text-[#1e293b] mb-4 mt-2";
+  const h2 =
+  "text-[1.875rem] font-semibold leading-snug text-[#1e293b] mb-4 mt-12";
 const h3 = "text-xl font-semibold text-[#1e293b] mb-3 mt-8";
 const p =
   "mb-4 text-[#334155] leading-relaxed [&_strong]:font-semibold [&_strong]:text-[#1e293b]";
@@ -21,13 +21,13 @@ const META_DESC =
 
 const PAGE_TITLE = "Subtitle Splitter Online Free | Subtitles Edit";
 
-const rankMathSchema = {
+const pageSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Organization",
       "@id": "https://subtitlesedit.com/#organization",
-      name: "Subtitlesedit.com",
+      name: "Subtitles Edit",
       url: "https://subtitlesedit.com",
       email: "support@subtitlesedit.com",
       logo: {
@@ -36,102 +36,300 @@ const rankMathSchema = {
         url: "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
         contentUrl:
           "https://subtitlesedit.com/wp-content/uploads/2025/11/Untitled-design.webp",
-        caption: "https://subtitlesedit.com",
+        caption: "Subtitles Edit",
         inLanguage: "en-US",
-        width: "500",
-        height: "500",
+        width: 500,
+        height: 500,
       },
       description:
-        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online \u2014 no software installation or sign-up required.\n\nOur simple, privacy-friendly tools include SRT to VTT converters, subtitle mergers, splitters, time shifters, and overlap fixers that work instantly right in your browser. Whether you need to convert SRT to WebVTT, resync subtitles, or fix overlapping cues, Subtitles Edit makes it quick and effortless.\n\nTrusted by content creators worldwide, we focus on speed, accuracy, and simplicity, helping you make every subtitle perfectly timed and platform-ready.",
+        "SubtitlesEdit.com is a free, browser-based toolkit for creating, editing, and perfecting subtitle and caption files. We help video creators, YouTubers, educators, translators, and media teams easily convert, merge, split, sync, and fix subtitles online \u2014 no software installation or sign-up required.",
     },
     {
       "@type": "WebSite",
       "@id": "https://subtitlesedit.com/#website",
       url: "https://subtitlesedit.com",
-      name: "https://subtitlesedit.com",
-      alternateName: "Subtitles Edit",
+      name: "Subtitles Edit",
+      alternateName: "SubtitlesEdit.com",
       publisher: { "@id": "https://subtitlesedit.com/#organization" },
       inLanguage: "en-US",
     },
     {
-      "@type": "ImageObject",
-      "@id": OG_IMG,
-      url: OG_IMG,
-      width: "200",
-      height: "200",
-      inLanguage: "en-US",
-    },
-    {
       "@type": "BreadcrumbList",
-      "@id": "https://subtitlesedit.com/subtitle-splitter/#breadcrumb",
+      "@id": "https://subtitlesedit.com/subtitle-splitter#breadcrumb",
       itemListElement: [
         {
           "@type": "ListItem",
-          position: "1",
-          item: { "@id": "https://subtitlesedit.com", name: "Home" },
+          position: 1,
+          name: "Home",
+          item: "https://subtitlesedit.com",
         },
         {
           "@type": "ListItem",
-          position: "2",
-          item: {
-            "@id": "https://subtitlesedit.com/subtitle-splitter/",
-            name: "Subtitle Splitter to Split Subtitles Instantly (SRT & VTT)",
-          },
+          position: 2,
+          name: "Subtitle Splitter",
+          item: "https://subtitlesedit.com/subtitle-splitter",
         },
       ],
     },
     {
       "@type": "WebPage",
-      "@id": "https://subtitlesedit.com/subtitle-splitter/#webpage",
-      url: "https://subtitlesedit.com/subtitle-splitter/",
-      name: "Subtitle Splitter \u2013 Split Subtitles (SRT & VTT) Instantly",
-      datePublished: "2025-11-04T17:23:33+00:00",
-      dateModified: "2025-11-29T13:12:39+00:00",
-      isPartOf: { "@id": "https://subtitlesedit.com/#website" },
-      primaryImageOfPage: { "@id": OG_IMG },
-      inLanguage: "en-US",
-      breadcrumb: {
-        "@id": "https://subtitlesedit.com/subtitle-splitter/#breadcrumb",
-      },
-    },
-    {
-      "@type": "Person",
-      "@id": "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-      name: "Subtitles Edit",
-      url: "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-      image: {
-        "@type": "ImageObject",
-        "@id":
-          "https://secure.gravatar.com/avatar/dadac46feb548479fffced65ed9edb7cba49be5576172058b3b522c2bf0267b6?s=96&d=mm&r=g",
-        url: "https://secure.gravatar.com/avatar/dadac46feb548479fffced65ed9edb7cba49be5576172058b3b522c2bf0267b6?s=96&d=mm&r=g",
-        caption: "Subtitles Edit",
-        inLanguage: "en-US",
-      },
-      sameAs: ["http://subtitlesedit.com"],
-      worksFor: { "@id": "https://subtitlesedit.com/#organization" },
-    },
-    {
-      "@type": "Article",
-      headline: "Subtitle Splitter \u2013 Split Subtitles (SRT & VTT) Instantly",
-      keywords: "Subtitle Splitter",
-      datePublished: "2025-11-04T17:23:33+00:00",
-      dateModified: "2025-11-29T13:12:39+00:00",
-      author: {
-        "@id": "https://subtitlesedit.com/author/kevinrato17gmail-com/",
-        name: "Subtitles Edit",
-      },
-      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      "@id": "https://subtitlesedit.com/subtitle-splitter#webpage",
+      url: "https://subtitlesedit.com/subtitle-splitter",
+      name: PAGE_TITLE,
       description: META_DESC,
-      name: "Subtitle Splitter \u2013 Split Subtitles (SRT & VTT) Instantly",
-      "@id": "https://subtitlesedit.com/subtitle-splitter/#richSnippet",
-      isPartOf: {
-        "@id": "https://subtitlesedit.com/subtitle-splitter/#webpage",
+      datePublished: "2025-11-04T17:23:33+00:00",
+      dateModified: "2026-07-01T00:00:00+00:00",
+      isPartOf: { "@id": "https://subtitlesedit.com/#website" },
+      breadcrumb: {
+        "@id": "https://subtitlesedit.com/subtitle-splitter#breadcrumb",
       },
-      image: { "@id": OG_IMG },
+      primaryImageOfPage: { "@id": OG_IMG },
+      mainEntity: { "@id": "https://subtitlesedit.com/subtitle-splitter#tool" },
       inLanguage: "en-US",
-      mainEntityOfPage: {
-        "@id": "https://subtitlesedit.com/subtitle-splitter/#webpage",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://subtitlesedit.com/subtitle-splitter#tool",
+      name: "Subtitle Splitter",
+      url: "https://subtitlesedit.com/subtitle-splitter",
+      applicationCategory: "MultimediaApplication",
+      operatingSystem: "Any (runs in a web browser)",
+      browserRequirements:
+        "Requires a modern web browser with JavaScript enabled",
+      description:
+        "Free browser-based tool that splits SubRip (.srt) and WebVTT (.vtt) subtitle files into smaller parts by cue count or by time. Supports continuous cue numbering across parts and per-part timing reset to 00:00:00. All processing happens locally in the browser, with no uploads and no sign-up.",
+      isAccessibleForFree: true,
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
       },
+      featureList: [
+        "Split SRT and VTT subtitle files by cue count or by time (minutes)",
+        "Output as SRT or WebVTT",
+        "Optional continuous cue numbering across parts",
+        "Optional per-part timing reset to 00:00:00 for standalone video clips",
+        "100% client-side processing \u2014 files never leave your device",
+        "No installation, sign-up, or uploads required",
+      ],
+      publisher: { "@id": "https://subtitlesedit.com/#organization" },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://subtitlesedit.com/subtitle-splitter#howto",
+      name: "How to split a subtitle file",
+      description:
+        "Step-by-step instructions for splitting an SRT or VTT subtitle file into smaller parts using the Subtitle Splitter.",
+      totalTime: "PT1M",
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Choose your subtitle file",
+          text: "Click Choose File and select the .srt or .vtt subtitle file you want to split.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Pick a split method",
+          text: "Choose By cues (e.g. every 200 cues) or By time (e.g. every 10 minutes), then enter the split value. Select SRT or VTT as the output format.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Set optional toggles",
+          text: "Tick Continue cue numbering across parts if you want Part 2 to carry on from Part 1 instead of restarting at 1. Tick Reset timing for each part if each part will play as a standalone clip starting from 00:00:00.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 4,
+          name: "Split and download",
+          text: "Click Split to generate the parts, then click Download to save each split file. All processing happens in your browser and your file is never uploaded.",
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://subtitlesedit.com/subtitle-splitter#faq",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "How can I split SRT files online?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Upload your SRT file, choose whether to split by time or by cue count, and click Split Subtitles. The tool instantly creates multiple clean SRT files that you can download right away.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I split VTT or WebVTT subtitles?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. The subtitle splitter supports both VTT and WebVTT formats. Simply upload your file and choose your preferred split method.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What's the difference between splitting by time and by cues?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Splitting by time divides your subtitle file based on duration (e.g., every 10 minutes). Splitting by cues divides based on the number of subtitle lines (e.g., every 200 cues). Choose the option that best fits your project.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Will the subtitle timing remain accurate after splitting?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. By default the tool preserves all original timestamps, so each split part keeps the exact timing from the source file. If you tick Reset timing for each part the timestamps inside each part are shifted so that part starts at 00:00:00 instead.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I merge split parts later?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. If needed, you can recombine the split files using a subtitle merger tool to create one final subtitle file.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Is this subtitle splitter free to use?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. The subtitle splitter is completely free and runs in your browser without requiring downloads or signup.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I edit subtitles after splitting them?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Absolutely. You can edit each split file using our other tools in subtitle editor or any text editor.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does the tool renumber cues for each split file?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "By default, yes \u2014 each split file starts fresh from cue number 1. If you prefer continuous numbering, tick Continue cue numbering across parts and Part 2 carries on from Part 1 (for example 201, then 401).",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I keep cue numbers continuous across split parts?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Tick Continue cue numbering across parts before splitting and the tool numbers cues continuously instead of restarting each part at 1, so a 200-cue split runs 1-200, then 201-400, and so on. This works for both SRT and VTT output.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I reset each split part's timing to start at 00:00:00?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Tick Reset timing for each part before splitting and every part's timestamps are shifted so the first cue starts at 00:00:00. This is ideal when each part will play as a standalone clip \u2014 for example, a 2-hour movie cut into two 1-hour halves where each half needs subtitles starting from zero. Leave the box unticked to keep the original end-to-end timing.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How many files can I split an SRT or VTT into?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "You can split your file into as many parts as needed, depending on your time intervals or cue count settings.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I split subtitles for long movies or full seasons?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. The tool handles large subtitle files and is ideal for long movies, documentaries, or episodic series.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does formatting like italics or line breaks stay intact?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Formatting such as italics, bold, speaker labels, and line breaks remain unchanged during splitting.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I split multi-language subtitle files?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. The tool supports all languages and Unicode characters without altering them.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What's the best method for splitting subtitles for translators?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Cue-based splitting works best for translators because it divides subtitles into balanced, manageable batches.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Are split files compatible with all video players?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Split subtitles remain valid SRT or VTT files and work with all major players like VLC, MX Player, YouTube editors, and HTML5 players.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does splitting affect subtitle syncing with the video?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. By default, timing remains untouched and sync stays accurate as long as you use the correct parts for the matching video sections. If your video has been cut so each clip starts at zero, tick Reset timing for each part so every part begins at 00:00:00 and lines up with the cut clip without manual adjustment.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I split subtitles on mobile devices?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. The subtitle splitter works in modern mobile browsers on both iOS and Android.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does the tool support large SRT files with thousands of lines?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Since the tool works offline in your browser, there are no server limits on file size.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I split subtitles generated by YouTube, Premiere, or Aegisub?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. All SRT and VTT files exported from video editors or subtitle tools are supported.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Is splitting done offline in my browser?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Everything is processed locally, ensuring complete privacy and fast results.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I convert formats (SRT/VTT) after splitting?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. After splitting, use SRT and VTT converters to change formats if needed.",
+          },
+        },
+      ],
     },
   ],
 };
@@ -548,38 +746,28 @@ export default function SubtitleSplitterPage() {
           href="https://subtitlesedit.com/subtitle-splitter"
         />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="website" />
         <meta property="og:title" content={PAGE_TITLE} />
         <meta property="og:description" content={META_DESC} />
         <meta
           property="og:url"
           content="https://subtitlesedit.com/subtitle-splitter"
         />
-        <meta property="og:site_name" content="https://subtitlesedit.com" />
-        <meta property="og:updated_time" content="2025-11-29T13:12:39+00:00" />
+        <meta property="og:site_name" content="Subtitles Edit" />
+        
         <meta property="og:image" content={OG_IMG} />
         <meta property="og:image:secure_url" content={OG_IMG} />
         <meta property="og:image:alt" content="Subtitle Splitter" />
-        <meta
-          property="article:published_time"
-          content="2025-11-04T17:23:33+00:00"
-        />
-        <meta
-          property="article:modified_time"
-          content="2025-11-29T13:12:39+00:00"
-        />
+        
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={META_DESC} />
         <meta name="twitter:image" content={OG_IMG} />
-        <meta name="twitter:label1" content="Time to read" />
-        <meta name="twitter:data1" content="8 minutes" />
+
         <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(rankMathSchema),
-          }}
-        />
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+/>
       </Head>
 
       <Script
