@@ -6,7 +6,7 @@ import ToolPageGradientHero from "@/components/ToolPageGradientHero";
 const section =
   "mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-[3rem] py-10 lg:py-12";
 const h2 =
-  "text-[1.875rem] font-semibold leading-snug text-[#1e293b] mb-4 mt-2";
+  "text-[1.875rem] font-semibold leading-snug text-[#1e293b] mb-4 mt-12";
 const h3 = "text-xl font-semibold text-[#1e293b] mb-3 mt-8";
 const p =
   "mb-4 text-[#334155] leading-relaxed [&_strong]:font-semibold [&_strong]:text-[#1e293b]";
@@ -26,7 +26,7 @@ const pageSchema = {
     {
       "@type": "Organization",
       "@id": "https://subtitlesedit.com/#organization",
-      name: "Subtitlesedit.com",
+      name: "Subtitles Edit",
       url: "https://subtitlesedit.com",
       email: "support@subtitlesedit.com",
       logo: {
@@ -85,7 +85,7 @@ const pageSchema = {
       url: "https://subtitlesedit.com/srt-to-vtt-converter",
       name: "SRT to VTT Converter Online Free | Subtitles Edit",
       datePublished: "2025-11-03T22:39:11+00:00",
-      dateModified: "2025-11-29T13:23:48+00:00",
+      dateModified: "2026-07-03T00:00:00+00:00",
       isPartOf: { "@id": "https://subtitlesedit.com/#website" },
       primaryImageOfPage: { "@id": OG_IMG },
       breadcrumb: {
@@ -122,6 +122,34 @@ const pageSchema = {
       ],
       publisher: { "@id": "https://subtitlesedit.com/#organization" },
       inLanguage: "en-US",
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://subtitlesedit.com/srt-to-vtt-converter#howto",
+      name: "How to convert an SRT file to VTT",
+      description:
+        "Step-by-step instructions for converting a SubRip (.srt) subtitle file into WebVTT (.vtt) format using the SRT to VTT Converter.",
+      totalTime: "PT1M",
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Choose your SRT file",
+          text: "Click Choose file and select the .srt subtitle file you want to convert, or paste the SRT text directly into the input box.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Click Convert",
+          text: "Click Convert. The tool reads your SubRip cues and timestamps and rewrites them into WebVTT format with the required WEBVTT header, instantly in your browser.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Copy or download the VTT",
+          text: "Click Copy to copy the VTT output to your clipboard, or Download .vtt to save the converted file to your device.",
+        },
+      ],
     },
     {
       "@type": "FAQPage",
@@ -647,7 +675,7 @@ export default function SrtToVttConverterPage() {
           href="https://subtitlesedit.com/srt-to-vtt-converter"
         />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="website" />
         <meta
           property="og:title"
           content="SRT to VTT Converter – Fast, Accurate & 100% Free Online Tool"
@@ -663,18 +691,9 @@ export default function SrtToVttConverterPage() {
           content="https://subtitlesedit.com/srt-to-vtt-converter"
         />
         <meta property="og:site_name" content="Subtitles Edit" />
-        <meta property="og:updated_time" content="2025-11-29T13:23:48+00:00" />
         <meta property="og:image" content={OG_IMG} />
         <meta property="og:image:secure_url" content={OG_IMG} />
         <meta property="og:image:alt" content="SRT to VTT converter" />
-        <meta
-          property="article:published_time"
-          content="2025-11-03T22:39:11+00:00"
-        />
-        <meta
-          property="article:modified_time"
-          content="2025-11-29T13:23:48+00:00"
-        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
@@ -687,8 +706,6 @@ export default function SrtToVttConverterPage() {
           }
         />
         <meta name="twitter:image" content={OG_IMG} />
-        <meta name="twitter:label1" content="Time to read" />
-        <meta name="twitter:data1" content="6 minutes" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
