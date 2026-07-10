@@ -105,6 +105,42 @@ const pageSchema = {
       isPartOf: { "@id": "https://subtitlesedit.com/#website" },
     },
     {
+      "@type": "HowTo",
+      "@id": "https://subtitlesedit.com/subtitle-overlap-fixer#howto",
+      name: "How to Fix Overlapping Subtitles Online",
+      description: "Detect and correct overlapping cue timings in SRT and VTT subtitle files using the Subtitle Overlap Fixer — free, browser-based, with no uploads required.",
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Open the Subtitle Overlap Fixer",
+          text: "Go to subtitlesedit.com/subtitle-overlap-fixer in any modern web browser. No account or installation is required.",
+          url: "https://subtitlesedit.com/subtitle-overlap-fixer",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Upload or paste your subtitle file",
+          text: "Click Choose File to load an SRT or VTT file from your device, or paste the subtitle text directly into the input box.",
+          url: "https://subtitlesedit.com/subtitle-overlap-fixer",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Click Fix Overlaps",
+          text: "Click Fix Overlaps. The tool scans every timestamp in a single pass and pushes any overlapping cue forward to where the previous cue ended. Non-overlapping cues pass through unchanged.",
+          url: "https://subtitlesedit.com/subtitle-overlap-fixer",
+        },
+        {
+          "@type": "HowToStep",
+          position: 4,
+          name: "Download the fixed file",
+          text: "Click Download to save the corrected subtitle file. The output format matches the input — SRT in, SRT out; VTT in, VTT out.",
+          url: "https://subtitlesedit.com/subtitle-overlap-fixer",
+        },
+      ],
+    },
+    {
       "@type": "FAQPage",
       "@id": "https://subtitlesedit.com/subtitle-overlap-fixer#faq",
       mainEntity: [

@@ -26,7 +26,7 @@ const pageSchema = {
     {
       "@type": "Organization",
       "@id": "https://subtitlesedit.com/#organization",
-      name: "Subtitlesedit.com",
+      name: "Subtitles Edit",
       url: "https://subtitlesedit.com",
       email: "support@subtitlesedit.com",
       logo: {
@@ -107,6 +107,42 @@ const pageSchema = {
       ],
       publisher: { "@id": "https://subtitlesedit.com/#organization" },
       inLanguage: "en-US",
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://subtitlesedit.com/subtitle-merger#howto",
+      name: "How to Merge Subtitle Files Online",
+      description: "Combine two or more SRT or VTT subtitle files into one continuous file using the Subtitle Merger — free, browser-based, with no uploads required.",
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Open the Subtitle Merger",
+          text: "Go to subtitlesedit.com/subtitle-merger in any modern web browser. No account or installation is required.",
+          url: "https://subtitlesedit.com/subtitle-merger",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Choose your subtitle files",
+          text: "Click Choose Files and select two or more SRT or VTT subtitle files from your device. Files can be added in any order.",
+          url: "https://subtitlesedit.com/subtitle-merger",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Select output format and merge",
+          text: "Choose SRT or WebVTT from the Output Format dropdown, then click Merge Files. The tool sorts every cue by start time, combines the files, and renumbers cues automatically.",
+          url: "https://subtitlesedit.com/subtitle-merger",
+        },
+        {
+          "@type": "HowToStep",
+          position: 4,
+          name: "Download the merged file",
+          text: "Click Download to save the combined subtitle file to your device.",
+          url: "https://subtitlesedit.com/subtitle-merger",
+        },
+      ],
     },
     {
       "@type": "FAQPage",

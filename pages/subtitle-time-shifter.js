@@ -24,7 +24,7 @@ const pageSchema = {
     {
       "@type": "Organization",
       "@id": "https://subtitlesedit.com/#organization",
-      name: "Subtitlesedit.com",
+      name: "Subtitles Edit",
       url: "https://subtitlesedit.com",
       email: "support@subtitlesedit.com",
       logo: {
@@ -102,6 +102,42 @@ const pageSchema = {
       ],
       publisher: { "@id": "https://subtitlesedit.com/#organization" },
       inLanguage: "en-US",
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://subtitlesedit.com/subtitle-time-shifter#howto",
+      name: "How to Shift Subtitle Timing Online",
+      description: "Adjust every timestamp in an SRT or VTT subtitle file forward or backward by a fixed offset using the Subtitle Time Shifter — free, browser-based, with no uploads required.",
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Open the Subtitle Time Shifter",
+          text: "Go to subtitlesedit.com/subtitle-time-shifter in any modern web browser. No account or installation is required.",
+          url: "https://subtitlesedit.com/subtitle-time-shifter",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Upload or paste your subtitle file",
+          text: "Click Choose File to load an SRT or VTT file from your device, or paste the subtitle text directly into the input box.",
+          url: "https://subtitlesedit.com/subtitle-time-shifter",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Enter the time shift value",
+          text: "Type a positive number to delay subtitles (make them appear later) or a negative number to advance them (make them appear earlier). Fractional values such as 1.5 or -0.75 are supported for millisecond precision.",
+          url: "https://subtitlesedit.com/subtitle-time-shifter",
+        },
+        {
+          "@type": "HowToStep",
+          position: 4,
+          name: "Apply the shift and download",
+          text: "Click Apply Shift. Every timestamp is updated instantly. Click Download to save the resynced subtitle file to your device.",
+          url: "https://subtitlesedit.com/subtitle-time-shifter",
+        },
+      ],
     },
     {
       "@type": "FAQPage",
