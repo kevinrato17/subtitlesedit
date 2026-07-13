@@ -151,42 +151,136 @@ For professional deliverables, run all three regardless. The total time across a
 
 ## Frequently Asked Questions
 
-### Does Whisper produce overlapping subtitles?
+<div className="divide-y divide-gray-100 mt-6">
 
-Yes, frequently. Whisper segments audio at natural speech boundaries and the resulting timestamps can overlap at segment edges by one to twenty milliseconds. This is most common in output from faster-whisper, whisper-timestamped, and WhisperX. The overlaps are invisible in a text editor but cause flickering on playback and rejection by strict platform QC tools. The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) corrects them in a single pass without touching dialogue text.
+<details className="group" open>
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>Does Whisper produce overlapping subtitles?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>Yes, frequently. Whisper segments audio at natural speech boundaries and the resulting timestamps can overlap at segment edges by one to twenty milliseconds. This is most common in output from faster-whisper, whisper-timestamped, and WhisperX. The overlaps are invisible in a text editor but cause flickering on playback and rejection by strict platform QC tools. The <a href="/subtitle-overlap-fixer" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Overlap Fixer</a> corrects them in a single pass without touching dialogue text.</p>
+  </div>
+</details>
 
-### What HTML tags does Whisper inject into SRT files?
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>What HTML tags does Whisper inject into SRT files?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>Whisper's base CLI output contains no HTML tags. The tags come from apps and wrappers built on Whisper: <code>&lt;i&gt;</code> for music and non-speech audio, <code>&lt;c.white&gt;</code> color tags from VTT-to-SRT conversions, <code>&lt;u&gt;</code> from word-level highlight modes, and speaker labels from diarization tools like WhisperX. The <a href="/subtitle-tag-stripper" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Tag Stripper</a> removes all of them in a single pass while leaving timing and dialogue intact.</p>
+  </div>
+</details>
 
-Whisper's base CLI output contains no HTML tags. The tags come from apps and wrappers built on Whisper: `<i>` for music and non-speech audio, `<c.white>` color tags from VTT-to-SRT conversions, `<u>` from word-level highlight modes, and speaker labels from diarization tools like WhisperX. The [Subtitle Tag Stripper](/subtitle-tag-stripper) removes all of them in a single pass while leaving timing and dialogue intact.
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>Why does my Whisper SRT file show question marks instead of the correct characters?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>This is a character encoding mismatch. Whisper outputs UTF-8 by default, but many Windows-based Whisper wrappers save files in ANSI or Windows-1252 encoding. When that file opens in a player or editor expecting UTF-8, accented and non-Latin characters display as question marks, boxes, or wrong symbols. The <a href="/subtitle-encoding-fixer" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Encoding Fixer</a> detects the encoding and converts the file to clean UTF-8.</p>
+  </div>
+</details>
 
-### Why does my Whisper SRT file show question marks instead of the correct characters?
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>In what order should I clean a Whisper SRT file?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>Strip tags first, fix encoding second, then fix overlaps. This order matters because the encoding fixer works on raw character data and produces more reliable results on a file that has already had its formatting markup removed. Running all three tools takes under a minute for a feature-length subtitle file.</p>
+  </div>
+</details>
 
-This is a character encoding mismatch. Whisper outputs UTF-8 by default, but many Windows-based Whisper wrappers save files in ANSI or Windows-1252 encoding. When that file opens in a player or editor expecting UTF-8, accented and non-Latin characters display as question marks, boxes, or wrong symbols. The [Subtitle Encoding Fixer](/subtitle-encoding-fixer) detects the encoding and converts the file to clean UTF-8.
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>Can I use these tools without uploading my subtitle file to a server?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>Yes. All three tools — the <a href="/subtitle-tag-stripper" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Tag Stripper</a>, <a href="/subtitle-encoding-fixer" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Encoding Fixer</a>, and <a href="/subtitle-overlap-fixer" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Overlap Fixer</a> — run entirely in your browser using local JavaScript. Your file never leaves your device, making the workflow safe for confidential content, unreleased productions, and files under NDA.</p>
+  </div>
+</details>
 
-### In what order should I clean a Whisper SRT file?
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>Does the Overlap Fixer change dialogue text or cue numbers?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>No. The Overlap Fixer only rewrites timestamp lines that are in conflict with the previous cue. Cue numbers, dialogue text, speaker labels, and blank-line spacing all pass through unchanged. If a cue is already in the correct sequence, its timestamps are not touched.</p>
+  </div>
+</details>
 
-Strip tags first, fix encoding second, then fix overlaps. This order matters because the encoding fixer works on raw character data and produces more reliable results on a file that has already had its formatting markup removed. Running all three tools takes under a minute for a feature-length subtitle file.
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>Will these tools work on VTT files from YouTube auto-captions?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>Yes. All three tools support both SRT and VTT formats. YouTube auto-captions downloaded as VTT frequently contain <code>&lt;c&gt;</code> color tags and millisecond overlaps — both are handled by the Tag Stripper and Overlap Fixer respectively. The tools detect the file format automatically and match the output format to the input.</p>
+  </div>
+</details>
 
-### Can I use these tools without uploading my subtitle file to a server?
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>Why does my Whisper file play fine in VLC but flicker on YouTube?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>VLC is tolerant of timing errors and plays overlapping cues without visible issues. YouTube's caption renderer is stricter and briefly displays both cues simultaneously during the overlapping frames, producing a visible flicker or text doubling. Fixing the overlaps with the <a href="/subtitle-overlap-fixer" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Overlap Fixer</a> eliminates the problem in both environments.</p>
+  </div>
+</details>
 
-Yes. All three tools — the [Subtitle Tag Stripper](/subtitle-tag-stripper), [Subtitle Encoding Fixer](/subtitle-encoding-fixer), and [Subtitle Overlap Fixer](/subtitle-overlap-fixer) — run entirely in your browser using local JavaScript. Your file never leaves your device, making the workflow safe for confidential content, unreleased productions, and files under NDA.
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>How many cues does the Overlap Fixer typically change in a Whisper file?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>It depends on the Whisper tool and the length of the recording. In a typical 90-minute transcript from faster-whisper, between five and fifteen percent of cues have some form of timing overlap at segment boundaries. The Overlap Fixer's output shows you exactly which cues were changed so you can review them. Every non-overlapping cue passes through without modification.</p>
+  </div>
+</details>
 
-### Does the Overlap Fixer change dialogue text or cue numbers?
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>What is the difference between fixing overlaps and shifting subtitle timing?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>The <a href="/subtitle-overlap-fixer" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Overlap Fixer</a> only changes timestamps on cues that conflict with each other — it does not move all cues by the same amount. The <a href="/subtitle-time-shifter" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Time Shifter</a> moves every cue in the file forward or backward by a fixed offset, used when the entire subtitle track is out of sync with the video. For Whisper files you typically need the Overlap Fixer to clean up segment boundaries, and separately the Time Shifter if the whole track is offset from the audio.</p>
+  </div>
+</details>
 
-No. The Overlap Fixer only rewrites timestamp lines that are in conflict with the previous cue. Cue numbers, dialogue text, speaker labels, and blank-line spacing all pass through unchanged. If a cue is already in the correct sequence, its timestamps are not touched.
-
-### Will these tools work on VTT files from YouTube auto-captions?
-
-Yes. All three tools support both SRT and VTT formats. YouTube auto-captions downloaded as VTT frequently contain `<c>` color tags and millisecond overlaps — both are handled by the Tag Stripper and Overlap Fixer respectively. The tools detect the file format automatically and match the output format to the input.
-
-### Why does my Whisper file play fine in VLC but flicker on YouTube?
-
-VLC is tolerant of timing errors and plays overlapping cues without visible issues. YouTube's caption renderer is stricter and briefly displays both cues simultaneously during the overlapping frames, producing a visible flicker or text doubling. Fixing the overlaps with the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) eliminates the problem in both environments.
-
-### How many cues does the Overlap Fixer typically change in a Whisper file?
-
-It depends on the Whisper tool and the length of the recording. In a typical 90-minute transcript from faster-whisper, between five and fifteen percent of cues have some form of timing overlap at segment boundaries. The Overlap Fixer's output shows you exactly which cues were changed so you can review them. Every non-overlapping cue passes through without modification.
-
-### What is the difference between fixing overlaps and shifting subtitle timing?
-
-The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) only changes timestamps on cues that conflict with each other — it does not move all cues by the same amount. The [Subtitle Time Shifter](/subtitle-time-shifter) moves every cue in the file forward or backward by a fixed offset, used when the entire subtitle track is out of sync with the video. For Whisper files you typically need the Overlap Fixer to clean up segment boundaries, and separately the Time Shifter if the whole track is offset from the audio.
+</div>
