@@ -1,0 +1,281 @@
+---
+title: "How to Fix Subtitle Sync: Calculate Your Offset and Shift"
+description: "Subtitles out of sync? This guide explains why it happens, how to measure your exact offset in seconds, and how to fix it instantly in your browser."
+date: "2026-07-17"
+slug: "how-to-fix-subtitle-sync-offset"
+---
+
+Out-of-sync subtitles are one of the most common and most fixable subtitle problems. The transcription is fine. The timing is not. Every cue is off by the same number of seconds, and a single calculated value corrects the entire file at once.
+
+This guide covers constant offset sync problems — where subtitles are uniformly early or late from start to finish. You will learn why this happens, how to measure your exact offset in seconds, and how to apply the fix instantly using the [Subtitle Time Shifter](/subtitle-time-shifter), with no software to install and no file uploads required.
+
+## Why Subtitles Go Out of Sync
+
+Subtitle sync breaks in predictable ways. Knowing the cause often tells you the size of the offset before you even measure it.
+
+### The video was trimmed or cut
+
+The most common cause of sync problems. If you removed content from the beginning of a video — an intro sequence, opening credits, a countdown — the video timeline shifted backward but the subtitle timestamps stayed the same. Every subtitle now appears later than it should by exactly how long you trimmed. Cut 45 seconds from the start and every cue is 45 seconds too late.
+
+### A version mismatch with the subtitle file
+
+Subtitle files are written for a specific cut of a video. A theatrical version and a director's cut have different runtimes and different edit points. If the only difference is extra content at the very beginning of one version, the offset will be constant and easy to fix. If content was added or removed in the middle, the file will drift — a different problem covered below.
+
+### Re-encoding or export from a video editor
+
+Exporting from Adobe Premiere, DaVinci Resolve, or Final Cut Pro can introduce a timing offset if the export settings differ from the original. A common case: the original clip had a non-zero start timecode, the export reset it to zero, and the subtitle file still references the original start point. The resulting offset is exactly equal to that original start timecode.
+
+### The subtitle file was written for a different audio track
+
+A subtitle file written for an English dub will be out of sync against the original foreign-language audio, and vice versa. The sync offset between a dub and its source varies throughout the film — this is a drift issue, not a constant offset.
+
+## Constant Offset vs Drift: Know Which Problem You Have
+
+Before calculating anything, confirm you have a constant offset and not drift. The distinction determines whether the Time Shifter can solve it.
+
+Check a subtitle cue early in the file and one near the end. If both are off by the same amount, you have a constant offset — one shift value corrects every cue in the file.
+
+If the first subtitle is half a second late and the last subtitle is four seconds late, the offset is growing over time. This is drift, usually caused by a frame rate mismatch between the video and the subtitle file — the file was written for 24fps content but the video plays at 25fps, making each cue slightly further out than the last. Drift requires scaling the subtitle timestamps, not a simple shift. The [Subtitle Time Shifter](/subtitle-time-shifter) solves constant offset problems. If your file is drifting, address the frame rate mismatch first.
+
+## How to Calculate Your Subtitle Offset
+
+This is the step most guides skip. Rather than guessing or using trial and error, you can calculate your exact offset in seconds from a single reference point.
+
+**Step 1: Pick a reference line.**
+Find a short, clearly identifiable piece of dialogue — a name, a number, or a single recognisable word. It should be something you can pinpoint to within a fraction of a second when you hear it in the video.
+
+**Step 2: Find the subtitle's start timestamp for that line.**
+Open the SRT or VTT file in any text editor. Locate the cue for your reference line and note its start timestamp. Convert it to total seconds:
+
+```
+Total seconds = (hours × 3600) + (minutes × 60) + seconds + (milliseconds ÷ 1000)
+```
+
+For example, `00:01:25,500` = (0 × 3600) + (1 × 60) + 25 + 0.5 = **85.5 seconds**
+
+**Step 3: Find the video timestamp for that same line.**
+Play the video and pause at the exact moment the speaker says your reference word. Read the timestamp from your video player's progress bar. Most players display time to the nearest tenth of a second.
+
+**Step 4: Calculate the offset.**
+
+```
+Offset = Video timestamp − Subtitle timestamp
+```
+
+**A positive result** means the subtitle was appearing before the dialogue — it needs to be delayed (shifted forward in time).
+
+**A negative result** means the subtitle was appearing after the dialogue — it needs to be advanced (shifted backward in time).
+
+**Worked example:**
+- Reference line: "It starts now."
+- Video timestamp when spoken: `1:23.0` = **83.0 seconds**
+- Subtitle start timestamp: `00:01:25,500` = **85.5 seconds**
+- Offset = 83.0 − 85.5 = **−2.5 seconds**
+
+The subtitle was appearing 2.5 seconds too late. Enter **−2.5** in the Time Shifter.
+
+## Positive vs Negative: Which Direction to Shift
+
+It is easy to get confused on direction. The clearest way to think about it:
+
+**Subtitles appear after the dialogue** — the text shows up late, after the speaker has already said the line. The subtitle needs to appear *earlier*. Enter a **negative** value.
+
+**Subtitles appear before the dialogue** — the text shows up early, before the speaker says the line. The subtitle needs to appear *later*. Enter a **positive** value.
+
+A quick sanity check: if your measured offset is −2.5 and the subtitles feel late, a negative shift is correct. If your offset is +1.8 and the subtitles feel early, a positive shift is correct. If the sign seems backwards, re-check whether you subtracted video from subtitle or subtitle from video in Step 4.
+
+## How to Apply the Fix with the Subtitle Time Shifter
+
+Once you have your offset value, applying the fix takes under a minute:
+
+1. Open the [Subtitle Time Shifter](/subtitle-time-shifter) in any modern web browser.
+2. Click **Choose File** and upload your SRT or VTT subtitle file, or paste the contents directly into the input box.
+3. Enter your calculated offset in the **Shift by (seconds)** field. Use a negative number to advance subtitles, positive to delay them. Decimal values work: −2.5, 0.75, and −0.333 are all valid inputs.
+4. Click **Apply Shift**. Every timestamp in the file updates instantly — start times and end times across every cue.
+5. Click **Download** to save the corrected subtitle file.
+
+The tool processes the file entirely in your browser. Your subtitle file never leaves your device, which makes it safe for working files, unreleased content, and anything under NDA.
+
+## Common Scenarios and Their Offsets
+
+**Trimmed video intro.** You cut 30 seconds of pre-roll from the start of a video. The subtitle file was written for the original. Every cue is now 30 seconds late. Offset: −30 seconds.
+
+**Added a title card.** You inserted a 20-second title card before the main content begins. The subtitles start on time for the original but are 20 seconds early against the new version. Offset: +20 seconds.
+
+**NLE export with timecode reset.** Your original clip started at timecode 01:00:00:00 (one hour). When you exported, the player reset to 00:00:00:00. Every subtitle is now 3,600 seconds late. Offset: −3600 seconds.
+
+**Version mismatch with a longer opening.** The subtitle file was made for a cut with a two-minute extended opening that your copy doesn't have. Subtitles are consistently two minutes early. Offset: +120 seconds.
+
+For trimming and insertion scenarios you already know the exact offset from the edit. For version mismatches and re-encodes, use the reference line method to measure it precisely.
+
+## Before and After: A −2.5 Second Shift
+
+Original file — subtitles appearing 2.5 seconds too late:
+
+```
+1
+00:00:10,500 --> 00:00:12,800
+Welcome to the show.
+
+2
+00:00:13,000 --> 00:00:15,400
+Let's get started.
+```
+
+After applying a −2.5 second shift:
+
+```
+1
+00:00:08,000 --> 00:00:10,300
+Welcome to the show.
+
+2
+00:00:10,500 --> 00:00:12,900
+Let's get started.
+```
+
+Every timestamp moved backward by exactly 2,500 milliseconds. Cue numbers, dialogue text, and formatting are unchanged. The relative timing between cues — the gap between when cue 1 ends and cue 2 begins — is also preserved exactly.
+
+## What to Check After Shifting
+
+For most files, a correct shift produces a clean result with nothing further to do. Two edge cases are worth knowing.
+
+**Cues shifting to negative timestamps.** If the file has cues near the start with very early timestamps and you apply a large negative shift, those timestamps could become negative numbers — which subtitle players cannot render. Check the first few cues in the output and ensure they start at or after 00:00:00,000.
+
+**Exposed overlaps.** If the original file had millisecond-level timing overlaps — common in AI-generated files from Whisper — a shift can occasionally expose them. If you notice flickering after applying the shift, run the corrected file through the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) to clear any cue conflicts.
+
+## Frequently Asked Questions
+
+<div className="divide-y divide-gray-100 mt-6">
+
+<details className="group" open>
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>How do I fix subtitles that are out of sync?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>Find a reference line in the video, measure the difference in seconds between when it plays in the video and when the subtitle file says it should appear, then apply that difference as a positive or negative shift. The <a href="/subtitle-time-shifter" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Time Shifter</a> applies the offset to every cue in the file instantly in your browser, with no upload required.</p>
+  </div>
+</details>
+
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>What is a subtitle offset?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>A subtitle offset is the number of seconds by which every cue in a subtitle file needs to shift to align correctly with its video. A positive offset moves subtitles later in time; a negative offset moves them earlier. When a file has a constant offset, a single shift value corrects every cue simultaneously without touching dialogue text or cue structure.</p>
+  </div>
+</details>
+
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>How do I calculate the subtitle offset?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>Pause the video at a recognisable spoken line and note the video timestamp in seconds. Find the same line in the subtitle file and note its start timestamp in seconds. Subtract: Offset = Video timestamp − Subtitle timestamp. A negative result means the subtitle was late; apply that negative value. A positive result means the subtitle was early; apply that positive value.</p>
+  </div>
+</details>
+
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>Why are my subtitles out of sync after I trimmed the video?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>Trimming a video shifts the content earlier on the timeline, but the subtitle file keeps its original timestamps. If you removed 30 seconds from the start, every subtitle now appears 30 seconds late. The fix is to apply a negative shift equal to the duration you removed. Enter −30 in the <a href="/subtitle-time-shifter" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Time Shifter</a> to correct the entire file instantly.</p>
+  </div>
+</details>
+
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>What is the difference between subtitle delay and subtitle advance?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>A subtitle delay pushes all cues to appear later — useful when subtitles are showing up before the dialogue. A subtitle advance pulls all cues earlier — useful when subtitles are showing up after the dialogue. In the <a href="/subtitle-time-shifter" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Time Shifter</a>, a positive number applies a delay and a negative number applies an advance.</p>
+  </div>
+</details>
+
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>Can I fix subtitle sync without downloading any software?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>Yes. The <a href="/subtitle-time-shifter" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Time Shifter</a> runs entirely in your browser with no installation, no account, and no file uploads. Open the page, paste or upload your subtitle file, enter the offset value, click Apply Shift, and download the corrected file. The entire process takes under a minute for any size subtitle file.</p>
+  </div>
+</details>
+
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>Does the Subtitle Time Shifter support SRT and VTT files?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>Yes. The tool supports SRT, VTT, and WebVTT formats. It automatically detects the format and preserves the correct decimal separator — commas for SRT timestamps and periods for VTT timestamps. The output file matches the input format, so if you upload an SRT you receive a corrected SRT, and if you upload a VTT you receive a corrected VTT.</p>
+  </div>
+</details>
+
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>Why are my subtitles in sync at the start but drift further out later?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>This is subtitle drift, not a constant offset. It usually means the subtitle file was written for a video at a different frame rate — for example, a 24fps subtitle file played against a 25fps video. Each cue falls slightly further behind as the video progresses. A single offset shift cannot fix drift. The frame rate mismatch between the video and subtitle file needs to be resolved first.</p>
+  </div>
+</details>
+
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>Can I shift subtitles by less than one second?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>Yes. The <a href="/subtitle-time-shifter" className="text-[#046bd2] underline underline-offset-2 hover:text-[#045cb4]">Subtitle Time Shifter</a> supports fractional second values to millisecond precision. You can enter values like 0.25, −0.8, or 1.333 to fine-tune timing. This is useful when the offset is small — a 200ms sync issue is just as fixable as a 30-second one. Smaller offsets are often the result of video re-encoding or export rounding differences.</p>
+  </div>
+</details>
+
+<details className="group">
+  <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-3 border-b border-gray-200 px-1 py-4 text-left font-medium text-[#1e293b] [&::-webkit-details-marker]:hidden">
+    <span>What should I do if my subtitles are still out of sync after shifting?</span>
+    <span className="shrink-0 text-[#046bd2]">
+      <span className="hidden group-open:inline">−</span>
+      <span className="inline group-open:hidden">+</span>
+    </span>
+  </summary>
+  <div className="pb-4 pl-1 text-[#334155] leading-relaxed">
+    <p>First, check whether the sync problem is consistent throughout the file or grows over time. If it grows, you have drift — not a constant offset — and a frame rate fix is needed. If the offset is still constant but you measured it wrong, recalculate using the reference line method: Video timestamp minus Subtitle timestamp. Also verify you entered the correct sign — negative to advance subtitles earlier, positive to delay them later.</p>
+  </div>
+</details>
+
+</div>
