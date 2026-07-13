@@ -1,0 +1,192 @@
+---
+title: "How to Fix Whisper SRT Files: Tags, Overlaps and Encoding"
+description: "AI transcription tools produce excellent speech-to-text but messy SRT files. Here is the 3-step cleanup workflow to fix tags, overlaps and encoding errors."
+date: "2026-07-14"
+slug: "how-to-fix-whisper-subtitle-files"
+---
+
+OpenAI's Whisper and the tools built on top of it have become the fastest way to generate subtitle files from audio. The transcription quality is genuinely impressive. The SRT output, depending on how you exported it, often is not.
+
+Three problems appear consistently in Whisper-generated files: rogue HTML tags injected by GUI wrappers and API integrations, character encoding errors that turn accented or non-Latin characters into garbled boxes, and millisecond-level timing overlaps at cue boundaries that cause flickering on playback. Each problem has a different cause and a different fix.
+
+This guide walks through all three in the order you should apply them, using free browser-based tools with no uploads required.
+
+## Why Whisper SRT Files Need Cleaning
+
+Whisper itself — the core model from OpenAI — produces reasonably clean output when run directly from the command line. The issues come from the ecosystem built around it.
+
+**HTML tags from wrappers and apps.** Tools like Descript, Kapwing, WhisperX, and other Whisper-based applications post-process the model's output and inject formatting tags: `<i>` for music or off-screen audio, `<c.white>` color tags from VTT-to-SRT conversions, `<u>` for word-level highlights in some timestamp modes, and speaker labels like `[SPEAKER_00]:` from diarization workflows. YouTube auto-captions, which use a Whisper-like model under the hood, download as VTT with color cue tags that do not translate cleanly to SRT. These tags cause downstream problems in video editors, players, and delivery pipelines that do not know how to render them.
+
+**Encoding errors on non-Latin scripts.** Whisper outputs UTF-8 by default from its CLI, but many Windows-based tools and some API integrations default to ANSI or Windows-1252. The result is mojibake: Arabic, Hebrew, Chinese, Japanese, Korean, or accented Latin characters render as question marks, boxes, or wrong characters. This happens silently — the file looks fine in the tool that generated it but breaks the moment it opens anywhere else.
+
+**Millisecond cue overlaps.** Whisper segments audio in chunks and assigns timestamps to each chunk. At segment boundaries, the end time of one cue and the start time of the next can overlap by anywhere from one to twenty milliseconds. This is a known and well-documented issue in Whisper's output, especially prevalent in files from `faster-whisper`, `whisper-timestamped`, and `WhisperX`. A 5ms overlap is invisible to the human eye but causes subtitle flickering on some players and upload warnings on platforms that require strictly sequential cues.
+
+## The Three-Step Cleanup Workflow
+
+Fix the problems in this order:
+
+1. **Strip tags first** — before anything else, so the encoding fixer and overlap fixer work on clean text
+2. **Fix encoding second** — normalise the character set before adjusting timing
+3. **Fix overlaps last** — with clean, correctly encoded text, the timing pass is accurate and nothing is missed
+
+Each step is independent. Not every Whisper file needs all three — skip any step where the problem is not present in your file.
+
+## Step 1: Strip HTML and Formatting Tags
+
+### What tags Whisper-based tools inject
+
+The most common are:
+
+- `<i>` and `</i>` — italic tags added around music cues, sound effects, or off-screen speech
+- `<c.white>` and similar — color tags from VTT files converted to SRT without stripping cue settings
+- `<u>` — underline tags from word-level highlight modes
+- `[SPEAKER_00]:`, `[MUSIC]`, `[APPLAUSE]` — speaker labels and sound annotations from diarization workflows
+- `<font color="#ffffff">` — color tags from older Whisper GUI tools
+
+These look harmless in a text editor but break rendering in professional video players, subtitle editors, and streaming platform ingest pipelines that expect plain text cues.
+
+### How to strip the tags
+
+Paste or upload your SRT or VTT file into the [Subtitle Tag Stripper](/subtitle-tag-stripper) and run it. The tool removes HTML and formatting tags from every cue in a single pass while leaving the timing, cue numbers, and dialogue text completely untouched. You choose which tag types to strip, so if you want to keep italics but remove color codes, you can do that.
+
+Download the cleaned file before moving to Step 2.
+
+## Step 2: Fix Character Encoding Errors
+
+### When you need this step
+
+You need Step 2 if your file shows any of the following symptoms:
+
+- Question marks or boxes where accented characters should be (`caf?` instead of `café`)
+- Reversed, broken, or scrambled Arabic, Hebrew, or Persian text
+- Chinese, Japanese, or Korean characters replaced with Latin strings or symbols
+- Random character sequences that look nothing like the original language
+
+If your file contains only standard English with no accented characters, this step is usually safe to skip.
+
+### What causes the problem
+
+When a Windows-based Whisper wrapper saves an SRT file in ANSI or Windows-1252 encoding instead of UTF-8, the file writes correctly in that environment but fails everywhere else. The issue is invisible until you open the file in a media player, editor, or delivery pipeline that expects UTF-8. By that point the character data is already corrupted.
+
+### How to fix the encoding
+
+Open the [Subtitle Encoding Fixer](/subtitle-encoding-fixer) and paste or upload your tag-stripped file from Step 1. The tool detects the encoding mismatch and re-exports the file as valid UTF-8. Characters that were saved correctly in the original encoding are converted accurately. Download the re-encoded file before moving to Step 3.
+
+## Step 3: Fix Overlapping Cue Timings
+
+### Why Whisper creates overlaps
+
+Whisper processes audio in segments and assigns a start and end timestamp to each. When two adjacent segments come from a continuous speech stream, the boundary timestamps are sometimes off by a few milliseconds in the wrong direction — the second cue starts before the first one ends.
+
+A typical Whisper overlap looks like this in the raw SRT:
+
+```
+1
+00:00:04,280 --> 00:00:06,540
+So the key thing to understand is
+
+2
+00:00:06,520 --> 00:00:08,900
+that timestamps run sequentially.
+```
+
+Cue 2 starts at 6,520ms but cue 1 does not end until 6,540ms — a 20ms overlap. On most players this produces a brief flicker where both cues appear on screen simultaneously. On strict delivery platforms it triggers a validation error that rejects the file.
+
+### What happens if you leave overlaps unfixed
+
+The consequences depend on the destination. VLC and most consumer players are tolerant and play through overlaps without visible issues. YouTube accepts overlapping files but the captions flicker on the brief overlap frames. Professional captioning delivery pipelines, Netflix QC tools, and broadcast ingest systems will reject the file outright.
+
+### How to fix the overlaps
+
+Upload your cleaned and correctly encoded file from Step 2 to the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) and click Fix Overlaps. The tool scans every timing line in a single pass. For each cue whose start time falls before the previous cue's end time, the start is pushed forward to the exact millisecond where the previous cue ended. Cues that would fall below 300ms after the fix have their end time extended automatically so the text stays on screen long enough to read.
+
+Cue numbers, dialogue text, and any remaining formatting are never touched — only the conflicting timestamp lines are rewritten.
+
+## Before and After: A Whisper Cleanup Example
+
+Raw output from a Whisper-based GUI — tags present, encoding error, and timing overlap at cue 2:
+
+```
+1
+00:00:01,200 --> 00:00:03,400
+<i>[Music]</i>
+
+2
+00:00:03,380 --> 00:00:05,760
+Caf? au lait, s'il vous pla?t.
+
+3
+00:00:05,740 --> 00:00:07,900
+<c.white>The order was confirmed.</c.white>
+```
+
+After the three-step workflow — tags stripped, encoding fixed, overlaps resolved:
+
+```
+1
+00:00:01,200 --> 00:00:03,400
+[Music]
+
+2
+00:00:03,400 --> 00:00:05,760
+Café au lait, s'il vous plaît.
+
+3
+00:00:05,760 --> 00:00:07,900
+The order was confirmed.
+```
+
+Cue 1: tag stripped, timing unchanged. Cue 2: overlap fixed (start pushed from 3,380ms to 3,400ms), encoding corrected. Cue 3: tag stripped, overlap fixed (start pushed from 5,740ms to 5,760ms).
+
+## Which Steps Do You Actually Need?
+
+Run all three if you are unsure — each tool passes clean cues through unchanged and finishes in seconds regardless of file size. If you know the source, use this as a quick guide:
+
+- **YouTube auto-captions downloaded as SRT or VTT**: Step 1 (color tags) and Step 3 (overlaps)
+- **WhisperX with speaker diarization**: Step 1 (speaker labels), Step 3 (overlaps)
+- **Windows GUI tools on Arabic, Hebrew, or CJK content**: Step 1 and Step 2
+- **OpenAI Whisper CLI, English-only content**: usually Step 3 only
+
+For professional deliverables, run all three regardless. The total time across all three tools for a feature-length subtitle file is under a minute.
+
+## Frequently Asked Questions
+
+### Does Whisper produce overlapping subtitles?
+
+Yes, frequently. Whisper segments audio at natural speech boundaries and the resulting timestamps can overlap at segment edges by one to twenty milliseconds. This is most common in output from faster-whisper, whisper-timestamped, and WhisperX. The overlaps are invisible in a text editor but cause flickering on playback and rejection by strict platform QC tools. The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) corrects them in a single pass without touching dialogue text.
+
+### What HTML tags does Whisper inject into SRT files?
+
+Whisper's base CLI output contains no HTML tags. The tags come from apps and wrappers built on Whisper: `<i>` for music and non-speech audio, `<c.white>` color tags from VTT-to-SRT conversions, `<u>` from word-level highlight modes, and speaker labels from diarization tools like WhisperX. The [Subtitle Tag Stripper](/subtitle-tag-stripper) removes all of them in a single pass while leaving timing and dialogue intact.
+
+### Why does my Whisper SRT file show question marks instead of the correct characters?
+
+This is a character encoding mismatch. Whisper outputs UTF-8 by default, but many Windows-based Whisper wrappers save files in ANSI or Windows-1252 encoding. When that file opens in a player or editor expecting UTF-8, accented and non-Latin characters display as question marks, boxes, or wrong symbols. The [Subtitle Encoding Fixer](/subtitle-encoding-fixer) detects the encoding and converts the file to clean UTF-8.
+
+### In what order should I clean a Whisper SRT file?
+
+Strip tags first, fix encoding second, then fix overlaps. This order matters because the encoding fixer works on raw character data and produces more reliable results on a file that has already had its formatting markup removed. Running all three tools takes under a minute for a feature-length subtitle file.
+
+### Can I use these tools without uploading my subtitle file to a server?
+
+Yes. All three tools — the [Subtitle Tag Stripper](/subtitle-tag-stripper), [Subtitle Encoding Fixer](/subtitle-encoding-fixer), and [Subtitle Overlap Fixer](/subtitle-overlap-fixer) — run entirely in your browser using local JavaScript. Your file never leaves your device, making the workflow safe for confidential content, unreleased productions, and files under NDA.
+
+### Does the Overlap Fixer change dialogue text or cue numbers?
+
+No. The Overlap Fixer only rewrites timestamp lines that are in conflict with the previous cue. Cue numbers, dialogue text, speaker labels, and blank-line spacing all pass through unchanged. If a cue is already in the correct sequence, its timestamps are not touched.
+
+### Will these tools work on VTT files from YouTube auto-captions?
+
+Yes. All three tools support both SRT and VTT formats. YouTube auto-captions downloaded as VTT frequently contain `<c>` color tags and millisecond overlaps — both are handled by the Tag Stripper and Overlap Fixer respectively. The tools detect the file format automatically and match the output format to the input.
+
+### Why does my Whisper file play fine in VLC but flicker on YouTube?
+
+VLC is tolerant of timing errors and plays overlapping cues without visible issues. YouTube's caption renderer is stricter and briefly displays both cues simultaneously during the overlapping frames, producing a visible flicker or text doubling. Fixing the overlaps with the [Subtitle Overlap Fixer](/subtitle-overlap-fixer) eliminates the problem in both environments.
+
+### How many cues does the Overlap Fixer typically change in a Whisper file?
+
+It depends on the Whisper tool and the length of the recording. In a typical 90-minute transcript from faster-whisper, between five and fifteen percent of cues have some form of timing overlap at segment boundaries. The Overlap Fixer's output shows you exactly which cues were changed so you can review them. Every non-overlapping cue passes through without modification.
+
+### What is the difference between fixing overlaps and shifting subtitle timing?
+
+The [Subtitle Overlap Fixer](/subtitle-overlap-fixer) only changes timestamps on cues that conflict with each other — it does not move all cues by the same amount. The [Subtitle Time Shifter](/subtitle-time-shifter) moves every cue in the file forward or backward by a fixed offset, used when the entire subtitle track is out of sync with the video. For Whisper files you typically need the Overlap Fixer to clean up segment boundaries, and separately the Time Shifter if the whole track is offset from the audio.
